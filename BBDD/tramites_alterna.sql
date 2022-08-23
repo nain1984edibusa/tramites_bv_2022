@@ -1,0 +1,3710 @@
+-- phpMyAdmin SQL Dump
+-- version 4.6.6deb5ubuntu0.5
+-- https://www.phpmyadmin.net/
+--
+-- Servidor: localhost:3306
+-- Tiempo de generación: 30-11-2020 a las 17:21:37
+-- Versión del servidor: 5.7.32-0ubuntu0.18.04.1
+-- Versión de PHP: 7.2.24-0ubuntu0.18.04.7
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- Base de datos: `tramites_bv`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `borrarct_areaasesoria`
+--
+
+CREATE TABLE `borrarct_areaasesoria` (
+  `area_id` int(2) NOT NULL,
+  `area_nombre` varchar(200) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `borrarct_areaasesoria`
+--
+
+INSERT INTO `borrarct_areaasesoria` (`area_id`, `area_nombre`) VALUES
+(1, 'Gestión de Investigación e Innovación'),
+(2, 'Gestión de Áreas arqueológicas y paleontológicas'),
+(3, 'Gestión de Información y Transferencia del conocimiento y tecnología'),
+(4, 'Gestión de Control Técnico para la conservación y salvaguardia del patrimonio cultural'),
+(5, 'Gestión de Riesgos del Patrimonio Cultural');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `borrarct_tramite_turno`
+--
+
+CREATE TABLE `borrarct_tramite_turno` (
+  `tt_id` int(11) NOT NULL,
+  `tt_hora_inicio` time NOT NULL,
+  `tt_hora_fin` time NOT NULL,
+  `tra_id` int(11) NOT NULL,
+  `tt_orden` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `borrarct_tramite_turno`
+--
+
+INSERT INTO `borrarct_tramite_turno` (`tt_id`, `tt_hora_inicio`, `tt_hora_fin`, `tra_id`, `tt_orden`) VALUES
+(1, '08:00:00', '08:25:00', 17, 1),
+(2, '08:30:00', '08:55:00', 17, 2),
+(3, '09:30:00', '09:50:00', 17, 3),
+(4, '15:00:00', '15:25:00', 2, 1),
+(5, '15:30:00', '15:55:00', 2, 2);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `borrarct_tramite_usuario_anexos`
+--
+
+CREATE TABLE `borrarct_tramite_usuario_anexos` (
+  `tua_id` bigint(20) UNSIGNED NOT NULL,
+  `tua_rutaarchivo` varchar(250) COLLATE utf8_spanish_ci NOT NULL,
+  `tua_estado` varchar(8) COLLATE utf8_spanish_ci NOT NULL DEFAULT 'ACTIVO',
+  `tua_observaciones` text COLLATE utf8_spanish_ci NOT NULL,
+  `anx_id` bigint(20) UNSIGNED NOT NULL,
+  `tu_id` bigint(20) UNSIGNED NOT NULL,
+  `usu_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `borrarct_tramite_usuario_requisitos`
+--
+
+CREATE TABLE `borrarct_tramite_usuario_requisitos` (
+  `tur_id` bigint(20) NOT NULL,
+  `tur_rutaarchivo` varchar(250) COLLATE utf8_spanish_ci NOT NULL,
+  `tur_cumple` varchar(2) COLLATE utf8_spanish_ci NOT NULL,
+  `tur_observaciones` varchar(250) COLLATE utf8_spanish_ci NOT NULL,
+  `tu_id` int(11) NOT NULL,
+  `req_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `borrarct_tramite_usuario_turno`
+--
+
+CREATE TABLE `borrarct_tramite_usuario_turno` (
+  `tut_id` int(10) UNSIGNED NOT NULL,
+  `tra_id` int(10) UNSIGNED NOT NULL,
+  `tu_id` bigint(20) NOT NULL,
+  `tut_dia` date DEFAULT NULL,
+  `tut_hora` time DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `borrarct_tramite_usuario_turno`
+--
+
+INSERT INTO `borrarct_tramite_usuario_turno` (`tut_id`, `tra_id`, `tu_id`, `tut_dia`, `tut_hora`) VALUES
+(19, 17, 4, '2020-05-31', '08:00:00'),
+(21, 17, 11, '2020-06-03', '08:30:00'),
+(22, 2, 13, '2020-05-31', '15:30:00'),
+(23, 2, 14, '2020-06-04', '15:30:00'),
+(26, 17, 17, '2020-06-02', '08:00:00'),
+(29, 17, 20, '2020-06-04', '08:00:00');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `ct_ambito`
+--
+
+CREATE TABLE `ct_ambito` (
+  `amb_id` tinyint(4) NOT NULL,
+  `amb_nombre` varchar(250) NOT NULL,
+  `amb_gestion` varchar(250) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `ct_ambito`
+--
+
+INSERT INTO `ct_ambito` (`amb_id`, `amb_nombre`, `amb_gestion`) VALUES
+(1, 'PATRIMONIO CULTURAL MUEBLE', ''),
+(2, 'PATRIMONIO CULTURAL INMUEBLE', ''),
+(3, 'PATRIMONIO CULTURAL INMATERIAL', ''),
+(4, 'PATRIMONIO CULTURAL DOCUMENTAL', ''),
+(5, 'PATRIMONIO CULTURAL ARQUEOLÓGICO', '');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `ct_areaasetec`
+--
+
+CREATE TABLE `ct_areaasetec` (
+  `aaset_codigo` int(2) UNSIGNED NOT NULL,
+  `aaset_nombre` varchar(200) COLLATE utf8_bin DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+--
+-- Volcado de datos para la tabla `ct_areaasetec`
+--
+
+INSERT INTO `ct_areaasetec` (`aaset_codigo`, `aaset_nombre`) VALUES
+(1, 'Gestión de investigación e Innovación'),
+(2, 'Gestión de áreas arqueológicas y paleontológicas'),
+(3, 'Gestión de información, transferencia del conocimiento'),
+(4, 'Gestión de control técnico para la conservación y ');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `ct_auditoria`
+--
+
+CREATE TABLE `ct_auditoria` (
+  `aud_id` bigint(11) NOT NULL,
+  `aud_fechahora_proceso` datetime DEFAULT NULL,
+  `aud_objeto` varchar(20) NOT NULL,
+  `aud_proceso` varchar(50) NOT NULL,
+  `usu_id` int(11) NOT NULL,
+  `tu_id` bigint(20) DEFAULT NULL,
+  `aud_descripcion` varchar(200) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `ct_auditoria`
+--
+
+INSERT INTO `ct_auditoria` (`aud_id`, `aud_fechahora_proceso`, `aud_objeto`, `aud_proceso`, `usu_id`, `tu_id`, `aud_descripcion`) VALUES
+(294, '2020-10-16 18:39:14', 'TRAMITE', 'REGISTRO', 55, 98, ''),
+(295, '2020-10-16 18:40:33', 'TRAMITE', 'REASIGNACIÓN', 3, 98, ''),
+(296, '2020-10-16 18:43:17', 'TRAMITE', 'GENERACIÓN DE DOCUMENTO DE RESPUESTA', 33, 98, ''),
+(297, '2020-10-16 18:44:49', 'TRAMITE', 'REASIGNACIÓN', 33, 98, ''),
+(298, '2020-10-16 18:46:33', 'TRAMITE', 'GENERACIÓN DE DOCUMENTO DE RESPUESTA', 5, 98, ''),
+(299, '2020-10-16 18:48:02', 'TRAMITE', 'GENERACIÓN DE DOCUMENTO DE RESPUESTA', 5, 98, ''),
+(300, '2020-10-16 18:48:56', 'TRAMITE', 'GENERACIÓN DE DOCUMENTO DE RESPUESTA', 5, 98, ''),
+(301, '2020-10-16 18:49:15', 'TRAMITE', 'CONTESTACION', 5, 98, ''),
+(302, '2020-10-18 17:09:42', 'TRAMITE', 'REGISTRO', 55, 99, ''),
+(303, '2020-10-18 18:42:17', 'TRAMITE', 'REGISTRO', 56, 100, ''),
+(304, '2020-10-18 18:43:29', 'TRAMITE', 'REASIGNACIÓN', 3, 100, ''),
+(305, '2020-10-18 18:45:56', 'TRAMITE', 'GENERACIÓN DE DOCUMENTO DE RESPUESTA', 2, 100, ''),
+(306, '2020-10-18 18:47:12', 'TRAMITE', 'GENERACIÓN DE DOCUMENTO DE RESPUESTA', 2, 100, ''),
+(307, '2020-10-18 18:49:06', 'TRAMITE', 'GENERACIÓN DE DOCUMENTO DE RESPUESTA', 2, 100, ''),
+(308, '2020-10-18 18:50:22', 'TRAMITE', 'GENERACIÓN DE DOCUMENTO DE RESPUESTA', 2, 100, ''),
+(309, '2020-10-18 18:51:37', 'TRAMITE', 'GENERACIÓN DE DOCUMENTO DE RESPUESTA', 2, 100, ''),
+(310, '2020-10-18 18:51:57', 'TRAMITE', 'REASIGNACIÓN', 2, 100, ''),
+(311, '2020-10-18 18:53:05', 'TRAMITE', 'GENERACIÓN DE DOCUMENTO DE RESPUESTA', 5, 100, ''),
+(312, '2020-10-18 18:53:40', 'TRAMITE', 'CONTESTACION', 5, 100, 'exito'),
+(313, '2020-10-19 16:10:09', 'TRAMITE', 'REGISTRO', 57, 101, ''),
+(314, '2020-10-19 16:14:30', 'TRAMITE', 'CONVALIDACIÓN', 3, 101, 'revisar requisito'),
+(315, '2020-10-19 16:15:44', 'TRAMITE', 'ENVIAR CONVALIDACIÓN', 57, 101, ''),
+(316, '2020-10-19 16:16:38', 'TRAMITE', 'REASIGNACIÓN', 3, 101, 'dar atencion '),
+(317, '2020-10-19 16:19:45', 'TRAMITE', 'GENERACIÓN DE DOCUMENTO DE RESPUESTA', 2, 101, ''),
+(318, '2020-10-19 16:20:24', 'TRAMITE', 'REASIGNACIÓN', 2, 101, ''),
+(319, '2020-10-19 16:21:57', 'TRAMITE', 'GENERACIÓN DE DOCUMENTO DE RESPUESTA', 5, 101, ''),
+(320, '2020-10-19 16:22:26', 'TRAMITE', 'CONTESTACION', 5, 101, 'n/a'),
+(321, '2020-10-21 14:30:46', 'TRAMITE', 'REGISTRO', 4, 102, ''),
+(322, '2020-10-21 14:34:50', 'TRAMITE', 'CONVALIDACIÓN', 3, 102, 'revisar requerimiento '),
+(323, '2020-10-21 14:36:55', 'TRAMITE', 'ENVIAR CONVALIDACIÓN', 4, 102, ''),
+(324, '2020-10-21 14:37:53', 'TRAMITE', 'REASIGNACIÓN', 3, 102, 'atender requerimiento '),
+(325, '2020-10-21 14:43:30', 'TRAMITE', 'GENERACIÓN DE DOCUMENTO DE RESPUESTA', 2, 102, ''),
+(326, '2020-10-21 14:45:00', 'TRAMITE', 'REASIGNACIÓN', 2, 102, ''),
+(327, '2020-10-21 14:47:26', 'TRAMITE', 'GENERACIÓN DE DOCUMENTO DE RESPUESTA', 5, 102, ''),
+(328, '2020-10-21 14:48:13', 'TRAMITE', 'GENERACIÓN DE DOCUMENTO DE RESPUESTA', 5, 102, ''),
+(329, '2020-10-21 14:49:06', 'TRAMITE', 'CONTESTACION', 5, 102, ''),
+(330, '2020-10-21 15:30:50', 'TRAMITE', 'REGISTRO', 59, 103, ''),
+(331, '2020-10-21 16:02:15', 'TRAMITE', 'CONVALIDACIÓN', 3, 103, 'Revisar correctamente'),
+(332, '2020-10-21 16:06:30', 'TRAMITE', 'ENVIAR CONVALIDACIÓN', 59, 103, ''),
+(333, '2020-10-21 16:08:31', 'TRAMITE', 'REASIGNACIÓN', 3, 103, 'n/a'),
+(334, '2020-10-21 16:14:44', 'TRAMITE', 'GENERACIÓN DE DOCUMENTO DE RESPUESTA', 2, 103, ''),
+(335, '2020-10-21 16:16:26', 'TRAMITE', 'REASIGNACIÓN', 2, 103, ''),
+(336, '2020-10-21 16:19:54', 'TRAMITE', 'GENERACIÓN DE DOCUMENTO DE RESPUESTA', 5, 103, ''),
+(337, '2020-10-21 16:20:35', 'TRAMITE', 'CONTESTACION', 5, 103, ''),
+(338, '2020-10-26 12:29:39', 'TRAMITE', 'REGISTRO', 4, 104, ''),
+(339, '2020-10-26 12:32:17', 'TRAMITE', 'REGISTRO', 4, 105, ''),
+(340, '2020-10-26 12:32:45', 'TRAMITE', 'REGISTRO', 4, 106, ''),
+(341, '2020-10-26 12:34:21', 'TRAMITE', 'REGISTRO', 4, 107, ''),
+(342, '2020-10-26 12:35:27', 'TRAMITE', 'REGISTRO', 4, 108, ''),
+(343, '2020-10-26 12:36:19', 'TRAMITE', 'REGISTRO', 4, 109, ''),
+(344, '2020-10-26 15:04:14', 'TRAMITE', 'REASIGNACIÓN', 3, 108, 'Dar trámite'),
+(345, '2020-10-26 15:12:11', 'TRAMITE', 'CONVALIDACIÓN', 2, 108, 'Favor rectificar requisitos'),
+(346, '2020-10-27 11:27:00', 'TRAMITE', 'GENERACIÓN DE DOCUMENTO DE RESPUESTA', 2, 108, ''),
+(347, '2020-10-27 11:31:40', 'TRAMITE', 'REASIGNACIÓN', 2, 108, 'Para su revisión'),
+(348, '2020-10-27 12:38:00', 'TRAMITE', 'REASIGNACIÓN', 5, 108, ''),
+(349, '2020-10-27 14:26:08', 'TRAMITE', 'GENERACIÓN DE DOCUMENTO DE RESPUESTA', 2, 108, ''),
+(350, '2020-10-27 14:26:51', 'TRAMITE', 'REASIGNACIÓN', 2, 108, ''),
+(351, '2020-10-27 14:44:37', 'TRAMITE', 'GENERACIÓN DE DOCUMENTO DE RESPUESTA', 5, 108, ''),
+(352, '2020-10-27 14:45:10', 'TRAMITE', 'CONTESTACION', 5, 108, ''),
+(353, '2020-10-27 15:21:40', 'TRAMITE', 'REGISTRO', 4, 110, ''),
+(354, '2020-10-27 15:44:43', 'TRAMITE', 'CONVALIDACIÓN', 3, 110, 'Favor corregir'),
+(355, '2020-10-27 15:46:58', 'TRAMITE', 'CONVALIDACIÓN', 3, 110, ''),
+(356, '2020-10-27 15:48:00', 'TRAMITE', 'CONVALIDACIÓN', 3, 110, ''),
+(357, '2020-10-27 15:48:11', 'TRAMITE', 'CONVALIDACIÓN', 3, 110, ''),
+(358, '2020-10-27 15:56:28', 'TRAMITE', 'REASIGNACIÓN', 3, 110, ''),
+(359, '2020-10-27 15:58:22', 'TRAMITE', 'GENERACIÓN DE DOCUMENTO DE RESPUESTA', 2, 110, ''),
+(360, '2020-10-27 16:12:31', 'TRAMITE', 'GENERACIÓN DE DOCUMENTO DE RESPUESTA', 2, 110, ''),
+(361, '2020-10-27 16:12:54', 'TRAMITE', 'REASIGNACIÓN', 2, 110, ''),
+(362, '2020-10-27 16:13:51', 'TRAMITE', 'REASIGNACIÓN', 5, 110, 'Revisar'),
+(363, '2020-10-27 16:15:39', 'TRAMITE', 'GENERACIÓN DE DOCUMENTO DE RESPUESTA', 2, 110, ''),
+(364, '2020-10-27 16:16:11', 'TRAMITE', 'REASIGNACIÓN', 2, 110, ''),
+(365, '2020-10-27 16:18:45', 'TRAMITE', 'GENERACIÓN DE DOCUMENTO DE RESPUESTA', 5, 110, ''),
+(366, '2020-10-27 16:19:19', 'TRAMITE', 'CONTESTACION', 5, 110, ''),
+(367, '2020-10-27 16:44:17', 'TRAMITE', 'REGISTRO', 4, 111, ''),
+(368, '2020-10-27 17:00:45', 'TRAMITE', 'REASIGNACIÓN', 3, 111, ''),
+(369, '2020-10-27 17:30:19', 'TRAMITE', 'GENERACIÓN DE DOCUMENTO DE RESPUESTA', 2, 111, ''),
+(370, '2020-10-27 17:30:41', 'TRAMITE', 'REASIGNACIÓN', 2, 111, ''),
+(371, '2020-10-27 17:31:09', 'TRAMITE', 'GENERACIÓN DE DOCUMENTO DE RESPUESTA', 5, 111, ''),
+(372, '2020-10-27 17:31:40', 'TRAMITE', 'GENERACIÓN DE DOCUMENTO DE RESPUESTA', 5, 111, ''),
+(373, '2020-10-27 17:31:53', 'TRAMITE', 'CONTESTACION', 5, 111, ''),
+(374, '2020-10-28 14:39:14', 'TRAMITE', 'REGISTRO', 4, 112, ''),
+(375, '2020-10-28 14:43:09', 'TRAMITE', 'REGISTRO', 4, 113, ''),
+(376, '2020-10-28 14:44:22', 'TRAMITE', 'REGISTRO', 4, 114, ''),
+(377, '2020-10-28 14:45:48', 'TRAMITE', 'REASIGNACIÓN', 3, 114, ''),
+(378, '2020-10-28 14:47:39', 'TRAMITE', 'GENERACIÓN DE DOCUMENTO DE RESPUESTA', 2, 114, ''),
+(379, '2020-10-28 14:48:43', 'TRAMITE', 'GENERACIÓN DE DOCUMENTO DE RESPUESTA', 2, 114, ''),
+(380, '2020-10-28 14:48:55', 'TRAMITE', 'REASIGNACIÓN', 2, 114, ''),
+(381, '2020-10-28 14:49:32', 'TRAMITE', 'GENERACIÓN DE DOCUMENTO DE RESPUESTA', 5, 114, ''),
+(382, '2020-10-28 14:49:53', 'TRAMITE', 'CONTESTACION', 5, 114, ''),
+(383, '2020-10-28 18:35:29', 'TRAMITE', 'REASIGNACIÓN', 3, 113, ''),
+(384, '2020-10-28 20:59:17', 'TRAMITE', 'REGISTRO', 4, 117, ''),
+(385, '2020-10-28 21:00:32', 'TRAMITE', 'REASIGNACIÓN', 3, 117, ''),
+(386, '2020-10-28 21:02:14', 'TRAMITE', 'GENERACIÓN DE DOCUMENTO DE RESPUESTA', 2, 117, ''),
+(387, '2020-10-28 21:05:27', 'TRAMITE', 'GENERACIÓN DE DOCUMENTO DE RESPUESTA', 2, 117, ''),
+(388, '2020-10-28 21:05:55', 'TRAMITE', 'REASIGNACIÓN', 2, 117, ''),
+(389, '2020-10-28 21:07:42', 'TRAMITE', 'GENERACIÓN DE DOCUMENTO DE RESPUESTA', 5, 117, ''),
+(390, '2020-10-28 21:08:11', 'TRAMITE', 'CONTESTACION', 5, 117, ''),
+(391, '2020-10-29 20:53:09', 'TRAMITE', 'REGISTRO', 4, 126, ''),
+(392, '2020-10-29 20:55:17', 'TRAMITE', 'REASIGNACIÓN', 3, 126, ''),
+(393, '2020-10-29 20:57:25', 'TRAMITE', 'GENERACIÓN DE DOCUMENTO DE RESPUESTA', 2, 126, ''),
+(394, '2020-10-29 20:59:07', 'TRAMITE', 'REASIGNACIÓN', 2, 126, ''),
+(395, '2020-10-29 21:01:17', 'TRAMITE', 'GENERACIÓN DE DOCUMENTO DE RESPUESTA', 5, 126, ''),
+(396, '2020-10-29 21:01:46', 'TRAMITE', 'CONTESTACION', 5, 126, ''),
+(397, '2020-10-31 18:13:55', 'TRAMITE', 'REGISTRO', 4, 138, ''),
+(398, '2020-10-31 18:51:39', 'TRAMITE', 'REGISTRO', 4, 141, ''),
+(399, '2020-10-31 19:02:00', 'TRAMITE', 'REGISTRO', 4, 142, ''),
+(400, '2020-11-04 11:23:40', 'TRAMITE', 'REASIGNACIÓN', 3, 141, ''),
+(401, '2020-11-04 19:32:03', 'TRAMITE', 'REGISTRO', 4, 146, ''),
+(402, '2020-11-04 19:42:13', 'TRAMITE', 'REGISTRO', 4, 147, ''),
+(403, '2020-11-04 19:53:08', 'TRAMITE', 'REGISTRO', 4, 148, ''),
+(404, '2020-11-04 19:55:35', 'TRAMITE', 'REASIGNACIÓN', 3, 148, ''),
+(405, '2020-11-05 07:39:06', 'TRAMITE', 'REGISTRO', 4, 149, ''),
+(406, '2020-11-05 07:40:00', 'TRAMITE', 'REASIGNACIÓN', 3, 149, ''),
+(407, '2020-11-05 07:41:13', 'TRAMITE', 'GENERACIÓN DE DOCUMENTO DE RESPUESTA', 2, 149, ''),
+(408, '2020-11-05 11:14:24', 'TRAMITE', 'GENERACIÓN DE DOCUMENTO DE RESPUESTA', 2, 148, ''),
+(409, '2020-11-05 11:15:26', 'TRAMITE', 'GENERACIÓN DE DOCUMENTO DE RESPUESTA', 2, 148, ''),
+(410, '2020-11-05 11:52:20', 'TRAMITE', 'GENERACIÓN DE DOCUMENTO DE RESPUESTA', 2, 148, ''),
+(411, '2020-11-05 12:03:57', 'TRAMITE', 'GENERACIÓN DE DOCUMENTO DE RESPUESTA', 2, 148, ''),
+(412, '2020-11-05 12:11:27', 'TRAMITE', 'GENERACIÓN DE DOCUMENTO DE RESPUESTA', 2, 148, ''),
+(413, '2020-11-05 14:08:50', 'TRAMITE', 'GENERACIÓN DE DOCUMENTO DE RESPUESTA', 2, 148, ''),
+(414, '2020-11-05 14:24:25', 'TRAMITE', 'GENERACIÓN DE DOCUMENTO DE RESPUESTA', 2, 148, ''),
+(415, '2020-11-05 15:53:41', 'TRAMITE', 'GENERACIÓN DE DOCUMENTO DE RESPUESTA', 2, 148, ''),
+(416, '2020-11-05 17:03:39', 'TRAMITE', 'GENERACIÓN DE DOCUMENTO DE RESPUESTA', 2, 149, ''),
+(417, '2020-11-05 19:10:34', 'TRAMITE', 'GENERACIÓN DE DOCUMENTO DE RESPUESTA', 2, 148, ''),
+(418, '2020-11-06 10:56:50', 'TRAMITE', 'REGISTRO', 4, 150, ''),
+(419, '2020-11-06 11:41:47', 'TRAMITE', 'REGISTRO', 4, 151, ''),
+(420, '2020-11-09 09:47:32', 'TRAMITE', 'REGISTRO', 4, 175, ''),
+(421, '2020-11-09 17:56:32', 'TRAMITE', 'REGISTRO', 4, 177, ''),
+(422, '2020-11-09 18:07:22', 'TRAMITE', 'REGISTRO', 4, 178, ''),
+(423, '2020-11-09 18:16:04', 'TRAMITE', 'REGISTRO', 4, 179, ''),
+(424, '2020-11-09 18:48:55', 'TRAMITE', 'REGISTRO', 4, 180, ''),
+(425, '2020-11-09 21:36:59', 'TRAMITE', 'REGISTRO', 4, 181, ''),
+(426, '2020-11-10 05:45:53', 'TRAMITE', 'REGISTRO', 4, 182, ''),
+(427, '2020-11-10 06:26:25', 'TRAMITE', 'REASIGNACIÓN', 3, 182, ''),
+(428, '2020-11-10 06:39:35', 'TRAMITE', 'REGISTRO', 4, 183, ''),
+(429, '2020-11-10 06:40:33', 'TRAMITE', 'REASIGNACIÓN', 3, 183, ''),
+(430, '2020-11-10 06:51:15', 'TRAMITE', 'REGISTRO', 4, 184, ''),
+(431, '2020-11-10 06:51:53', 'TRAMITE', 'REASIGNACIÓN', 3, 184, ''),
+(432, '2020-11-10 06:55:15', 'TRAMITE', 'REGISTRO', 4, 185, ''),
+(433, '2020-11-10 06:56:12', 'TRAMITE', 'REASIGNACIÓN', 3, 185, ''),
+(434, '2020-11-10 08:04:51', 'TRAMITE', 'REGISTRO', 4, 186, ''),
+(435, '2020-11-10 08:06:01', 'TRAMITE', 'REASIGNACIÓN', 3, 186, ''),
+(436, '2020-11-10 08:12:46', 'TRAMITE', 'GENERACIÓN DE DOCUMENTO DE RESPUESTA', 2, 186, ''),
+(437, '2020-11-10 08:13:54', 'TRAMITE', 'GENERACIÓN DE DOCUMENTO DE RESPUESTA', 2, 186, ''),
+(438, '2020-11-10 08:14:11', 'TRAMITE', 'REASIGNACIÓN', 2, 186, ''),
+(439, '2020-11-10 08:34:17', 'TRAMITE', 'REGISTRO', 4, 187, ''),
+(440, '2020-11-10 08:35:08', 'TRAMITE', 'REASIGNACIÓN', 3, 187, ''),
+(441, '2020-11-10 08:39:55', 'TRAMITE', 'GENERACIÓN DE DOCUMENTO DE RESPUESTA', 2, 187, ''),
+(442, '2020-11-10 08:40:17', 'TRAMITE', 'REASIGNACIÓN', 2, 187, ''),
+(443, '2020-11-10 08:56:07', 'TRAMITE', 'REGISTRO', 4, 188, ''),
+(444, '2020-11-10 08:57:28', 'TRAMITE', 'REASIGNACIÓN', 3, 188, ''),
+(445, '2020-11-10 08:58:38', 'TRAMITE', 'GENERACIÓN DE DOCUMENTO DE RESPUESTA', 2, 188, ''),
+(446, '2020-11-10 08:58:54', 'TRAMITE', 'REASIGNACIÓN', 2, 188, ''),
+(447, '2020-11-10 09:01:37', 'TRAMITE', 'GENERACIÓN DE DOCUMENTO DE RESPUESTA', 5, 188, ''),
+(448, '2020-11-10 09:02:10', 'TRAMITE', 'GENERACIÓN DE DOCUMENTO DE RESPUESTA', 5, 188, ''),
+(449, '2020-11-10 09:03:10', 'TRAMITE', 'GENERACIÓN DE DOCUMENTO DE RESPUESTA', 5, 188, ''),
+(450, '2020-11-10 09:03:27', 'TRAMITE', 'CONTESTACION', 5, 188, ''),
+(451, '2020-11-11 13:26:03', 'TRAMITE', 'REGISTRO', 57, 189, ''),
+(452, '2020-11-11 13:28:36', 'TRAMITE', 'REASIGNACIÓN', 3, 189, 'da r tramite'),
+(453, '2020-11-11 13:43:41', 'TRAMITE', 'GENERACIÓN DE DOCUMENTO DE RESPUESTA', 2, 189, ''),
+(454, '2020-11-16 08:35:47', 'TRAMITE', 'GENERACIÓN DE DOCUMENTO DE RESPUESTA', 2, 189, ''),
+(455, '2020-11-16 10:22:02', 'TRAMITE', 'GENERACIÓN DE DOCUMENTO DE RESPUESTA', 2, 189, ''),
+(456, '2020-11-16 10:25:41', 'TRAMITE', 'GENERACIÓN DE DOCUMENTO DE RESPUESTA', 2, 189, ''),
+(457, '2020-11-16 10:27:21', 'TRAMITE', 'GENERACIÓN DE DOCUMENTO DE RESPUESTA', 2, 189, ''),
+(458, '2020-11-16 10:27:43', 'TRAMITE', 'GENERACIÓN DE DOCUMENTO DE RESPUESTA', 2, 189, ''),
+(459, '2020-11-16 10:31:16', 'TRAMITE', 'GENERACIÓN DE DOCUMENTO DE RESPUESTA', 2, 189, ''),
+(460, '2020-11-16 10:31:37', 'TRAMITE', 'GENERACIÓN DE DOCUMENTO DE RESPUESTA', 2, 189, ''),
+(461, '2020-11-16 10:31:58', 'TRAMITE', 'GENERACIÓN DE DOCUMENTO DE RESPUESTA', 2, 189, ''),
+(462, '2020-11-16 10:35:03', 'TRAMITE', 'GENERACIÓN DE DOCUMENTO DE RESPUESTA', 2, 189, ''),
+(463, '2020-11-16 10:35:13', 'TRAMITE', 'GENERACIÓN DE DOCUMENTO DE RESPUESTA', 2, 189, ''),
+(464, '2020-11-16 11:06:42', 'TRAMITE', 'GENERACIÓN DE DOCUMENTO DE RESPUESTA', 2, 189, ''),
+(465, '2020-11-16 12:15:59', 'TRAMITE', 'GENERACIÓN DE DOCUMENTO DE RESPUESTA', 2, 189, ''),
+(466, '2020-11-17 11:47:23', 'TRAMITE', 'REGISTRO', 4, 191, ''),
+(467, '2020-11-17 11:49:09', 'TRAMITE', 'REGISTRO', 4, 192, ''),
+(468, '2020-11-17 11:59:38', 'TRAMITE', 'CONVALIDACIÓN', 3, 192, 'Errores'),
+(469, '2020-11-17 12:19:37', 'TRAMITE', 'ENVIAR CONVALIDACIÓN', 4, 192, ''),
+(470, '2020-11-17 12:20:45', 'TRAMITE', 'REASIGNACIÓN', 3, 192, ''),
+(471, '2020-11-17 14:00:06', 'TRAMITE', 'GENERACIÓN DE DOCUMENTO DE RESPUESTA', 2, 192, ''),
+(472, '2020-11-17 14:00:25', 'TRAMITE', 'REASIGNACIÓN', 2, 192, ''),
+(473, '2020-11-18 10:18:29', 'TRAMITE', 'REGISTRO', 4, 194, ''),
+(474, '2020-11-18 10:25:11', 'TRAMITE', 'REGISTRO', 57, 195, ''),
+(475, '2020-11-18 10:37:45', 'TRAMITE', 'REASIGNACIÓN', 3, 194, ''),
+(476, '2020-11-18 10:50:22', 'TRAMITE', 'GENERACIÓN DE DOCUMENTO DE RESPUESTA', 2, 194, ''),
+(477, '2020-11-19 12:53:01', 'TRAMITE', 'REGISTRO', 4, 196, ''),
+(478, '2020-11-19 13:04:58', 'TRAMITE', 'REGISTRO', 57, 197, ''),
+(479, '2020-11-19 13:09:08', 'TRAMITE', 'REGISTRO', 57, 198, ''),
+(480, '2020-11-19 13:14:30', 'TRAMITE', 'CONVALIDACIÓN', 60, 198, ''),
+(481, '2020-11-19 13:19:09', 'TRAMITE', 'ENVIAR CONVALIDACIÓN', 57, 198, ''),
+(482, '2020-11-19 14:01:33', 'TRAMITE', 'REASIGNACIÓN', 60, 198, ''),
+(483, '2020-11-19 16:19:50', 'TRAMITE', 'REGISTRO', 57, 199, ''),
+(484, '2020-11-19 16:20:34', 'TRAMITE', 'CONVALIDACIÓN', 60, 199, ''),
+(485, '2020-11-19 21:09:11', 'TRAMITE', 'CONVALIDACIÓN', 60, 199, ''),
+(486, '2020-11-19 21:42:44', 'TRAMITE', 'ENVIAR CONVALIDACIÓN', 57, 199, ''),
+(487, '2020-11-19 21:44:20', 'TRAMITE', 'REASIGNACIÓN', 60, 199, ''),
+(488, '2020-11-19 21:50:13', 'TRAMITE', 'GENERACIÓN DE DOCUMENTO DE RESPUESTA', 61, 199, ''),
+(489, '2020-11-19 21:52:18', 'TRAMITE', 'CONVALIDACIÓN', 61, 198, ''),
+(490, '2020-11-19 21:53:12', 'TRAMITE', 'ENVIAR CONVALIDACIÓN', 57, 198, ''),
+(491, '2020-11-19 22:03:12', 'TRAMITE', 'CONVALIDACIÓN', 61, 198, 'ayude'),
+(492, '2020-11-19 22:03:53', 'TRAMITE', 'ENVIAR CONVALIDACIÓN', 57, 198, ''),
+(493, '2020-11-22 16:13:41', 'TRAMITE', 'REGISTRO', 4, 200, ''),
+(494, '2020-11-22 16:44:24', 'TRAMITE', 'REGISTRO', 4, 201, ''),
+(495, '2020-11-22 16:46:47', 'TRAMITE', 'CONVALIDACIÓN', 3, 201, ''),
+(496, '2020-11-22 16:56:05', 'TRAMITE', 'ENVIAR CONVALIDACIÓN', 4, 201, ''),
+(497, '2020-11-22 16:57:10', 'TRAMITE', 'CONVALIDACIÓN', 3, 201, ''),
+(498, '2020-11-22 17:45:19', 'TRAMITE', 'ENVIAR CONVALIDACIÓN', 4, 201, ''),
+(499, '2020-11-22 17:45:42', 'TRAMITE', 'REASIGNACIÓN', 3, 201, ''),
+(500, '2020-11-22 17:46:15', 'TRAMITE', 'CONVALIDACIÓN', 2, 201, ''),
+(501, '2020-11-22 17:46:46', 'TRAMITE', 'ENVIAR CONVALIDACIÓN', 4, 201, ''),
+(502, '2020-11-22 17:48:49', 'TRAMITE', 'GENERACIÓN DE DOCUMENTO DE RESPUESTA', 2, 201, ''),
+(503, '2020-11-22 17:49:30', 'TRAMITE', 'GENERACIÓN DE DOCUMENTO DE RESPUESTA', 2, 201, ''),
+(504, '2020-11-22 19:27:06', 'TRAMITE', 'GENERACIÓN DE DOCUMENTO DE RESPUESTA', 2, 201, ''),
+(505, '2020-11-22 20:28:01', 'TRAMITE', 'GENERACIÓN DE DOCUMENTO DE RESPUESTA', 2, 201, ''),
+(506, '2020-11-22 20:29:08', 'TRAMITE', 'GENERACIÓN DE DOCUMENTO DE RESPUESTA', 2, 201, ''),
+(507, '2020-11-22 20:32:06', 'TRAMITE', 'GENERACIÓN DE DOCUMENTO DE RESPUESTA', 2, 201, ''),
+(508, '2020-11-22 20:32:52', 'TRAMITE', 'GENERACIÓN DE DOCUMENTO DE RESPUESTA', 2, 201, ''),
+(509, '2020-11-22 20:34:02', 'TRAMITE', 'GENERACIÓN DE DOCUMENTO DE RESPUESTA', 2, 201, ''),
+(510, '2020-11-22 20:35:37', 'TRAMITE', 'GENERACIÓN DE DOCUMENTO DE RESPUESTA', 2, 201, ''),
+(511, '2020-11-22 20:48:30', 'TRAMITE', 'REGISTRO', 4, 202, ''),
+(512, '2020-11-22 20:49:11', 'TRAMITE', 'CONVALIDACIÓN', 3, 202, ''),
+(513, '2020-11-23 08:15:58', 'TRAMITE', 'CONVALIDACIÓN', 3, 202, ''),
+(514, '2020-11-23 08:44:38', 'TRAMITE', 'GENERACIÓN DE DOCUMENTO DE RESPUESTA', 2, 201, ''),
+(515, '2020-11-23 08:45:49', 'TRAMITE', 'REGISTRO', 4, 203, ''),
+(516, '2020-11-23 08:46:31', 'TRAMITE', 'REASIGNACIÓN', 3, 203, ''),
+(517, '2020-11-23 08:48:11', 'TRAMITE', 'GENERACIÓN DE DOCUMENTO DE RESPUESTA', 2, 203, ''),
+(518, '2020-11-23 08:50:13', 'TRAMITE', 'GENERACIÓN DE DOCUMENTO DE RESPUESTA', 2, 203, ''),
+(519, '2020-11-23 08:53:05', 'TRAMITE', 'REGISTRO', 4, 204, ''),
+(520, '2020-11-23 08:53:49', 'TRAMITE', 'REASIGNACIÓN', 3, 204, ''),
+(521, '2020-11-23 08:54:34', 'TRAMITE', 'GENERACIÓN DE DOCUMENTO DE RESPUESTA', 2, 204, ''),
+(522, '2020-11-23 08:56:06', 'TRAMITE', 'GENERACIÓN DE DOCUMENTO DE RESPUESTA', 2, 203, ''),
+(523, '2020-11-23 09:28:31', 'TRAMITE', 'GENERACIÓN DE DOCUMENTO DE RESPUESTA', 2, 201, ''),
+(524, '2020-11-23 09:31:48', 'TRAMITE', 'GENERACIÓN DE DOCUMENTO DE RESPUESTA', 2, 201, ''),
+(525, '2020-11-23 10:21:40', 'TRAMITE', 'GENERACIÓN DE DOCUMENTO DE RESPUESTA', 2, 204, ''),
+(526, '2020-11-23 21:57:52', 'TRAMITE', 'GENERACIÓN DE DOCUMENTO DE RESPUESTA', 2, 201, ''),
+(527, '2020-11-23 22:17:58', 'TRAMITE', 'GENERACIÓN DE DOCUMENTO DE RESPUESTA', 2, 204, ''),
+(528, '2020-11-26 11:25:06', 'TRAMITE', 'REGISTRO', 68, 205, ''),
+(529, '2020-11-26 11:29:19', 'TRAMITE', 'REGISTRO', 68, 206, ''),
+(530, '2020-11-26 11:31:28', 'TRAMITE', 'REGISTRO', 68, 207, ''),
+(531, '2020-11-26 16:36:25', 'TRAMITE', 'REGISTRO', 68, 208, ''),
+(532, '2020-11-26 16:37:30', 'TRAMITE', 'REGISTRO', 68, 209, ''),
+(533, '2020-11-26 16:38:10', 'TRAMITE', 'REGISTRO', 68, 210, ''),
+(534, '2020-11-26 16:55:39', 'TRAMITE', 'REGISTRO', 68, 211, ''),
+(535, '2020-11-26 16:58:49', 'TRAMITE', 'REGISTRO', 68, 212, ''),
+(536, '2020-11-26 17:03:16', 'TRAMITE', 'REGISTRO', 68, 213, ''),
+(537, '2020-11-26 17:11:46', 'TRAMITE', 'REGISTRO', 68, 214, ''),
+(538, '2020-11-26 17:15:05', 'TRAMITE', 'REGISTRO', 68, 215, ''),
+(539, '2020-11-26 18:30:13', 'TRAMITE', 'CONVALIDACIÓN', 3, 215, ''),
+(540, '2020-11-26 21:43:04', 'TRAMITE', 'CONVALIDACIÓN', 3, 215, ''),
+(541, '2020-11-26 21:45:25', 'TRAMITE', 'ENVIAR CONVALIDACIÓN', 68, 215, ''),
+(542, '2020-11-27 09:24:10', 'TRAMITE', 'REGISTRO', 68, 216, ''),
+(543, '2020-11-27 12:10:20', 'TRAMITE', 'GENERACIÓN DE DOCUMENTO DE RESPUESTA', 2, 204, ''),
+(544, '2020-11-27 12:46:23', 'TRAMITE', 'GENERACIÓN DE DOCUMENTO DE RESPUESTA', 2, 201, ''),
+(545, '2020-11-27 13:08:04', 'TRAMITE', 'GENERACIÓN DE DOCUMENTO DE RESPUESTA', 2, 204, ''),
+(546, '2020-11-27 13:13:36', 'TRAMITE', 'GENERACIÓN DE DOCUMENTO DE RESPUESTA', 2, 204, ''),
+(547, '2020-11-27 13:42:21', 'TRAMITE', 'GENERACIÓN DE DOCUMENTO DE RESPUESTA', 2, 201, ''),
+(548, '2020-11-27 13:43:29', 'TRAMITE', 'GENERACIÓN DE DOCUMENTO DE RESPUESTA', 2, 204, ''),
+(549, '2020-11-27 13:52:31', 'TRAMITE', 'GENERACIÓN DE DOCUMENTO DE RESPUESTA', 2, 203, ''),
+(550, '2020-11-27 13:59:12', 'TRAMITE', 'GENERACIÓN DE DOCUMENTO DE RESPUESTA', 2, 201, ''),
+(551, '2020-11-27 14:00:46', 'TRAMITE', 'GENERACIÓN DE DOCUMENTO DE RESPUESTA', 2, 201, ''),
+(552, '2020-11-27 14:11:22', 'TRAMITE', 'GENERACIÓN DE DOCUMENTO DE RESPUESTA', 2, 204, ''),
+(553, '2020-11-27 14:15:31', 'TRAMITE', 'GENERACIÓN DE DOCUMENTO DE RESPUESTA', 2, 204, ''),
+(554, '2020-11-29 11:55:35', 'TRAMITE', 'GENERACIÓN DE DOCUMENTO DE RESPUESTA', 2, 203, ''),
+(555, '2020-11-29 15:03:52', 'TRAMITE', 'GENERACIÓN DE DOCUMENTO DE RESPUESTA', 2, 201, ''),
+(556, '2020-11-30 11:15:28', 'TRAMITE', 'REGISTRO', 4, 217, ''),
+(557, '2020-11-30 11:23:21', 'TRAMITE', 'REASIGNACIÓN', 3, 217, ''),
+(558, '2020-11-30 11:27:55', 'TRAMITE', 'GENERACIÓN DE DOCUMENTO DE RESPUESTA', 2, 217, ''),
+(559, '2020-11-30 11:29:05', 'TRAMITE', 'GENERACIÓN DE DOCUMENTO DE RESPUESTA', 2, 217, ''),
+(560, '2020-11-30 16:19:40', 'TRAMITE', 'REGISTRO', 4, 218, ''),
+(561, '2020-11-30 16:20:43', 'TRAMITE', 'REASIGNACIÓN', 3, 218, ''),
+(562, '2020-11-30 16:21:55', 'TRAMITE', 'GENERACIÓN DE DOCUMENTO DE RESPUESTA', 2, 218, '');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `ct_canton`
+--
+
+CREATE TABLE `ct_canton` (
+  `can_id` int(10) UNSIGNED NOT NULL,
+  `pro_id` int(10) UNSIGNED NOT NULL,
+  `can_nombre` varchar(80) COLLATE utf8_bin DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+--
+-- Volcado de datos para la tabla `ct_canton`
+--
+
+INSERT INTO `ct_canton` (`can_id`, `pro_id`, `can_nombre`) VALUES
+(101, 1, 'CUENCA'),
+(102, 1, 'GIRON'),
+(103, 1, 'GUALACEO'),
+(104, 1, 'NABON'),
+(105, 1, 'PAUTE'),
+(106, 1, 'PUCARA'),
+(107, 1, 'SAN FERNANDO'),
+(108, 1, 'SANTA ISABEL'),
+(109, 1, 'SIGSIG'),
+(110, 1, 'OÃƒÆ’Ã¢â‚¬ËœA'),
+(111, 1, 'CHORDELEG'),
+(112, 1, 'EL PAN'),
+(113, 1, 'SEVILLA DE ORO'),
+(114, 1, 'GUACHAPALA'),
+(115, 1, 'CAMILO PONCE ENRIQUEZ'),
+(201, 2, 'GUARANDA'),
+(202, 2, 'CHILLANES'),
+(203, 2, 'CHIMBO'),
+(204, 2, 'ECHEANDIA'),
+(205, 2, 'SAN MIGUEL'),
+(206, 2, 'CALUMA'),
+(207, 2, 'LAS NAVES'),
+(301, 3, 'AZOGUES'),
+(302, 3, 'BIBLIAN'),
+(303, 3, 'CAÃƒÆ’Ã¢â‚¬ËœAR'),
+(304, 3, 'LA TRONCAL'),
+(305, 3, 'EL TAMBO'),
+(306, 3, 'DELEG'),
+(307, 3, 'SUSCAL'),
+(401, 4, 'TULCAN'),
+(402, 4, 'BOLIVAR'),
+(403, 4, 'ESPEJO'),
+(404, 4, 'MIRA'),
+(405, 4, 'MONTUFAR'),
+(406, 4, 'SAN PEDRO DE HUACA'),
+(501, 5, 'LATACUNGA'),
+(502, 5, 'LA MANA'),
+(503, 5, 'PANGUA'),
+(504, 5, 'PUJILI'),
+(505, 5, 'SALCEDO'),
+(506, 5, 'SAQUISILI'),
+(507, 5, 'SIGCHOS'),
+(601, 6, 'RIOBAMBA'),
+(602, 6, 'ALAUSI'),
+(603, 6, 'COLTA'),
+(604, 6, 'CHAMBO'),
+(605, 6, 'CHUNCHI'),
+(606, 6, 'GUAMOTE'),
+(607, 6, 'GUANO'),
+(608, 6, 'PALLATANGA'),
+(609, 6, 'PENIPE'),
+(610, 6, 'CUMANDA'),
+(701, 7, 'MACHALA'),
+(702, 7, 'ARENILLAS'),
+(703, 7, 'ATAHUALPA'),
+(704, 7, 'BALSAS'),
+(705, 7, 'CHILLA'),
+(706, 7, 'EL GUABO'),
+(707, 7, 'HUAQUILLAS'),
+(708, 7, 'MARCABELI'),
+(709, 7, 'PASAJE'),
+(710, 7, 'PIÃƒÆ’Ã¢â‚¬ËœAS'),
+(711, 7, 'PORTOVELO'),
+(712, 7, 'SANTA ROSA'),
+(713, 7, 'ZARUMA'),
+(714, 7, 'LAS LAJAS'),
+(801, 8, 'ESMERALDAS'),
+(802, 8, 'ELOY ALFARO'),
+(803, 8, 'MUISNE'),
+(804, 8, 'QUININDE'),
+(805, 8, 'SAN LORENZO'),
+(806, 8, 'ATACAMES'),
+(807, 8, 'RIO VERDE'),
+(901, 9, 'GUAYAQUIL'),
+(902, 9, 'ALFREDO BAQUERIZO MORENO'),
+(903, 9, 'BALAO'),
+(904, 9, 'BALZAR'),
+(905, 9, 'COLIMES'),
+(906, 9, 'DAULE'),
+(907, 9, 'DURAN'),
+(908, 9, 'EL EMPALME'),
+(909, 9, 'EL TRIUNFO'),
+(910, 9, 'MILAGRO'),
+(911, 9, 'NARANJAL'),
+(912, 9, 'NARANJITO'),
+(913, 9, 'PALESTINA'),
+(914, 9, 'PEDRO CARBO'),
+(916, 9, 'SAMBORONDON'),
+(918, 9, 'SANTA LUCIA'),
+(919, 9, 'SALITRE'),
+(920, 9, 'SAN JACINTO DE YAGUACHI'),
+(921, 9, 'PLAYAS (GENERAL VILLAMIL)'),
+(922, 9, 'SIMON BOLIVAR'),
+(923, 9, 'CORONEL MARCELINO MARIDUEÃƒÆ’Ã¢â‚¬ËœA'),
+(924, 9, 'LOMAS DE SARGENTILLO'),
+(925, 9, 'NOBOL (VICENTE PIEDRAHITA)'),
+(927, 9, 'GENERAL ANTONIO ELIZALDE'),
+(928, 9, 'ISIDRO AYORA'),
+(1001, 10, 'IBARRA'),
+(1002, 10, 'ANTONIO ANTE'),
+(1003, 10, 'COTACACHI'),
+(1004, 10, 'OTAVALO'),
+(1005, 10, 'PIMAMPIRO'),
+(1006, 10, 'SAN MIGUEL DE URCUQUI'),
+(1101, 11, 'LOJA'),
+(1102, 11, 'CALVAS'),
+(1103, 11, 'CATAMAYO'),
+(1104, 11, 'CELICA'),
+(1105, 11, 'CHAHUARPAMBA'),
+(1106, 11, 'ESPINDOLA'),
+(1107, 11, 'GONZANAMA'),
+(1108, 11, 'MACARA'),
+(1109, 11, 'PALTAS'),
+(1110, 11, 'PUYANGO'),
+(1111, 11, 'SARAGURO'),
+(1112, 11, 'SOZORANGA'),
+(1113, 11, 'ZAPOTILLO'),
+(1114, 11, 'PINDAL'),
+(1115, 11, 'QUILANGA'),
+(1116, 11, 'OLMEDO'),
+(1201, 12, 'BABAHOYO'),
+(1202, 12, 'BABA'),
+(1203, 12, 'MONTALVO'),
+(1204, 12, 'PUEBLO VIEJO'),
+(1205, 12, 'QUEVEDO'),
+(1206, 12, 'URDANETA'),
+(1207, 12, 'VENTANAS'),
+(1208, 12, 'VINCES'),
+(1209, 12, 'PALENQUE'),
+(1210, 12, 'BUENA FE'),
+(1211, 12, 'VALENCIA'),
+(1212, 12, 'MOCACHE'),
+(1213, 12, 'QUINSALOMA'),
+(1301, 13, 'PORTOVIEJO'),
+(1302, 13, 'BOLIVAR'),
+(1303, 13, 'CHONE'),
+(1304, 13, 'EL CARMEN'),
+(1305, 13, 'FLAVIO ALFARO'),
+(1306, 13, 'JIPIJAPA'),
+(1307, 13, 'JUNIN'),
+(1308, 13, 'MANTA'),
+(1309, 13, 'MONTECRISTI'),
+(1310, 13, 'PAJAN'),
+(1311, 13, 'PICHINCHA'),
+(1312, 13, 'ROCAFUERTE'),
+(1313, 13, 'SANTA ANA'),
+(1314, 13, 'SUCRE'),
+(1315, 13, 'TOSAGUA'),
+(1316, 13, '24 DE MAYO'),
+(1317, 13, 'PEDERNALES'),
+(1318, 13, 'OLMEDO'),
+(1319, 13, 'PUERTO LOPEZ'),
+(1320, 13, 'JAMA'),
+(1321, 13, 'JARAMIJO'),
+(1322, 13, 'SAN VICENTE'),
+(1401, 14, 'MORONA'),
+(1402, 14, 'GUALAQUIZA'),
+(1403, 14, 'LIMON - INDANZA'),
+(1404, 14, 'PALORA'),
+(1405, 14, 'SANTIAGO'),
+(1406, 14, 'SUCUA'),
+(1407, 14, 'HUAMBOYA'),
+(1408, 14, 'SAN JUAN BOSCO'),
+(1409, 14, 'TAISHA'),
+(1410, 14, 'LOGROÃƒÆ’Ã¢â‚¬ËœO'),
+(1411, 14, 'PABLO SEXTO'),
+(1412, 14, 'TIWINTZA'),
+(1501, 15, 'TENA'),
+(1503, 15, 'ARCHIDONA'),
+(1504, 15, 'EL CHACO'),
+(1507, 15, 'QUIJOS'),
+(1509, 15, 'CARLOS JULIO AROSEMENA T.'),
+(1601, 16, 'PASTAZA'),
+(1602, 16, 'MERA'),
+(1603, 16, 'SANTA CLARA'),
+(1604, 16, 'ARAJUNO'),
+(1701, 17, 'QUITO'),
+(1702, 17, 'CAYAMBE'),
+(1703, 17, 'MEJIA'),
+(1704, 17, 'PEDRO MONCAYO'),
+(1705, 17, 'RUMIÃƒÆ’Ã¢â‚¬ËœAHUI'),
+(1707, 17, 'SAN MIGUEL DE LOS BANCOS'),
+(1708, 17, 'PEDRO VICENTE MALDONADO'),
+(1709, 17, 'PUERTO QUITO'),
+(1801, 18, 'AMBATO'),
+(1802, 18, 'BAÃƒÆ’Ã¢â‚¬ËœOS DE AGUA SANTA'),
+(1803, 18, 'CEVALLOS'),
+(1804, 18, 'MOCHA'),
+(1805, 18, 'PATATE'),
+(1806, 18, 'QUERO'),
+(1807, 18, 'SAN PEDRO DE PELILEO'),
+(1808, 18, 'SANTIAGO DE PILLARO'),
+(1809, 18, 'TISALEO'),
+(1901, 19, 'ZAMORA'),
+(1902, 19, 'CHINCHIPE'),
+(1903, 19, 'NANGARITZA'),
+(1904, 19, 'YACUAMBI'),
+(1905, 19, 'YANTZAZA'),
+(1906, 19, 'EL PANGUI'),
+(1907, 19, 'CENTINELA DEL CONDOR'),
+(1908, 19, 'PALANDA'),
+(1909, 19, 'PAQUISHA'),
+(2001, 20, 'SAN CRISTOBAL'),
+(2002, 20, 'ISABELA'),
+(2003, 20, 'SANTA CRUZ'),
+(2101, 21, 'LAGO AGRIO'),
+(2102, 21, 'GONZALO PIZARRO'),
+(2103, 21, 'PUTUMAYO'),
+(2104, 21, 'SHUSHUFINDI'),
+(2105, 21, 'SUCUMBIOS'),
+(2106, 21, 'CASCALES'),
+(2107, 21, 'CUYABENO'),
+(2201, 22, 'FRANCISCO DE ORELLANA'),
+(2202, 22, 'AGUARICO'),
+(2203, 22, 'LA JOYA DE LOS SACHAS'),
+(2204, 22, 'LORETO'),
+(2301, 23, 'SANTO DOMINGO'),
+(2302, 23, 'LA CONCORDIA'),
+(2401, 24, 'SANTA ELENA'),
+(2402, 24, 'LA LIBERTAD'),
+(2403, 24, 'SALINAS');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `ct_estadotramite`
+--
+
+CREATE TABLE `ct_estadotramite` (
+  `et_id` int(11) NOT NULL,
+  `et_nombre` varchar(50) COLLATE utf8_spanish_ci NOT NULL,
+  `et_descripcion` varchar(200) COLLATE utf8_spanish_ci NOT NULL,
+  `rol_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `ct_estadotramite`
+--
+
+INSERT INTO `ct_estadotramite` (`et_id`, `et_nombre`, `et_descripcion`, `rol_id`) VALUES
+(0, 'BORRADOR', '', 4),
+(1, 'VALIDACION DE REQUISITOS', '', 3),
+(2, 'ANÁLISIS DE SOLICITUD', '', 5),
+(3, 'CONVALIDACIÓN REQUISITOS (1)', '', 3),
+(4, 'CONVALIDACIÓN REQUISITOS (2)', '', 5),
+(5, 'CONTESTADO EN REVISIÓN', '', 2),
+(6, 'CONTESTADO DESPACHADO', '', 2);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `ct_feriados`
+--
+
+CREATE TABLE `ct_feriados` (
+  `fer_id` int(11) NOT NULL,
+  `fer_nombre` varchar(200) NOT NULL,
+  `fer_tipo` varchar(10) NOT NULL,
+  `reg_id` int(2) DEFAULT NULL,
+  `fer_fecha_dia` tinyint(4) DEFAULT NULL,
+  `fer_fecha_mes` varchar(50) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `ct_feriados`
+--
+
+INSERT INTO `ct_feriados` (`fer_id`, `fer_nombre`, `fer_tipo`, `reg_id`, `fer_fecha_dia`, `fer_fecha_mes`) VALUES
+(7, 'SEMANA SANTA', 'NACIONAL', 8, 0, 'MARZO');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `ct_feriados_anio`
+--
+
+CREATE TABLE `ct_feriados_anio` (
+  `fea_id` int(11) NOT NULL,
+  `fer_id` int(2) NOT NULL,
+  `fea_fecha` date NOT NULL,
+  `fea_anio` smallint(4) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `ct_feriados_anio`
+--
+
+INSERT INTO `ct_feriados_anio` (`fea_id`, `fer_id`, `fea_fecha`, `fea_anio`) VALUES
+(141, 7, '2020-03-02', 2020),
+(142, 7, '2020-03-03', 2020),
+(143, 7, '2020-03-04', 2020),
+(144, 7, '2020-03-05', 2020),
+(145, 7, '2020-03-06', 2020),
+(146, 7, '2020-03-09', 2020);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `ct_genero`
+--
+
+CREATE TABLE `ct_genero` (
+  `GEN_CODIGO` int(11) UNSIGNED NOT NULL,
+  `GEN_NOMBRE` varchar(20) COLLATE utf8_bin DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+--
+-- Volcado de datos para la tabla `ct_genero`
+--
+
+INSERT INTO `ct_genero` (`GEN_CODIGO`, `GEN_NOMBRE`) VALUES
+(1, 'MASCULINOS'),
+(2, 'FEMENINO'),
+(3, 'OTROS');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `ct_pais`
+--
+
+CREATE TABLE `ct_pais` (
+  `pai_codigo` int(5) UNSIGNED NOT NULL,
+  `pai_nombre` varchar(50) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `ct_pais`
+--
+
+INSERT INTO `ct_pais` (`pai_codigo`, `pai_nombre`) VALUES
+(1, 'Argentina'),
+(2, 'Colombia'),
+(3, 'Chile'),
+(4, 'Ecuador');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `ct_parroquia`
+--
+
+CREATE TABLE `ct_parroquia` (
+  `par_id` int(10) UNSIGNED NOT NULL,
+  `can_id` int(10) UNSIGNED NOT NULL,
+  `par_nombre` varchar(200) COLLATE utf8_bin DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+--
+-- Volcado de datos para la tabla `ct_parroquia`
+--
+
+INSERT INTO `ct_parroquia` (`par_id`, `can_id`, `par_nombre`) VALUES
+(10101, 101, 'BELLAVISTA'),
+(10102, 101, 'CAÃƒÆ’Ã¢â‚¬ËœARIBAMBA'),
+(10103, 101, 'EL BATAN'),
+(10104, 101, 'EL SAGRARIO'),
+(10105, 101, 'EL VECINO'),
+(10106, 101, 'GIL RAMIREZ DAVALOS'),
+(10107, 101, 'HUAYNACAPAC'),
+(10108, 101, 'MACHANGARA'),
+(10109, 101, 'MONAY'),
+(10110, 101, 'SAN BLAS'),
+(10111, 101, 'SAN SEBASTIAN'),
+(10112, 101, 'SUCRE'),
+(10113, 101, 'TOTORACOCHA'),
+(10114, 101, 'YANUNCAY'),
+(10115, 101, 'HERMANO MIGUEL'),
+(10150, 101, 'CUENCA'),
+(10151, 101, 'BAÃƒÆ’Ã¢â‚¬ËœOS'),
+(10152, 101, 'CUMBE'),
+(10153, 101, 'CHAUCHA'),
+(10154, 101, 'CHECA (JIDCAY)'),
+(10155, 101, 'CHIQUINTAD'),
+(10156, 101, 'LLACAO'),
+(10157, 101, 'MOLLETURO'),
+(10158, 101, 'NULTI'),
+(10159, 101, 'OCTAVIO CORDERO PALACIOS (SANTA ROSA)'),
+(10160, 101, 'PACCHA'),
+(10161, 101, 'QUINGEO'),
+(10162, 101, 'RICAURTE'),
+(10163, 101, 'SAN JOAQUIN'),
+(10164, 101, 'SANTA ANA'),
+(10165, 101, 'SAYAUSI'),
+(10166, 101, 'SIDCAY'),
+(10167, 101, 'SININCAY'),
+(10168, 101, 'TARQUI'),
+(10169, 101, 'TURI'),
+(10170, 101, 'VALLE'),
+(10171, 101, 'VICTORIA DEL PORTETE (IRQUIS)'),
+(10250, 102, 'GIRON'),
+(10251, 102, 'ASUNCION'),
+(10252, 102, 'SAN GERARDO'),
+(10350, 103, 'GUALACEO'),
+(10352, 103, 'DANIEL CORDOVA TORAL (EL ORIENTE)'),
+(10353, 103, 'JADAN'),
+(10354, 103, 'MARIANO MORENO'),
+(10356, 103, 'REMIGIO CRESPO TORAL (GULAG)'),
+(10357, 103, 'SAN JUAN'),
+(10358, 103, 'ZHIDMAD'),
+(10359, 103, 'LUIS CORDERO VEGA'),
+(10360, 103, 'SIMÃƒÆ’Ã¢â‚¬Å“N BOLÃƒÆ’Ã‚ÂVAR (CAB. EN GAÃƒÆ’Ã¢â‚¬ËœANZOL)'),
+(10450, 104, 'NABON'),
+(10451, 104, 'COCHAPATA'),
+(10452, 104, 'EL PROGRESO'),
+(10453, 104, 'LAS NIEVES (CHAYA)'),
+(10455, 104, 'LA PAZ'),
+(10550, 105, 'PAUTE'),
+(10552, 105, 'BULAN (JOSE VICTOR IZQUIERDO)'),
+(10553, 105, 'CHICAN (GUILLERMO ORTEGA)'),
+(10554, 105, 'EL CABO'),
+(10556, 105, 'GUARAINAG'),
+(10559, 105, 'SAN CRISTOBAL (CARLOS ORDOÃƒÆ’Ã¢â‚¬ËœEZ LAZO)'),
+(10561, 105, 'TOMEBAMBA'),
+(10562, 105, 'DUG-DUG'),
+(10650, 106, 'PUCARA'),
+(10652, 106, 'SAN RAFAEL DE SHARUG'),
+(10750, 107, 'SAN FERNANDO'),
+(10751, 107, 'CHUMBLIN'),
+(10850, 108, 'SANTA ISABEL (CHAGUARURCO)'),
+(10851, 108, 'ABDON CALDERON (LA UNION)'),
+(10852, 108, 'EL CARMEN DE PIJILI'),
+(10853, 108, 'ZHAGLLI (SHAGLLI)'),
+(10950, 109, 'SIGSIG'),
+(10951, 109, 'CUCHIL (CUTCHIL)'),
+(10952, 109, 'GIMA'),
+(10953, 109, 'GUEL'),
+(10954, 109, 'LUDO'),
+(10955, 109, 'SAN BARTOLOME'),
+(10956, 109, 'SAN JOSE DE RARANGA'),
+(11050, 110, 'SAN FELIPE DE OÃƒÆ’Ã¢â‚¬ËœA'),
+(11051, 110, 'SUSUDEL'),
+(11150, 111, 'CHORDELEG'),
+(11151, 111, 'PRINCIPAL'),
+(11152, 111, 'LA UNION'),
+(11153, 111, 'LUIS GALARZA ORELLANA'),
+(11154, 111, 'SAN MARTIN DE PUZHIO'),
+(11250, 112, 'EL PAN'),
+(11253, 112, 'SAN VICENTE'),
+(11350, 113, 'SEVILLA DE ORO'),
+(11351, 113, 'AMALUZA'),
+(11352, 113, 'PALMAS'),
+(11450, 114, 'GUACHAPALA'),
+(11550, 115, 'CAMILO PONCE ENRIQUEZ'),
+(11551, 115, 'EL CARMEN DE PIJILI'),
+(20101, 201, 'ANGEL POLIBIO CHAVEZ'),
+(20102, 201, 'GABRIEL IGNACIO VEINTIMILLA'),
+(20103, 201, 'GUANUJO'),
+(20150, 201, 'GUARANDA'),
+(20151, 201, 'FACUNDO VELA'),
+(20153, 201, 'JULIO E. MORENO (CATAHUAN GRANDE)'),
+(20155, 201, 'SALINAS'),
+(20156, 201, 'SAN LORENZO'),
+(20157, 201, 'SAN SIMON (YACOTO)'),
+(20158, 201, 'SANTAFE (SANTA FE)'),
+(20159, 201, 'SIMIATUG'),
+(20160, 201, 'SAN LUIS DE PAMBIL'),
+(20250, 202, 'CHILLANES'),
+(20251, 202, 'SAN JOSE DEL TAMBO (TAMBOPAMBA)'),
+(20350, 203, 'SAN JOSE DE CHIMBO'),
+(20351, 203, 'ASUNCION (ASANCOTO)'),
+(20353, 203, 'MAGDALENA (CHAPACOTO)'),
+(20354, 203, 'SAN SEBASTIAN'),
+(20355, 203, 'TELIMBELA'),
+(20450, 204, 'ECHEANDIA'),
+(20550, 205, 'SAN MIGUEL'),
+(20551, 205, 'BALSAPAMBA'),
+(20552, 205, 'BILOVAN'),
+(20553, 205, 'REGULO DE MORA'),
+(20554, 205, 'SAN PABLO (SAN PABLO DE ATENAS)'),
+(20555, 205, 'SANTIAGO'),
+(20556, 205, 'SAN VICENTE'),
+(20650, 206, 'CALUMA'),
+(20701, 207, 'LAS MERCEDES'),
+(20702, 207, 'LAS NAVES'),
+(20750, 207, 'LAS NAVES'),
+(30101, 301, 'AURELIO BAYAS MARTINEZ'),
+(30102, 301, 'AZOGUES'),
+(30103, 301, 'BORRERO'),
+(30104, 301, 'SAN FRANCISCO'),
+(30150, 301, 'AZOGUES'),
+(30151, 301, 'COJITAMBO'),
+(30153, 301, 'GUAPAN'),
+(30154, 301, 'JAVIER LOYOLA (CHUQUIPATA)'),
+(30155, 301, 'LUIS CORDERO'),
+(30156, 301, 'PINDILIG'),
+(30157, 301, 'RIVERA'),
+(30158, 301, 'SAN MIGUEL'),
+(30160, 301, 'TADAY'),
+(30250, 302, 'BIBLIAN'),
+(30251, 302, 'NAZON'),
+(30252, 302, 'SAN FRANCISCO DE SAGEO'),
+(30253, 302, 'TURUPAMBA'),
+(30254, 302, 'JERUSALEN'),
+(30350, 303, 'CAÃƒÆ’Ã¢â‚¬ËœAR'),
+(30351, 303, 'CHONTAMARCA'),
+(30352, 303, 'CHOROCOPTE'),
+(30353, 303, 'GENERAL MORALES (SOCARTE)'),
+(30354, 303, 'GUALLETURO'),
+(30355, 303, 'HONORATO VASQUEZ (TAMBO VIEJO)'),
+(30356, 303, 'INGAPIRCA'),
+(30357, 303, 'JUNCAL'),
+(30358, 303, 'SAN ANTONIO'),
+(30361, 303, 'ZHUD'),
+(30362, 303, 'VENTURA'),
+(30363, 303, 'DUCUR'),
+(30450, 304, 'LA TRONCAL'),
+(30451, 304, 'MANUEL J. CALLE'),
+(30452, 304, 'PANCHO NEGRO'),
+(30550, 305, 'EL TAMBO'),
+(30650, 306, 'DELEG'),
+(30651, 306, 'SOLANO'),
+(30750, 307, 'SUSCAL'),
+(40101, 401, 'GONZALES SUAREZ'),
+(40102, 401, 'TULCAN'),
+(40150, 401, 'TULCAN'),
+(40151, 401, 'EL CARMELO (EL PUN)'),
+(40153, 401, 'JULIO ANDRADE (OREJUELA)'),
+(40154, 401, 'MALDONADO'),
+(40155, 401, 'PIOTER'),
+(40156, 401, 'TOBAR DONOSO (LA BOCANA DE CAMUMBI)'),
+(40157, 401, 'TUFIÃƒÆ’Ã¢â‚¬ËœO'),
+(40158, 401, 'URBINA (TAYA)'),
+(40159, 401, 'EL CHICAL'),
+(40161, 401, 'SANTA MARTHA DE CUBA'),
+(40250, 402, 'BOLIVAR'),
+(40251, 402, 'GARCIA MORENO'),
+(40252, 402, 'LOS ANDES'),
+(40253, 402, 'MONTE OLIVO'),
+(40254, 402, 'SAN VICENTE DE PUSIR'),
+(40255, 402, 'SAN RAFAEL'),
+(40301, 403, 'EL ANGEL'),
+(40302, 403, '27 DE SEPTIEMBRE'),
+(40350, 403, 'EL ANGEL'),
+(40351, 403, 'EL GOALTAL'),
+(40352, 403, 'LA LIBERTAD (ALIZO)'),
+(40353, 403, 'SAN ISIDRO'),
+(40450, 404, 'MIRA (CHONTAHUASI)'),
+(40451, 404, 'CONCEPCION'),
+(40452, 404, 'JIJON Y CAAMAÃƒÆ’Ã¢â‚¬ËœO'),
+(40453, 404, 'JUAN MONTALVO'),
+(40501, 405, 'GONZALEZ SUAREZ'),
+(40502, 405, 'SAN JOSE'),
+(40550, 405, 'SAN GABRIEL'),
+(40551, 405, 'CRISTOBAL COLON'),
+(40552, 405, 'CHITAN DE NAVARRETE'),
+(40553, 405, 'FERNANDEZ SALVADOR'),
+(40554, 405, 'LA PAZ'),
+(40555, 405, 'PIARTAL'),
+(40650, 406, 'HUACA'),
+(40651, 406, 'MARISCAL SUCRE'),
+(50101, 501, 'ELOY ALFARO (SAN FELIPE)'),
+(50102, 501, 'IGNACIO FLORES (PARQUE FLORES)'),
+(50103, 501, 'JUAN MONTALVO (SAN SEBASTIAN)'),
+(50104, 501, 'LA MATRIZ'),
+(50105, 501, 'SAN BUENAVENTURA'),
+(50150, 501, 'LATACUNGA'),
+(50151, 501, 'ALAQUES (ALAQUEZ)'),
+(50152, 501, 'BELISARIO QUEVEDO (GUANAILIN)'),
+(50153, 501, 'GUAITACAMA (GUAYTACAMA)'),
+(50154, 501, 'JOSEGUANGO BAJO'),
+(50156, 501, 'MULALO'),
+(50157, 501, '11 DE NOVIEMBRE (ILINCHISI)'),
+(50158, 501, 'POALO'),
+(50159, 501, 'SAN JUAN DE PASTOCALLE'),
+(50161, 501, 'TANICUCHI'),
+(50162, 501, 'TOACASO'),
+(50202, 502, 'EL CARMEN'),
+(50250, 502, 'LA MANA'),
+(50251, 502, 'GUASAGANDA'),
+(50252, 502, 'PUCAYACU'),
+(50350, 503, 'EL CORAZON'),
+(50351, 503, 'MORASPUNGO'),
+(50352, 503, 'PINLLOPATA'),
+(50353, 503, 'RAMON CAMPAÃƒÆ’Ã¢â‚¬ËœA'),
+(50450, 504, 'PUJILI'),
+(50451, 504, 'ANGAMARCA'),
+(50453, 504, 'GUANGAJE'),
+(50455, 504, 'LA VICTORIA'),
+(50456, 504, 'PILALO'),
+(50457, 504, 'TINGO'),
+(50458, 504, 'ZUMBAHUA'),
+(50550, 505, 'SAN MIGUEL'),
+(50551, 505, 'ANTONIO JOSE HOLGUIN (SANTA LUCIA)'),
+(50552, 505, 'CUSUBAMBA'),
+(50553, 505, 'MULALILLO'),
+(50554, 505, 'MULLIQUINDIL (SANTA ANA)'),
+(50555, 505, 'PANSALEO'),
+(50650, 506, 'SAQUISILI'),
+(50651, 506, 'CANCHAGUA'),
+(50652, 506, 'CHANTILIN'),
+(50653, 506, 'COCHAPAMBA'),
+(50750, 507, 'SIGCHOS'),
+(50751, 507, 'CHUGCHILAN'),
+(50752, 507, 'ISINLIVI'),
+(50753, 507, 'LAS PAMPAS'),
+(50754, 507, 'PALO QUEMADO'),
+(60101, 601, 'LIZARZABURU'),
+(60102, 601, 'MALDONADO'),
+(60103, 601, 'VELASCO'),
+(60104, 601, 'VELOZ'),
+(60105, 601, 'YARUQUIES'),
+(60106, 601, 'LICAN'),
+(60150, 601, 'RIOBAMBA'),
+(60151, 601, 'CACHA'),
+(60152, 601, 'CALPI'),
+(60153, 601, 'CUBIJIES'),
+(60154, 601, 'FLORES'),
+(60156, 601, 'LICTO'),
+(60157, 601, 'PUNGALA'),
+(60158, 601, 'PUNIN'),
+(60159, 601, 'QUIMIAG'),
+(60160, 601, 'SAN JUAN'),
+(60161, 601, 'SAN LUIS'),
+(60250, 602, 'ALAUSI'),
+(60251, 602, 'ACHUPALLAS'),
+(60253, 602, 'GUASUNTOS'),
+(60254, 602, 'HUIGRA'),
+(60255, 602, 'MULTITUD'),
+(60256, 602, 'PISTISHI (NARIZ DEL DIABLO)'),
+(60257, 602, 'PUMALLACTA (PUMA-LACTA)'),
+(60258, 602, 'SEVILLA'),
+(60259, 602, 'SIBAMBE'),
+(60260, 602, 'TIXAN'),
+(60301, 603, 'CAJABAMBA'),
+(60302, 603, 'SICALPA'),
+(60350, 603, 'VILLA LA UNION (CAJABAMBA)'),
+(60351, 603, 'CAÃƒÆ’Ã¢â‚¬ËœI'),
+(60352, 603, 'COLUMBE'),
+(60353, 603, 'JUAN DE VELASCO (PANGOR)'),
+(60354, 603, 'SANTIAGO DE QUITO'),
+(60450, 604, 'CHAMBO'),
+(60550, 605, 'CHUNCHI'),
+(60551, 605, 'CAPZOL'),
+(60552, 605, 'COMPUD'),
+(60553, 605, 'GONZOL'),
+(60554, 605, 'LLAGOS'),
+(60650, 606, 'GUAMOTE'),
+(60651, 606, 'CEBADAS'),
+(60652, 606, 'PALMIRA'),
+(60701, 607, 'EL ROSARIO'),
+(60702, 607, 'LA MATRIZ'),
+(60750, 607, 'GUANO'),
+(60751, 607, 'GUANANDO'),
+(60752, 607, 'ILAPO'),
+(60753, 607, 'LA PROVIDENCIA'),
+(60754, 607, 'SAN ANDRES'),
+(60755, 607, 'SAN GERARDO DE PACAICAGUAN'),
+(60756, 607, 'SAN ISIDRO DE PATULU'),
+(60757, 607, 'SAN JOSE DEL CHAZO'),
+(60758, 607, 'SANTA FE DE GALAN'),
+(60759, 607, 'VALPARAISO'),
+(60850, 608, 'PALLATANGA'),
+(60950, 609, 'PENIPE'),
+(60951, 609, 'EL ALTAR'),
+(60952, 609, 'MATUS'),
+(60953, 609, 'PUELA'),
+(60954, 609, 'SAN ANTONIO DE BAYUSHIG'),
+(60955, 609, 'LA CANDELARIA'),
+(60956, 609, 'BILBAO'),
+(61050, 610, 'CUMANDA'),
+(70101, 701, 'LA PROVIDENCIA'),
+(70102, 701, 'MACHALA'),
+(70103, 701, 'PUERTO BOLIVAR'),
+(70104, 701, 'NUEVE DE MAYO'),
+(70105, 701, 'EL CAMBIO'),
+(70150, 701, 'MACHALA'),
+(70152, 701, 'EL RETIRO'),
+(70221, 702, 'CHACRAS'),
+(70250, 702, 'ARENILLAS'),
+(70254, 702, 'PALMALES'),
+(70255, 702, 'CARCABON'),
+(70350, 703, 'PACCHA'),
+(70351, 703, 'AYAPAMBA'),
+(70352, 703, 'CORDONCILLO'),
+(70353, 703, 'MILAGRO'),
+(70354, 703, 'SAN JOSE'),
+(70355, 703, 'SAN JUAN DE CERRO AZUL'),
+(70450, 704, 'BALSAS'),
+(70451, 704, 'BELLAMARIA'),
+(70550, 705, 'CHILLA'),
+(70650, 706, 'EL GUABO'),
+(70651, 706, 'BARBONES (SUCRE)'),
+(70652, 706, 'LA IBERIA'),
+(70653, 706, 'TENDALES (CAB. EN PUERTO)'),
+(70654, 706, 'RIO BONITO'),
+(70701, 707, 'ECUADOR'),
+(70702, 707, 'EL PARAISO'),
+(70703, 707, 'HUALTACO'),
+(70704, 707, 'MILTON REYES'),
+(70705, 707, 'UNION LOJANA'),
+(70750, 707, 'HUAQUILLAS'),
+(70850, 708, 'MARCABELI'),
+(70851, 708, 'EL INGENIO'),
+(70901, 709, 'BOLIVAR'),
+(70902, 709, 'LOMA DE FRANCO'),
+(70903, 709, 'OCHOA LEON (MATRIZ)'),
+(70904, 709, 'TRES CERRITOS'),
+(70950, 709, 'PASAJE'),
+(70951, 709, 'BUENAVISTA'),
+(70952, 709, 'CASACAY'),
+(70953, 709, 'LA PEAÃƒÆ’Ã¢â‚¬ËœA'),
+(70954, 709, 'PROGRESO'),
+(70955, 709, 'UZHCURRUMI'),
+(70956, 709, 'CAÃƒÆ’Ã¢â‚¬ËœAQUEMADA'),
+(71001, 710, 'LA MATRIZ'),
+(71002, 710, 'LA SUSAYA'),
+(71003, 710, 'PIÃƒÆ’Ã¢â‚¬ËœAS GRANDE'),
+(71050, 710, 'PIÃƒÆ’Ã¢â‚¬ËœAS'),
+(71051, 710, 'CAPIRO'),
+(71052, 710, 'LA BOCANA'),
+(71053, 710, 'MOROMORO (CAB. EN EL VADO)'),
+(71054, 710, 'PIEDRAS'),
+(71055, 710, 'SAN ROQUE (AMBROSIO MALDONADO)'),
+(71056, 710, 'SARACAY'),
+(71150, 711, 'PORTOVELO'),
+(71151, 711, 'CURTINCAPA'),
+(71152, 711, 'MORALES'),
+(71153, 711, 'SALATI'),
+(71201, 712, 'SANTA ROSA'),
+(71202, 712, 'JELI'),
+(71203, 712, 'JAMBELÃƒÆ’Ã‚Â (SATÃƒÆ’Ã¢â‚¬Â°LITE)'),
+(71204, 712, 'JUMÃƒÆ’Ã¢â‚¬Å“N (SATÃƒÆ’Ã¢â‚¬Â°LITE)'),
+(71250, 712, 'SANTA ROSA'),
+(71251, 712, 'BELLAVISTA'),
+(71252, 712, 'JAMBELI'),
+(71253, 712, 'LA AVANZADA'),
+(71254, 712, 'SAN ANTONIO'),
+(71255, 712, 'TORATA'),
+(71256, 712, 'VICTORIA'),
+(71257, 712, 'BELLAMARIA'),
+(71350, 713, 'ZARUMA'),
+(71351, 713, 'ABAÃƒÆ’Ã¢â‚¬ËœIN'),
+(71352, 713, 'ARCAPAMBA'),
+(71353, 713, 'GUANAZAN'),
+(71354, 713, 'GUIZHAGUIÃƒÆ’Ã¢â‚¬ËœA'),
+(71355, 713, 'HUERTAS'),
+(71356, 713, 'MALVAS'),
+(71357, 713, 'MULUNCAY GRANDE'),
+(71358, 713, 'SINSAO'),
+(71359, 713, 'SALVIAS'),
+(71401, 714, 'LA VICTORIA'),
+(71402, 714, 'PLATANILLOS'),
+(71403, 714, 'VALLE HERMOSO'),
+(71450, 714, 'LA VICTORIA'),
+(71451, 714, 'LA LIBERTAD'),
+(71452, 714, 'EL PARAISO'),
+(71453, 714, 'SAN ISIDRO'),
+(80101, 801, 'BARTOLOME RUIZ (CESAR FRANCO CARRION)'),
+(80102, 801, '5 DE AGOSTO'),
+(80103, 801, 'ESMERALDAS'),
+(80104, 801, 'LUIS TELLO (LAS PALMAS)'),
+(80105, 801, 'SIMÃƒÆ’Ã¢â‚¬Å“N PLATA TORRES'),
+(80150, 801, 'ESMERALDAS'),
+(80152, 801, 'CAMARONES'),
+(80153, 801, 'CRNEL. CARLOS CONCHA TORRES'),
+(80154, 801, 'CHINCA'),
+(80159, 801, 'MAJUA'),
+(80163, 801, 'SAN MATEO'),
+(80165, 801, 'TABIAZO'),
+(80166, 801, 'TACHINA'),
+(80168, 801, 'VUELTA LARGA'),
+(80250, 802, 'VALDEZ (LIMONES)'),
+(80251, 802, 'ANCHAYACU'),
+(80252, 802, 'ATAHUALPA'),
+(80253, 802, 'BORBON'),
+(80254, 802, 'LA TOLA'),
+(80255, 802, 'LUIS VARGAS TORRES'),
+(80256, 802, 'MALDONADO'),
+(80257, 802, 'PAMPANAL DE BOLIVAR'),
+(80258, 802, 'SAN FRANCISCO DE ONZOLE'),
+(80259, 802, 'SANTO DOMINGO DE ONZOLE'),
+(80260, 802, 'SELVA ALEGRE'),
+(80261, 802, 'TELEMBI'),
+(80262, 802, 'COLON ELOY DEL MARIA'),
+(80263, 802, 'SAN JOSE DE CAYAPAS'),
+(80264, 802, 'TIMBIRE'),
+(80350, 803, 'MUISNE'),
+(80351, 803, 'BOLIVAR'),
+(80352, 803, 'DAULE'),
+(80353, 803, 'GALERA'),
+(80354, 803, 'QUINGUE (OLMEDO PERDOMO FRANCO)'),
+(80355, 803, 'SALIMA'),
+(80356, 803, 'SAN FRANCISCO'),
+(80357, 803, 'SAN GREGORIO'),
+(80358, 803, 'SAN JOSE DE CHAMANGA'),
+(80450, 804, 'ROSA ZARATE (QUININDE)'),
+(80451, 804, 'CUBE'),
+(80452, 804, 'CHURA (CHANCAMA)'),
+(80453, 804, 'MALIMPIA'),
+(80454, 804, 'VICHE'),
+(80455, 804, 'LA UNION'),
+(80550, 805, 'SAN LORENZO'),
+(80551, 805, 'ALTO TAMBO'),
+(80552, 805, 'ANCON (PICHANGAL)'),
+(80553, 805, 'CALDERON'),
+(80554, 805, 'CARONDELET'),
+(80555, 805, '5 DE JUNIO'),
+(80556, 805, 'CONCEPCION'),
+(80557, 805, 'MATAJE'),
+(80558, 805, 'SAN JAVIER DE CACHAVI'),
+(80559, 805, 'SANTA RITA'),
+(80560, 805, 'TAMBILLO'),
+(80561, 805, 'TULUBI'),
+(80562, 805, 'URBINA'),
+(80650, 806, 'ATACAMES'),
+(80651, 806, 'LA UNION'),
+(80652, 806, 'SUA'),
+(80653, 806, 'TONCHIGUE'),
+(80654, 806, 'TONSUPA'),
+(80750, 807, 'RIOVERDE'),
+(80751, 807, 'CHONTADURO'),
+(80752, 807, 'CHUMUNDE'),
+(80753, 807, 'LAGARTO'),
+(80754, 807, 'MONTALVO'),
+(80755, 807, 'ROCAFUERTE'),
+(90101, 901, 'AYACUCHO'),
+(90102, 901, 'BOLIVAR (SAGRARIO)'),
+(90103, 901, 'CARBO (CONCEPCION)'),
+(90104, 901, 'FEBRES CORDERO'),
+(90105, 901, 'GARCIA MORENO'),
+(90106, 901, 'LETAMENDI'),
+(90107, 901, 'NUEVE DE OCTUBRE'),
+(90108, 901, 'OLMEDO (SAN ALEJO)'),
+(90109, 901, 'ROCA'),
+(90110, 901, 'ROCAFUERTE'),
+(90111, 901, 'SUCRE'),
+(90112, 901, 'TARQUI'),
+(90113, 901, 'URDANETA'),
+(90114, 901, 'XIMENA'),
+(90115, 901, 'CHONGON'),
+(90116, 901, 'PASCUALES'),
+(90150, 901, 'GUAYAQUIL'),
+(90152, 901, 'JUAN GOMEZ RENDON (PROGRESO)'),
+(90153, 901, 'MORRO'),
+(90156, 901, 'POSORJA'),
+(90157, 901, 'PUNA'),
+(90158, 901, 'TENGUEL'),
+(90250, 902, 'ALFREDO BAQUERIZO MORENO'),
+(90350, 903, 'BALAO'),
+(90450, 904, 'BALZAR'),
+(90550, 905, 'COLIMES'),
+(90551, 905, 'SAN JACINTO'),
+(90601, 906, 'DAULE'),
+(90602, 906, 'BANIFE'),
+(90603, 906, 'EMILIANO CAICEDO MARCOS'),
+(90604, 906, 'MAGRO'),
+(90605, 906, 'PADRE JUAN BAUTISTA AGUIRRE'),
+(90606, 906, 'SANTA CLARA'),
+(90607, 906, 'VICENTE PIEDRAHITA'),
+(90650, 906, 'DAULE'),
+(90652, 906, 'JUAN BAUTISTA AGUIRRE (LOS TINTOS)'),
+(90653, 906, 'LAUREL'),
+(90654, 906, 'LIMONAL'),
+(90656, 906, 'LAS LOJAS (ENRIQUE BAQUERIZO MORENO)'),
+(90750, 907, 'ELOY ALFARO (DURAN)'),
+(90850, 908, 'VELASCO IBARRA (EL EMPALME)'),
+(90851, 908, 'GUAYAS (PUEBLO NUEVO)'),
+(90852, 908, 'EL ROSARIO'),
+(90950, 909, 'EL TRIUNFO'),
+(91050, 910, 'MILAGRO'),
+(91051, 910, 'CHOBO'),
+(91053, 910, 'MARISCAL SUCRE (HUAQUES)'),
+(91054, 910, 'ROBERTO ASTUDILLO'),
+(91150, 911, 'NARANJAL'),
+(91151, 911, 'JESUS MARIA'),
+(91152, 911, 'SAN CARLOS'),
+(91153, 911, 'SANTA ROSA DE FLANDES'),
+(91154, 911, 'TAURA'),
+(91250, 912, 'NARANJITO'),
+(91350, 913, 'PALESTINA'),
+(91450, 914, 'PEDRO CARBO'),
+(91451, 914, 'VALLE DE LA VIRGEN'),
+(91452, 914, 'SABANILLA'),
+(91601, 916, 'SAMBORONDÃƒÆ’Ã¢â‚¬Å“N'),
+(91602, 916, 'LA PUNTILLA (SATÃƒÆ’Ã¢â‚¬Â°LITE)'),
+(91650, 916, 'SAMBORONDON'),
+(91651, 916, 'TARIFA'),
+(91850, 918, 'SANTA LUCIA'),
+(91901, 919, 'BOCANA'),
+(91902, 919, 'CANDILEJOS'),
+(91903, 919, 'CENTRAL'),
+(91904, 919, 'PARAISO'),
+(91905, 919, 'SAN MATEO'),
+(91950, 919, 'EL SALITRE (LAS RAMAS)'),
+(91951, 919, 'GENERAL VERNAZA (DOS ESTEROS)'),
+(91952, 919, 'LA VICTORIA (ÃƒÆ’Ã¢â‚¬ËœAUZA)'),
+(91953, 919, 'JUNQUILLAL'),
+(92050, 920, 'SAN JACINTO DE YAGUACHI'),
+(92053, 920, 'GRAL. PEDRO J. MONTERO (BOLICHE)'),
+(92055, 920, 'YAGUACHI VIEJO (CONE)'),
+(92056, 920, 'VIRGEN DE FATIMA'),
+(92150, 921, 'GENERAL VILLAMIL'),
+(92250, 922, 'SIMON BOLIVAR'),
+(92251, 922, 'CRNEL. LORENZO DE GARAICOA (PEDREGAL)'),
+(92350, 923, 'CORONEL MARCELINO MARIDUEÃƒÆ’Ã¢â‚¬ËœA'),
+(92450, 924, 'LOMAS DE SARGENTILLO'),
+(92550, 925, 'NARCISA DE JESUS'),
+(92750, 927, 'GENERAL ANTONIO ELIZALDE (BUCAY)'),
+(92850, 928, 'ISIDRO AYORA'),
+(100101, 1001, 'CARANQUI'),
+(100102, 1001, 'GUAYAQUIL DE ALPACHACA'),
+(100103, 1001, 'SAGRARIO'),
+(100104, 1001, 'SAN FRANCISCO'),
+(100105, 1001, 'LA DOLOROSA DEL PIORATO'),
+(100150, 1001, 'IBARRA'),
+(100151, 1001, 'AMBUQUI'),
+(100152, 1001, 'ANGOCHAGUA'),
+(100153, 1001, 'CAROLINA'),
+(100154, 1001, 'LA ESPERANZA'),
+(100155, 1001, 'LITA'),
+(100156, 1001, 'SALINAS'),
+(100157, 1001, 'SAN ANTONIO'),
+(100201, 1002, 'ANDRADE MARIN (LOURDES)'),
+(100202, 1002, 'ATUNTAQUI'),
+(100250, 1002, 'ATUNTAQUI'),
+(100251, 1002, 'IMBAYA (SAN LUIS DE COBUENDO)'),
+(100252, 1002, 'SAN FRANCISCO DE NATABUEL'),
+(100253, 1002, 'SAN JOSE DE CHALTURA'),
+(100254, 1002, 'SAN ROQUE'),
+(100301, 1003, 'SAGRARIO'),
+(100302, 1003, 'SAN FRANCISCO'),
+(100350, 1003, 'COTACACHI'),
+(100351, 1003, 'APUELA'),
+(100352, 1003, 'GARCIA MORENO (LLURIMAGUA)'),
+(100353, 1003, 'IMANTAG'),
+(100354, 1003, 'PEÃƒÆ’Ã¢â‚¬ËœAHERRERA'),
+(100355, 1003, 'PLAZA GUTIERREZ (CALVARIO)'),
+(100356, 1003, 'QUIROGA'),
+(100357, 1003, '6 DE JULIO DE CUELLAJE'),
+(100358, 1003, 'VACAS GALINDO (EL CHURO)'),
+(100401, 1004, 'JORDAN'),
+(100402, 1004, 'SAN LUIS'),
+(100450, 1004, 'OTAVALO'),
+(100451, 1004, 'DR. MIGUEL EGAS CABEZAS (PEGUCHE)'),
+(100452, 1004, 'EUGENIO ESPEJO (CALPAQUI)'),
+(100453, 1004, 'GONZALEZ SUAREZ'),
+(100454, 1004, 'PATAQUI'),
+(100455, 1004, 'SAN JOSÃƒÆ’Ã¢â‚¬Â° DE QUICHINCHE'),
+(100456, 1004, 'SAN JUAN DE ILUMAN'),
+(100457, 1004, 'SAN PABLO'),
+(100458, 1004, 'SAN RAFAEL'),
+(100459, 1004, 'SELVA ALEGRE'),
+(100550, 1005, 'PIMAMPIRO'),
+(100551, 1005, 'CHUGA'),
+(100552, 1005, 'MARIANO ACOSTA'),
+(100553, 1005, 'SAN FRANCISCO DE SIGSIPAM'),
+(100650, 1006, 'URCUQUI'),
+(100651, 1006, 'CAHUASQUI'),
+(100652, 1006, 'LA MERCED DE BUENOS AIRES'),
+(100653, 1006, 'PABLO ARENAS'),
+(100654, 1006, 'SAN BLAS'),
+(100655, 1006, 'TUMBABIRO'),
+(110101, 1101, 'EL SAGRARIO'),
+(110102, 1101, 'SAN SEBASTIAN'),
+(110103, 1101, 'SUCRE'),
+(110104, 1101, 'VALLE'),
+(110150, 1101, 'LOJA'),
+(110151, 1101, 'CHANTACO'),
+(110152, 1101, 'CHUQUIRIBAMBA'),
+(110153, 1101, 'EL CISNE'),
+(110154, 1101, 'GUALEL'),
+(110155, 1101, 'JIMBILLA'),
+(110156, 1101, 'MALACATOS (VALLADOLID)'),
+(110157, 1101, 'SAN LUCAS'),
+(110158, 1101, 'SAN PEDRO DE VILCABAMBA'),
+(110159, 1101, 'SANTIAGO'),
+(110160, 1101, 'TAQUIL (MIGUEL RIOFRIO)'),
+(110161, 1101, 'VILCABAMBA (VICTORIA)'),
+(110162, 1101, 'YANGANA (ARSENIO CASTILLO)'),
+(110163, 1101, 'QUINARA'),
+(110201, 1102, 'CARIAMANGA'),
+(110202, 1102, 'CHILE'),
+(110203, 1102, 'SAN VICENTE'),
+(110250, 1102, 'CARIAMANGA'),
+(110251, 1102, 'COLAISACA'),
+(110252, 1102, 'EL LUCERO'),
+(110253, 1102, 'UTUANA'),
+(110254, 1102, 'SANGILLIN'),
+(110301, 1103, 'CATAMAYO'),
+(110302, 1103, 'SAN JOSE'),
+(110350, 1103, 'CATAMAYO (LA TOMA)'),
+(110351, 1103, 'EL TAMBO'),
+(110352, 1103, 'GUAYQUICHUMA'),
+(110353, 1103, 'SAN PEDRO DE LA BENDITA'),
+(110354, 1103, 'ZAMBI'),
+(110450, 1104, 'CELICA'),
+(110451, 1104, 'CRUZPAMBA'),
+(110455, 1104, 'POZUL (SAN JUAN DE POZUL)'),
+(110456, 1104, 'SABANILLA'),
+(110457, 1104, 'TNTE. MAXIMILIANO RODRIGUEZ LOAYZA'),
+(110550, 1105, 'CHAGUARPAMBA'),
+(110551, 1105, 'BUENAVISTA'),
+(110552, 1105, 'EL ROSARIO'),
+(110553, 1105, 'SANTA RUFINA'),
+(110554, 1105, 'AMARILLOS'),
+(110650, 1106, 'AMALUZA'),
+(110651, 1106, 'BELLAVISTA'),
+(110652, 1106, 'JIMBURA'),
+(110653, 1106, 'SANTA TERESITA'),
+(110654, 1106, '27 DE ABRIL'),
+(110655, 1106, 'EL INGENIO'),
+(110656, 1106, 'EL AIRO'),
+(110750, 1107, 'GONZANAMA'),
+(110751, 1107, 'CHANGAIMINA (LA LIBERTAD)'),
+(110753, 1107, 'NAMBACOLA'),
+(110754, 1107, 'PURUNUMA (EGUIGUREN)'),
+(110756, 1107, 'SACAPALCA'),
+(110801, 1108, 'GENERAL ELOY ALFARO (SAN SEBASTIAN)'),
+(110802, 1108, 'MACARA (MANUEL ENRIQUE RANGEL SUQUILANDA)'),
+(110850, 1108, 'MACARA'),
+(110851, 1108, 'LARAMA'),
+(110852, 1108, 'LA VICTORIA'),
+(110853, 1108, 'SABIANGO (LA CAPILLA)'),
+(110901, 1109, 'CATACOCHA'),
+(110902, 1109, 'LOURDES'),
+(110950, 1109, 'CATACOCHA'),
+(110951, 1109, 'CANGONAMA'),
+(110952, 1109, 'GUACHANAMA'),
+(110954, 1109, 'LAURO GUERRERO'),
+(110956, 1109, 'ORIANGA'),
+(110957, 1109, 'SAN ANTONIO'),
+(110958, 1109, 'CASANGA'),
+(110959, 1109, 'YAMANA'),
+(111050, 1110, 'ALAMOR'),
+(111051, 1110, 'CIANO'),
+(111052, 1110, 'EL ARENAL'),
+(111053, 1110, 'EL LIMO (MARIANA DE JESUS)'),
+(111054, 1110, 'MERCADILLO'),
+(111055, 1110, 'VICENTINO'),
+(111150, 1111, 'SARAGURO'),
+(111151, 1111, 'EL PARAISO DE CELEN'),
+(111152, 1111, 'EL TABLON'),
+(111153, 1111, 'LLUZHAPA'),
+(111154, 1111, 'MANU'),
+(111155, 1111, 'SAN ANTONIO DE QUIMBE (CUMBE)'),
+(111156, 1111, 'SAN PABLO DE TENTA'),
+(111157, 1111, 'SAN SEBASTIAN DE YULUC'),
+(111158, 1111, 'SELVA ALEGRE'),
+(111159, 1111, 'URDANETA (PAQUISHAPA)'),
+(111160, 1111, 'SUMAYPAMBA'),
+(111250, 1112, 'SOZORANGA'),
+(111251, 1112, 'NUEVA FATIMA'),
+(111252, 1112, 'TACAMOROS'),
+(111350, 1113, 'ZAPOTILLO'),
+(111351, 1113, 'MANGAHURCO'),
+(111352, 1113, 'GARZAREAL'),
+(111353, 1113, 'LIMONES'),
+(111354, 1113, 'PALETILLAS'),
+(111355, 1113, 'BOLASPAMBA'),
+(111450, 1114, 'PINDAL'),
+(111451, 1114, 'CHAQUINAL'),
+(111452, 1114, '12 DE DICIEMBRE'),
+(111550, 1115, 'QUILANGA'),
+(111551, 1115, 'FUNDOCHAMBA'),
+(111552, 1115, 'SAN ANTONIO DE LAS ARADAS'),
+(111650, 1116, 'OLMEDO'),
+(111651, 1116, 'TINGUE'),
+(120101, 1201, 'CLEMENTE BAQUERIZO'),
+(120102, 1201, 'DR. CAMILO PONCE'),
+(120103, 1201, 'BARREIRO'),
+(120104, 1201, 'EL SALTO'),
+(120150, 1201, 'BABAHOYO'),
+(120152, 1201, 'CARACOL'),
+(120153, 1201, 'FEBRES CORDERO'),
+(120154, 1201, 'PIMOCHA'),
+(120155, 1201, 'LA UNION'),
+(120250, 1202, 'BABA'),
+(120251, 1202, 'GUARE'),
+(120252, 1202, 'ISLA DE BEJUCAL'),
+(120350, 1203, 'MONTALVO'),
+(120450, 1204, 'PUEBLOVIEJO'),
+(120451, 1204, 'PUERTO PECHICHE'),
+(120452, 1204, 'SAN JUAN'),
+(120501, 1205, 'QUEVEDO'),
+(120502, 1205, 'SAN CAMILO'),
+(120504, 1205, 'GUAYACAN'),
+(120505, 1205, 'NICOLAS INFANTE DIAZ'),
+(120506, 1205, 'SAN CRISTOBAL'),
+(120507, 1205, 'SIETE DE OCTUBRE'),
+(120508, 1205, '24 DE MAYO'),
+(120509, 1205, 'VENUS DEL RIO QUEVEDO'),
+(120510, 1205, 'VIVA ALFARO'),
+(120550, 1205, 'QUEVEDO'),
+(120553, 1205, 'SAN CARLOS'),
+(120555, 1205, 'LAS ESPERANZA'),
+(120650, 1206, 'CATARAMA'),
+(120651, 1206, 'RICAURTE'),
+(120750, 1207, 'VENTANAS'),
+(120752, 1207, 'ZAPOTAL'),
+(120850, 1208, 'VINCES'),
+(120851, 1208, 'ANTONIO SOTOMAYOR'),
+(120950, 1209, 'PALENQUE'),
+(121001, 1210, 'SAN JACINTO DE BUENA FÃƒÆ’Ã¢â‚¬Â°'),
+(121002, 1210, '7 DE AGOSTO'),
+(121003, 1210, '11 DE OCTUBRE'),
+(121050, 1210, 'SAN JACINTO DE BUENA FE'),
+(121051, 1210, 'PATRICIA PILAR'),
+(121150, 1211, 'VALENCIA'),
+(121250, 1212, 'MOCACHE'),
+(121350, 1213, 'QUINSALOMA'),
+(130101, 1301, 'ANDRES DE VERA'),
+(130102, 1301, 'COLON'),
+(130103, 1301, '12 DE MARZO'),
+(130104, 1301, 'PICOAZA'),
+(130105, 1301, 'PORTOVIEJO'),
+(130106, 1301, 'SAN PABLO'),
+(130107, 1301, '18 DE OCTUBRE'),
+(130108, 1301, 'FRANCISCO PACHECO'),
+(130109, 1301, 'SIMÃƒÆ’Ã¢â‚¬Å“N BOLÃƒÆ’Ã‚ÂVAR'),
+(130150, 1301, 'PORTOVIEJO'),
+(130151, 1301, 'ABDON CALDERON (SAN FRANCISCO)'),
+(130152, 1301, 'ALHAJUELA (BAJO GRANDE)'),
+(130153, 1301, 'CRUCITA'),
+(130154, 1301, 'PUEBLO NUEVO'),
+(130155, 1301, 'RIOCHICO (RIO CHICO)'),
+(130156, 1301, 'SAN PLACIDO'),
+(130157, 1301, 'CHIRIJOS'),
+(130250, 1302, 'CALCETA'),
+(130251, 1302, 'MEMBRILLO'),
+(130252, 1302, 'QUIROGA'),
+(130301, 1303, 'CHONE'),
+(130302, 1303, 'SANTA RITA'),
+(130350, 1303, 'CHONE'),
+(130351, 1303, 'BOYACA'),
+(130352, 1303, 'CANUTO'),
+(130353, 1303, 'CONVENTO'),
+(130354, 1303, 'CHIBUNGA'),
+(130355, 1303, 'ELOY ALFARO'),
+(130356, 1303, 'RICAURTE'),
+(130357, 1303, 'SAN ANTONIO'),
+(130401, 1304, 'EL CARMEN'),
+(130404, 1304, '4 DE DICIEMBRE'),
+(130450, 1304, 'EL CARMEN'),
+(130451, 1304, 'WILFRIDO LOOR MOREIRA (MAICITO)'),
+(130452, 1304, 'SAN PEDRO DE SUMA'),
+(130550, 1305, 'FLAVIO ALFARO'),
+(130551, 1305, 'SAN FRANCISCO DE NOVILLO'),
+(130552, 1305, 'ZAPALLO'),
+(130601, 1306, 'SAN LORENZO DE JIPIJAPA'),
+(130602, 1306, 'DR. MIGUEL MORAN LUCIO'),
+(130603, 1306, 'MANUEL INOCENCIO PARRALES Y GUALE'),
+(130650, 1306, 'JIPIJAPA'),
+(130651, 1306, 'AMERICA'),
+(130652, 1306, 'EL ANEGADO'),
+(130653, 1306, 'JULCUY'),
+(130654, 1306, 'LA UNION'),
+(130656, 1306, 'MEMBRILLAL'),
+(130657, 1306, 'PEDRO PABLO GOMEZ'),
+(130658, 1306, 'PUERTO DE CAYO'),
+(130750, 1307, 'JUNIN'),
+(130801, 1308, 'LOS ESTEROS'),
+(130802, 1308, 'MANTA'),
+(130803, 1308, 'SAN MATEO'),
+(130804, 1308, 'TARQUI'),
+(130805, 1308, 'ELOY ALFARO'),
+(130850, 1308, 'MANTA'),
+(130851, 1308, 'SAN LORENZO'),
+(130852, 1308, 'SANTA MARIANITA (BOCA DE PACOCHE)'),
+(130901, 1309, 'MONTECRISTI'),
+(130902, 1309, 'ANIBAL SAN ANDRES'),
+(130950, 1309, 'MONTECRISTI'),
+(130952, 1309, 'LA PILA'),
+(131050, 1310, 'PAJAN'),
+(131051, 1310, 'CAMPOZANO (LA PALMA DE PAJAN)'),
+(131052, 1310, 'CASCOL'),
+(131053, 1310, 'GUALE'),
+(131054, 1310, 'LASCANO'),
+(131150, 1311, 'PICHINCHA'),
+(131151, 1311, 'BARRAGANETE'),
+(131152, 1311, 'SAN SEBASTIAN'),
+(131250, 1312, 'ROCAFUERTE'),
+(131301, 1313, 'SANTA ANA'),
+(131302, 1313, 'LODANA'),
+(131350, 1313, 'SANTA ANA DE VUELTA LARGA'),
+(131351, 1313, 'AYACUCHO'),
+(131352, 1313, 'HONORATO VASQUEZ'),
+(131353, 1313, 'LA UNION'),
+(131355, 1313, 'SAN PABLO'),
+(131401, 1314, 'BAHIA DE CARAQUEZ'),
+(131402, 1314, 'LEONIDAS PLAZA GUTIERREZ'),
+(131450, 1314, 'BAHIA DE CARAQUEZ'),
+(131453, 1314, 'CHARAPOTO'),
+(131457, 1314, 'SAN ISIDRO'),
+(131550, 1315, 'TOSAGUA'),
+(131551, 1315, 'BACHILLERO'),
+(131552, 1315, 'ANGEL PEDRO GILER'),
+(131650, 1316, 'SUCRE'),
+(131651, 1316, 'BELLAVISTA'),
+(131652, 1316, 'NOBOA'),
+(131653, 1316, 'ARQ. SIXTO DURAN BALLEN'),
+(131750, 1317, 'PEDERNALES'),
+(131751, 1317, 'COJIMIES'),
+(131752, 1317, '10 DE AGOSTO'),
+(131753, 1317, 'ATAHUALPA'),
+(131850, 1318, 'OLMEDO'),
+(131950, 1319, 'PUERTO LOPEZ'),
+(131951, 1319, 'MACHALILLA'),
+(131952, 1319, 'SALANGO'),
+(132050, 1320, 'JAMA'),
+(132150, 1321, 'JARAMIJO'),
+(132250, 1322, 'SAN VICENTE'),
+(132251, 1322, 'CANOA'),
+(140150, 1401, 'MACAS'),
+(140151, 1401, 'ALSHI'),
+(140153, 1401, 'GENERAL PROAÃƒÆ’Ã¢â‚¬ËœO'),
+(140156, 1401, 'SAN ISIDRO'),
+(140157, 1401, 'SEVILLA DON BOSCO'),
+(140158, 1401, 'SINAI'),
+(140160, 1401, 'ZUÃƒÆ’Ã¢â‚¬ËœA (ZUÃƒÆ’Ã¢â‚¬ËœAC)'),
+(140162, 1401, 'CUCHAENTZA'),
+(140164, 1401, 'RIO BLANCO'),
+(140201, 1402, 'GUALAQUIZA'),
+(140202, 1402, 'MERCEDES MOLINA'),
+(140250, 1402, 'GUALAQUIZA'),
+(140251, 1402, 'AMAZONAS (ROSARIO DE CUYES)'),
+(140252, 1402, 'BERMEJOS'),
+(140253, 1402, 'BOMBOIZA'),
+(140254, 1402, 'CHIGÃƒÆ’Ã…â€œINDA'),
+(140255, 1402, 'EL ROSARIO'),
+(140256, 1402, 'NUEVA TARQUI'),
+(140257, 1402, 'SAN MIGUEL DE CUYES'),
+(140258, 1402, 'EL IDEAL'),
+(140350, 1403, 'GENERAL LEONIDAS PLAZA GUTIERREZ (LIMON)'),
+(140351, 1403, 'INDANZA'),
+(140353, 1403, 'SAN ANTONIO'),
+(140356, 1403, 'SAN MIGUEL DE CONCHAY'),
+(140357, 1403, 'SANTA SUSANA DE CHIVIAZA'),
+(140358, 1403, 'YUNGANZA'),
+(140450, 1404, 'PALORA (METZERA)'),
+(140451, 1404, 'ARAPICOS'),
+(140452, 1404, 'CUMANDA'),
+(140454, 1404, 'SANGAY'),
+(140455, 1404, '16 DE AGOSTO'),
+(140550, 1405, 'SANTIAGO DE MENDEZ'),
+(140551, 1405, 'COPAL'),
+(140552, 1405, 'CHUPIANZA'),
+(140553, 1405, 'PATUCA'),
+(140554, 1405, 'SAN LUIS DE EL ACHO'),
+(140556, 1405, 'TAYUZA'),
+(140557, 1405, 'SAN FRANCISCO DE CHINIMBIMI'),
+(140650, 1406, 'SUCUA'),
+(140651, 1406, 'ASUNCION'),
+(140652, 1406, 'HUAMBI'),
+(140655, 1406, 'SANTA MARIANITA DE JESUS'),
+(140750, 1407, 'HUAMBOYA'),
+(140751, 1407, 'CHIGUAZA'),
+(140850, 1408, 'SAN JUAN BOSCO'),
+(140851, 1408, 'PAN DE AZUCAR'),
+(140852, 1408, 'SAN CARLOS DE LIMON'),
+(140853, 1408, 'SAN JACINTO DE WAKAMBEIS'),
+(140854, 1408, 'SANTIAGO DE PANANZA'),
+(140950, 1409, 'TAISHA'),
+(140951, 1409, 'HUASAGA'),
+(140952, 1409, 'MACUMA'),
+(140953, 1409, 'TUUTINENTZA'),
+(141050, 1410, 'LOGROÃƒÆ’Ã¢â‚¬ËœO'),
+(141051, 1410, 'YAUPI'),
+(141052, 1410, 'SHIMPIS'),
+(141150, 1411, 'PABLO VI'),
+(141250, 1412, 'SANTIAGO'),
+(141251, 1412, 'SAN JOSE DE MORONA'),
+(150150, 1501, 'TENA'),
+(150151, 1501, 'AHUANO'),
+(150153, 1501, 'CHONTAPUNTA'),
+(150154, 1501, 'PANO'),
+(150155, 1501, 'PUERTO MISAHUALLI'),
+(150156, 1501, 'PUERTO NAPO'),
+(150157, 1501, 'TALAG'),
+(150350, 1503, 'ARCHIDONA'),
+(150352, 1503, 'COTUNDO'),
+(150354, 1503, 'SAN PABLO DE USHPAYACU'),
+(150450, 1504, 'EL CHACO'),
+(150451, 1504, 'GONZALO DIAZ DE PINEDA (EL BOMBON)'),
+(150452, 1504, 'LINARES'),
+(150453, 1504, 'OYACACHI'),
+(150454, 1504, 'SANTA ROSA'),
+(150455, 1504, 'SARDINAS'),
+(150750, 1507, 'BAEZA'),
+(150751, 1507, 'COSANGA'),
+(150752, 1507, 'CUYUJA'),
+(150753, 1507, 'PAPALLACTA'),
+(150754, 1507, 'SAN FRANCISCO DE BORJA (VIRGILIO DAVILA)'),
+(150755, 1507, 'SAN JOSE DE PAYAMINO'),
+(150756, 1507, 'SUMACO'),
+(150950, 1509, 'CARLOS JULIO AROSEMENA T.'),
+(160150, 1601, 'PUYO'),
+(160152, 1601, 'CANELOS'),
+(160154, 1601, 'DIEZ DE AGOSTO'),
+(160155, 1601, 'FATIMA'),
+(160156, 1601, 'MONTALVO (ANDOAS)'),
+(160157, 1601, 'POMONA'),
+(160158, 1601, 'RIO CORRIENTES'),
+(160159, 1601, 'RIO TIGRE'),
+(160161, 1601, 'SARAYACU'),
+(160162, 1601, 'SIMON BOLIVAR'),
+(160163, 1601, 'TARQUI'),
+(160164, 1601, 'TENIENTE HUGO ORTIZ'),
+(160165, 1601, 'VERACRUZ (INDILLAMA)'),
+(160166, 1601, 'EL TRIUNFO'),
+(160250, 1602, 'MERA'),
+(160251, 1602, 'MADRE TIERRA'),
+(160252, 1602, 'SHELL'),
+(160350, 1603, 'SANTA CLARA'),
+(160351, 1603, 'SAN JOSE'),
+(160450, 1604, 'ARAJUNO'),
+(160451, 1604, 'CURARAY'),
+(170101, 1701, 'ALFARO (CHIMBACALLE)'),
+(170102, 1701, 'BENALCAZAR'),
+(170103, 1701, 'COTOCOLLAO'),
+(170104, 1701, 'CHAUPICRUZ (LA CONCEPCION)'),
+(170105, 1701, 'CHILLOGALLO'),
+(170106, 1701, 'EL SALVADOR'),
+(170107, 1701, 'GONZALEZ SUAREZ'),
+(170108, 1701, 'GUAPULO'),
+(170109, 1701, 'LA FLORESTA'),
+(170110, 1701, 'LA LIBERTAD'),
+(170111, 1701, 'LA MAGDALENA'),
+(170112, 1701, 'LA VICENTINA'),
+(170113, 1701, 'SAN BLAS'),
+(170114, 1701, 'SAN MARCOS'),
+(170115, 1701, 'SAN ROQUE'),
+(170116, 1701, 'SAN SEBASTIAN'),
+(170117, 1701, 'SANTA BARBARA'),
+(170118, 1701, 'SANTA PRISCA'),
+(170119, 1701, 'VILLA FLORA'),
+(170120, 1701, 'CARCELEN'),
+(170121, 1701, 'CHIMBACALLE'),
+(170122, 1701, 'EL BATAN'),
+(170123, 1701, 'EL BEATERIO'),
+(170124, 1701, 'EL INCA'),
+(170125, 1701, 'ELOY ALFARO'),
+(170126, 1701, 'GUAMANI'),
+(170127, 1701, 'LA CONCEPCION'),
+(170128, 1701, 'LAS CUADRAS'),
+(170135, 1701, 'ATAHUALPA (HABASPAMBA)'),
+(170150, 1701, 'QUITO'),
+(170151, 1701, 'ALANGASI'),
+(170152, 1701, 'AMAGUAÃƒÆ’Ã¢â‚¬ËœA'),
+(170154, 1701, 'CALACALI'),
+(170155, 1701, 'CALDERON (CARAPUNGO)'),
+(170156, 1701, 'CONOCOTO'),
+(170157, 1701, 'CUMBAYA'),
+(170158, 1701, 'CHAVEZPAMBA'),
+(170159, 1701, 'CHECA (CHILPA)'),
+(170160, 1701, 'EL QUINCHE'),
+(170161, 1701, 'GUALEA'),
+(170162, 1701, 'GUANGOPOLO'),
+(170163, 1701, 'GUAYLLABAMBA'),
+(170164, 1701, 'LA MERCED'),
+(170165, 1701, 'LLANO CHICO'),
+(170166, 1701, 'LLOA'),
+(170168, 1701, 'NANEGAL'),
+(170169, 1701, 'NANEGALITO'),
+(170170, 1701, 'NAYON'),
+(170171, 1701, 'NONO'),
+(170172, 1701, 'PACTO'),
+(170174, 1701, 'PERUCHO'),
+(170175, 1701, 'PIFO'),
+(170176, 1701, 'PINTAG'),
+(170177, 1701, 'POMASQUI'),
+(170178, 1701, 'PUELLARO'),
+(170179, 1701, 'PUEMBO'),
+(170180, 1701, 'SAN ANTONIO'),
+(170181, 1701, 'SAN JOSE DE MINAS'),
+(170183, 1701, 'TABABELA'),
+(170184, 1701, 'TUMBACO'),
+(170185, 1701, 'YARUQUI'),
+(170186, 1701, 'ZAMBIZA'),
+(170201, 1702, 'AYORA'),
+(170202, 1702, 'CAYAMBE'),
+(170203, 1702, 'JUAN MONTALVO'),
+(170250, 1702, 'CAYAMBE'),
+(170251, 1702, 'ASCAZUBI'),
+(170252, 1702, 'CANGAHUA'),
+(170253, 1702, 'OLMEDO (PESILLO)'),
+(170254, 1702, 'OTON'),
+(170255, 1702, 'SANTA ROSA DE CUZUBAMBA'),
+(170350, 1703, 'MACHACHI'),
+(170351, 1703, 'ALOAG'),
+(170352, 1703, 'ALOASI'),
+(170353, 1703, 'CUTUGLAHUA'),
+(170354, 1703, 'EL CHAUPI'),
+(170355, 1703, 'MANUEL CORNEJO ASTORGA (TANDAPI)'),
+(170356, 1703, 'TAMBILLO'),
+(170357, 1703, 'UYUMBICHO'),
+(170450, 1704, 'TABACUNDO'),
+(170451, 1704, 'LA ESPERANZA'),
+(170452, 1704, 'MALCHINGUI'),
+(170453, 1704, 'TOCACHI'),
+(170454, 1704, 'TUPIGACHI'),
+(170501, 1705, 'SANGOLQUI'),
+(170502, 1705, 'SAN PEDRO DE TABOADA'),
+(170503, 1705, 'SAN RAFAEL'),
+(170550, 1705, 'SANGOLQUI'),
+(170551, 1705, 'COTOGCHOA'),
+(170552, 1705, 'RUMIPAMBA'),
+(170750, 1707, 'SAN MIGUEL DE LOS BANCOS'),
+(170751, 1707, 'MINDO'),
+(170850, 1708, 'PEDRO VICENTE MALDONADO'),
+(170950, 1709, 'PUERTO QUITO'),
+(180101, 1801, 'ATOCHA - FICOA'),
+(180102, 1801, 'CELIANO MONGE'),
+(180103, 1801, 'HUACHI CHICO'),
+(180104, 1801, 'HUACHI LORETO'),
+(180105, 1801, 'LA MERCED'),
+(180106, 1801, 'LA PENINSULA'),
+(180107, 1801, 'LA MATRIZ'),
+(180108, 1801, 'PISHILATA'),
+(180109, 1801, 'SAN FRANCISCO'),
+(180150, 1801, 'AMBATO'),
+(180151, 1801, 'AMBATILLO'),
+(180152, 1801, 'ATAHUALPA (CHISALATA)'),
+(180153, 1801, 'AUGUSTO N. MARTINEZ (MUNDUGLEO)'),
+(180154, 1801, 'CONSTANTINO FERNANDEZ'),
+(180155, 1801, 'HUACHI GRANDE'),
+(180156, 1801, 'IZAMBA'),
+(180157, 1801, 'JUAN BENIGNO VELA'),
+(180158, 1801, 'MONTALVO'),
+(180159, 1801, 'PASA'),
+(180160, 1801, 'PICAIGUA'),
+(180161, 1801, 'PILAGUIN (PILAHUIN)'),
+(180162, 1801, 'QUISAPINCHA (QUIZAPINCHA)'),
+(180163, 1801, 'SAN BARTOLOME DE PINLLOG'),
+(180164, 1801, 'SAN FERNANDO (PASA SAN FERNANDO)'),
+(180165, 1801, 'SANTA ROSA'),
+(180166, 1801, 'TOTORAS'),
+(180167, 1801, 'CUNCHIBAMBA'),
+(180168, 1801, 'UNAMUNCHO'),
+(180250, 1802, 'BAÃƒÆ’Ã¢â‚¬ËœOS DE AGUA SANTA'),
+(180251, 1802, 'LLIGUA'),
+(180252, 1802, 'RIO NEGRO'),
+(180253, 1802, 'RIO VERDE'),
+(180254, 1802, 'ULBA'),
+(180350, 1803, 'CEVALLOS'),
+(180450, 1804, 'MOCHA'),
+(180451, 1804, 'PINGUILI'),
+(180550, 1805, 'PATATE'),
+(180551, 1805, 'EL TRIUNFO'),
+(180552, 1805, 'LOS ANDES'),
+(180553, 1805, 'SUCRE'),
+(180650, 1806, 'QUERO'),
+(180651, 1806, 'RUMIPAMBA'),
+(180652, 1806, 'YANAYACU - MOCHAPATA'),
+(180701, 1807, 'PELILEO'),
+(180702, 1807, 'PELILEO GRANDE'),
+(180750, 1807, 'PELILEO'),
+(180751, 1807, 'BENITEZ (PACHANLICA)'),
+(180752, 1807, 'BOLIVAR'),
+(180753, 1807, 'COTALO'),
+(180754, 1807, 'CHIQUICHA'),
+(180755, 1807, 'EL ROSARIO (RUMICHACA)'),
+(180756, 1807, 'GARCIA MORENO (CHUMAQUI)'),
+(180757, 1807, 'GUAMBALO (HUAMBALO)'),
+(180758, 1807, 'SALASACA'),
+(180801, 1808, 'CIUDAD NUEVA'),
+(180802, 1808, 'PILLARO'),
+(180850, 1808, 'PILLARO'),
+(180851, 1808, 'BAQUERIZO MORENO'),
+(180852, 1808, 'EMILIO MARIA TERAN (RUMIPAMBA)'),
+(180853, 1808, 'MARCOS ESPINEL (CHACATA)'),
+(180854, 1808, 'PRESIDENTE URBINA (CHAGRAPAMBA-PATZUCUL)'),
+(180855, 1808, 'SAN ANDRES'),
+(180856, 1808, 'SAN JOSE DE POALO'),
+(180857, 1808, 'SAN MIGUELITO'),
+(180950, 1809, 'TISALEO'),
+(180951, 1809, 'QUINCHICOTO'),
+(190101, 1901, 'LIMON'),
+(190102, 1901, 'ZAMORA'),
+(190150, 1901, 'ZAMORA'),
+(190151, 1901, 'CUMBARATZA'),
+(190152, 1901, 'GUADALUPE'),
+(190153, 1901, 'IMBANA (LA VICTORIA DE IMBANA)'),
+(190155, 1901, 'SABANILLA'),
+(190156, 1901, 'TIMBARA'),
+(190158, 1901, 'SAN CARLOS DE LAS MINAS'),
+(190250, 1902, 'ZUMBA'),
+(190251, 1902, 'CHITO'),
+(190252, 1902, 'EL CHORRO'),
+(190254, 1902, 'LA CHONTA'),
+(190256, 1902, 'PUCAPAMBA'),
+(190259, 1902, 'SAN ANDRÃƒÆ’Ã¢â‚¬Â°S'),
+(190350, 1903, 'GUAYZIMI'),
+(190351, 1903, 'ZURMI'),
+(190450, 1904, '28 DE MAYO (SAN JOSE DE YACUAMBI)'),
+(190451, 1904, 'LA PAZ'),
+(190452, 1904, 'TUTUPALI'),
+(190550, 1905, 'YANZATZA'),
+(190551, 1905, 'CHICAÃƒÆ’Ã¢â‚¬ËœA'),
+(190553, 1905, 'LOS ENCUENTROS'),
+(190650, 1906, 'EL PANGUI'),
+(190651, 1906, 'EL GUISMI'),
+(190652, 1906, 'PACHICUTZA'),
+(190653, 1906, 'TUNDAYME'),
+(190750, 1907, 'ZUMBI'),
+(190850, 1908, 'PALANDA'),
+(190851, 1908, 'EL PORVENIR DEL CARMEN'),
+(190852, 1908, 'SAN FRANCISCO DE VERGEL'),
+(190853, 1908, 'VALLADOLID'),
+(190950, 1909, 'PAQUISHA'),
+(190951, 1909, 'BELLAVISTA'),
+(190952, 1909, 'NUEVO QUITO'),
+(200150, 2001, 'PUERTO BAQUERIZO MORENO'),
+(200151, 2001, 'EL PROGRESO'),
+(200152, 2001, 'ISLA SANTA MARIA (FLOREANA)'),
+(200250, 2002, 'PUERTO VILLAMIL'),
+(200251, 2002, 'TOMAS DE BERLANGA (SANTO TOMAS)'),
+(200350, 2003, 'PUERTO AYORA'),
+(200351, 2003, 'BELLAVISTA'),
+(200352, 2003, 'SANTA ROSA'),
+(210150, 2101, 'NUEVA LOJA'),
+(210152, 2101, 'DURENO'),
+(210153, 2101, 'GENERAL FARFAN'),
+(210155, 2101, 'EL ENO'),
+(210156, 2101, 'PACAYACU'),
+(210157, 2101, 'JAMBELI'),
+(210158, 2101, 'SANTA CECILIA'),
+(210250, 2102, 'EL DORADO DE CASCALES (LUMBAQUI)'),
+(210251, 2102, 'EL REVENTADOR'),
+(210252, 2102, 'GONZALO PIZARRO'),
+(210254, 2102, 'PUERTO LIBRE'),
+(210350, 2103, 'PUERTO EL CARMEN DEL PUTUMAYO'),
+(210351, 2103, 'PALMA ROJA'),
+(210352, 2103, 'PUERTO BOLIVAR (PUERTO MONTUFAR)'),
+(210353, 2103, 'PUERTO RODRIGUEZ'),
+(210354, 2103, 'SANTA ELENA'),
+(210450, 2104, 'SHUSHUFINDI'),
+(210451, 2104, 'LIMONCOCHA'),
+(210452, 2104, 'PAÃƒÆ’Ã¢â‚¬ËœACOCHA'),
+(210453, 2104, 'SAN ROQUE'),
+(210454, 2104, 'SAN PEDRO DE LOS COFANES'),
+(210455, 2104, 'SIETE DE JULIO'),
+(210550, 2105, 'LA BONITA'),
+(210551, 2105, 'EL PLAYON DE SAN FRANCISCO'),
+(210552, 2105, 'LA SOFIA'),
+(210553, 2105, 'ROSA FLORIDA'),
+(210554, 2105, 'SANTA BARBARA'),
+(210650, 2106, 'EL DORADO DE CASCALES'),
+(210651, 2106, 'SANTA ROSA DE SUCUMBIOS'),
+(210652, 2106, 'SEVILLA'),
+(210750, 2107, 'TARAPOA'),
+(210751, 2107, 'CUYABENO'),
+(210752, 2107, 'AGUAS NEGRAS'),
+(220150, 2201, 'PUERTO FRANCISCO DE ORELLANA (COCA)'),
+(220151, 2201, 'ALEJANDRO LABACA'),
+(220152, 2201, 'DAYUMA'),
+(220153, 2201, 'EL DORADO'),
+(220154, 2201, 'EL EDEN'),
+(220155, 2201, 'GARCIA MORENO'),
+(220156, 2201, 'INES ARANGO'),
+(220157, 2201, 'LA BELLEZA'),
+(220158, 2201, 'NUEVO PARAISO'),
+(220159, 2201, 'SAN JOSE DE GUAYUSA'),
+(220160, 2201, 'SAN LUIS DE ARMENIA'),
+(220161, 2201, 'TARACOA'),
+(220250, 2202, 'NUEVO ROCAFUERTE'),
+(220251, 2202, 'CAPITAN AUGUSTO RIVADENEIRA'),
+(220252, 2202, 'CONONACO'),
+(220253, 2202, 'SANTA MARIA DE HUIRIRIMA'),
+(220254, 2202, 'TIPUTINI'),
+(220255, 2202, 'YASUNI'),
+(220350, 2203, 'LA JOYA DE LOS SACHAS'),
+(220351, 2203, 'ENOKANQUI'),
+(220352, 2203, 'LAGO SAN PEDRO'),
+(220353, 2203, 'POMPEYA'),
+(220354, 2203, 'RUMIPAMBA'),
+(220355, 2203, 'SAN CARLOS'),
+(220356, 2203, 'SAN SEBASTIAN DEL COCA'),
+(220357, 2203, 'TRES DE NOVIEMBRE'),
+(220358, 2203, 'UNION MILAGREÃƒÆ’Ã¢â‚¬ËœA'),
+(220450, 2204, 'LORETO'),
+(220451, 2204, 'AVILA'),
+(220452, 2204, 'PUERTO MURIALDO'),
+(220453, 2204, 'SAN JOSE DEL PAYAMINO'),
+(220454, 2204, 'SAN JOSE DE DAHUANO'),
+(220455, 2204, 'SAN VICENTE DE HUATICOCHA'),
+(230101, 2301, 'ABRAHAM CALAZACÃƒÆ’Ã¢â‚¬Å“N'),
+(230102, 2301, 'BOMBOLI'),
+(230103, 2301, 'CHIGUILPE'),
+(230104, 2301, 'RÃƒÆ’Ã‚ÂO TOACHI'),
+(230105, 2301, 'RÃƒÆ’Ã‚ÂO VERDE'),
+(230106, 2301, 'SANTO DOMINGO DE LOS COLORADOS'),
+(230107, 2301, 'ZARACAY'),
+(230150, 2301, 'SANTO DOMINGO'),
+(230151, 2301, 'ALLURIQUÃƒÆ’Ã‚ÂN'),
+(230152, 2301, 'PUERTO LIMÃƒÆ’Ã¢â‚¬Å“N'),
+(230153, 2301, 'LUZ DE AMÃƒÆ’Ã¢â‚¬Â°RICA'),
+(230154, 2301, 'SAN JACINTO DEL BUA'),
+(230155, 2301, 'VALLE HERMOSO'),
+(230156, 2301, 'EL ESFUERZO'),
+(230157, 2301, 'SANTA MARÃƒÆ’Ã‚ÂA DEL TOACHI'),
+(230250, 2302, 'LA CONCORDIA'),
+(230251, 2302, 'MONTERREY'),
+(230252, 2302, 'LAS VILLEGAS'),
+(230253, 2302, 'PLAN PILOTO'),
+(240101, 2401, 'BALLENITA'),
+(240102, 2401, 'SANTA ELENA'),
+(240150, 2401, 'SANTA ELENA'),
+(240151, 2401, 'ATAHUALPA'),
+(240152, 2401, 'COLONCHE'),
+(240153, 2401, 'CHANDUY'),
+(240154, 2401, 'MANGLARALTO'),
+(240155, 2401, 'SIMÃƒÆ’Ã¢â‚¬Å“N BOLÃƒÆ’Ã‚ÂVAR (JULIO MORENO)'),
+(240156, 2401, 'SAN JOSÃƒÆ’Ã¢â‚¬Â° DE ANCÃƒÆ’Ã¢â‚¬Å“N'),
+(240250, 2402, 'LA LIBERTAD'),
+(240301, 2403, 'CARLOS ESPINOZA LARREA'),
+(240302, 2403, 'GRAL ALBERTO ENRIQUEZ GALLO'),
+(240303, 2403, 'VICENTE ROCAFUERTE'),
+(240304, 2403, 'SANTA ROSA'),
+(240350, 2403, 'SALINAS'),
+(240351, 2403, 'ANCONCITO'),
+(240352, 2403, 'JOSÃƒÆ’Ã¢â‚¬Â° LUIS TAMAYO');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `ct_provincia`
+--
+
+CREATE TABLE `ct_provincia` (
+  `pro_id` int(10) UNSIGNED NOT NULL,
+  `reg_id` int(2) UNSIGNED NOT NULL,
+  `pro_nombre` varchar(80) COLLATE utf8_bin DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+--
+-- Volcado de datos para la tabla `ct_provincia`
+--
+
+INSERT INTO `ct_provincia` (`pro_id`, `reg_id`, `pro_nombre`) VALUES
+(1, 6, 'AZUAY'),
+(2, 5, 'BOLIVAR'),
+(3, 6, 'CAÃƒâ€˜AR'),
+(4, 1, 'CARCHI'),
+(5, 3, 'COTOPAXI'),
+(6, 3, 'CHIMBORAZO'),
+(7, 7, 'EL ORO'),
+(8, 1, 'ESMERALDAS'),
+(9, 5, 'GUAYAS'),
+(10, 1, 'IMBABURA'),
+(11, 7, 'LOJA'),
+(12, 5, 'LOS RIOS'),
+(13, 4, 'MANABI'),
+(14, 6, 'MORONA SANTIAGO'),
+(15, 2, 'NAPO'),
+(16, 3, 'PASTAZA'),
+(17, 2, 'PICHINCHA'),
+(18, 3, 'TUNGURAHUA'),
+(19, 7, 'ZAMORA CHINCHIPE'),
+(20, 5, 'GALAPAGOS'),
+(21, 1, 'SUCUMBIOS'),
+(22, 2, 'ORELLANA'),
+(23, 4, 'SANTO DOMINGO DE LOS TSÃƒÆ’Ã‚ÂCHILAS'),
+(24, 5, 'SANTA ELENA');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `ct_regional`
+--
+
+CREATE TABLE `ct_regional` (
+  `reg_id` int(2) UNSIGNED NOT NULL,
+  `reg_nombre` varchar(20) COLLATE utf8_bin DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+--
+-- Volcado de datos para la tabla `ct_regional`
+--
+
+INSERT INTO `ct_regional` (`reg_id`, `reg_nombre`) VALUES
+(1, 'Zonal uono'),
+(2, 'Zonal 2'),
+(3, 'Zonal 3'),
+(4, 'Zonal 4'),
+(5, 'Zonal 5'),
+(6, 'Zonal 6'),
+(7, 'Zonal 7'),
+(8, 'Matriz');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `ct_roles`
+--
+
+CREATE TABLE `ct_roles` (
+  `rol_id` int(11) NOT NULL,
+  `rol_nombre` varchar(30) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `ct_roles`
+--
+
+INSERT INTO `ct_roles` (`rol_id`, `rol_nombre`) VALUES
+(1, 'SUPERADMIN'),
+(2, 'APROBADOR'),
+(3, 'ASIGNADOR'),
+(4, 'CIUDADANO'),
+(5, 'EJECUTOR'),
+(8, 'SECRETARIA');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `ct_tpoevento`
+--
+
+CREATE TABLE `ct_tpoevento` (
+  `tev_codigo` int(5) UNSIGNED NOT NULL,
+  `tev_nombre` varchar(50) COLLATE utf8_bin DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+--
+-- Volcado de datos para la tabla `ct_tpoevento`
+--
+
+INSERT INTO `ct_tpoevento` (`tev_codigo`, `tev_nombre`) VALUES
+(1, 'Visita'),
+(2, 'Conferencia'),
+(3, 'Charla'),
+(4, 'Exposiciòn'),
+(5, 'Otros');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `ct_tramiteanexos`
+--
+
+CREATE TABLE `ct_tramiteanexos` (
+  `anx_id` bigint(11) NOT NULL,
+  `anx_nombre` varchar(100) DEFAULT NULL,
+  `anx_felectronica` varchar(2) DEFAULT 'SI',
+  `anx_QR` varchar(2) NOT NULL DEFAULT 'SI',
+  `anx_requerido` varchar(2) NOT NULL DEFAULT 'SI',
+  `anx_rutaformato` varchar(250) NOT NULL,
+  `anx_estado` varchar(8) NOT NULL DEFAULT 'ACTIVO',
+  `tra_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `ct_tramiteanexos`
+--
+
+INSERT INTO `ct_tramiteanexos` (`anx_id`, `anx_nombre`, `anx_felectronica`, `anx_QR`, `anx_requerido`, `anx_rutaformato`, `anx_estado`, `tra_id`) VALUES
+(58, 'Informe Técnico', 'SI', 'SI', 'SI', '/formatos/respuestas/tra17_certificacion.docx', 'ACTIVO', 5),
+(59, 'Certificación', 'SI', 'SI', 'NO', '/formatos/respuestas/tra17_certificacion.docx', 'ACTIVO', 17),
+(60, 'Provisión de espacios para usos culturales y académicos', 'SI', 'NO', 'SI', '/formatos/respuestas/tra18_provision.docx', 'ACTIVO', 18),
+(61, 'Informe Técnico', 'SI', 'NO', 'NO', '/formatos/respuestas/tra16_asesoramiento2.docx', 'ACTIVO', 16),
+(62, 'Informe Técnico', 'SI', 'NO', 'SI', '/formatos/respuestas/tra17_certificacion.docx', 'ACTIVO', 8),
+(63, 'Informe Técnico', 'SI', 'NO', 'SI', '/formatos/respuestas/tra17_certificacion.docx', 'ACTIVO', 12),
+(64, 'Informe Tecnico', 'SI', 'SI', 'SI', 'N/A', 'ACTIVO', 13);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `ct_tramiterequisitos`
+--
+
+CREATE TABLE `ct_tramiterequisitos` (
+  `req_id` int(11) NOT NULL,
+  `req_nombre` varchar(250) COLLATE utf8_spanish_ci NOT NULL,
+  `req_slug` varchar(20) COLLATE utf8_spanish_ci NOT NULL,
+  `req_rutaformato` varchar(250) COLLATE utf8_spanish_ci DEFAULT NULL,
+  `req_estado` varchar(8) COLLATE utf8_spanish_ci NOT NULL,
+  `tra_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `ct_tramiterequisitos`
+--
+
+INSERT INTO `ct_tramiterequisitos` (`req_id`, `req_nombre`, `req_slug`, `req_rutaformato`, `req_estado`, `tra_id`) VALUES
+(1, 'Croquis de ubicación', 'rcroquis', '/formatos/respuestas/tra17_certificacion.docx', 'ACTIVO', 8),
+(2, 'Fotos del Bien Mueble y/o documental', 'rfotos', '/formatos/respuestas/tra17_certificacion.docx', 'ACTIVO', 8),
+(3, 'Minuta de compra Venta', 'rminuta', 'N/A', 'ACTIVO', 13),
+(5, 'Proyecto de investigación arqueológica y/o paleontológica', 'rproyecto', 'N/A', 'ACTIVO', 5),
+(6, 'Carta de auspicio al arqueólogo registrado', 'rcarta', 'N/A', 'ACTIVO', 5),
+(7, 'Fichas de inventario', 'rfichas', 'N/A', 'ACTIVO', 12);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `ct_tramites`
+--
+
+CREATE TABLE `ct_tramites` (
+  `tra_id` int(11) UNSIGNED NOT NULL,
+  `tra_codigo` varchar(14) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
+  `tra_nombre` varchar(200) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
+  `tra_descripcion` text CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
+  `tra_tiempo` int(11) NOT NULL,
+  `tra_resultado` varchar(200) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
+  `tra_reqform` varchar(50) CHARACTER SET utf8 COLLATE utf8_spanish_ci NOT NULL,
+  `tra_orden` int(11) NOT NULL,
+  `tra_ingreso` varchar(6) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `tra_respuesta` varchar(6) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL,
+  `tra_estado` varchar(8) CHARACTER SET utf8 COLLATE utf8_unicode_ci NOT NULL DEFAULT 'ACTIVO',
+  `tra_edirnac` varchar(100) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Volcado de datos para la tabla `ct_tramites`
+--
+
+INSERT INTO `ct_tramites` (`tra_id`, `tra_codigo`, `tra_nombre`, `tra_descripcion`, `tra_tiempo`, `tra_resultado`, `tra_reqform`, `tra_orden`, `tra_ingreso`, `tra_respuesta`, `tra_estado`, `tra_edirnac`) VALUES
+(1, 'INPC-004-02-01', 'Registro de Profesionales en el ámbito del Patrimonio Cultural', 'Trámite orientado a registrar profesionales en el ámbito del patrimonio cultural especializados en: Paleontología, Arqueología y profesionales afines (Antropología, Etnología Prehispánica, Arquitectura Prehispánica, Arquitectura Histórica, Geografía o Historia), y de profesionales restauradores de bienes culturales patrimoniales y de museos, que van a trabajar en territorio ecuatoriano, para regular su ejercicio profesional, con el fin de salvaguardar el Patrimonio Cultural.', 10000, 'Certificado de Registro Profesional en el Ámbito del Patrimonio Cultural', 'GFDHGFHGFHGFHG.PHP', 1, 'Zonal', 'Matriz', 'INACTIVO', NULL),
+(2, 'INPC-006-01-03', 'Autorización de salida de fragmentos o pequeñas muestras arqueológicas o paleontológicas del Patrimonio Cultural', 'Trámite orientado para emitir autorizaciones previo a la salida al exterior de fragmentos o pequeñas muestras arqueológicas o paleontológicas del patrimonio cultural con el fin de realizar análisis y estudios científicos.', 2, 'Autorización de salida de fragmentos o pequeñas muestras arqueológicas o paleontológicas del patrimonio cultural', 'autorizacion_salida_fragmentos.php', 2, 'Zonal', 'Zonal', 'INACTIVO', NULL),
+(3, 'INPC-006-03-02', 'Autorización de movimiento o cambio de ubicación temporal o definitiva de bienes culturales patrimoniales dentro del Ecuador. ', 'Trámite orientado a emitir autorizaciones de movimiento o cambio de ubicación temporal o definitiva de bienes culturales patrimoniales dentro del territorio ecuatoriano para su respectivo conocimiento y ubicación.', 3, 'Autorización de movimiento o cambio de ubicación temporal o definitiva de bienes culturales patrimoniales dentro del Ecuador', '', 3, 'Zonal', 'Zonal', 'INACTIVO', NULL),
+(4, 'INPC-006-04-01', 'Certificación de bienes culturales NO patrimoniales para salida al Exterior', 'Trámite orientado para emitir el certificado que descarte su condición de bien perteneciente al patrimonio cultural del Ecuador y pueda salir fuera del territorio nacional.', 1, 'Certificación de bienes culturales No patrimoniales para salida al exterior', '', 4, 'Zonal', 'Zonal', 'INACTIVO', NULL),
+(5, 'INPC-006-05-01', 'Autorización para investigaciones arqueológicas o paleontológicas del Patrimonio Cultural', 'Trámite orientado a la emisión de autorizaciones a las o los investigadores sean estos personas naturales nacionales o extranjeros, para la realización y ejecución de investigaciones arqueológicas y/o paleontológicas dentro del territorio ecuatoriano. ', 4, 'Autorización para Investigaciones Arqueológicas y Paleontológicas<br/>', 'autorizacion_investigacion_arqueologica.php', 5, 'Zonal', 'Zonal', 'ACTIVO', NULL),
+(6, 'INPC-006-06-01', 'Validación de propuestas técnicas para intervenciones de bienes muebles del Patrimonio Cultural', 'Trámite orientado a la emisión de una validación a la propuesta de intervención por parte del Instituto Nacional de Patrimonio Cultural, para que se puedan realizar obras de conservación, reparación, restauración de Bienes Muebles pertenecientes al Patrimonio Cultural de la Nación.', 15, 'Emisión de Validación del Proyecto', '', 6, 'Zonal', 'Zonal', 'INACTIVO', NULL),
+(7, 'INPC-006-07-01', 'Certificación de No Afectación Patrimonial a Sitios Arqueológicos o Paleontológicos', 'Trámite orientado a la emisión de un certificado de no afectación al patrimonio cultural de sitios con yacimientos arqueológicos y/o paleontológicos, con el fin de evitar potenciales daños o destrucción de los mismos y la posterior afectación al patrimonio cultural, y para garantizar un mejor control técnico de bienes culturales por parte del Instituto Nacional de Patrimonio Cultural – INPC. ', 20, 'Certificación de No Afectación Patrimonial', 'certificacion_no_afectacion_sitios_ap.php', 7, 'Zonal', 'Zonal', 'INACTIVO', NULL),
+(8, 'INPC-006-08-01', 'Certificación de bienes muebles y documentales como Patrimonio Cultural', 'Trámite orientado a emitir una certificación a los bienes y/o documentos como patrimonio cultural, previa realización de un control técnico por parte del Instituto Nacional de Patrimonio Cultural - INPC, de esa manera el usuario podrá conocer si su bien y/o documentos pertenecen o no al patrimonio cultural nacional.  ', 5, 'Certificación del bien que pertenece o no al patrimonio cultural nacional', 'certificacion_bm_doc_pc.php', 8, 'Zonal', 'Zonal', 'ACTIVO', 'johanna.ortega@patrimoniocultural.gob.ec'),
+(9, 'INPC-006-10-01', 'Certificación de bienes inmuebles como Patrimonio Cultural', 'Trámite orientado a emitir una certificación a los bienes inmuebles como patrimonio cultural previo control técnico por parte de Instituto Nacional de Patrimonio Cultural – INPC, de esa manera el usuario podrá conocer si su inmueble pertenece o no al patrimonio cultural nacional.', 1, 'Certificado de bienes inmuebles como patrimonio cultural', '', 9, 'Zonal', 'Zonal', 'INACTIVO', NULL),
+(10, 'INPC-006-11-01', 'Certificación de manifestaciones como Patrimonio Cultural', 'Trámite orientado a emitir una certificación de una manifestación como patrimonio cultural del Ecuador, de esa manera se certifica que pertenece al patrimonio cultural nacional para su protección y salvaguarda para el conocimiento de las futuras generaciones.', 1, 'Certificación de manifestación como patrimonio cultural', '', 10, 'Zonal', 'Matriz', 'INACTIVO', NULL),
+(11, 'INPC-014-04-01', 'Acceso al sistema de información técnica sobre Patrimonio Cultural', 'Trámite orientado para dar acceso al SIPCE a los Gobiernos Autónomos Descentralizados y de Régimen Especial.', 1, 'Usuario y clave de acceso al Sistema de Información del Patrimonio Cultural Ecuatoriano SIPCE', '', 11, 'Zonal', 'Zonal', 'INACTIVO', NULL),
+(12, 'INPC-017-02-01', 'Validación del inventario del Patrimonio Cultural en los diferentes ámbitos', 'Trámite orientado a la validación del inventario del patrimonio cultural nacional en sus diferentes ámbitos, que se encuentra registrado en el sistema SIPCE, realizado por los GAD o técnicos calificados en el levantamiento de inventarios patrimoniales.', 5, 'Fichas validadas de inventario del patrimonio cultural nacional en sus diferentes ámbitos', 'validacion_inv_pc_ambitos.php', 12, 'Zonal', 'Zonal', 'ACTIVO', 'johanna.ortega@patrimoniocultural.gob.ec'),
+(13, 'INPC-017-03-01', 'Registro de transferencia de dominio de bienes inmuebles', 'Trámite orientado a la emisión de una certificación de registro de transferencia de dominio y actualización de la ficha de inventario de los bienes inmuebles culturales patrimoniales, para un efectivo control técnico por parte de Instituto Nacional de Patrimonio Cultural – INPC a nivel nacional.', 5, 'Registro de transferencia de dominio y actualización de la ficha de inventario de los bienes inmuebles culturales patrimoniales', 'transferencia_dominio_bi.php', 13, 'Zonal', 'Zonal', 'ACTIVO', NULL),
+(14, 'INPC-017-04-01', 'Registro de transferencia de dominio de bienes muebles y documentales patrimoniales', 'Trámite orientado a la emisión de una certificación de registro de transferencia de dominio y actualización de la ficha de inventario de los bienes muebles y documentales culturales patrimoniales, para un efectivo control técnico por parte de Instituto Nacional de Patrimonio Cultural – INPC a nivel nacional.', 1, 'Certificado de registro de transferencia de dominio de bienes muebles y documentales patrimoniales', '', 14, 'Zonal', 'Zonal', 'INACTIVO', NULL),
+(15, 'INPC-017-05-01', 'Registro de transferencia de dominio de terrenos de propiedad privada en los que se encuentran sitios o áreas arqueológicos y paleontológicos delimitadas', 'Trámite orientado a la emisión de una certificación de registro de transferencia de dominio de terrenos de propiedad privada en los que se encuentren sitios o áreas  arqueológicas o paleontológicas delimitadas, con la finalidad de realizar un mejor control técnico por parte de Instituto Nacional de Patrimonio Cultural – INPC.', 1, 'Registro de transferencia de dominio', 'registro_transferencia_domino_arq.php', 15, 'Zonal', 'Zonal', 'ACTIVO', NULL),
+(16, 'INPC-022-01-01', 'Asesoramiento técnico para la gestión de Patrimonio Cultural', 'Trámite orientado a brindar servicio de asesoramiento técnico especializado en los ámbitos que forman el patrimonio cultural: mueble, inmueble, documental, arqueológico e inmaterial, para su correcta gestión y manejo por parte de organismos del Estado y para otras administraciones públicas, principalmente los Gobiernos Autónomos Descentralizados – GAD.', 5, 'Asesoría Técnica Especializada en cualquiera de los ámbitos del patrimonio cultural', 'asesoria_tecnica.php', 16, 'Zonal', 'Zonal', 'ACTIVO', NULL),
+(17, 'INPC-025-01-01', 'Análisis físico-químico y microbiológico de bienes culturales y materiales asociados', 'Trámite orientado a la realización de análisis químicos del laboratorio especializados para investigación, conservación, restauración, recuperación, acrecentamiento, exhibición, inventario, revalorización y salvaguarda de bienes pertenecientes al patrimonio del Estado Ecuatoriano.', 5, 'Informe Técnico de Resultados', 'analisis_fisicoquimico_microbiologico.php', 17, 'Zonal', 'Matriz', 'INACTIVO', NULL),
+(18, 'INPC-029-01-01', 'Provisión de espacios para usos culturales y académicos', 'Servicio orientado a la provisión de espacios físicos en las diferentes instalaciones pertenecientes al Instituto Nacional de Patrimonio Cultural para uso en actividades culturales y académicas para la transferencia de conocimientos culturales y patrimoniales hacia la ciudadanía en general.', 3, 'Provisión de espacios para usos culturales y académicos', 'provision_espacios_publicos.php', 18, 'Zonal', 'Zonal', 'ACTIVO', NULL),
+(19, '123', 'TRAMITE 19', 'TRAMITE 19', 1, 'ERER', 'SDD', 0, 'FGFGFD', '', 'ACTIVO', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `ct_tramite_usuario`
+--
+
+CREATE TABLE `ct_tramite_usuario` (
+  `tu_id` bigint(11) NOT NULL,
+  `tu_codigo` varchar(30) COLLATE utf8_spanish_ci NOT NULL,
+  `usu_extid` int(11) NOT NULL,
+  `usu_intid` int(11) NOT NULL,
+  `tra_id` int(11) NOT NULL,
+  `tu_fecha_ingreso` datetime NOT NULL,
+  `tu_fecha_contcont` date NOT NULL,
+  `tu_fecha_aprocont` date NOT NULL,
+  `tu_fecha_contestacion` datetime DEFAULT NULL,
+  `tu_band_convalidar` tinyint(4) NOT NULL DEFAULT '-1',
+  `tu_band_respuesta` tinyint(4) NOT NULL DEFAULT '0',
+  `tu_band_convanxres` tinyint(4) NOT NULL DEFAULT '-1',
+  `reg_id` int(11) NOT NULL,
+  `et_id` int(11) NOT NULL,
+  `tu_estado` varchar(8) COLLATE utf8_spanish_ci NOT NULL DEFAULT 'ACTIVO',
+  `tu_fecha_iniciocoa` date DEFAULT NULL,
+  `tu_fecha_convalidacion` date DEFAULT NULL,
+  `tu_fecha_concon` date DEFAULT NULL,
+  `tu_fecha_concoa` date DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `ct_tramite_usuario`
+--
+
+INSERT INTO `ct_tramite_usuario` (`tu_id`, `tu_codigo`, `usu_extid`, `usu_intid`, `tra_id`, `tu_fecha_ingreso`, `tu_fecha_contcont`, `tu_fecha_aprocont`, `tu_fecha_contestacion`, `tu_band_convalidar`, `tu_band_respuesta`, `tu_band_convanxres`, `reg_id`, `et_id`, `tu_estado`, `tu_fecha_iniciocoa`, `tu_fecha_convalidacion`, `tu_fecha_concon`, `tu_fecha_concoa`) VALUES
+(192, '12202011171149094', 4, 5, 12, '2020-11-17 11:49:09', '2020-11-19', '2020-11-22', NULL, 0, 1, -1, 3, 5, 'ACTIVO', NULL, NULL, NULL, NULL),
+(193, '152020111810093657', 57, 3, 15, '2020-11-18 10:09:36', '2020-11-18', '2020-11-19', NULL, -1, 0, -1, 3, 1, 'INACTIVO', NULL, NULL, NULL, NULL),
+(197, '162020111913045857', 57, 3, 16, '2020-11-19 13:04:58', '2020-11-21', '2020-11-24', NULL, -1, 0, -1, 3, 1, 'ACTIVO', NULL, NULL, NULL, NULL),
+(198, '162020111913090857', 57, 61, 16, '2020-11-19 13:09:08', '2020-11-21', '2020-11-24', NULL, 0, 0, -1, 2, 2, 'ACTIVO', NULL, NULL, NULL, NULL),
+(199, '182020111916195057', 57, 61, 18, '2020-11-19 16:19:50', '2020-11-21', '2020-11-22', NULL, 0, 1, -1, 2, 2, 'ACTIVO', NULL, NULL, NULL, NULL),
+(204, '08202011230853054', 4, 2, 8, '2020-11-23 08:53:05', '2020-11-25', '2020-11-28', NULL, 0, 1, -1, 3, 2, 'ACTIVO', NULL, NULL, NULL, NULL),
+(205, '082020112611250668', 68, 3, 8, '2020-11-26 11:25:06', '2020-11-30', '2020-12-03', NULL, -1, 0, -1, 3, 1, 'ACTIVO', '2020-11-26', NULL, NULL, '2021-01-07'),
+(206, '122020112611291968', 68, 3, 12, '2020-11-26 11:29:19', '2020-12-01', '2020-12-07', NULL, -1, 0, -1, 3, 1, 'ACTIVO', '2020-11-26', NULL, NULL, '2021-01-11'),
+(207, '082020112611312868', 68, 3, 8, '2020-11-26 11:31:28', '2020-12-01', '2020-12-07', NULL, -1, 0, -1, 3, 1, 'ACTIVO', '2020-11-26', NULL, NULL, '2021-01-11'),
+(208, '082020112616362568', 68, 3, 8, '2020-11-26 16:36:25', '2020-12-01', '2020-12-07', NULL, -1, 0, -1, 3, 1, 'ACTIVO', '2020-11-26', NULL, NULL, '2021-01-11'),
+(209, '082020112616373068', 68, 3, 8, '2020-11-26 16:37:30', '2020-12-01', '2020-12-07', NULL, -1, 0, -1, 3, 1, 'ACTIVO', '2020-11-26', NULL, NULL, '2021-01-11'),
+(210, '082020112616381068', 68, 3, 8, '2020-11-26 16:38:10', '2020-12-01', '2020-12-07', NULL, -1, 0, -1, 3, 1, 'ACTIVO', '2020-11-26', NULL, NULL, '2021-01-11'),
+(211, '082020112616553968', 68, 3, 8, '2020-11-26 16:55:39', '2020-12-01', '2020-12-07', NULL, -1, 0, -1, 3, 1, 'ACTIVO', '2020-11-26', NULL, NULL, '2021-01-11'),
+(212, '082020112616584968', 68, 3, 8, '2020-11-26 16:58:49', '2020-12-01', '2020-12-07', NULL, -1, 0, -1, 3, 1, 'ACTIVO', '2020-11-26', NULL, NULL, '2021-01-11'),
+(213, '082020112617031668', 68, 3, 8, '2020-10-16 17:03:16', '2020-12-01', '2020-12-07', NULL, -1, 0, -1, 3, 1, 'ACTIVO', '2020-10-26', NULL, NULL, '2020-12-01'),
+(214, '082020112617114668', 68, 3, 8, '2020-11-26 17:11:46', '2020-12-01', '2020-12-07', NULL, -1, 0, -1, 3, 1, 'ACTIVO', '2020-11-26', NULL, NULL, '2021-01-11'),
+(215, '082020112617150568', 68, 3, 8, '2020-11-26 17:15:05', '2020-12-01', '2020-12-07', NULL, -1, 0, -1, 3, 1, 'ACTIVO', '2020-11-26', NULL, NULL, '2021-01-11'),
+(216, '082020112709241068', 68, 3, 8, '2020-11-27 09:24:10', '2020-12-02', '2020-12-08', NULL, -1, 0, -1, 3, 1, 'ACTIVO', '2020-11-27', NULL, NULL, '2021-01-12'),
+(217, '12202011301115284', 4, 2, 12, '2020-11-30 11:15:28', '2020-12-02', '2020-12-07', NULL, 0, 1, -1, 3, 2, 'ACTIVO', '2020-11-30', NULL, NULL, '2021-01-11'),
+(218, '08202011301619404', 4, 2, 8, '2020-11-30 16:19:40', '2020-12-02', '2020-12-07', NULL, 0, 1, -1, 3, 2, 'ACTIVO', '2020-11-30', NULL, NULL, '2021-01-11');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `ct_usuarios`
+--
+
+CREATE TABLE `ct_usuarios` (
+  `usu_id` int(11) UNSIGNED NOT NULL,
+  `usu_usuario` varchar(50) COLLATE utf8_bin NOT NULL,
+  `rol_id` int(11) UNSIGNED NOT NULL,
+  `usu_tidentificador` varchar(10) COLLATE utf8_bin NOT NULL DEFAULT 'CI',
+  `usu_identificador` varchar(13) COLLATE utf8_bin DEFAULT NULL,
+  `usu_nombre` varchar(200) COLLATE utf8_bin DEFAULT NULL,
+  `usu_apellido` varchar(200) COLLATE utf8_bin NOT NULL,
+  `pro_id` int(11) NOT NULL,
+  `can_id` int(11) NOT NULL,
+  `par_id` int(11) NOT NULL,
+  `usu_telefono` varchar(10) COLLATE utf8_bin NOT NULL,
+  `usu_direccion` varchar(200) COLLATE utf8_bin NOT NULL,
+  `reg_id` int(11) NOT NULL,
+  `usu_correo` varchar(100) COLLATE utf8_bin DEFAULT NULL,
+  `usu_contrasena` varchar(255) COLLATE utf8_bin DEFAULT NULL,
+  `usu_fechcreacion` datetime DEFAULT NULL,
+  `usu_estado` varchar(8) COLLATE utf8_bin NOT NULL DEFAULT 'ACTIVO',
+  `usu_certificado` tinyint(4) NOT NULL DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+--
+-- Volcado de datos para la tabla `ct_usuarios`
+--
+
+INSERT INTO `ct_usuarios` (`usu_id`, `usu_usuario`, `rol_id`, `usu_tidentificador`, `usu_identificador`, `usu_nombre`, `usu_apellido`, `pro_id`, `can_id`, `par_id`, `usu_telefono`, `usu_direccion`, `reg_id`, `usu_correo`, `usu_contrasena`, `usu_fechcreacion`, `usu_estado`, `usu_certificado`) VALUES
+(1, 'superadmin', 1, 'CI', '1712531884', 'HOMERO DUQUE', 'DUQUE', 6, 601, 60104, '9797979797', 'MATRIZ', 8, 'duque_fher@hotmail.com', '$2y$10$p2Sb3LaHoWQbtQCp1eY1muTFQg4C2vCOGccpFUvICvmHqNIAapbbq', '2020-04-11 11:55:36', 'ACTIVO', 1),
+(2, 'ejecutor', 5, 'CI    ', '0603031568', 'BYRON', 'VASQUEZ    ', 6, 601, 60104, '0983247203', 'Analista de TICs Regional', 3, 'facturacioningapirca@gmail.com', '$2y$10$p2Sb3LaHoWQbtQCp1eY1muTFQg4C2vCOGccpFUvICvmHqNIAapbbq', '2020-04-12 13:23:10', 'ACTIVO', 2),
+(3, 'asignador', 3, 'CI', '0104742428', 'JORGE', 'JARAMILLO', 6, 601, 60104, '', 'ZONAL', 3, 'johanna.ortega@patrimoniocultural.gob.ec', '$2y$10$p2Sb3LaHoWQbtQCp1eY1muTFQg4C2vCOGccpFUvICvmHqNIAapbbq', '2020-04-13 13:08:07', 'ACTIVO', 2),
+(4, 'ciudadano', 4, 'CI', '0912531886', 'PABLO', 'IZURIETA', 6, 601, 60104, '0987567654', 'CALLE 1 Y CALLE 3', 3, 'inpcreg3@gmail.com', '$2y$10$p2Sb3LaHoWQbtQCp1eY1muTFQg4C2vCOGccpFUvICvmHqNIAapbbq', '2020-04-24 14:26:29', 'ACTIVO', 0),
+(5, 'aprobador', 2, 'CI', '1712531886', 'HOMERO', 'DUQUE', 6, 601, 60104, '', 'Analista de Tecnologías de la Información y Comunicaciones Regional 3', 3, 'bayron.vasquez@patrimoniocultural.gob.ec', '$2y$10$p2Sb3LaHoWQbtQCp1eY1muTFQg4C2vCOGccpFUvICvmHqNIAapbbq', '2020-04-24 14:40:50', 'ACTIVO', 2),
+(55, '0604122101', 4, 'CI', '0604122101', 'ALVARO PAUL', 'CHICAIZA CASTILLO', 6, 601, 60103, '9090909090', 'DIRECCION ', 3, 'bayron.vasquez@patrimoniocultural.gob.ec', '$2y$10$nXh0K.UljdUA3q6oWbdxXexfIH.s9st7eMQ4rKfEfwFVXllMJInkS', '2020-10-16 18:37:43', 'ACTIVO', 0),
+(56, '0103269718', 4, 'CI', '0103269718', 'TATIANA ISABEL', 'MONTALVAN ALVAREZ', 6, 601, 60150, '7777777777', 'RIOBAMBA DIRECCION TEST', 3, 'bayron.vasquezv@hotmail.com', '$2y$10$VH4fVUicR3AFAtOnGDL83uHxPCYQA/Yihwk7kdyY0zl.NqnP3Tfcy', '2020-10-18 18:39:33', 'ACTIVO', 0),
+(57, '1713677902', 4, 'CI', '1713677902', 'JORGE LUIS', 'JARAMILLO BURBANO', 17, 1701, 170101, '5555555555', 'QUITO ', 2, 'jorge.jaramillo@patrimoniocultural.gob.ec', '$2y$10$VnSqB.KwXNfZLCR3h1mSUug38UMAnnxu9pTsQDy0FWxgveYIMA2FC', '2020-10-19 16:05:06', 'ACTIVO', 0),
+(59, '0601126865', 4, 'CI', '0601126865', 'JOSE MANUEL', 'CHICAIZA CAZA', 6, 601, 60101, '9999999999', 'DIRECCION DE PRUEBA', 3, 'bayron.vasquezv@hotmail.com', '$2y$10$SPg9X.WHAk4XjvwgqlRJ0.zmrweB3EjhFGxXVsWoQNb8h8eUD8IQ.', '2020-10-21 15:22:46', 'ACTIVO', 0),
+(60, '0604147082', 3, 'CI', '0604147082', 'MARIO', 'PANCHI', 17, 1701, 170101, '', '', 2, 'mario.panchi@patrimoniocultural.gob.ec', '$2y$10$fQDwPZpMkWLnUyXSb/eaC.63HybPQYBttcXkIj3yBJH0nu47mWUzW', '2020-11-09 15:06:04', 'ACTIVO', 2),
+(61, '0501249940', 5, 'CI', '0501249940', 'VICTORIA', 'ZAMBONINO', 17, 1701, 170101, '', '', 2, 'victoria.zambonino@patrimoniocultural.gob.ec', '$2y$10$OVs4ffQ0xyEvXaIdfzpRtOGTrjJ0dl78vFgrCnahTR0qqhmarA0Iy', '2020-11-09 15:28:34', 'ACTIVO', 2),
+(64, '1716681000', 3, 'CI', '1716681000', 'MAURICIO', 'ESPINOSA', 17, 1701, 170101, '', '', 2, 'mauricio.espinosa@patrimoniocultural.gob.ec', '$2y$10$J1ihMYshwyZ3.zU1JJ..YeGu9qskeu7Pen0vOvQREIUPzBSJHZEzy', '2020-11-10 10:11:13', 'ACTIVO', 2),
+(65, '1719670927', 3, 'CI', '1719670927', 'DIANA', 'CRUZ', 17, 1701, 170101, '', '', 2, 'diana.cruz@patrimoniocultural.gob.ec', '$2y$10$bZKO.6v4acqTeQER1pVGvuD9YFAm17/5ZFGvRC5QJ0waJ.B57t7by', '2020-11-10 10:14:19', 'ACTIVO', 2),
+(66, '1706615257', 2, 'CI', '1706615257', 'MARIA FERNANDA', 'CARRION', 17, 1701, 170101, '', '', 2, 'maria.carrion@patrimoniocultural.gob.ec', '$2y$10$7ObsNUtxTXrQCmpOgrynROOoc7bQl0S8VOmOjFdeBCnefs7ALwxwy', '2020-11-10 10:15:50', 'ACTIVO', 2),
+(67, '1712207321', 3, 'CI', '1712207321', 'MARIA NELLY', 'MORENO', 17, 1701, 170101, '', '', 2, 'marianelly.moreno@patrimoniocultural.gob.ec', '$2y$10$XI2EJogG4MlUokyyiCTvJuDm.fDXGg578PhS61AlKn1/A2u4PBFFy', '2020-11-10 10:34:55', 'ACTIVO', 2),
+(68, '0901502690', 4, 'CI', '0901502690', 'MIGUEL IGNACIO', 'ORTEGA GONZALEZ', 6, 601, 60103, '0999979648', 'BRASIL Y ARGENTINOS', 3, 'ferchajou1984.2018@gmail.com', '$2y$10$RL5UutP9O1Azi4TTT1UClO4kx7Jlhb4EK7WzQWy6UPmPb.ur/1w2m', '2020-11-26 10:12:19', 'ACTIVO', 0),
+(69, '0603031568001', 4, 'RUC', '0603031568001', 'JOHANNA FERNANDA', 'ORTEGA AVILA', 6, 601, 60103, '0999999999', 'BRASIL 25-46 ARGENTINOS A DOS CUADRAS DE LA IGLESIA DE LA LOMA DE QUITO', 3, 'ferchajou1984@gmail.com', '$2y$10$3S3Ukv1q31HEL/q/qA5rDuG/GyzLLb/hsfyR8phw1Wk30iQm6e0d.', '2020-11-26 10:15:05', 'INACTIVO', 0),
+(71, 'POE3939888', 4, 'PASAPORTE', 'POE3939888', 'NOMBRE1 NOMBRE2', 'APELLIDO1 APELLIDO2', 6, 601, 60160, '0328272822', 'BRASIL Y ARGENTINOS', 3, 'ferchajou1984.2018@gmail.com', '$2y$10$TXr2j8AQqthV/FgD3.zty.SDBGzyGW/NzigKg0fTKgO4J3BMo/21W', '2020-11-26 17:20:50', 'INACTIVO', 0);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `_ct_tramite5`
+--
+
+CREATE TABLE `_ct_tramite5` (
+  `tu_id` bigint(20) NOT NULL,
+  `tu_codigo` varchar(30) COLLATE utf8_spanish_ci NOT NULL,
+  `usu_extid` int(11) NOT NULL,
+  `usu_intid` int(11) NOT NULL,
+  `tra_id` int(11) NOT NULL,
+  `tu_fecha_ingreso` datetime NOT NULL,
+  `tu_fecha_contcont` date NOT NULL,
+  `tu_fecha_aprocont` date NOT NULL,
+  `tu_fecha_contestacion` date DEFAULT NULL,
+  `reg_id` int(11) NOT NULL,
+  `et_id` int(11) NOT NULL,
+  `tu_estado` varchar(8) COLLATE utf8_spanish_ci NOT NULL DEFAULT 'ACTIVO',
+  `tu_fecha_iniciocoa` date DEFAULT NULL,
+  `tu_fecha_convalidacion` date DEFAULT NULL,
+  `tu_fecha_concon` date DEFAULT NULL,
+  `tu_fecha_concoa` date DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `_ct_tramite5_anexos`
+--
+
+CREATE TABLE `_ct_tramite5_anexos` (
+  `tua_id` bigint(20) NOT NULL,
+  `tua_codigoe` varchar(50) COLLATE utf8_spanish_ci NOT NULL,
+  `tua_rutaarchivo` varchar(250) COLLATE utf8_spanish_ci NOT NULL,
+  `tua_cumple` varchar(50) COLLATE utf8_spanish_ci DEFAULT NULL,
+  `tua_observaciones` varchar(250) COLLATE utf8_spanish_ci DEFAULT NULL,
+  `tu_id` int(11) NOT NULL,
+  `anx_id` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `_ct_tramite5_requisitos`
+--
+
+CREATE TABLE `_ct_tramite5_requisitos` (
+  `tur_id` bigint(20) NOT NULL,
+  `tur_rutaarchivo` varchar(250) COLLATE utf8_spanish_ci NOT NULL,
+  `tur_cumple` varchar(50) COLLATE utf8_spanish_ci DEFAULT NULL,
+  `tur_observaciones` varchar(250) COLLATE utf8_spanish_ci DEFAULT NULL,
+  `tu_id` int(11) NOT NULL,
+  `req_id` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `_ct_tramite5_respuestas`
+--
+
+CREATE TABLE `_ct_tramite5_respuestas` (
+  `tuc_id` bigint(20) NOT NULL,
+  `tuc_tipocontestacion` varchar(10) COLLATE utf8_spanish_ci NOT NULL,
+  `tuc_rutaarchivo` varchar(250) COLLATE utf8_spanish_ci NOT NULL,
+  `tuc_marcolegal` text COLLATE utf8_spanish_ci NOT NULL,
+  `tuc_cumple` varchar(50) COLLATE utf8_spanish_ci DEFAULT NULL,
+  `tuc_observaciones` varchar(250) COLLATE utf8_spanish_ci DEFAULT NULL,
+  `usu_aprobador` int(11) NOT NULL DEFAULT '0',
+  `usu_ejecutor` int(11) NOT NULL DEFAULT '0',
+  `tu_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `_ct_tramite8`
+--
+
+CREATE TABLE `_ct_tramite8` (
+  `tu_id` bigint(11) NOT NULL,
+  `tu_codigo` varchar(30) COLLATE utf8_spanish_ci NOT NULL,
+  `usu_extid` int(11) NOT NULL,
+  `usu_intid` int(11) NOT NULL,
+  `tra_id` int(11) NOT NULL,
+  `tu_fecha_ingreso` datetime NOT NULL,
+  `tu_fecha_contcont` date NOT NULL,
+  `tu_fecha_aprocont` date NOT NULL,
+  `tu_fecha_contestacion` datetime DEFAULT NULL,
+  `tu_band_convalidar` tinyint(4) NOT NULL DEFAULT '-1',
+  `tu_band_respuesta` tinyint(4) NOT NULL DEFAULT '0',
+  `tu_band_convanxres` tinyint(4) NOT NULL DEFAULT '-1',
+  `reg_id` int(11) NOT NULL,
+  `et_id` int(11) NOT NULL,
+  `tu_estado` varchar(8) COLLATE utf8_spanish_ci NOT NULL DEFAULT 'ACTIVO',
+  `tu_fecha_iniciocoa` date DEFAULT NULL,
+  `tu_fecha_convalidacion` date DEFAULT NULL,
+  `tu_fecha_concon` date DEFAULT NULL,
+  `tu_fecha_concoa` date DEFAULT NULL,
+  `te_provincia` int(11) NOT NULL,
+  `te_canton` int(11) NOT NULL,
+  `te_parroquia` int(11) NOT NULL,
+  `te_regional` int(11) NOT NULL,
+  `te_direccion` varchar(200) COLLATE utf8_spanish_ci NOT NULL,
+  `te_codigo_inventario` varchar(20) COLLATE utf8_spanish_ci DEFAULT NULL,
+  `te_cumple` varchar(50) COLLATE utf8_spanish_ci DEFAULT 'PENDIENTE',
+  `te_observaciones` varchar(250) COLLATE utf8_spanish_ci DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `_ct_tramite8`
+--
+
+INSERT INTO `_ct_tramite8` (`tu_id`, `tu_codigo`, `usu_extid`, `usu_intid`, `tra_id`, `tu_fecha_ingreso`, `tu_fecha_contcont`, `tu_fecha_aprocont`, `tu_fecha_contestacion`, `tu_band_convalidar`, `tu_band_respuesta`, `tu_band_convanxres`, `reg_id`, `et_id`, `tu_estado`, `tu_fecha_iniciocoa`, `tu_fecha_convalidacion`, `tu_fecha_concon`, `tu_fecha_concoa`, `te_provincia`, `te_canton`, `te_parroquia`, `te_regional`, `te_direccion`, `te_codigo_inventario`, `te_cumple`, `te_observaciones`) VALUES
+(1, '08202011230853054', 4, 2, 8, '2020-11-23 08:53:05', '2020-11-25', '2020-11-28', NULL, 0, 1, -1, 3, 2, 'ACTIVO', NULL, NULL, NULL, NULL, 6, 601, 60104, 3, 'CALLE 1 Y CALLE 3', 'B11212', 'CORRECTO', ''),
+(2, '082020112611250668', 68, 3, 8, '2020-11-26 11:25:06', '2020-11-30', '2020-12-03', NULL, -1, 0, -1, 3, 1, 'ACTIVO', NULL, NULL, NULL, NULL, 6, 601, 60103, 3, 'BRASIL Y ARGENTINOS', 'B333333', 'PENDIENTE', NULL),
+(3, '082020112611312868', 68, 3, 8, '2020-11-26 11:31:28', '2020-12-01', '2020-12-07', NULL, -1, 0, -1, 3, 1, 'ACTIVO', NULL, NULL, NULL, NULL, 6, 601, 60103, 3, 'BRASIL Y ARGENTINOS', '334343', 'PENDIENTE', NULL),
+(4, '082020112616362568', 68, 3, 8, '2020-11-26 16:36:25', '2020-12-01', '2020-12-07', NULL, -1, 0, -1, 3, 1, 'ACTIVO', NULL, NULL, NULL, NULL, 6, 601, 60103, 3, 'BRASIL Y ARGENTINOS', 'B23232', 'PENDIENTE', NULL),
+(5, '082020112616373068', 68, 3, 8, '2020-11-26 16:37:30', '2020-12-01', '2020-12-07', NULL, -1, 0, -1, 3, 1, 'ACTIVO', NULL, NULL, NULL, NULL, 6, 601, 60103, 3, 'BRASIL Y ARGENTINOS', 'B23232', 'PENDIENTE', NULL),
+(6, '082020112616381068', 68, 3, 8, '2020-11-26 16:38:10', '2020-12-01', '2020-12-07', NULL, -1, 0, -1, 3, 1, 'ACTIVO', NULL, NULL, NULL, NULL, 6, 601, 60103, 3, 'BRASIL Y ARGENTINOS', 'B23232', 'PENDIENTE', NULL),
+(7, '082020112616553968', 68, 3, 8, '2020-11-26 16:55:39', '2020-12-01', '2020-12-07', NULL, -1, 0, -1, 3, 1, 'ACTIVO', NULL, NULL, NULL, NULL, 6, 601, 60103, 3, 'BRASIL Y ARGENTINOS', 'B33333', 'PENDIENTE', NULL),
+(8, '082020112616584968', 68, 3, 8, '2020-11-26 16:58:49', '2020-12-01', '2020-12-07', NULL, -1, 0, -1, 3, 1, 'ACTIVO', NULL, NULL, NULL, NULL, 6, 601, 60103, 3, 'BRASIL Y ARGENTINOS', 'N434343', 'PENDIENTE', NULL),
+(9, '082020112617031668', 68, 3, 8, '2020-11-26 17:03:16', '2020-12-01', '2020-12-07', NULL, -1, 0, -1, 3, 1, 'ACTIVO', '2020-10-16', NULL, NULL, '2020-11-30', 6, 601, 60103, 3, 'BRASIL Y ARGENTINOS', 'B34343', 'PENDIENTE', NULL),
+(10, '082020112617114668', 68, 3, 8, '2020-11-26 17:11:46', '2020-12-01', '2020-12-07', NULL, -1, 0, -1, 3, 1, 'ACTIVO', NULL, NULL, NULL, NULL, 6, 601, 60103, 3, 'BRASIL Y ARGENTINOS', 'B34343', 'PENDIENTE', NULL),
+(11, '082020112617150568', 68, 3, 8, '2020-11-26 17:15:05', '2020-12-01', '2020-12-07', NULL, -1, 0, -1, 3, 1, 'ACTIVO', '2020-11-26', NULL, NULL, '2021-01-11', 6, 601, 60103, 3, 'BRASIL Y ARGENTINOS', 'B23212333', 'CORRECTO', ''),
+(12, '082020112709241068', 68, 3, 8, '2020-11-27 09:24:10', '2020-12-02', '2020-12-08', NULL, -1, 0, -1, 3, 1, 'ACTIVO', NULL, NULL, NULL, NULL, 6, 601, 60103, 3, 'BRASIL Y ARGENTINOS', 'B343423', 'PENDIENTE', NULL),
+(13, '08202011301619404', 4, 2, 8, '2020-11-30 16:19:40', '2020-12-02', '2020-12-07', NULL, 0, 1, -1, 3, 2, 'ACTIVO', NULL, NULL, NULL, NULL, 6, 601, 60104, 3, 'CALLE 1 Y CALLE 3', '34343', 'CORRECTO', '');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `_ct_tramite8_anexos`
+--
+
+CREATE TABLE `_ct_tramite8_anexos` (
+  `tua_id` bigint(20) NOT NULL,
+  `tua_codigoe` varchar(50) COLLATE utf8_spanish_ci NOT NULL,
+  `tua_rutaarchivo` varchar(250) COLLATE utf8_spanish_ci NOT NULL,
+  `tua_cumple` varchar(50) COLLATE utf8_spanish_ci DEFAULT NULL,
+  `tua_observaciones` varchar(250) COLLATE utf8_spanish_ci DEFAULT NULL,
+  `tu_id` int(11) NOT NULL,
+  `anx_id` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `_ct_tramite8_anexos`
+--
+
+INSERT INTO `_ct_tramite8_anexos` (`tua_id`, `tua_codigoe`, `tua_rutaarchivo`, `tua_cumple`, `tua_observaciones`, `tu_id`, `anx_id`) VALUES
+(1, 'INPC-TIZ6-INFTC-009', '/upload/08202011230853054/cad47dcb4ee6fdec37297f8b9dc2ea92.pdf', 'PENDIENTE', NULL, 1, 62),
+(2, '', '', 'NO INGRESADO', NULL, 2, 62),
+(3, '', '', 'NO INGRESADO', NULL, 3, 62),
+(4, '', '', 'NO INGRESADO', NULL, 4, 62),
+(5, '', '', 'NO INGRESADO', NULL, 5, 62),
+(6, '', '', 'NO INGRESADO', NULL, 6, 62),
+(7, '', '', 'NO INGRESADO', NULL, 7, 62),
+(8, '', '', 'NO INGRESADO', NULL, 8, 62),
+(9, '', '', 'NO INGRESADO', NULL, 9, 62),
+(10, '', '', 'NO INGRESADO', NULL, 10, 62),
+(11, '', '', 'NO INGRESADO', NULL, 11, 62),
+(12, '', '', 'NO INGRESADO', NULL, 12, 62),
+(13, 'FSDFSD', '/upload/08202011301619404/63e1feaa075adb741f4c9ace036ea1dc.pdf', 'PENDIENTE', NULL, 13, 62);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `_ct_tramite8_requisitos`
+--
+
+CREATE TABLE `_ct_tramite8_requisitos` (
+  `tur_id` bigint(20) NOT NULL,
+  `tur_rutaarchivo` varchar(250) COLLATE utf8_spanish_ci NOT NULL,
+  `tur_cumple` varchar(50) COLLATE utf8_spanish_ci DEFAULT NULL,
+  `tur_observaciones` varchar(250) COLLATE utf8_spanish_ci DEFAULT NULL,
+  `tu_id` int(11) NOT NULL,
+  `req_id` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `_ct_tramite8_requisitos`
+--
+
+INSERT INTO `_ct_tramite8_requisitos` (`tur_id`, `tur_rutaarchivo`, `tur_cumple`, `tur_observaciones`, `tu_id`, `req_id`) VALUES
+(1, '/upload/08202011230853054/955a27586bb31cc06d982aecbd2248e3.pdf', 'CORRECTO', '', 1, 2),
+(2, '/upload/08202011230853054/7228c1b29bd81bc066bdf39f770ee206.pdf', 'CORRECTO', '', 1, 1),
+(3, '/upload/082020112611250668/afe15735c4246949bc0393b14dd984e1.pdf', 'PENDIENTE', NULL, 2, 2),
+(4, '/upload/082020112611250668/8b2b479c65bc1077bb8df57268db83f1.pdf', 'PENDIENTE', NULL, 2, 1),
+(5, '/upload/082020112611312868/2d4c67f9abc974f2610cb50f63858586.pdf', 'PENDIENTE', NULL, 3, 2),
+(6, '/upload/082020112611312868/e871e29bdbab09abc464c70e92c1792b.pdf', 'PENDIENTE', NULL, 3, 1),
+(7, '/upload/082020112616362568/3780826be545d1be4a44d2ae43c78b2f.pdf', 'PENDIENTE', NULL, 4, 2),
+(8, '/upload/082020112616362568/997b7f912dccdce6761a720dd9ba140c.pdf', 'PENDIENTE', NULL, 4, 1),
+(9, '/upload/082020112616373068/1103fdd62f538ecabc8078846bf85a33.pdf', 'PENDIENTE', NULL, 5, 2),
+(10, '/upload/082020112616373068/0fc39b92b676f51be20046b30f949c51.pdf', 'PENDIENTE', NULL, 5, 1),
+(11, '/upload/082020112616381068/3a5aa4e0d0c06377d3d34e516b1e45bd.pdf', 'PENDIENTE', NULL, 6, 2),
+(12, '/upload/082020112616381068/84ae353c00e1479f06910b1d97b180a0.pdf', 'PENDIENTE', NULL, 6, 1),
+(13, '/upload/082020112616553968/c12967e9c48bc586d78c0618b9b4753e.pdf', 'PENDIENTE', NULL, 7, 2),
+(14, '/upload/082020112616553968/623d357c44489a6cb438e3fead329820.pdf', 'PENDIENTE', NULL, 7, 1),
+(15, '/upload/082020112616584968/6e003c66564576d43d71502bdee85169.pdf', 'PENDIENTE', NULL, 8, 2),
+(16, '/upload/082020112616584968/105ec53e907bb2676d4378c1c78d39e6.pdf', 'PENDIENTE', NULL, 8, 1),
+(17, '/upload/082020112617031668/9dda0b1e5477763c361eec679326360b.pdf', 'PENDIENTE', NULL, 9, 2),
+(18, '/upload/082020112617031668/e6a82975961aa97b4db4c8eac90c7968.pdf', 'PENDIENTE', NULL, 9, 1),
+(19, '/upload/082020112617114668/3db365494cb2aafd52890b5bf4a3d027.pdf', 'PENDIENTE', NULL, 10, 2),
+(20, '/upload/082020112617114668/b1abb9eedd69cb92582bd61f8a328865.pdf', 'PENDIENTE', NULL, 10, 1),
+(21, '/upload/082020112617150568/fc9fc9853906736f2ed2ce1d2dbf45da.pdf', 'CORRECTO', '', 11, 2),
+(22, '/upload/082020112617150568/d3599e50fd58b1f6bdbfd4501c4e7211.pdf', 'PENDIENTE', 'El croquis no corresponde al formato del requisito.', 11, 1),
+(23, '/upload/082020112709241068/27633d001e787185e10d3ed8848eeb06.pdf', 'PENDIENTE', NULL, 12, 2),
+(24, '/upload/082020112709241068/27633d001e787185e10d3ed8848eeb06.pdf', 'PENDIENTE', NULL, 12, 1),
+(25, '/upload/08202011301619404/d663d7f8513cdf507746d8ad26a4377a.pdf', 'CORRECTO', '', 13, 2),
+(26, '/upload/08202011301619404/4f5dbe39894515dec16353feb3f2f21e.pdf', 'CORRECTO', '', 13, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `_ct_tramite8_respuestas`
+--
+
+CREATE TABLE `_ct_tramite8_respuestas` (
+  `tuc_id` bigint(20) NOT NULL,
+  `tuc_tipocontestacion` varchar(10) COLLATE utf8_spanish_ci NOT NULL,
+  `tuc_rutaarchivo` varchar(250) COLLATE utf8_spanish_ci NOT NULL,
+  `tuc_marcolegal` text COLLATE utf8_spanish_ci NOT NULL,
+  `tuc_cumple` varchar(50) COLLATE utf8_spanish_ci DEFAULT NULL,
+  `tuc_observaciones` varchar(250) COLLATE utf8_spanish_ci DEFAULT NULL,
+  `usu_aprobador` int(11) NOT NULL DEFAULT '0',
+  `usu_ejecutor` int(11) NOT NULL DEFAULT '0',
+  `tu_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `_ct_tramite8_respuestas`
+--
+
+INSERT INTO `_ct_tramite8_respuestas` (`tuc_id`, `tuc_tipocontestacion`, `tuc_rutaarchivo`, `tuc_marcolegal`, `tuc_cumple`, `tuc_observaciones`, `usu_aprobador`, `usu_ejecutor`, `tu_id`) VALUES
+(1, 'NEGATIVO', '', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec mattis eu nisl vel pellentesque. In hac habitasse platea dictumst. Nam venenatis ullamcorper purus, a pharetra dolor suscipit ut. Mauris quis tempus ante. Ut eu nulla eget justo sagittis molestie. Nunc nec dapibus erat. Duis dignissim dictum mi, eget luctus lectus auctor in.\r\n\r\nSed fermentum mauris non arcu rutrum semper. Nam rhoncus, quam nec venenatis fringilla, leo urna viverra nunc, at semper eros turpis ut enim. Nullam et ipsum sapien. Aliquam lacinia sodales libero nec porttitor. Proin consectetur lectus ac libero vulputate tristique. Donec rhoncus nulla at fringilla placerat. Donec pellentesque lacinia magna ut molestie. ', 'PENDIENTE', '', 5, 2, 1),
+(2, 'AFIRMATIVO', '/upload/08202011301619404/08202011301619404.pdf', 'dfsadfsdfs', 'PENDIENTE', '', 5, 2, 13);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `_ct_tramite12`
+--
+
+CREATE TABLE `_ct_tramite12` (
+  `tu_id` bigint(11) NOT NULL,
+  `tu_codigo` varchar(30) COLLATE utf8_spanish_ci NOT NULL,
+  `usu_extid` int(11) NOT NULL,
+  `usu_intid` int(11) NOT NULL,
+  `tra_id` int(11) NOT NULL,
+  `tu_fecha_ingreso` datetime NOT NULL,
+  `tu_fecha_contcont` date NOT NULL,
+  `tu_fecha_aprocont` date NOT NULL,
+  `tu_fecha_contestacion` date DEFAULT NULL,
+  `tu_band_convalidar` tinyint(4) NOT NULL DEFAULT '-1',
+  `tu_band_respuesta` tinyint(4) NOT NULL DEFAULT '0',
+  `tu_band_convanxres` tinyint(4) NOT NULL DEFAULT '-1',
+  `reg_id` int(11) NOT NULL,
+  `et_id` int(11) NOT NULL,
+  `tu_estado` varchar(8) COLLATE utf8_spanish_ci NOT NULL DEFAULT 'ACTIVO',
+  `tu_fecha_iniciocoa` date DEFAULT NULL,
+  `tu_fecha_convalidacion` date DEFAULT NULL,
+  `tu_fecha_concon` date DEFAULT NULL,
+  `tu_fecha_concoa` date DEFAULT NULL,
+  `te_ambito` tinyint(4) NOT NULL,
+  `te_cantidad_fichas` int(20) NOT NULL,
+  `te_persona_responsable` varchar(100) COLLATE utf8_spanish_ci NOT NULL,
+  `te_fecha_ingreso` date NOT NULL,
+  `te_tecnico_responsable` varchar(100) COLLATE utf8_spanish_ci NOT NULL,
+  `te_fecha_revision` date NOT NULL,
+  `te_cumple` varchar(50) COLLATE utf8_spanish_ci NOT NULL DEFAULT 'PENDIENTE',
+  `te_observaciones` varchar(250) COLLATE utf8_spanish_ci DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `_ct_tramite12`
+--
+
+INSERT INTO `_ct_tramite12` (`tu_id`, `tu_codigo`, `usu_extid`, `usu_intid`, `tra_id`, `tu_fecha_ingreso`, `tu_fecha_contcont`, `tu_fecha_aprocont`, `tu_fecha_contestacion`, `tu_band_convalidar`, `tu_band_respuesta`, `tu_band_convanxres`, `reg_id`, `et_id`, `tu_estado`, `tu_fecha_iniciocoa`, `tu_fecha_convalidacion`, `tu_fecha_concon`, `tu_fecha_concoa`, `te_ambito`, `te_cantidad_fichas`, `te_persona_responsable`, `te_fecha_ingreso`, `te_tecnico_responsable`, `te_fecha_revision`, `te_cumple`, `te_observaciones`) VALUES
+(7, '12202010271644174', 4, 5, 12, '2020-10-27 16:44:17', '2020-10-29', '2020-11-01', NULL, 0, 1, 0, 3, 5, 'ACTIVO', NULL, NULL, NULL, NULL, 3, 20, 'JOHANNA FERNANDA ORTEGA AVILA', '2020-10-20', 'ALVARO PAUL CHICAIZA CASTILLO', '2020-10-26', 'CORRECTO', ''),
+(8, '12202010281439144', 4, 3, 12, '2020-10-28 14:39:14', '2020-10-30', '2020-11-02', NULL, 0, 0, -1, 3, 1, 'ACTIVO', NULL, NULL, NULL, NULL, 2, 30, 'ALVARO PAUL CHICAIZA CASTILLO', '2020-10-27', 'CARLOS MATA', '2020-10-28', 'CORRECTO', ''),
+(9, '12202010281443094', 4, 2, 12, '2020-10-28 14:43:09', '2020-10-30', '2020-11-02', NULL, 0, 0, -1, 3, 2, 'ACTIVO', NULL, NULL, NULL, NULL, 5, 40, 'LAURA MARIA AVILA AREVALO', '2020-10-26', 'CARLOS EDUARDO VELASTEGUI IBARRA', '2020-10-28', 'CORRECTO', ''),
+(10, '12202010281444224', 4, 5, 12, '2020-10-28 14:44:22', '2020-10-30', '2020-11-02', NULL, 0, 1, 0, 3, 5, 'ACTIVO', NULL, NULL, NULL, NULL, 3, 25, 'PREUBA 1 PRUEBA 2', '2020-10-26', 'NOMBRE PERSONA GAD', '2020-10-28', 'CORRECTO', ''),
+(13, '12202011171149094', 4, 5, 12, '2020-11-17 11:49:09', '2020-11-19', '2020-11-22', NULL, 0, 1, -1, 3, 5, 'ACTIVO', NULL, NULL, NULL, NULL, 1, 1400, 'LUIS ALBERTO QUEZADA', '2020-11-13', 'MARIA ELIZABETH CAIZA LUNA', '2020-11-15', 'CORRECTO', ''),
+(14, '122020112611291968', 68, 3, 12, '2020-11-26 11:29:19', '2020-12-01', '2020-12-07', NULL, -1, 0, -1, 3, 1, 'ACTIVO', NULL, NULL, NULL, NULL, 2, 200, 'PERSONA RESPONSABLE', '2020-11-26', 'PERSONA GAD RESPONSABLE', '2020-11-26', 'PENDIENTE', NULL),
+(15, '12202011301115284', 4, 2, 12, '2020-11-30 11:15:28', '2020-12-02', '2020-12-07', NULL, 0, 1, -1, 3, 2, 'ACTIVO', NULL, NULL, NULL, NULL, 2, 59, 'LUIS ALBERTO SUAREZ', '2020-11-04', 'CARLOS FERNANDO LOJA', '2020-11-25', 'CORRECTO', '');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `_ct_tramite12_anexos`
+--
+
+CREATE TABLE `_ct_tramite12_anexos` (
+  `tua_id` bigint(20) NOT NULL,
+  `tua_codigoe` varchar(50) COLLATE utf8_spanish_ci NOT NULL,
+  `tua_rutaarchivo` varchar(250) COLLATE utf8_spanish_ci NOT NULL,
+  `tua_cumple` varchar(50) COLLATE utf8_spanish_ci DEFAULT NULL,
+  `tua_observaciones` varchar(250) COLLATE utf8_spanish_ci DEFAULT NULL,
+  `tu_id` int(11) NOT NULL,
+  `anx_id` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `_ct_tramite12_anexos`
+--
+
+INSERT INTO `_ct_tramite12_anexos` (`tua_id`, `tua_codigoe`, `tua_rutaarchivo`, `tua_cumple`, `tua_observaciones`, `tu_id`, `anx_id`) VALUES
+(76, 'INPCDTZ3-DMEI222', '/upload/12202010271644174/789bab57fafb7663f7d253057c54014b.pdf', 'CORRECTO', '', 7, 63),
+(77, '', '', 'NO INGRESADO', NULL, 8, 63),
+(78, '', '', 'NO INGRESADO', NULL, 9, 63),
+(79, 'INPC22022', '/upload/12202010281444224/2b5edee6fb137ac1e9c76b1a78958279.pdf', 'CORRECTO', '', 10, 63),
+(81, 'INCO928282', '/upload/12202011171149094/5db340a7131c8f2fee85fda961da5202.pdf', 'PENDIENTE', NULL, 13, 63),
+(82, '', '', 'NO INGRESADO', NULL, 14, 63),
+(83, 'INPC-DTZ3-20201619-M', '/upload/12202011301115284/3ede06632bde2407393cc1f6748ab734.pdf', 'PENDIENTE', NULL, 15, 63);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `_ct_tramite12_requisitos`
+--
+
+CREATE TABLE `_ct_tramite12_requisitos` (
+  `tur_id` bigint(20) NOT NULL,
+  `tur_rutaarchivo` varchar(250) COLLATE utf8_spanish_ci NOT NULL,
+  `tur_cumple` varchar(50) COLLATE utf8_spanish_ci DEFAULT NULL,
+  `tur_observaciones` varchar(250) COLLATE utf8_spanish_ci DEFAULT NULL,
+  `tu_id` int(11) NOT NULL,
+  `req_id` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `_ct_tramite12_requisitos`
+--
+
+INSERT INTO `_ct_tramite12_requisitos` (`tur_id`, `tur_rutaarchivo`, `tur_cumple`, `tur_observaciones`, `tu_id`, `req_id`) VALUES
+(2, '/upload/12202011171149094/fa3a1ab9dc2f6779c49f3c3e1662bd87.pdf', 'CORRECTO', '', 13, 7),
+(3, '/upload/122020112611291968/f659a2879e1b107b738a4d83f0c48bc9.pdf', 'PENDIENTE', NULL, 14, 7),
+(4, '/upload/12202011301115284/11d8480ed0a5b66b8a60dff6acd56604.pdf', 'CORRECTO', '', 15, 7);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `_ct_tramite12_respuestas`
+--
+
+CREATE TABLE `_ct_tramite12_respuestas` (
+  `tuc_id` bigint(20) NOT NULL,
+  `tuc_tipocontestacion` varchar(10) COLLATE utf8_spanish_ci NOT NULL,
+  `tuc_rutaarchivo` varchar(250) COLLATE utf8_spanish_ci NOT NULL,
+  `tuc_infoadicional` text COLLATE utf8_spanish_ci NOT NULL,
+  `tuc_cumple` varchar(50) COLLATE utf8_spanish_ci DEFAULT NULL,
+  `tuc_observaciones` varchar(250) COLLATE utf8_spanish_ci DEFAULT NULL,
+  `usu_aprobador` int(11) NOT NULL DEFAULT '0',
+  `usu_ejecutor` int(11) NOT NULL DEFAULT '0',
+  `tu_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `_ct_tramite12_respuestas`
+--
+
+INSERT INTO `_ct_tramite12_respuestas` (`tuc_id`, `tuc_tipocontestacion`, `tuc_rutaarchivo`, `tuc_infoadicional`, `tuc_cumple`, `tuc_observaciones`, `usu_aprobador`, `usu_ejecutor`, `tu_id`) VALUES
+(36, 'NEGATIVO', '/upload/12202010271644174/12202010271644174.pdf', 'Información adicional.\r\nDescripción.', 'CORRECTO', '', 5, 2, 7),
+(37, 'AFIRMATIVO', '/upload/12202010281444224/12202010281444224.pdf', 'Aqui la información adicional', 'CORRECTO', '', 5, 2, 10),
+(38, 'AFIRMATIVO', '/upload/12202011171149094/12202011171149094.pdf', 'Respuesta globalv s sf sd', 'PENDIENTE', '', 5, 2, 13),
+(39, 'NEGATIVO', '/upload/12202011301115284/12202011301115284.pdf', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin vestibulum pretium nulla, vel lacinia elit ullamcorper a. Duis massa urna, maximus nec lorem et, convallis vestibulum mi. Donec elit quam, volutpat vel laoreet eu, imperdiet et metus. Sed molestie dui eget magna gravida bibendum. Pellentesque rutrum non orci at finibus. Phasellus vestibulum rutrum elit, et sollicitudin quam tempor eleifend. Aliquam malesuada tellus sed diam sollicitudin, id congue dolor blandit. Phasellus eleifend ligula a sapien lacinia, eget bibendum quam blandit.', 'PENDIENTE', '', 5, 2, 15);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `_ct_tramite13`
+--
+
+CREATE TABLE `_ct_tramite13` (
+  `tu_id` bigint(20) NOT NULL,
+  `tu_codigo` varchar(30) COLLATE utf8_spanish_ci NOT NULL,
+  `usu_extid` int(11) NOT NULL,
+  `usu_intid` int(11) NOT NULL,
+  `tra_id` int(11) NOT NULL,
+  `tu_fecha_ingreso` datetime NOT NULL,
+  `tu_fecha_contcont` date NOT NULL,
+  `tu_fecha_aprocont` date NOT NULL,
+  `tu_fecha_contestacion` date DEFAULT NULL,
+  `reg_id` int(11) NOT NULL,
+  `et_id` int(11) NOT NULL,
+  `tu_estado` varchar(8) COLLATE utf8_spanish_ci NOT NULL DEFAULT 'ACTIVO',
+  `tu_fecha_iniciocoa` date DEFAULT NULL,
+  `tu_fecha_convalidacion` date DEFAULT NULL,
+  `tu_fecha_concon` date DEFAULT NULL,
+  `tu_fecha_concoa` date DEFAULT NULL,
+  `te_provincia` int(11) NOT NULL,
+  `te_canton` int(11) NOT NULL,
+  `te_parroquia` int(11) NOT NULL,
+  `te_regional` int(11) NOT NULL,
+  `te_direccion` varchar(200) COLLATE utf8_spanish_ci NOT NULL,
+  `te_codigo_inventario` varchar(20) COLLATE utf8_spanish_ci DEFAULT NULL,
+  `tur_dueno_nom` varchar(100) COLLATE utf8_spanish_ci DEFAULT NULL,
+  `tur_dueno_cedula` varchar(10) COLLATE utf8_spanish_ci DEFAULT NULL,
+  `tur_dueno_email` varchar(100) COLLATE utf8_spanish_ci DEFAULT NULL,
+  `tur_dueno_telf` varchar(10) COLLATE utf8_spanish_ci DEFAULT NULL,
+  `tur_benef_nom` varchar(100) COLLATE utf8_spanish_ci DEFAULT NULL,
+  `tur_benef_cedula` varchar(10) COLLATE utf8_spanish_ci DEFAULT NULL,
+  `tur_benef_email` varchar(100) COLLATE utf8_spanish_ci DEFAULT NULL,
+  `tur_benef_telf` varchar(10) COLLATE utf8_spanish_ci DEFAULT NULL,
+  `te_cumple` varchar(50) COLLATE utf8_spanish_ci DEFAULT 'PENDIENTE',
+  `te_observaciones` varchar(250) COLLATE utf8_spanish_ci DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `_ct_tramite13_anexos`
+--
+
+CREATE TABLE `_ct_tramite13_anexos` (
+  `tua_id` bigint(20) NOT NULL,
+  `tua_codigoe` varchar(50) COLLATE utf8_spanish_ci NOT NULL,
+  `tua_rutaarchivo` varchar(250) COLLATE utf8_spanish_ci NOT NULL,
+  `tua_cumple` varchar(50) COLLATE utf8_spanish_ci DEFAULT NULL,
+  `tua_observaciones` varchar(250) COLLATE utf8_spanish_ci DEFAULT NULL,
+  `tu_id` int(11) NOT NULL,
+  `anx_id` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `_ct_tramite13_requisitos`
+--
+
+CREATE TABLE `_ct_tramite13_requisitos` (
+  `tur_id` bigint(20) NOT NULL,
+  `tur_rutaarchivo` varchar(250) COLLATE utf8_spanish_ci NOT NULL,
+  `tur_cumple` varchar(50) COLLATE utf8_spanish_ci DEFAULT NULL,
+  `tur_observaciones` varchar(250) COLLATE utf8_spanish_ci DEFAULT NULL,
+  `tu_id` int(11) NOT NULL,
+  `req_id` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `_ct_tramite13_respuestas`
+--
+
+CREATE TABLE `_ct_tramite13_respuestas` (
+  `tuc_id` bigint(20) NOT NULL,
+  `tuc_tipocontestacion` varchar(10) COLLATE utf8_spanish_ci NOT NULL,
+  `tuc_rutaarchivo` varchar(250) COLLATE utf8_spanish_ci NOT NULL,
+  `tuc_marcolegal` text COLLATE utf8_spanish_ci NOT NULL,
+  `tuc_cumple` varchar(50) COLLATE utf8_spanish_ci DEFAULT NULL,
+  `tuc_observaciones` varchar(250) COLLATE utf8_spanish_ci DEFAULT NULL,
+  `usu_aprobador` int(11) NOT NULL DEFAULT '0',
+  `usu_ejecutor` int(11) NOT NULL DEFAULT '0',
+  `tu_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `_ct_tramite16`
+--
+
+CREATE TABLE `_ct_tramite16` (
+  `tu_id` bigint(11) NOT NULL,
+  `tu_codigo` varchar(30) COLLATE utf8_spanish_ci NOT NULL,
+  `usu_extid` int(11) NOT NULL,
+  `usu_intid` int(11) NOT NULL,
+  `tra_id` int(11) NOT NULL,
+  `tu_fecha_ingreso` datetime NOT NULL,
+  `tu_fecha_contcont` date NOT NULL,
+  `tu_fecha_aprocont` date NOT NULL,
+  `tu_fecha_contestacion` date DEFAULT NULL,
+  `tu_band_convalidar` tinyint(4) NOT NULL DEFAULT '-1',
+  `tu_band_respuesta` tinyint(4) NOT NULL DEFAULT '0',
+  `tu_band_convanxres` tinyint(4) NOT NULL DEFAULT '-1',
+  `reg_id` int(11) NOT NULL,
+  `et_id` int(11) NOT NULL,
+  `tu_estado` varchar(8) COLLATE utf8_spanish_ci NOT NULL DEFAULT 'ACTIVO',
+  `tu_fecha_iniciocoa` date DEFAULT NULL,
+  `tu_fecha_convalidacion` date DEFAULT NULL,
+  `tu_fecha_concon` date DEFAULT NULL,
+  `tu_fecha_concoa` date DEFAULT NULL,
+  `te_area` tinyint(4) NOT NULL,
+  `te_tema` varchar(200) COLLATE utf8_spanish_ci NOT NULL,
+  `te_cumple` varchar(50) COLLATE utf8_spanish_ci NOT NULL DEFAULT 'PENDIENTE',
+  `te_observaciones` varchar(250) COLLATE utf8_spanish_ci DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `_ct_tramite16`
+--
+
+INSERT INTO `_ct_tramite16` (`tu_id`, `tu_codigo`, `usu_extid`, `usu_intid`, `tra_id`, `tu_fecha_ingreso`, `tu_fecha_contcont`, `tu_fecha_aprocont`, `tu_fecha_contestacion`, `tu_band_convalidar`, `tu_band_respuesta`, `tu_band_convanxres`, `reg_id`, `et_id`, `tu_estado`, `tu_fecha_iniciocoa`, `tu_fecha_convalidacion`, `tu_fecha_concon`, `tu_fecha_concoa`, `te_area`, `te_tema`, `te_cumple`, `te_observaciones`) VALUES
+(1, '16202010282059174', 4, 5, 16, '2020-10-28 20:59:17', '2020-10-30', '2020-11-02', NULL, 0, 1, 0, 3, 5, 'ACTIVO', NULL, NULL, NULL, NULL, 1, 'LOREM IPSUM DOLOR SIT AMET CONSECTETUR ADIPISCING ', 'CORRECTO', ''),
+(2, '162020111913045857', 57, 3, 16, '2020-11-19 13:04:58', '2020-11-21', '2020-11-24', NULL, -1, 0, -1, 3, 1, 'ACTIVO', NULL, NULL, NULL, NULL, 1, 'CUALQUIER COSA', 'PENDIENTE', NULL),
+(3, '162020111913090857', 57, 61, 16, '2020-11-19 13:09:08', '2020-11-21', '2020-11-24', NULL, 0, 0, -1, 2, 2, 'ACTIVO', NULL, NULL, NULL, NULL, 1, 'FAVOR HASTA CUANDO', 'CORRECTO', '');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `_ct_tramite16_anexos`
+--
+
+CREATE TABLE `_ct_tramite16_anexos` (
+  `tua_id` bigint(20) NOT NULL,
+  `tua_codigoe` varchar(50) COLLATE utf8_spanish_ci NOT NULL,
+  `tua_rutaarchivo` varchar(250) COLLATE utf8_spanish_ci NOT NULL,
+  `tua_cumple` varchar(50) COLLATE utf8_spanish_ci DEFAULT NULL,
+  `tua_observaciones` varchar(250) COLLATE utf8_spanish_ci DEFAULT NULL,
+  `tu_id` int(11) NOT NULL,
+  `anx_id` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `_ct_tramite16_anexos`
+--
+
+INSERT INTO `_ct_tramite16_anexos` (`tua_id`, `tua_codigoe`, `tua_rutaarchivo`, `tua_cumple`, `tua_observaciones`, `tu_id`, `anx_id`) VALUES
+(1, '', '', 'NO INGRESADO', NULL, 1, 61),
+(2, '', '', 'NO INGRESADO', NULL, 2, 61),
+(3, 'INPC-HD-01', '/upload/162020111913090857/22261c8d0500cb2ea40c0c484b642725.pdf', 'PENDIENTE', NULL, 3, 61);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `_ct_tramite16_respuestas`
+--
+
+CREATE TABLE `_ct_tramite16_respuestas` (
+  `tuc_id` bigint(20) NOT NULL,
+  `tuc_tipocontestacion` varchar(10) COLLATE utf8_spanish_ci NOT NULL,
+  `tuc_rutaarchivo` varchar(250) COLLATE utf8_spanish_ci NOT NULL,
+  `tuc_infoadicional` text COLLATE utf8_spanish_ci NOT NULL,
+  `tuc_cumple` varchar(50) COLLATE utf8_spanish_ci DEFAULT NULL,
+  `tuc_observaciones` varchar(250) COLLATE utf8_spanish_ci DEFAULT NULL,
+  `usu_aprobador` int(11) NOT NULL DEFAULT '0',
+  `usu_ejecutor` int(11) NOT NULL DEFAULT '0',
+  `tu_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `_ct_tramite16_respuestas`
+--
+
+INSERT INTO `_ct_tramite16_respuestas` (`tuc_id`, `tuc_tipocontestacion`, `tuc_rutaarchivo`, `tuc_infoadicional`, `tuc_cumple`, `tuc_observaciones`, `usu_aprobador`, `usu_ejecutor`, `tu_id`) VALUES
+(1, 'AFIRMATIVO', '/upload/16202010282059174/16202010282059174.pdf', 'Lorem ipsum dolor sit amet consectetur adipiscing elit, platea nascetur ligula nisl orci curae diam, praesent mauris placerat venenatis netus natoque.', 'CORRECTO', '', 5, 2, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `_ct_tramite18`
+--
+
+CREATE TABLE `_ct_tramite18` (
+  `tu_id` bigint(11) NOT NULL,
+  `tu_codigo` varchar(30) COLLATE utf8_spanish_ci NOT NULL,
+  `usu_extid` int(11) NOT NULL,
+  `usu_intid` int(11) NOT NULL,
+  `tra_id` int(11) NOT NULL,
+  `tu_fecha_ingreso` datetime NOT NULL,
+  `tu_fecha_contcont` date NOT NULL,
+  `tu_fecha_aprocont` date NOT NULL,
+  `tu_fecha_contestacion` date DEFAULT NULL,
+  `tu_band_convalidar` tinyint(4) NOT NULL DEFAULT '-1',
+  `tu_band_respuesta` tinyint(4) NOT NULL DEFAULT '0',
+  `tu_band_convanxres` tinyint(4) NOT NULL DEFAULT '-1',
+  `reg_id` int(11) NOT NULL,
+  `et_id` int(11) NOT NULL,
+  `tu_estado` varchar(8) COLLATE utf8_spanish_ci NOT NULL DEFAULT 'ACTIVO',
+  `tu_fecha_iniciocoa` date DEFAULT NULL,
+  `tu_fecha_convalidacion` date DEFAULT NULL,
+  `tu_fecha_concon` date DEFAULT NULL,
+  `tu_fecha_concoa` date DEFAULT NULL,
+  `te_evento` tinyint(4) NOT NULL,
+  `te_institucion` varchar(200) COLLATE utf8_spanish_ci NOT NULL,
+  `te_tema` varchar(100) COLLATE utf8_spanish_ci NOT NULL,
+  `te_aforo` int(3) NOT NULL,
+  `te_persona_acargo` varchar(100) COLLATE utf8_spanish_ci NOT NULL,
+  `te_duracion` varchar(20) COLLATE utf8_spanish_ci NOT NULL,
+  `te_fecha1` date NOT NULL,
+  `te_hora` varchar(20) COLLATE utf8_spanish_ci NOT NULL,
+  `te_cumple` varchar(50) COLLATE utf8_spanish_ci NOT NULL DEFAULT 'PENDIENTE',
+  `te_observaciones` varchar(250) COLLATE utf8_spanish_ci DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `_ct_tramite18`
+--
+
+INSERT INTO `_ct_tramite18` (`tu_id`, `tu_codigo`, `usu_extid`, `usu_intid`, `tra_id`, `tu_fecha_ingreso`, `tu_fecha_contcont`, `tu_fecha_aprocont`, `tu_fecha_contestacion`, `tu_band_convalidar`, `tu_band_respuesta`, `tu_band_convanxres`, `reg_id`, `et_id`, `tu_estado`, `tu_fecha_iniciocoa`, `tu_fecha_convalidacion`, `tu_fecha_concon`, `tu_fecha_concoa`, `te_evento`, `te_institucion`, `te_tema`, `te_aforo`, `te_persona_acargo`, `te_duracion`, `te_fecha1`, `te_hora`, `te_cumple`, `te_observaciones`) VALUES
+(1, '18202010292050314', 4, 3, 18, '2020-10-29 20:50:31', '2020-10-31', '2020-11-01', NULL, -1, 0, -1, 3, 1, 'ACTIVO', NULL, NULL, NULL, NULL, 2, 'fgfg', 'fgfgf', 20, 'f', '1', '2020-10-29', '08:00 - 08:20', 'PENDIENTE', NULL),
+(2, '18202010292053094', 4, 5, 18, '2020-10-29 20:53:09', '2020-10-31', '2020-11-01', NULL, 0, 1, 0, 3, 5, 'ACTIVO', NULL, NULL, NULL, NULL, 2, 'ghgfhg', 'rtrytr', 1, 'fdgfgdf', '1', '2020-10-29', '08:00 - 08:20', 'CORRECTO', ''),
+(3, '182020111916195057', 57, 61, 18, '2020-11-19 16:19:50', '2020-11-21', '2020-11-22', NULL, 0, 1, -1, 2, 2, 'ACTIVO', NULL, NULL, NULL, NULL, 2, 'UTIM DVDFVFD', 'dia de los inocentes', 20, 'hd', '1', '2020-11-19', '08:00 - 08:20', 'CORRECTO', '');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `_ct_tramite18_anexos`
+--
+
+CREATE TABLE `_ct_tramite18_anexos` (
+  `tua_id` bigint(20) NOT NULL,
+  `tua_codigoe` varchar(50) COLLATE utf8_spanish_ci NOT NULL,
+  `tua_rutaarchivo` varchar(250) COLLATE utf8_spanish_ci NOT NULL,
+  `tua_cumple` varchar(50) COLLATE utf8_spanish_ci DEFAULT NULL,
+  `tua_observaciones` varchar(250) COLLATE utf8_spanish_ci DEFAULT NULL,
+  `tu_id` int(11) NOT NULL,
+  `anx_id` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `_ct_tramite18_anexos`
+--
+
+INSERT INTO `_ct_tramite18_anexos` (`tua_id`, `tua_codigoe`, `tua_rutaarchivo`, `tua_cumple`, `tua_observaciones`, `tu_id`, `anx_id`) VALUES
+(1, 'INPC-HD-01', '/upload/18202010292053094/5204b8cab574407b1f73ac38d5e11b33.pdf', 'CORRECTO', '', 2, 60),
+(2, 'INPC-HD-01', '/upload/182020111916195057/4f35cb33b4bedc6c5ddcf0b9c0609ff6.pdf', 'PENDIENTE', NULL, 3, 60);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `_ct_tramite18_requisitos`
+--
+
+CREATE TABLE `_ct_tramite18_requisitos` (
+  `tur_id` bigint(20) NOT NULL,
+  `tur_rutaarchivo` varchar(250) NOT NULL,
+  `tu_id` bigint(11) NOT NULL,
+  `fecha1` date DEFAULT NULL,
+  `hora1` varchar(50) DEFAULT NULL,
+  `fecha2` date DEFAULT NULL,
+  `hora2` varchar(50) DEFAULT NULL,
+  `fecha3` date DEFAULT NULL,
+  `hora3` varchar(50) DEFAULT NULL,
+  `fecha4` date DEFAULT NULL,
+  `hora4` varchar(50) DEFAULT NULL,
+  `fecha5` date DEFAULT NULL,
+  `hora5` varchar(50) DEFAULT NULL,
+  `req_id` int(11) NOT NULL,
+  `tur_cumple` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `_ct_tramite18_respuestas`
+--
+
+CREATE TABLE `_ct_tramite18_respuestas` (
+  `tuc_id` bigint(20) NOT NULL,
+  `tuc_tipocontestacion` varchar(10) COLLATE utf8_spanish_ci NOT NULL,
+  `tuc_rutaarchivo` varchar(250) COLLATE utf8_spanish_ci NOT NULL,
+  `tuc_infoadicional` text COLLATE utf8_spanish_ci NOT NULL,
+  `tuc_cumple` varchar(50) COLLATE utf8_spanish_ci DEFAULT NULL,
+  `tuc_observaciones` varchar(250) COLLATE utf8_spanish_ci DEFAULT NULL,
+  `usu_aprobador` int(11) NOT NULL DEFAULT '0',
+  `usu_ejecutor` int(11) NOT NULL DEFAULT '0',
+  `tu_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
+-- Volcado de datos para la tabla `_ct_tramite18_respuestas`
+--
+
+INSERT INTO `_ct_tramite18_respuestas` (`tuc_id`, `tuc_tipocontestacion`, `tuc_rutaarchivo`, `tuc_infoadicional`, `tuc_cumple`, `tuc_observaciones`, `usu_aprobador`, `usu_ejecutor`, `tu_id`) VALUES
+(1, 'AFIRMATIVO', '/upload/18202010292053094/18202010292053094.pdf', 'dejara barriendo', 'CORRECTO', '', 5, 2, 2),
+(2, 'AFIRMATIVO', '/upload/182020111916195057/182020111916195057.pdf', 'sdsdsdsdsd', 'PENDIENTE', '', 66, 61, 3);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `_ct_tramite_13_resp_anexos`
+--
+
+CREATE TABLE `_ct_tramite_13_resp_anexos` (
+  `tu_res_anx_id` bigint(20) NOT NULL,
+  `tu_res_anx_path` varchar(200) COLLATE utf8_spanish_ci DEFAULT NULL,
+  `tu_res_anx_descripcion` varchar(100) COLLATE utf8_spanish_ci DEFAULT NULL,
+  `fk_ct_tramite13_resp_id` bigint(20) NOT NULL,
+  `tu_res_anx_firma_ejecutor_path` varchar(200) COLLATE utf8_spanish_ci DEFAULT NULL,
+  `tu_res_anx_firma_director_path` varchar(200) COLLATE utf8_spanish_ci DEFAULT NULL,
+  `tu_res_anx_resp_ejecutor_descripcion` varchar(500) CHARACTER SET utf8 DEFAULT NULL,
+  `tu_res_anx_resp_director_descripcion` varchar(500) CHARACTER SET utf8 DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+--
+-- Índices para tablas volcadas
+--
+
+--
+-- Indices de la tabla `borrarct_areaasesoria`
+--
+ALTER TABLE `borrarct_areaasesoria`
+  ADD PRIMARY KEY (`area_id`);
+
+--
+-- Indices de la tabla `borrarct_tramite_turno`
+--
+ALTER TABLE `borrarct_tramite_turno`
+  ADD PRIMARY KEY (`tt_id`),
+  ADD KEY `fk_TRA_ID` (`tra_id`);
+
+--
+-- Indices de la tabla `borrarct_tramite_usuario_anexos`
+--
+ALTER TABLE `borrarct_tramite_usuario_anexos`
+  ADD PRIMARY KEY (`tua_id`),
+  ADD KEY `fk_ANX_ID` (`anx_id`),
+  ADD KEY `fk_TU_ID` (`tu_id`),
+  ADD KEY `fk_USU_ID` (`usu_id`);
+
+--
+-- Indices de la tabla `borrarct_tramite_usuario_requisitos`
+--
+ALTER TABLE `borrarct_tramite_usuario_requisitos`
+  ADD PRIMARY KEY (`tur_id`),
+  ADD KEY `fk_TU_ID` (`tu_id`),
+  ADD KEY `fk_REQ_ID` (`req_id`);
+
+--
+-- Indices de la tabla `borrarct_tramite_usuario_turno`
+--
+ALTER TABLE `borrarct_tramite_usuario_turno`
+  ADD PRIMARY KEY (`tut_id`),
+  ADD UNIQUE KEY `tutclaveunica` (`tra_id`,`tut_dia`) USING BTREE,
+  ADD KEY `tu_id` (`tu_id`);
+
+--
+-- Indices de la tabla `ct_ambito`
+--
+ALTER TABLE `ct_ambito`
+  ADD PRIMARY KEY (`amb_id`);
+
+--
+-- Indices de la tabla `ct_areaasetec`
+--
+ALTER TABLE `ct_areaasetec`
+  ADD PRIMARY KEY (`aaset_codigo`);
+
+--
+-- Indices de la tabla `ct_auditoria`
+--
+ALTER TABLE `ct_auditoria`
+  ADD PRIMARY KEY (`aud_id`),
+  ADD KEY `fk_USU_CODIGO` (`usu_id`) USING BTREE,
+  ADD KEY `fk_TU_ID` (`tu_id`) USING BTREE;
+
+--
+-- Indices de la tabla `ct_canton`
+--
+ALTER TABLE `ct_canton`
+  ADD PRIMARY KEY (`can_id`),
+  ADD KEY `fk_PRO_CODIGO` (`pro_id`);
+
+--
+-- Indices de la tabla `ct_estadotramite`
+--
+ALTER TABLE `ct_estadotramite`
+  ADD PRIMARY KEY (`et_id`);
+
+--
+-- Indices de la tabla `ct_feriados`
+--
+ALTER TABLE `ct_feriados`
+  ADD PRIMARY KEY (`fer_id`);
+
+--
+-- Indices de la tabla `ct_feriados_anio`
+--
+ALTER TABLE `ct_feriados_anio`
+  ADD PRIMARY KEY (`fea_id`),
+  ADD KEY `feriado_id` (`fer_id`);
+
+--
+-- Indices de la tabla `ct_genero`
+--
+ALTER TABLE `ct_genero`
+  ADD PRIMARY KEY (`GEN_CODIGO`);
+
+--
+-- Indices de la tabla `ct_pais`
+--
+ALTER TABLE `ct_pais`
+  ADD PRIMARY KEY (`pai_codigo`);
+
+--
+-- Indices de la tabla `ct_parroquia`
+--
+ALTER TABLE `ct_parroquia`
+  ADD PRIMARY KEY (`par_id`),
+  ADD KEY `fk_CAN_CODIGO` (`can_id`);
+
+--
+-- Indices de la tabla `ct_provincia`
+--
+ALTER TABLE `ct_provincia`
+  ADD PRIMARY KEY (`pro_id`),
+  ADD KEY `fk_REG_CODIGO` (`reg_id`);
+
+--
+-- Indices de la tabla `ct_regional`
+--
+ALTER TABLE `ct_regional`
+  ADD PRIMARY KEY (`reg_id`);
+
+--
+-- Indices de la tabla `ct_roles`
+--
+ALTER TABLE `ct_roles`
+  ADD PRIMARY KEY (`rol_id`);
+
+--
+-- Indices de la tabla `ct_tpoevento`
+--
+ALTER TABLE `ct_tpoevento`
+  ADD PRIMARY KEY (`tev_codigo`);
+
+--
+-- Indices de la tabla `ct_tramiteanexos`
+--
+ALTER TABLE `ct_tramiteanexos`
+  ADD PRIMARY KEY (`anx_id`),
+  ADD KEY `fk_TRA_ID` (`tra_id`);
+
+--
+-- Indices de la tabla `ct_tramiterequisitos`
+--
+ALTER TABLE `ct_tramiterequisitos`
+  ADD PRIMARY KEY (`req_id`),
+  ADD KEY `fk_TRA_ID` (`tra_id`);
+
+--
+-- Indices de la tabla `ct_tramites`
+--
+ALTER TABLE `ct_tramites`
+  ADD PRIMARY KEY (`tra_id`);
+
+--
+-- Indices de la tabla `ct_tramite_usuario`
+--
+ALTER TABLE `ct_tramite_usuario`
+  ADD PRIMARY KEY (`tu_id`),
+  ADD KEY `fkUSU_ECODIGO` (`usu_extid`),
+  ADD KEY `fkTRA_ID` (`tra_id`),
+  ADD KEY `fkREG_CODIGO` (`reg_id`) USING BTREE,
+  ADD KEY `ftET_CODIGO` (`et_id`) USING BTREE,
+  ADD KEY `fkUSU_ICODIGO` (`usu_intid`) USING BTREE;
+
+--
+-- Indices de la tabla `ct_usuarios`
+--
+ALTER TABLE `ct_usuarios`
+  ADD PRIMARY KEY (`usu_id`),
+  ADD UNIQUE KEY `uni_USU_IDENTIFICADOR` (`usu_identificador`),
+  ADD KEY `fk_ROL_CODIGO` (`rol_id`),
+  ADD KEY `fk_PRO_CODIGO` (`pro_id`),
+  ADD KEY `PAR_CODIGO` (`par_id`),
+  ADD KEY `fk_CAN_CODIGO` (`can_id`) USING BTREE,
+  ADD KEY `fk_REG_CODIGO` (`reg_id`);
+
+--
+-- Indices de la tabla `_ct_tramite5`
+--
+ALTER TABLE `_ct_tramite5`
+  ADD PRIMARY KEY (`tu_id`),
+  ADD KEY `fkUSU_ECODIGO` (`usu_extid`),
+  ADD KEY `fkTRA_ID` (`tra_id`),
+  ADD KEY `fkREG_CODIGO` (`reg_id`) USING BTREE,
+  ADD KEY `ftET_CODIGO` (`et_id`) USING BTREE,
+  ADD KEY `fkUSU_ICODIGO` (`usu_intid`) USING BTREE;
+
+--
+-- Indices de la tabla `_ct_tramite5_anexos`
+--
+ALTER TABLE `_ct_tramite5_anexos`
+  ADD PRIMARY KEY (`tua_id`),
+  ADD KEY `fk_TU_ID` (`tu_id`),
+  ADD KEY `fk_REQ_ID` (`anx_id`);
+
+--
+-- Indices de la tabla `_ct_tramite5_requisitos`
+--
+ALTER TABLE `_ct_tramite5_requisitos`
+  ADD PRIMARY KEY (`tur_id`),
+  ADD KEY `fk_TU_ID` (`tu_id`),
+  ADD KEY `fk_REQ_ID` (`req_id`);
+
+--
+-- Indices de la tabla `_ct_tramite5_respuestas`
+--
+ALTER TABLE `_ct_tramite5_respuestas`
+  ADD PRIMARY KEY (`tuc_id`),
+  ADD KEY `fk_TU_ID` (`tu_id`);
+
+--
+-- Indices de la tabla `_ct_tramite8`
+--
+ALTER TABLE `_ct_tramite8`
+  ADD PRIMARY KEY (`tu_id`),
+  ADD KEY `fkUSU_ECODIGO` (`usu_extid`),
+  ADD KEY `fkTRA_ID` (`tra_id`),
+  ADD KEY `fkREG_CODIGO` (`reg_id`) USING BTREE,
+  ADD KEY `ftET_CODIGO` (`et_id`) USING BTREE,
+  ADD KEY `fkUSU_ICODIGO` (`usu_intid`) USING BTREE;
+
+--
+-- Indices de la tabla `_ct_tramite8_anexos`
+--
+ALTER TABLE `_ct_tramite8_anexos`
+  ADD PRIMARY KEY (`tua_id`),
+  ADD KEY `fk_TU_ID` (`tu_id`),
+  ADD KEY `fk_REQ_ID` (`anx_id`);
+
+--
+-- Indices de la tabla `_ct_tramite8_requisitos`
+--
+ALTER TABLE `_ct_tramite8_requisitos`
+  ADD PRIMARY KEY (`tur_id`),
+  ADD KEY `fk_TU_ID` (`tu_id`),
+  ADD KEY `fk_REQ_ID` (`req_id`);
+
+--
+-- Indices de la tabla `_ct_tramite8_respuestas`
+--
+ALTER TABLE `_ct_tramite8_respuestas`
+  ADD PRIMARY KEY (`tuc_id`),
+  ADD KEY `fk_TU_ID` (`tu_id`);
+
+--
+-- Indices de la tabla `_ct_tramite12`
+--
+ALTER TABLE `_ct_tramite12`
+  ADD PRIMARY KEY (`tu_id`),
+  ADD KEY `fkUSU_ECODIGO` (`usu_extid`),
+  ADD KEY `fkTRA_ID` (`tra_id`),
+  ADD KEY `fkREG_CODIGO` (`reg_id`) USING BTREE,
+  ADD KEY `ftET_CODIGO` (`et_id`) USING BTREE,
+  ADD KEY `fkUSU_ICODIGO` (`usu_intid`) USING BTREE;
+
+--
+-- Indices de la tabla `_ct_tramite12_anexos`
+--
+ALTER TABLE `_ct_tramite12_anexos`
+  ADD PRIMARY KEY (`tua_id`),
+  ADD KEY `fk_TU_ID` (`tu_id`),
+  ADD KEY `fk_REQ_ID` (`anx_id`);
+
+--
+-- Indices de la tabla `_ct_tramite12_requisitos`
+--
+ALTER TABLE `_ct_tramite12_requisitos`
+  ADD PRIMARY KEY (`tur_id`),
+  ADD KEY `fk_TU_ID` (`tu_id`),
+  ADD KEY `fk_REQ_ID` (`req_id`);
+
+--
+-- Indices de la tabla `_ct_tramite12_respuestas`
+--
+ALTER TABLE `_ct_tramite12_respuestas`
+  ADD PRIMARY KEY (`tuc_id`),
+  ADD KEY `fk_TU_ID` (`tu_id`);
+
+--
+-- Indices de la tabla `_ct_tramite13`
+--
+ALTER TABLE `_ct_tramite13`
+  ADD PRIMARY KEY (`tu_id`),
+  ADD KEY `fkUSU_ECODIGO` (`usu_extid`),
+  ADD KEY `fkTRA_ID` (`tra_id`),
+  ADD KEY `fkREG_CODIGO` (`reg_id`) USING BTREE,
+  ADD KEY `ftET_CODIGO` (`et_id`) USING BTREE,
+  ADD KEY `fkUSU_ICODIGO` (`usu_intid`) USING BTREE;
+
+--
+-- Indices de la tabla `_ct_tramite13_anexos`
+--
+ALTER TABLE `_ct_tramite13_anexos`
+  ADD PRIMARY KEY (`tua_id`),
+  ADD KEY `fk_TU_ID` (`tu_id`),
+  ADD KEY `fk_REQ_ID` (`anx_id`);
+
+--
+-- Indices de la tabla `_ct_tramite13_requisitos`
+--
+ALTER TABLE `_ct_tramite13_requisitos`
+  ADD PRIMARY KEY (`tur_id`),
+  ADD KEY `fk_TU_ID` (`tu_id`),
+  ADD KEY `fk_REQ_ID` (`req_id`);
+
+--
+-- Indices de la tabla `_ct_tramite13_respuestas`
+--
+ALTER TABLE `_ct_tramite13_respuestas`
+  ADD PRIMARY KEY (`tuc_id`),
+  ADD KEY `fk_TU_ID` (`tu_id`);
+
+--
+-- Indices de la tabla `_ct_tramite16`
+--
+ALTER TABLE `_ct_tramite16`
+  ADD PRIMARY KEY (`tu_id`),
+  ADD KEY `fkUSU_ECODIGO` (`usu_extid`),
+  ADD KEY `fkTRA_ID` (`tra_id`),
+  ADD KEY `fkREG_CODIGO` (`reg_id`) USING BTREE,
+  ADD KEY `ftET_CODIGO` (`et_id`) USING BTREE,
+  ADD KEY `fkUSU_ICODIGO` (`usu_intid`) USING BTREE;
+
+--
+-- Indices de la tabla `_ct_tramite16_anexos`
+--
+ALTER TABLE `_ct_tramite16_anexos`
+  ADD PRIMARY KEY (`tua_id`),
+  ADD KEY `fk_TU_ID` (`tu_id`),
+  ADD KEY `fk_REQ_ID` (`anx_id`);
+
+--
+-- Indices de la tabla `_ct_tramite16_respuestas`
+--
+ALTER TABLE `_ct_tramite16_respuestas`
+  ADD PRIMARY KEY (`tuc_id`),
+  ADD KEY `fk_TU_ID` (`tu_id`);
+
+--
+-- Indices de la tabla `_ct_tramite18`
+--
+ALTER TABLE `_ct_tramite18`
+  ADD PRIMARY KEY (`tu_id`),
+  ADD KEY `fkUSU_ECODIGO` (`usu_extid`),
+  ADD KEY `fkTRA_ID` (`tra_id`),
+  ADD KEY `fkREG_CODIGO` (`reg_id`) USING BTREE,
+  ADD KEY `ftET_CODIGO` (`et_id`) USING BTREE,
+  ADD KEY `fkUSU_ICODIGO` (`usu_intid`) USING BTREE;
+
+--
+-- Indices de la tabla `_ct_tramite18_anexos`
+--
+ALTER TABLE `_ct_tramite18_anexos`
+  ADD PRIMARY KEY (`tua_id`),
+  ADD KEY `fk_TU_ID` (`tu_id`),
+  ADD KEY `fk_REQ_ID` (`anx_id`);
+
+--
+-- Indices de la tabla `_ct_tramite18_requisitos`
+--
+ALTER TABLE `_ct_tramite18_requisitos`
+  ADD PRIMARY KEY (`tur_id`),
+  ADD KEY `_ct_tramite18_requisitos_FKIndex1` (`tu_id`);
+
+--
+-- Indices de la tabla `_ct_tramite18_respuestas`
+--
+ALTER TABLE `_ct_tramite18_respuestas`
+  ADD PRIMARY KEY (`tuc_id`),
+  ADD KEY `fk_TU_ID` (`tu_id`);
+
+--
+-- Indices de la tabla `_ct_tramite_13_resp_anexos`
+--
+ALTER TABLE `_ct_tramite_13_resp_anexos`
+  ADD PRIMARY KEY (`tu_res_anx_id`);
+
+--
+-- AUTO_INCREMENT de las tablas volcadas
+--
+
+--
+-- AUTO_INCREMENT de la tabla `borrarct_areaasesoria`
+--
+ALTER TABLE `borrarct_areaasesoria`
+  MODIFY `area_id` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+--
+-- AUTO_INCREMENT de la tabla `borrarct_tramite_turno`
+--
+ALTER TABLE `borrarct_tramite_turno`
+  MODIFY `tt_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+--
+-- AUTO_INCREMENT de la tabla `borrarct_tramite_usuario_anexos`
+--
+ALTER TABLE `borrarct_tramite_usuario_anexos`
+  MODIFY `tua_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT de la tabla `borrarct_tramite_usuario_requisitos`
+--
+ALTER TABLE `borrarct_tramite_usuario_requisitos`
+  MODIFY `tur_id` bigint(20) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT de la tabla `borrarct_tramite_usuario_turno`
+--
+ALTER TABLE `borrarct_tramite_usuario_turno`
+  MODIFY `tut_id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+--
+-- AUTO_INCREMENT de la tabla `ct_ambito`
+--
+ALTER TABLE `ct_ambito`
+  MODIFY `amb_id` tinyint(4) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+--
+-- AUTO_INCREMENT de la tabla `ct_areaasetec`
+--
+ALTER TABLE `ct_areaasetec`
+  MODIFY `aaset_codigo` int(2) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+--
+-- AUTO_INCREMENT de la tabla `ct_auditoria`
+--
+ALTER TABLE `ct_auditoria`
+  MODIFY `aud_id` bigint(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=563;
+--
+-- AUTO_INCREMENT de la tabla `ct_estadotramite`
+--
+ALTER TABLE `ct_estadotramite`
+  MODIFY `et_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+--
+-- AUTO_INCREMENT de la tabla `ct_feriados`
+--
+ALTER TABLE `ct_feriados`
+  MODIFY `fer_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+--
+-- AUTO_INCREMENT de la tabla `ct_feriados_anio`
+--
+ALTER TABLE `ct_feriados_anio`
+  MODIFY `fea_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=147;
+--
+-- AUTO_INCREMENT de la tabla `ct_genero`
+--
+ALTER TABLE `ct_genero`
+  MODIFY `GEN_CODIGO` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+--
+-- AUTO_INCREMENT de la tabla `ct_pais`
+--
+ALTER TABLE `ct_pais`
+  MODIFY `pai_codigo` int(5) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+--
+-- AUTO_INCREMENT de la tabla `ct_roles`
+--
+ALTER TABLE `ct_roles`
+  MODIFY `rol_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+--
+-- AUTO_INCREMENT de la tabla `ct_tpoevento`
+--
+ALTER TABLE `ct_tpoevento`
+  MODIFY `tev_codigo` int(5) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+--
+-- AUTO_INCREMENT de la tabla `ct_tramiteanexos`
+--
+ALTER TABLE `ct_tramiteanexos`
+  MODIFY `anx_id` bigint(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=65;
+--
+-- AUTO_INCREMENT de la tabla `ct_tramiterequisitos`
+--
+ALTER TABLE `ct_tramiterequisitos`
+  MODIFY `req_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+--
+-- AUTO_INCREMENT de la tabla `ct_tramites`
+--
+ALTER TABLE `ct_tramites`
+  MODIFY `tra_id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+--
+-- AUTO_INCREMENT de la tabla `ct_tramite_usuario`
+--
+ALTER TABLE `ct_tramite_usuario`
+  MODIFY `tu_id` bigint(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=219;
+--
+-- AUTO_INCREMENT de la tabla `ct_usuarios`
+--
+ALTER TABLE `ct_usuarios`
+  MODIFY `usu_id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=72;
+--
+-- AUTO_INCREMENT de la tabla `_ct_tramite5`
+--
+ALTER TABLE `_ct_tramite5`
+  MODIFY `tu_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=76;
+--
+-- AUTO_INCREMENT de la tabla `_ct_tramite5_anexos`
+--
+ALTER TABLE `_ct_tramite5_anexos`
+  MODIFY `tua_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=95;
+--
+-- AUTO_INCREMENT de la tabla `_ct_tramite5_requisitos`
+--
+ALTER TABLE `_ct_tramite5_requisitos`
+  MODIFY `tur_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=75;
+--
+-- AUTO_INCREMENT de la tabla `_ct_tramite5_respuestas`
+--
+ALTER TABLE `_ct_tramite5_respuestas`
+  MODIFY `tuc_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
+--
+-- AUTO_INCREMENT de la tabla `_ct_tramite8`
+--
+ALTER TABLE `_ct_tramite8`
+  MODIFY `tu_id` bigint(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+--
+-- AUTO_INCREMENT de la tabla `_ct_tramite8_anexos`
+--
+ALTER TABLE `_ct_tramite8_anexos`
+  MODIFY `tua_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+--
+-- AUTO_INCREMENT de la tabla `_ct_tramite8_requisitos`
+--
+ALTER TABLE `_ct_tramite8_requisitos`
+  MODIFY `tur_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+--
+-- AUTO_INCREMENT de la tabla `_ct_tramite8_respuestas`
+--
+ALTER TABLE `_ct_tramite8_respuestas`
+  MODIFY `tuc_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+--
+-- AUTO_INCREMENT de la tabla `_ct_tramite12`
+--
+ALTER TABLE `_ct_tramite12`
+  MODIFY `tu_id` bigint(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+--
+-- AUTO_INCREMENT de la tabla `_ct_tramite12_anexos`
+--
+ALTER TABLE `_ct_tramite12_anexos`
+  MODIFY `tua_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=84;
+--
+-- AUTO_INCREMENT de la tabla `_ct_tramite12_requisitos`
+--
+ALTER TABLE `_ct_tramite12_requisitos`
+  MODIFY `tur_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+--
+-- AUTO_INCREMENT de la tabla `_ct_tramite12_respuestas`
+--
+ALTER TABLE `_ct_tramite12_respuestas`
+  MODIFY `tuc_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
+--
+-- AUTO_INCREMENT de la tabla `_ct_tramite13`
+--
+ALTER TABLE `_ct_tramite13`
+  MODIFY `tu_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+--
+-- AUTO_INCREMENT de la tabla `_ct_tramite13_anexos`
+--
+ALTER TABLE `_ct_tramite13_anexos`
+  MODIFY `tua_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+--
+-- AUTO_INCREMENT de la tabla `_ct_tramite13_requisitos`
+--
+ALTER TABLE `_ct_tramite13_requisitos`
+  MODIFY `tur_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+--
+-- AUTO_INCREMENT de la tabla `_ct_tramite13_respuestas`
+--
+ALTER TABLE `_ct_tramite13_respuestas`
+  MODIFY `tuc_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+--
+-- AUTO_INCREMENT de la tabla `_ct_tramite16`
+--
+ALTER TABLE `_ct_tramite16`
+  MODIFY `tu_id` bigint(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+--
+-- AUTO_INCREMENT de la tabla `_ct_tramite16_anexos`
+--
+ALTER TABLE `_ct_tramite16_anexos`
+  MODIFY `tua_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+--
+-- AUTO_INCREMENT de la tabla `_ct_tramite16_respuestas`
+--
+ALTER TABLE `_ct_tramite16_respuestas`
+  MODIFY `tuc_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+--
+-- AUTO_INCREMENT de la tabla `_ct_tramite18`
+--
+ALTER TABLE `_ct_tramite18`
+  MODIFY `tu_id` bigint(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+--
+-- AUTO_INCREMENT de la tabla `_ct_tramite18_anexos`
+--
+ALTER TABLE `_ct_tramite18_anexos`
+  MODIFY `tua_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+--
+-- AUTO_INCREMENT de la tabla `_ct_tramite18_requisitos`
+--
+ALTER TABLE `_ct_tramite18_requisitos`
+  MODIFY `tur_id` bigint(20) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT de la tabla `_ct_tramite18_respuestas`
+--
+ALTER TABLE `_ct_tramite18_respuestas`
+  MODIFY `tuc_id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+--
+-- AUTO_INCREMENT de la tabla `_ct_tramite_13_resp_anexos`
+--
+ALTER TABLE `_ct_tramite_13_resp_anexos`
+  MODIFY `tu_res_anx_id` bigint(20) NOT NULL AUTO_INCREMENT;
+--
+-- Restricciones para tablas volcadas
+--
+
+--
+-- Filtros para la tabla `ct_feriados_anio`
+--
+ALTER TABLE `ct_feriados_anio`
+  ADD CONSTRAINT `feriado_id` FOREIGN KEY (`fer_id`) REFERENCES `ct_feriados` (`fer_id`);
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
