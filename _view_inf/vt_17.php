@@ -79,7 +79,8 @@ $bandera_convanxres = "";
         <!--<td><?php echo $row[0] ?></td>-->
         <td><?php echo $row[1] ?></td>
     </tr>
-<?php } //fin while  ?>   
+<?php } //fin while  ?> 
+
 </tr>
 <tr class="info">
     <th colspan="6">Respuesta</th>	
@@ -154,27 +155,26 @@ if ($requisito["tuc_cumple"] != "CORRECTO") {
 }
 ?>
 
-<!--<table class="table table-bordered">
-    <tr>
-        <th></th>
-        <th scope="col">Trámite</th>
-        <th scope="col">Descripción</th>
-        <th colspan="4" align="center">Acciones</th>
-    </tr>
-<?php
-//echo $pry;
 
-$rstra = $analisisQuimico17;
-while ($row = mysql_fetch_row($rstra)) {
-    ?>
-        <tr>
-            <td><?php echo $row[0] ?></td>
-            <td><?php echo $row[1] ?></td>
-            <td><?php echo $row[2] ?></td>
-            <td><a href="#!" class="btn btn-light btn-xs"><i class="zmdi zmdi-time-countdown"></i> 5 días laborables</a></td>
-            <td><a href="#!" class="btn btn-info btn-xs"><i class="zmdi zmdi-info-outline"></i> Preguntas Frecuentes</a></td>
-            <td><a href="#!" class="btn btn-info btn-xs"><i class="zmdi zmdi-collection-text"></i> Requisitos y Formatos</a></td>
-            <td> <a href="admregprof.php?tra=<?php echo $row[0] ?>&m=<?php echo date("m") ?>&a=<?php echo date("Y") ?>"  target="_blank"  title="Ir al trámite" class="btn btn-primary btn-xs"> <i class="zmdi zmdi-arrow-right"></i>  Ir al trámite</a></td>
-        </tr>
-<?php } //fin while  ?>   
-</table>-->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
