@@ -6,6 +6,11 @@ require_once '../modelo/clstramiterequisitos.php';
 require_once '../modelo/clsturequisitos.php';
 require_once '../modelo/clstramiteanexos.php';
 require_once '../modelo/clstuanexos.php';
+require_once '../modelo/cls17AnalisisQuimico.php';
+
+$tu_caracteristicas_bien=$_POST["caracteristicasBien"];
+$te_opciones_analisis = addslashes(implode(", ", $_POST['opciones_analisis']));
+
 //CREANDO EL TRÁMITE
 $clstut = new clstramite17();
 $clstut->setTu_codigo($clstramiteusuario->getTu_codigo());
@@ -21,7 +26,20 @@ $clstut->setTu_fecha_concoa($fecha_control_coa);
 $clstut->setReg_id($clstramiteusuario->getReg_id());
 $clstut->setEt_id($clstramiteusuario->getEt_id());
 $clstut->setUsu_iid($clstramiteusuario->getUsu_iid());
+$clstut->setCaracteristicas_bien($tu_caracteristicas_bien);
+
 $tu17_id = $clstut->tu_insertar();
+
+//INSERTAR
+$array = explode(',', $te_opciones_analisis);
+
+$analisisQuimico = new cls17AnalisisQuimico();
+foreach ($array as $item) {
+    $analisisQuimico->setTu_id($tu17_id);
+    $analisisQuimico->setTa_id($item);
+
+    $analisisQuimico->analisisQuimicoInsertar();
+}
 
 //OBTENIENDO REQUISITOS
 $fileTmpPath_carta = $_FILES['rpdffotos']['tmp_name'];

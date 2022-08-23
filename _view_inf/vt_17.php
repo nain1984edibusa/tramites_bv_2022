@@ -8,11 +8,18 @@ include_once("./modelo/clsturequisitos.php");
 include_once("./modelo/clstramiterespuestas.php");
 include_once("./modelo/clstu17respuestas.php");
 include_once("./modelo/clstuanexos.php");
+include_once("./modelo/cls17AnalisisQuimico.php");
 //OBTENER CAMPOS ESPECÍFICOS DEL TRÁMITE
 $tramitee = new clstramite17();
 $tramitee->setTu_codigo($tra_codigo);
 $tespecifico = $tramitee->tra_seleccionar_bycodigo();
 $tespecifico = mysqli_fetch_array($tespecifico);
+
+//OBTENER PEDIDO DE ANALISIS
+$analisisQuimico = new cls17AnalisisQuimico();
+$analisisQuimico->setTu_id($tespecifico["tu_id"]);
+$analisisQuimico17 = $analisisQuimico->analisisQuimicoPorTramite();
+
 //OBTENER REQUISITOS
 $requisitose = new clsturequisitos();
 $requisitose->setTu_id($tespecifico["tu_id"]);
@@ -61,6 +68,20 @@ $bandera_convanxres = "";
 
 <!--SI EL ESTADO DEL TRAMITE ES 5 NO PERMITIR QUE VE AL CIUDADANO, Y MOSTRARLE EN UN FORMATO SIN VALIDACIÓN-->
 <tr class="info">
+    <th colspan="6">Análisis químico solicitado</th>
+</tr>
+<tr>
+    <?php
+    $rstra = $analisisQuimico17;
+    while ($row = mysqli_fetch_array($analisisQuimico17)) {
+        ?>
+    <tr>
+        <!--<td><?php echo $row[0] ?></td>-->
+        <td><?php echo $row[1] ?></td>
+    </tr>
+<?php } //fin while  ?>   
+</tr>
+<tr class="info">
     <th colspan="6">Respuesta</th>	
 </tr>
 <tr class="row-light">
@@ -76,17 +97,17 @@ while ($anexo = mysqli_fetch_array($anexos17)) {
                 <a href="" onclick="VentanaCentrada('<?php echo DIRDOWNLOAD . $anexo["tua_rutaarchivo"] ?>', 'Requisito', '', '1024', '768', 'true');return false;"><?php echo $anexo["anx_nombre"]; ?></a>
             <?php } else { ?>
                 <?php echo $anexo["anx_nombre"]; ?>
-    <?php } ?>
+            <?php } ?>
         </td>
         <td class="tr_validacion">
-    <?php echo ($anexo["tua_cumple"] == "") ? "NO INGRESADO" : $anexo["tua_cumple"]; ?>
+            <?php echo ($anexo["tua_cumple"] == "") ? "NO INGRESADO" : $anexo["tua_cumple"]; ?>
         </td>
         <td class="tr_validacion" colspan="2"><?php echo ($anexo["tua_observaciones"] == "") ? "<span>Sin observaciones</span>" : "<span class='sp-requerido'>" . $anexo["tua_observaciones"] . "</span>"; ?></td>
         <td class="tr_validacion">
             <?php if (($_SESSION["codperfil"] == APROBADOR) && ($anexo["tua_rutaarchivo"] != NULL)): ?>
                 <button href="#" class='btn btn-default'  title='Validar Anexo' data-toggle="modal" data-target="#ValidarAnexo" onclick="cargar_datos_va('<?php echo $tra_id ?>', '<?php echo $anexo["tua_id"]; ?>', '<?php echo $_GET["idtu"]; ?>', '<?php echo $tespecifico["tu_codigo"]; ?>')"><i class="zmdi zmdi-check-all"></i> Validar Anexo</button>
             <?php endif; ?>
-    <?php ?>  
+            <?php ?>  
         </td>
     </tr>
     <?php
@@ -111,18 +132,19 @@ $respuesta = mysqli_fetch_array($respuesta17);
             <a href="" onclick="VentanaCentrada('<?php echo DIRDOWNLOAD . $respuesta["tuc_rutaarchivo"] ?>', 'Requisito', '', '1024', '768', 'true');return false;"><?php echo "Respuesta"; ?></a>
         <?php } else { ?>
             <?php echo "Respuesta"; ?>
-<?php } ?>
+        <?php } ?>
     </td>
     <td class="tr_validacion">
-<?php echo ($respuesta["tuc_cumple"] == "") ? "NO INGRESADO" : $respuesta["tuc_cumple"]; ?>
+        <?php echo ($respuesta["tuc_cumple"] == "") ? "NO INGRESADO" : $respuesta["tuc_cumple"]; ?>
     </td>
     <td class="tr_validacion" colspan="2"><?php echo ($respuesta["tuc_observaciones"] == "") ? "<span>Sin observaciones</span>" : "<span class='sp-requerido'>" . $respuesta["tuc_observaciones"] . "</span>"; ?></td>
     <td class="tr_validacion">
         <?php if (($_SESSION["codperfil"] == APROBADOR) && ($respuesta["tuc_rutaarchivo"] != NULL)): ?>
             <button href="#" class='btn btn-default'  title='Validar Respuesta' data-toggle="modal" data-target="#ValidarRespuesta" onclick="cargar_datos_vres('<?php echo $tra_id ?>', '<?php echo $respuesta["tuc_id"]; ?>', '<?php echo $_GET["idtu"]; ?>', '<?php echo $tespecifico["tu_codigo"]; ?>')"><i class="zmdi zmdi-check-all"></i> Validar Respuesta</button>
         <?php endif; ?>
-<?php ?>  
+        <?php ?>  
     </td>
+
 </tr>
 <?php
 if ($requisito["tuc_cumple"] != "CORRECTO") {
@@ -131,3 +153,28 @@ if ($requisito["tuc_cumple"] != "CORRECTO") {
     $bandera_convanxres .= "1";
 }
 ?>
+
+<!--<table class="table table-bordered">
+    <tr>
+        <th></th>
+        <th scope="col">Trámite</th>
+        <th scope="col">Descripción</th>
+        <th colspan="4" align="center">Acciones</th>
+    </tr>
+<?php
+//echo $pry;
+
+$rstra = $analisisQuimico17;
+while ($row = mysql_fetch_row($rstra)) {
+    ?>
+        <tr>
+            <td><?php echo $row[0] ?></td>
+            <td><?php echo $row[1] ?></td>
+            <td><?php echo $row[2] ?></td>
+            <td><a href="#!" class="btn btn-light btn-xs"><i class="zmdi zmdi-time-countdown"></i> 5 días laborables</a></td>
+            <td><a href="#!" class="btn btn-info btn-xs"><i class="zmdi zmdi-info-outline"></i> Preguntas Frecuentes</a></td>
+            <td><a href="#!" class="btn btn-info btn-xs"><i class="zmdi zmdi-collection-text"></i> Requisitos y Formatos</a></td>
+            <td> <a href="admregprof.php?tra=<?php echo $row[0] ?>&m=<?php echo date("m") ?>&a=<?php echo date("Y") ?>"  target="_blank"  title="Ir al trámite" class="btn btn-primary btn-xs"> <i class="zmdi zmdi-arrow-right"></i>  Ir al trámite</a></td>
+        </tr>
+<?php } //fin while  ?>   
+</table>-->

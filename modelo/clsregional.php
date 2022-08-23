@@ -83,7 +83,6 @@ Class clsregional {
     public function regionalSeleccionarActivos() {
         // abro conexión a bases de datos
         $bd = Db::getInstance();
-//        $sql = "select usu_id, usu_nombre, usu_apellido, usu_direccion FROM ct_usuarios WHERE reg_id='".$regional."' and rol_id='".$perfil."' and usu_estado='ACTIVO'";
         $sql = "SELECT * FROM ct_regional WHERE reg_estado = 'ACT'";
         $rsprv = $bd->ejecutar($sql);
         //$bd->cerrar();
