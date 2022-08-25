@@ -10,10 +10,30 @@ include_once("./modelo/clsTipoAnalisis.php");
 $analisisQuimico = new cls17AnalisisQuimico();
 $analisisQuimico->setTu_id($tespecifico["tu_id"]);
 $analisisQuimico17 = $analisisQuimico->analisisQuimicoPorTramite();
+//$analisisQuimico17 = mysqli_fetch_array($analisisQuimico17);
 
 $tipoAnalisis = new clsTipoAnalisis();
 $catalogoTipoAnalisis = $tipoAnalisis->tipoAnalisisSeleccionarTodo();
+$catalogoTipoAnalisisAux = [];
+//$catalogoTipoAnalisis = mysqli_fetch_array($catalogoTipoAnalisis);
 ?>
+
+<?php foreach ($catalogoTipoAnalisis as $catalogo): ?>
+    <?php
+    $ta1 = $catalogo["ta_id"]
+    ?>
+
+    <?php foreach ($analisisQuimico17 as $seleccionado): ?>
+        <?php
+        $ta1 = $seleccionado["ta_id"]
+        ?>
+
+
+    <?php endforeach ?>  
+
+<?php endforeach ?>  
+
+
 <div class="col-xs-12 col-sm-12 col-md-12">
     <div class="group-material">
         <span>Marco Legal <span class="sp-requerido">*</span></span>
@@ -38,8 +58,11 @@ $catalogoTipoAnalisis = $tipoAnalisis->tipoAnalisisSeleccionarTodo();
             <tbody style="background-color:#fff;">
                 <?php foreach ($catalogoTipoAnalisis as $dato): ?>
 
-                    <tr>
 
+                    <tr>
+                        <?php
+//                        $dato1 = $catalogoTipoAnalisis["ta_id"]
+                        ?>
                         <td><input type="checkbox" name="asistencia[]" value="<?php echo $dato["id"] ?>"></td>
                         <td><?php echo $dato["ta_concepto"] ?></td>
                         <td><input type="number" name="numero_items" id="numero_items" value="<?php echo $dato["id"] ?>"></td>
@@ -50,7 +73,7 @@ $catalogoTipoAnalisis = $tipoAnalisis->tipoAnalisisSeleccionarTodo();
 
                     </tr>
 
-                <?php endforeach ?>  
+                <?php endforeach ?>    
             </tbody>
         </table>
     </div>
