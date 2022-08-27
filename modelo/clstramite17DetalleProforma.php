@@ -8,7 +8,7 @@ Class clstramite17DetalleProforma {
     private $ta_cantidad;
     private $ta_concepto;
     private $ta_valor_unitario;
-    private $ta_valor_total1;
+    private $ta_valor_total;
 
     public function getDp_id() {
         return $this->dp_id;
