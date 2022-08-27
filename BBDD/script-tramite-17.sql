@@ -128,6 +128,18 @@ CREATE TABLE `_ct_tramite17_analisis_quimico` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 
+CREATE TABLE `_ct_tramite17_detalle_proforma` (
+  `dp_id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `tu_id` bigint(20) NOT NULL,
+  `ta_id` bigint(20) NOT NULL,
+  `ta_cantidad` int(11) NOT NULL,
+  `ta_concepto` varchar(250) COLLATE utf8_spanish_ci DEFAULT NULL,
+  `ta_valor_unitario` 	DECIMAL(19,2) NOT NULL,
+  PRIMARY KEY (`aq_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+
+
 SET SQL_SAFE_UPDATES = 0;
 update tramites_bv.ct_tramiteanexos
 set anx_requerido = 'SI'
