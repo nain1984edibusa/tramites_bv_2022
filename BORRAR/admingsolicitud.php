@@ -307,7 +307,7 @@ function updateMarker(location) {
                                  <!--   ------------------------------------------------------------------------------------>
                                 <form  method="post" enctype="multipart/form-data" action="?acc=1" name="form_mapa" >
                                  <br> Servicio requerido:</br>
-                                 	  <div id="frmobjeto"><select class="form-control input-sm input-sm" id="selpai" name="selpai" onchange='cargartipoase(this.value);' autofocus required>
+                                 <div id="frmobjeto"><select class="form-control input-sm input-sm" id="selpai" name="selpai" onchange='cargartipoase(this.value);' autofocus required>
 						                         <option value=""></option>
 												<?php
 												    $tca = new clsasesorias;

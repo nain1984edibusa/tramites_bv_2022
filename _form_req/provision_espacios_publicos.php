@@ -268,6 +268,7 @@ include_once 'modelo/clstipoevento.php';
 <?php include_once("./includes/footer.php"); ?>
 <script type="text/javascript">
     function showContent() {
+        debugger;
         element2 = document.getElementById("txteve");
         check = document.getElementById("eventos");
         if (check.value != 5) {

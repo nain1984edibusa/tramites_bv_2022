@@ -82,9 +82,9 @@ VALUES
 
 CREATE TABLE `_ct_tramite17_tipo_analisis` (
   `ta_id` bigint(20) NOT NULL AUTO_INCREMENT,
-  `ta_concepto` varchar(50) COLLATE utf8_spanish_ci NOT NULL,
+  `ta_concepto` varchar(255) COLLATE utf8_spanish_ci NOT NULL,
   `ta_estado` 	ENUM ('ACT', 'INA') NOT NULL DEFAULT 'ACT',
-  `ta_costo` 	DECIMAL(19,4) NOT NULL,
+  `ta_costo` 	DECIMAL(19,2) NOT NULL,
   PRIMARY KEY (`ta_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 

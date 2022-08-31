@@ -10,69 +10,87 @@ include_once("./modelo/clsTipoAnalisis.php");
 $analisisQuimico = new cls17AnalisisQuimico();
 $analisisQuimico->setTu_id($tespecifico["tu_id"]);
 $analisisQuimico17 = $analisisQuimico->analisisQuimicoPorTramite();
-//$analisisQuimico17 = mysqli_fetch_array($analisisQuimico17);
+
 
 $tipoAnalisis = new clsTipoAnalisis();
 $catalogoTipoAnalisis = $tipoAnalisis->tipoAnalisisSeleccionarTodo();
-$catalogoTipoAnalisisAux = [];
-//$catalogoTipoAnalisis = mysqli_fetch_array($catalogoTipoAnalisis);
+$catalogoTipoAnalisis = mysqli_fetch_array($catalogoTipoAnalisis);
 ?>
-
-<?php foreach ($catalogoTipoAnalisis as $catalogo): ?>
-    <?php
-    $ta1 = $catalogo["ta_id"]
-    ?>
-
-    <?php foreach ($analisisQuimico17 as $seleccionado): ?>
-        <?php
-        $ta1 = $seleccionado["ta_id"]
-        ?>
-
-
-    <?php endforeach ?>  
-
-<?php endforeach ?>  
-
-
 <div class="col-xs-12 col-sm-12 col-md-12">
     <div class="group-material">
-        <form>
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title text-center all-tittles">Registro de Objetos</h4>
-            </div>
-            </br>
-            <div class="modal-body">
+        <tr class="info">
+            <th colspan="12">Análisis químico solicitado</th>
+        </tr>
+        <tr>
+            <?php
+            $rstra = $analisisQuimico17;
+            while ($row = mysqli_fetch_array($analisisQuimico17)) {
+                ?>
+            <tr>
+                <!--<td><?php echo $row[0] ?></td>-->
+                <td><?php echo $row[1] ?></td>
+            </tr>
+        <?php } //fin while  ?> 
+
+        </tr>
+    </div>
+    <div class="group-material">
+        <form action="">
+            <h4 class="modal-title text-center all-tittles">Nueva Proforma</h4>
+            <div class="group-material">
                 <div class="row">
-
-
                     <div class="col-xs-12 col-sm-12">
                         <div class="group-material">
-                            <input id="descripcion" name="descripcion" type="text" class="tooltips-general material-control" placeholder="Por ejemplo: 10" required="" maxlength="70" data-toggle="tooltip" data-placement="top"  onKeyUp="this.value = this.value.toUpperCase();"><!--title="Escriba su número de identificación"-->
+                            <span>Tipo análisis químico <span class="sp-requerido">*</span></span>
+                            <select id="analisis-quimico" name="analisis-quimico" class="tooltips-general material-control" data-toggle="tooltip" data-placement="top" title="Selecciona el Evento" onchange="javascript:seleccionarTipoAnalisis();">
+                                <option value="" disabled="" selected="">Seleccione Evento</option> 
+                                <?php
+                                $tipoAnalisisQuimico = new clsTipoAnalisis();
+                                $rsAnalisisQuimico = $tipoAnalisisQuimico->tipoAnalisisSeleccionarTodo();
+                                while ($row = mysqli_fetch_array($rsAnalisisQuimico)) {
+                                    ?>
+                                    <option value="<?php echo $row[0] ?>"><?php echo $row[1] ?></option>
+                                <?php } // fin while  ?>
+                            </select>
+                        </div>
+                    </div>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <div class="col-xs-12 col-sm-12">
+                        <div class="group-material">
+                            <input id="descripcion" name="descripcion" type="text" class="tooltips-general material-control" placeholder="Por ejemplo: 10" required="" maxlength="70" data-toggle="tooltip" data-placement="top"  onKeyUp="this.value = this.value.toUpperCase();">
                             <span class="highlight"></span>
                             <span class="bar"></span>
                             <label>Concepto<span class="sp-requerido">*</span></label>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-xs-12 col-sm-12">
-                    <div class="group-material">
-                        <input id="cantidad" name="cantidad" type="number" class="tooltips-general material-control" placeholder="Por ejemplo: 10" required="" maxlength="70" data-toggle="tooltip" data-placement="top"  onKeyUp="this.value = this.value.toUpperCase();"><!--title="Escriba su número de identificación"-->
-                        <span class="highlight"></span>
-                        <span class="bar"></span>
-                        <label>Cantidad<span class="sp-requerido">*</span></label>
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12">
+                        <div class="group-material">
+                            <input id="cantidad" name="cantidad" type="number" class="tooltips-general material-control" placeholder="Por ejemplo: 10" required="" maxlength="70" data-toggle="tooltip" data-placement="top"  onKeyUp="this.value = this.value.toUpperCase();"><!--title="Escriba su número de identificación"-->
+                            <span class="highlight"></span>
+                            <span class="bar"></span>
+                            <label>Nro. Items de ensayo<span class="sp-requerido">*</span></label>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="row">
-                <div class="col-xs-12 col-sm-12">
-                    <div class="group-material">
-                        <input id="valor_unitario" name="valor_unitario" type="number" class="material-control tooltips-general" placeholder="Por ejemplo: 10" required="" maxlength="100" data-toggle="tooltip" data-placement="top";"> 
-                        <span class="highlight"></span>
-                        <span class="bar"></span>
-                        <label>Valor Unitario<span class="sp-requerido">*</span></label>
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12">
+                        <div class="group-material">
+                            <input id="valor_unitario" name="valor_unitario" type="number" class="material-control tooltips-general" placeholder="Por ejemplo: 10" required="" maxlength="100" data-toggle="tooltip" data-placement="top";"> 
+                            <span class="highlight"></span>
+                            <span class="bar"></span>
+                            <label>Precio por ítem de ensayo <span class="sp-requerido">*</span></label>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">        
+                    <div class="col-xs-12 col-sm-12">
+                        <span class="text-danger align-middle" id="Msg"></span>
                     </div>
                 </div>
             </div>
@@ -107,5 +125,34 @@ $catalogoTipoAnalisisAux = [];
 </div>
 <script type="text/javascript" src="js/app.js"></script>
 
+<script type="text/javascript">
+                                function seleccionarTipoAnalisis() {
+                                    debugger;
+                                    check = document.getElementById("analisis-quimico");
+                                    var itemSeleccionado = check.value;
+                                    $.ajax({
+                                        type: "POST",
+                                        url: "ajax/obtener_valor_unitario.php",
+                                        cache: false,
+                                        data: {itemSeleccionado: itemSeleccionado},
+                                        success: function (datos) {
+                                            debugger;
+                                            $("#Msg").html("<div class='alert alert-success' role='alert'>Registrado.</div> ");
+                                            jQuery('#nombre').val(50);
+                                            var data = $.parseJSON(datos);
+
+                                            $.each(data, function (i, item) {
+//                                                var nombre = item.valor_unitario;
+                                                $("#valor_unitario").val(item.valor_unitario);
+                                                $("#descripcion").val(item.concepto);
+                                            });
+
+                                        }
+                                    });
+                                }
+
+
+
+</script>
 
 

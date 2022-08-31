@@ -60,6 +60,7 @@ Class clsTipoAnalisis {
     public function setTa_numero_ensayos($ta_numero_ensayos): void {
         $this->ta_numero_ensayos = $ta_numero_ensayos;
     }
+
     public function getTa_total_a_pagar() {
         return $this->ta_total_a_pagar;
     }
@@ -68,7 +69,7 @@ Class clsTipoAnalisis {
         $this->ta_total_a_pagar = $ta_total_a_pagar;
     }
 
-        //////   seleccionar tipo bien cultural    ///////////////////
+    //////   seleccionar tipo bien cultural    ///////////////////
     public function tipoAnalisisSeleccionarTodo() {
         // abro conexión a bases de datos
         $bd = Db::getInstance();
@@ -78,10 +79,11 @@ Class clsTipoAnalisis {
         return $rsprv;
     }
 
-    public function tipoBienCulturalSeleccionarActivos() {
+    public function tipoAnalisisPorId($item_seleccionado) {
         // abro conexión a bases de datos
         $bd = Db::getInstance();
-        $sql = "SELECT * FROM _ct_tramite4_tipo_bien_cultural WHERE tbc_estado = 'ACT'";
+//        $sql = "select ta_id, ta_concepto, ta_costo FROM _ct_tramite17_tipo_analisis WHERE ta_id='" . $item_seleccionado . "' ";
+         $sql = "select ta_id, ta_concepto, ta_costo FROM _ct_tramite17_tipo_analisis WHERE ta_id='" . $item_seleccionado . "'";
         $rsprv = $bd->ejecutar($sql);
         //$bd->cerrar();
         return $rsprv;

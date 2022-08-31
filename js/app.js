@@ -8,7 +8,7 @@ var cant = 0;
 function agregar() {
     var descripcion = document.querySelector('#descripcion').value;
     var precio = parseFloat(document.querySelector('#valor_unitario').value);
-    var cantidad = parseFloat(document.querySelector('#cantidad').value)
+    var cantidad = parseFloat(document.querySelector('#cantidad').value);
     var total = precio * cantidad;
     //agrega elementos al arreglo
     data.push(
@@ -77,3 +77,4 @@ function save() {
 
     });
 }
+
