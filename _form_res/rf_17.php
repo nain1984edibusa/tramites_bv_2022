@@ -11,32 +11,41 @@ $analisisQuimico = new cls17AnalisisQuimico();
 $analisisQuimico->setTu_id($tespecifico["tu_id"]);
 $analisisQuimico17 = $analisisQuimico->analisisQuimicoPorTramite();
 
-
 $tipoAnalisis = new clsTipoAnalisis();
 $catalogoTipoAnalisis = $tipoAnalisis->tipoAnalisisSeleccionarTodo();
 $catalogoTipoAnalisis = mysqli_fetch_array($catalogoTipoAnalisis);
 ?>
 <div class="col-xs-12 col-sm-12 col-md-12">
     <div class="group-material">
-        <tr class="info">
-            <th colspan="12">Análisis químico solicitado</th>
-        </tr>
-        <tr>
-            <?php
-            $rstra = $analisisQuimico17;
-            while ($row = mysqli_fetch_array($analisisQuimico17)) {
-                ?>
-            <tr>
-                <!--<td><?php echo $row[0] ?></td>-->
-                <td><?php echo $row[1] ?></td>
-            </tr>
-        <?php } //fin while  ?> 
-
-        </tr>
+        <div class="col-xs-12">
+            <legend><i class="zmdi zmdi-file-text"></i> &nbsp; Pedido de Análisis Químico solicitado por el usuario</legend>
+        </div>
+        <table class="table table-bordered">
+            <thead class="btn-primary">
+                <tr>
+                    <th>Ensayo/Parámetro</th>
+                </tr>
+            </thead>
+            <tbody style="background-color:#fff;">
+                <?php
+                $rstra = $analisisQuimico17;
+                while ($row = mysqli_fetch_array($analisisQuimico17)) {
+                    ?>
+                    <tr>
+                        <!--<td><?php echo $row[0] ?></td>-->
+                        <td><?php echo $row[1] ?></td>
+                    </tr>
+                <?php } //fin while  
+                ?> 
+            </tbody>
+        </table>
     </div>
+    <br/>
     <div class="group-material">
+        <div class="col-xs-12">
+            <legend><i class="zmdi zmdi-border-color"></i> &nbsp; Detallar Proforma</legend>
+        </div>
         <form action="">
-            <h4 class="modal-title text-center all-tittles">Nueva Proforma</h4>
             <div class="group-material">
                 <div class="row">
                     <div class="col-xs-12 col-sm-12">
@@ -50,7 +59,7 @@ $catalogoTipoAnalisis = mysqli_fetch_array($catalogoTipoAnalisis);
                                 while ($row = mysqli_fetch_array($rsAnalisisQuimico)) {
                                     ?>
                                     <option value="<?php echo $row[0] ?>"><?php echo $row[1] ?></option>
-                                <?php } // fin while  ?>
+                                <?php } // fin while   ?>
                             </select>
                         </div>
                     </div>
@@ -124,35 +133,27 @@ $catalogoTipoAnalisis = mysqli_fetch_array($catalogoTipoAnalisis);
 </div>
 </div>
 <script type="text/javascript" src="js/app.js"></script>
-
 <script type="text/javascript">
-                                function seleccionarTipoAnalisis() {
-                                    debugger;
-                                    check = document.getElementById("analisis-quimico");
-                                    var itemSeleccionado = check.value;
-                                    $.ajax({
-                                        type: "POST",
-                                        url: "ajax/obtener_valor_unitario.php",
-                                        cache: false,
-                                        data: {itemSeleccionado: itemSeleccionado},
-                                        success: function (datos) {
-                                            debugger;
-                                            $("#Msg").html("<div class='alert alert-success' role='alert'>Registrado.</div> ");
-                                            jQuery('#nombre').val(50);
-                                            var data = $.parseJSON(datos);
+    function seleccionarTipoAnalisis() {
+        check = document.getElementById("analisis-quimico");
+        var itemSeleccionado = check.value;
+        $.ajax({
+            type: "POST",
+            url: "ajax/obtener_valor_unitario.php",
+            cache: false,
+            data: {itemSeleccionado: itemSeleccionado},
+            success: function (datos) {
+                $("#Msg").html("<div class='alert alert-success' role='alert'>Registrado.</div> ");
+                jQuery('#nombre').val(50);
+                var data = $.parseJSON(datos);
 
-                                            $.each(data, function (i, item) {
-//                                                var nombre = item.valor_unitario;
-                                                $("#valor_unitario").val(item.valor_unitario);
-                                                $("#descripcion").val(item.concepto);
-                                            });
-
-                                        }
-                                    });
-                                }
-
-
-
+                $.each(data, function (i, item) {
+                    $("#valor_unitario").val(item.valor_unitario);
+                    $("#descripcion").val(item.concepto);
+                });
+            }
+        });
+    }
 </script>
 
 
