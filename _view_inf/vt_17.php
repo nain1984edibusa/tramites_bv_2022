@@ -68,7 +68,7 @@ $bandera_convanxres = "";
 
 <!--SI EL ESTADO DEL TRAMITE ES 5 NO PERMITIR QUE VE AL CIUDADANO, Y MOSTRARLE EN UN FORMATO SIN VALIDACIÓN-->
 <tr class="info">
-    <th colspan="6">Análisis químico solicitado</th>
+    <th colspan="12">Análisis químico solicitado</th>
 </tr>
 <tr>
     <?php

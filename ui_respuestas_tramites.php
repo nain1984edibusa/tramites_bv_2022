@@ -304,8 +304,10 @@ if ((isset($_GET["idtu"]) && (!empty($_GET["idtu"])))) { //SI SE RECIBE EL ID DE
                                 <input type="hidden" id="proceso" name="proceso" value="<?php echo $proceso ?>"/>
                                 <input type="hidden" id="tuc_id" name="tuc_id" value="<?php echo $tuc_id ?>"/>
                                 <input type="hidden" id="tuc_id" name="tu_codigo" value="<?php echo $tra_codigo ?>"/>
+                                
                                 <input type="hidden" id="tra_id" name="tra_id" value="<?php echo $_GET["idt"]; ?>" />
                                 <input type="hidden" id="tu_id" name="tu_id" value="<?php echo $tu_id; ?>" />
+                               
                                 <input type="hidden" id="tu_idg" name="tu_idg" value="<?php echo $_GET["idtu"]; ?>" />
                                 <input type="hidden" id="regId" name="regId" value="<?php echo $regionalId ?>" />
                                 <?php

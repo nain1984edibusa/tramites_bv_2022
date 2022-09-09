@@ -68,21 +68,19 @@ Class clstramite17DetalleProforma {
 
     public function tu_insertar() {
         $bd = Db::getInstance();
-        $bd->carga_valores("'" . $this->getDp_id() . "', "
-                . "'" . $this->getTu_id() . "', "
+        $bd->carga_valores("'" . $this->getTu_id() . "', "
                 . "'" . $this->getTa_id() . "', "
                 . "'" . $this->getTa_cantidad() . "', "
                 . "'" . $this->getTa_concepto() . "', "
                 . "'" . $this->getTa_valor_unitario() . "',"
                 . "'" . $this->getTa_valor_total() . "'");
 
-        $bd->carga_campos("dp_id, "
-                . "tu_id, "
+        $bd->carga_campos("tu_id, "
                 . "ta_id, "
                 . "ta_cantidad, "
                 . "ta_concepto, "
                 . "ta_valor_unitario, "
-                . "ta_valot_total");
+                . "ta_valor_total");
 
         if ($bd->insertar("_ct_tramite17_detalle_proforma")) // insertar
             return $bd->lastID();
