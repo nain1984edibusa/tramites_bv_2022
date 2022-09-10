@@ -106,10 +106,8 @@ switch ($id_tramite) {
         $clstramiteer->setTuc_num_serie_autorizacion($serieAutorizacion);
         $clstramiteer->setTuc_num_autorizacion($nuevaAut);
         break;
-        break;
     case "18":
         $clstramiteer = new clstu18respuestas();
-        //$marco_legal=nl2br($_POST["marcolegal"]);
         $infoadicional = $_POST["infoadicional"];
         $clstramiteer->setInfo_adicional($infoadicional);
         break;
@@ -117,7 +115,7 @@ switch ($id_tramite) {
 $clstramiteer->setTra_id($id_tramite);
 $clstramiteer->setTu_id($tu_id);
 $clstramiteer->setTuc_cumple("PENDIENTE");
-$clstramiteer->setTuc_rutaarchivo('/upload/172022080911170472/fc2bb8553c9ac50519946a2af97b5be6.pdf');
+$clstramiteer->setTuc_rutaarchivo($ruta_archivo);
 $clstramiteer->setTuc_tipo_contestacion($tipo_contestacion);
 $responsable_proceso = "";
 switch ($_SESSION["codperfil"]) {

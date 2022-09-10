@@ -99,19 +99,27 @@ $analisisQuimico17 = $analisisQuimico->analisisQuimicoPorTramite();
                             </div>
                         </div>-->
     </div>
+    <div class="row">
+        <div class="col-xs-12">
+            <p class="text-center">
+                <button type="button" value="Agregar" id="agregar" class="btn btn-info"  style="margin-right: 20px;"><i class="zmdi zmdi-plus-circle-o"></i> &nbsp;&nbsp; Agregar item</button>
+                <button type="button" value="Guardar" id="guardar" class="btn btn-primary"><i class="zmdi zmdi-arrow-right"></i> &nbsp;&nbsp; Guardar</button>
+            </p>
+        </div>
+    </div>
     <div class="group-material">
-        <div class="row">
+<!--        <div class="row">
             <div class="col-xs-6 text-center">
-                <!--<button type="submit" class="btn btn-secondary" data-dismiss="modal"><i class="zmdi zmdi-close"></i> &nbsp; Cancelar</button>-->
+                <button type="submit" class="btn btn-secondary" data-dismiss="modal"><i class="zmdi zmdi-close"></i> &nbsp; Cancelar</button>
                 <input type="button" value="Agregar" class="btn btn-success mt-3" id="agregar">
             </div>
             <div class="col-xs-6 text-center">
-                <!--<button type="submit" id="btn_registrarse" class="btn btn-success"><i class="zmdi zmdi-account-add"></i> &nbsp; Registrarse</button>-->
+                <button type="submit" id="btn_registrarse" class="btn btn-success"><i class="zmdi zmdi-account-add"></i> &nbsp; Registrarse</button>
                 <input type="button" value="Guardar" class="btn btn-success mt-3" id="guardar">
             </div>
         </div>
     </div>
-    <br/>
+    <br/>-->
 
     <div class="group-material" id="productos">
         <div class="col-xs-12">

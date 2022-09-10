@@ -24,7 +24,7 @@
             <div class="col-xs-12">
                 <legend><i class="zmdi zmdi-gps-dot"></i> &nbsp; Pedido de Análisis Químico</legend>
             </div>
-            <div class="card bg-light" style="width: 100%;">
+            <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="card-body">
                     <div class="row">
                         <!-- checkbox -->

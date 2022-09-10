@@ -209,11 +209,11 @@ if ((isset($_GET["idtu"]) && (!empty($_GET["idtu"])))) { //SI SE RECIBE EL ID DE
                             <div class="col-xs-12 col-sm-6 col-md-6">
                                 <div class="group-material">
                                     <!--ANEXO ID , TU_ID, RUTA_ARCHIVO-->
-                                    <!--<input type="hidden" id="anexo_id" name="anexo_id" value="<?php //echo $anexo["anx_id"];       ?>" />-->
+                                    <!--<input type="hidden" id="anexo_id" name="anexo_id" value="<?php //echo $anexo["anx_id"];         ?>" />-->
                                     <input type="hidden" id="tra_codigo" name="tra_codigo" value="<?php echo $tra_codigo; ?>"/>
                                     <input type="hidden" id="tra_id" name="tra_id" value="<?php echo $_GET["idt"]; ?>" />
                                     <input type="hidden" id="tua_id" name="tua_id" value="<?php echo $anexo["tua_id"]; ?>" />
-                                    <!---<input type="hidden" id="tu_id" name="tu_id" value="<?php //echo $tu_id;       ?>" />-->
+                                    <!---<input type="hidden" id="tu_id" name="tu_id" value="<?php //echo $tu_id;         ?>" />-->
                                     <input type="hidden" id="tu_idg" name="tu_idg" value="<?php echo $_GET["idtu"]; ?>" />
                                     <input name="anexo_file" id="anexo_file" type="file" class="tooltips-general material-control" data-toggle="tooltip" data-placement="top" <?php if ($anexo["anx_requerido"] == "SI"): ?> required=''<?php endif; ?> accept="application/pdf"> <!--title="Escribe el código correlativo del libro, solamente números"-->
                                     <span class="highlight"></span>
@@ -304,10 +304,10 @@ if ((isset($_GET["idtu"]) && (!empty($_GET["idtu"])))) { //SI SE RECIBE EL ID DE
                                 <input type="hidden" id="proceso" name="proceso" value="<?php echo $proceso ?>"/>
                                 <input type="hidden" id="tuc_id" name="tuc_id" value="<?php echo $tuc_id ?>"/>
                                 <input type="hidden" id="tuc_id" name="tu_codigo" value="<?php echo $tra_codigo ?>"/>
-                                
+
                                 <input type="hidden" id="tra_id" name="tra_id" value="<?php echo $_GET["idt"]; ?>" />
                                 <input type="hidden" id="tu_id" name="tu_id" value="<?php echo $tu_id; ?>" />
-                               
+
                                 <input type="hidden" id="tu_idg" name="tu_idg" value="<?php echo $_GET["idtu"]; ?>" />
                                 <input type="hidden" id="regId" name="regId" value="<?php echo $regionalId ?>" />
                                 <?php
@@ -338,7 +338,7 @@ if ((isset($_GET["idtu"]) && (!empty($_GET["idtu"])))) { //SI SE RECIBE EL ID DE
                         <div class="col-xs-12 col-sm-6">
                             <?php if ($proceso == "editar") { ?>
                                 <p class="respuesta"><a href="" onclick="previsualizar_respuesta(<?php echo $_GET["idtu"] ?>);
-                                                    return false;"><i class="zmdi zmdi-download"></i> Visualizar/Descargar <strong>Respuesta</strong></a></p>
+                                        return false;"><i class="zmdi zmdi-download"></i> Visualizar/Descargar <strong>Respuesta</strong></a></p>
                                                     <?php } else { ?>
                                 <p class="respuesta"><i class="zmdi zmdi-download"></i> Ninguno cargado</p>
                             <?php } ?>
