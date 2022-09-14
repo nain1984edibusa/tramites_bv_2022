@@ -87,24 +87,9 @@ switch ($id_tramite) {
         $clstramiteer->setInfo_adicional($infoadicional);
         break;
     case "17":
-        $clstramiteer = new clstu17respuestas();
-        //$marco_legal=nl2br($_POST["marcolegal"]);
-        $marco_legal = $_POST["marcolegal"];
-        $clstramiteer->setMarco_legal($marco_legal);
-        $lastAutorizacion = mysqli_fetch_array($clstramiteer->obtener_lastAutorizacion($regionalId));
-        if ($lastAutorizacion["tuc_num_autorizacion"] != null) {
-            $nuevaAut = $lastAutorizacion["tuc_num_autorizacion"] + 1;
-        } else {
-            $nuevaAut = 1;
-        }
-//	$serieAutorizacion = "AUT-INPC-Z".$regionalId."-".$nuevaAut."-".date("Y");         
-        if ($regionalId != 8) {
-            $serieAutorizacion = "AUT-INPC-Z" . $regionalId . "-" . $nuevaAut . "-" . date("Y");
-        } else {
-            $serieAutorizacion = "AUT-INPC-" . $nuevaAut . "-" . date("Y");
-        }
-        $clstramiteer->setTuc_num_serie_autorizacion($serieAutorizacion);
-        $clstramiteer->setTuc_num_autorizacion($nuevaAut);
+       $clstramiteer = new clstu17respuestas();
+        $infoadicional = $_POST["infoadicional"];
+        $clstramiteer->setInfo_adicional($infoadicional);
         break;
     case "18":
         $clstramiteer = new clstu18respuestas();

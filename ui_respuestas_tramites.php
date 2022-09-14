@@ -344,6 +344,7 @@ if ((isset($_GET["idtu"]) && (!empty($_GET["idtu"])))) { //SI SE RECIBE EL ID DE
                             <?php } ?>
                         </div>
                         <?php include_once '_form_res/rf_' . $tra_id . ".php"; ?>
+                        <?php include_once '_form_res/rf_17_detalle_proforma.php'; ?>
                     </div>
                     <div class="row">
                         <div class="col-xs-12">
@@ -351,9 +352,9 @@ if ((isset($_GET["idtu"]) && (!empty($_GET["idtu"])))) { //SI SE RECIBE EL ID DE
                                 <button type="reset" class="btn btn-info" style="margin-right: 20px;"><i class="zmdi zmdi-roller"></i> &nbsp;&nbsp; Limpiar</button>
                                 <!--<button type="button" class="btn btn-primary"><i class="zmdi zmdi-arrow-right"></i> &nbsp;&nbsp; Guardar</button>-->
                                 <?php if ($numanexos == $numarequeridos) { ?>
-                                    <button type="submit" class="btn btn-primary"><i class="zmdi zmdi-arrow-right"></i> &nbsp;&nbsp; Guardar</button>
+                                    <button type="submit" id="GRR" class="btn btn-primary"><i class="zmdi zmdi-arrow-right"></i> &nbsp;&nbsp; Guardar RR</button>
                                 <?php } else { ?>
-                                    <button type="button" class="btn btn-primary btndesactivado"><i class="zmdi zmdi-arrow-right"></i> &nbsp;&nbsp; Guardar</button>
+                                    <button type="button"  class="btn btn-primary btndesactivado"><i class="zmdi zmdi-arrow-right"></i> &nbsp;&nbsp; Guardar registrar respueta</button>
                                 <?php } ?>
                             </p>
                         </div>
@@ -381,7 +382,6 @@ if ((isset($_GET["idtu"]) && (!empty($_GET["idtu"])))) { //SI SE RECIBE EL ID DE
     header("Location:" . RUTA_BANDEJAS_UI);
 }
 ?>
-<script type="text/javascript" src="js/funciones_generales.js"></script>
 <script type="text/javascript" src="js/funciones_generales.js"></script>
 <script type="text/javascript" src="js/_ui_respuestas_tramites.js"></script>
 <script type="text/javascript" src="js/VentanaCentrada.js"></script>

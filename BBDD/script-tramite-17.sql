@@ -55,7 +55,7 @@ CREATE TABLE `_ct_tramite17_respuestas` (
   `tuc_id` bigint(20) NOT NULL AUTO_INCREMENT,
   `tuc_tipocontestacion` varchar(10) COLLATE utf8_spanish_ci NOT NULL,
   `tuc_rutaarchivo` varchar(250) COLLATE utf8_spanish_ci NOT NULL,
-  `tuc_marcolegal` text COLLATE utf8_spanish_ci NOT NULL,
+  `tuc_infoadicional` text COLLATE utf8_spanish_ci NOT NULL,
   `tuc_cumple` varchar(50) COLLATE utf8_spanish_ci DEFAULT NULL,
   `tuc_observaciones` varchar(250) COLLATE utf8_spanish_ci DEFAULT NULL,
   `usu_aprobador` int(11) NOT NULL DEFAULT 0,

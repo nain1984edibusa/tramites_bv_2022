@@ -15,6 +15,8 @@ require_once '../includes/functions.php';
 require_once "../modelo/util.php";
 require_once "../modelo/clstramite17DetalleProforma.php";
 
+
+
 $productos = json_decode($_POST['json'], true);
 //recorrer el arreglo
 foreach ($productos as $producto) {
@@ -29,6 +31,8 @@ foreach ($productos as $producto) {
 
     $clstramite17DetalleProforma->tu_insertar();
 }
+
+$clstramiteer = new clstu17respuestas();
 ?>
 
 

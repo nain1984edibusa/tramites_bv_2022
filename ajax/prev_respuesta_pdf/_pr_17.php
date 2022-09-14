@@ -15,7 +15,7 @@ $contenido_respuesta.="";
 if($respuesta["tuc_tipocontestacion"]=="AFIRMATIVO"){
     //$tresp=" <b>SI</b> cumple con los criterios de valoración patrimonial, por lo cual se realizará su incorporación al inventario nacional mueble.";
     $tipoAutorizacion = "AUTORIZA";
-    $contenido_respuesta.="<p>El Instituto Nacional de Patrimonio Cultural <b>AUTORIZA</b> que la propuesta de Investigación referido el presente trámite <b>SI</b> cumple con los criterios de valoración técnica, por lo cual se realizará su incorporación al Registro Único de Proyectos de investigación arqueológica y paleontológica del Ecuador.</p>";
+    $contenido_respuesta.="<p>El Instituto Nacional de Patrimonio Cultural555555 <b>AUTORIZA</b> que la propuesta de Investigación referido el presente trámite <b>SI</b> cumple con los criterios de valoración técnica, por lo cual se realizará su incorporación al Registro Único de Proyectos de investigación arqueológica y paleontológica del Ecuador.</p>";
     $contenido_respuesta.="<br/><div class='bloque_especifico'><p><br/>".$observaciones."</p>";
     //$contenido_respuesta.="<p>".$observaciones."</p>";
     $contenido_respuesta.="<p>El investigador/a, deberá cumplir a cabalidad con las disposiciones del Art. 44 literal a), Art, 85 literal e) de la Ley de Orgánica de Cultura; y entregar:</p>";

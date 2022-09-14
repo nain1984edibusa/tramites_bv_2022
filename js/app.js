@@ -1,12 +1,15 @@
 var boton = document.getElementById('agregar');
-var guardar = document.getElementById('guardar');
+var guardar = document.getElementById('guardarDetalle');
 var lista = document.getElementById("lista");
 var data = [];
+var datos_tramite = [];
 boton.addEventListener("click", agregar);
 guardar.addEventListener("click", save);
 
-
-
+var tramite_especifico = document.querySelector('#tu_id').value;
+datos_tramite.push(
+        {"tramite_especifico": tramite_especifico}
+);
 var cant = 0;
 function agregar() {
     debugger;
@@ -18,7 +21,7 @@ function agregar() {
     var total_a_pagar = precio * cantidad;
     //agrega elementos al arreglo
     data.push(
-            {"id": cant, "id_analisis_quimico": id_analisis_quimico , "tramite_especifico": tramite_especifico, "descripcion": descripcion, "cantidad": cantidad, "precio": precio, "total": total_a_pagar}
+            {"id": cant, "id_analisis_quimico": id_analisis_quimico, "tramite_especifico": tramite_especifico, "descripcion": descripcion, "cantidad": cantidad, "precio": precio, "total": total_a_pagar}
     );
 
     //convertir el arreglo a json
@@ -81,16 +84,17 @@ function sumar() {
     document.querySelector("#total").innerHTML = "TOTAL: " + tot;
 }
 
+
 function save() {
+    debugger
     var json = JSON.stringify(data);
+    var json_datos_tramite = JSON.stringify(datos_tramite);
     $.ajax({
         type: "POST",
         url: "controller/registrar_detalle_proforma.php",
-        data: "json=" + json,
+        data: {"json": json, "json_datos_tramite": json_datos_tramite},
         success: function (respo) {
             location.reload();
         }
-
     });
 }
-
