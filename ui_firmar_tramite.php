@@ -50,7 +50,7 @@ if ((isset($_GET["idtu"]) && (!empty($_GET["idtu"])))) { //SI SE RECIBE EL ID DE
      * To change this template file, choose Tools | Templates
      * and open the template in the editor.
      */
-    include_once './includes/ws_firmaEc.php';
+//    include_once './includes/ws_firmaEc.php';
     ?>
     <div class="container-fluid">
         <div class="row msuperior">
@@ -85,9 +85,9 @@ if ((isset($_GET["idtu"]) && (!empty($_GET["idtu"])))) { //SI SE RECIBE EL ID DE
             </div>
         </div>
     </div>
-    <script type="text/javascript">
+<!--    <script type="text/javascript">
         window.open("firmaec://<?php print $sistema ?>/firmar?token=<?php print $token ?><?php print $certificadoDigital ?><?php print $estampado ?><?php print $pre ?>");
-    </script>
+    </script>-->
     <?php
     $documento_visualizar = $ruta_archivo;
     include_once("_visualizar_tramite.php");
