@@ -88,4 +88,14 @@ Class clstramite17DetalleProforma {
             return 0;
         $bd->cerrar();  // cerrar coneccion
     }
+
+    public function detalleProformaPorTramite() {
+        // abro conexión a bases de datos
+        $bd = Db::getInstance();
+        $sql = "select tu_id, ta_id, ta_cantidad, ta_concepto ,ta_valor_unitario,ta_valor_total FROM _ct_tramite17_detalle_proforma WHERE tu_id = " . $this->tu_id;
+        $rsprv = $bd->ejecutar($sql);
+        //$bd->cerrar();
+        return $rsprv;
+    }
+
 }

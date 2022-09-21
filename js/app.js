@@ -1,10 +1,12 @@
 var boton = document.getElementById('agregar');
 var guardar = document.getElementById('guardarDetalle');
 var lista = document.getElementById("lista");
+var modal_vista_registrar_detalle = document.getElementById("ModalRegistroItem");
+
 var data = [];
 var datos_tramite = [];
 boton.addEventListener("click", agregar);
-guardar.addEventListener("click", save);
+//guardar.addEventListener("click", save);
 
 var tramite_especifico = document.querySelector('#tu_id').value;
 datos_tramite.push(
@@ -37,6 +39,8 @@ function agregar() {
     $("#nombre").focus();
     cant++;
     sumar();
+    $('#ModalRegistroItem').modal('hide');
+    
 }
 function eliminar(row) {
     //remueve la fila de la tabla html
