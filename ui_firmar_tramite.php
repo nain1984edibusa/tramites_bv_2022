@@ -61,7 +61,7 @@ if ((isset($_GET["idtu"]) && (!empty($_GET["idtu"])))) { //SI SE RECIBE EL ID DE
                 <button onclick="javascript:location.reload()" type="submit" class="btn btn-secondary btnanchocompleto" data-dismiss="modal"><i class="zmdi zmdi-refresh-alt"></i>&nbsp; Recargar Página</button>
             </div>
             <!--<div class="col-xs-3">
-                <a href="firmaec://<?php //print $sistema   ?>/firmar?token=<?php //print $token   ?><?php //print $certificadoDigital   ?><?php //print $estampado   ?><?php //print $pre   ?>" ><button type="button" class="btn btn-primary btnanchocompleto" ><i class="zmdi zmdi-border-color"></i> &nbsp;&nbsp; Firmar Respuesta</button></a>
+                <a href="firmaec://<?php //print $sistema      ?>/firmar?token=<?php //print $token      ?><?php //print $certificadoDigital      ?><?php //print $estampado      ?><?php //print $pre      ?>" ><button type="button" class="btn btn-primary btnanchocompleto" ><i class="zmdi zmdi-border-color"></i> &nbsp;&nbsp; Firmar Respuesta</button></a>
             </div>-->
             <div class="col-xs-3">
                 <?php
@@ -80,12 +80,13 @@ if ((isset($_GET["idtu"]) && (!empty($_GET["idtu"])))) { //SI SE RECIBE EL ID DE
                     <input type="hidden" name="reasignado_a" id="reasignado_a" value="<?php echo $reasignado_a ?>"/>
                     <input type="hidden" name="observaciones_r" id="observaciones_r" value="<?php echo $_GET["obs"] ?>"/>
                     <input type="hidden" name="firma" id="firma" value="0"/>
-                    <button type="button" onclick="validar_archivofe('<?php echo $tra_codigo; ?>')" class="btn btn-success bnt_reasignar_firmar btnanchocompleto"><i class="zmdi zmdi-swap"></i> &nbsp;Completar Proceso</a>
+                    <button type="submit" class="btn btn-success bnt_reasignar_firmar btnanchocompleto"><i class="zmdi zmdi-swap"></i> &nbsp;Completar Proceso</a>
+
                 </form>
             </div>
         </div>
     </div>
-<!--    <script type="text/javascript">
+    <!--    <script type="text/javascript">
         window.open("firmaec://<?php print $sistema ?>/firmar?token=<?php print $token ?><?php print $certificadoDigital ?><?php print $estampado ?><?php print $pre ?>");
     </script>-->
     <?php

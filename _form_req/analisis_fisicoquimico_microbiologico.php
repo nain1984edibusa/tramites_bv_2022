@@ -7,7 +7,6 @@
 <div class="container-fluid">
     <div class="container-flat-form">
         <div class="title-flat-form title-flat-blue">Formulario de Información</div>
-
         <form enctype="multipart/form-data" method="post" class="form-padding" action="controller/registrar_tramite.php" autocomplete="off"">
             <input type="hidden" name="idt" id="idt" value="<?php echo $_GET["idt"]; ?>">
             <input type="hidden" name="estadot" id="estadot" value="<?php echo $estado_inicial; ?>">
@@ -96,7 +95,7 @@
                         </div>
                         <!-- End: checkbox -->
                     </div>
-                     <div class="row">
+                    <div class="row">
                         <!-- checkbox -->
                         <div class="col-md-4">
                             <div class="custom-control custom-checkbox mr-sm-2">
@@ -119,7 +118,7 @@
                         </div>
                         <!-- End: checkbox -->
                     </div>
-                     <div class="row">
+                    <div class="row">
                         <!-- checkbox -->
                         <div class="col-md-4">
                             <div class="custom-control custom-checkbox mr-sm-2">
@@ -299,6 +298,7 @@
                 </div>
             </div>
         </form>
+        
     </div>
 </div>
 <?php include_once("./modal/acuerdo_conf.php"); ?>

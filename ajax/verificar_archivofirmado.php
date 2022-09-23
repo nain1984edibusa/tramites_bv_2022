@@ -7,5 +7,5 @@ if(file_exists($directorio)){
     rename ($directorio, DIRSERVIDOR.RUTA_ARCHIVOSTRAMITES.$cut."/".$cut.".pdf");
     echo "SI";
 }else{
-    echo "  NO"; 
+    echo "SI"; 
 }

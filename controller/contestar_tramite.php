@@ -34,6 +34,7 @@ switch ($id_tramite){
     case "5": $clstramitee = new clstramite5(); break;
     case "13": $clstramitee = new clstramite13();break;
     case "16": $clstramitee = new clstramite16();break;
+    case "17": $clstramitee = new clstramite17();break;
     case "18": $clstramitee = new clstramite18();break;
 }
 $clstramitee->setTu_codigo($cod_tramite);

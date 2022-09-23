@@ -113,28 +113,28 @@ if ((isset($_GET["idtu"]) && (!empty($_GET["idtu"])))) { //SI SE RECIBE EL ID DE
                         <div class="col-xs-3">
                             <a href="#" class="btn btn-primary btnanchocompleto btndesactivado"><i class="zmdi zmdi-attachment-alt"></i> Añadir Respuesta</a>
                         </div>
-                <?php
-                break;
-            case 1:
-                ?>
+                        <?php
+                        break;
+                    case 1:
+                        ?>
                         <div class="col-xs-3">
                             <a href="#" class="btn btn-secondary btnanchocompleto" data-toggle="modal" data-target="#ConvalidarTramite" onclick="convalidar_tramite('<?php echo $ttramite["tu_id"] ?>', '<?php echo $ttramite["tu_codigo"] ?>', '<?php echo $ttramite["tra_id"] ?>', '<?php echo $ttramite["reg_id"] ?>');"><i class="zmdi zmdi-rotate-ccw"></i> Convalidar</a>
                         </div>
                         <div class="col-xs-3">
                             <a href="#" class="btn btn-primary btnanchocompleto btndesactivado"><i class="zmdi zmdi-attachment-alt"></i> Añadir Respuesta</a>
                         </div>
-                <?php
-                break;
-            case 0:
-                ?>
-                <?php if ($ttramite["tu_band_respuesta"] == 0) { ?>
+                        <?php
+                        break;
+                    case 0:
+                        ?>
+                        <?php if ($ttramite["tu_band_respuesta"] == 0) { ?>
                             <div class="col-xs-3">
                                 <a href="#" class="btn btn-secondary btnanchocompleto btndesactivado"><i class="zmdi zmdi-rotate-ccw"></i> Convalidar</a>
                             </div>
                             <div class="col-xs-3">    
                                 <a href="ui_respuestas_tramites.php?idt=<?php echo $ttramite["tra_id"] ?>&idtu=<?php echo $ttramite["tu_id"] ?>" class="btn btn-primary btnanchocompleto"><i class="zmdi zmdi-attachment-alt"></i> Añadir Respuesta</a>
                             </div>
-                <?php } else { ?>
+                        <?php } else { ?>
                             <div class="col-xs-3">
                                 <a href="#" class="btn btn-secondary btnanchocompleto btndesactivado"><i class="zmdi zmdi-rotate-ccw"></i> Convalidar</a>
                             </div>
@@ -146,32 +146,32 @@ if ((isset($_GET["idtu"]) && (!empty($_GET["idtu"])))) { //SI SE RECIBE EL ID DE
                         break;
                 }
                 ?>
-    <?php endif; ?>
-    <?php if ($_SESSION["codperfil"] == APROBADOR): ?>
-        <?php
-        switch ($ttramite["tu_band_convanxres"]) {
-            case -1:
-                ?>
+            <?php endif; ?>
+            <?php if ($_SESSION["codperfil"] == APROBADOR): ?>
+                <?php
+                switch ($ttramite["tu_band_convanxres"]) {
+                    case -1:
+                        ?>
                         <div class="col-xs-3">
                             <a href="#" class="btn btn-secondary btnanchocompleto btndesactivado"><i class="zmdi zmdi-swap"></i> Reasignar</a>
                         </div>
                         <div class="col-xs-3">
                             <a href="#" class="btn btn-primary btnanchocompleto btndesactivado"><i class="zmdi zmdi-border-color"></i> Firmar y Contestar</a>
                         </div>
-                <?php
-                break;
-            case 0:
-                ?>
+                        <?php
+                        break;
+                    case 0:
+                        ?>
                         <div class="col-xs-3">
                             <a href="#" class="btn btn-secondary btnanchocompleto btndesactivado"><i class="zmdi zmdi-swap"></i> Reasignar</a>
                         </div>
                         <div class="col-xs-3">
                             <a href="#" class="btn btn-primary btnanchocompleto" data-toggle="modal" data-target="#ReasignarTramite" onclick="reasignar_tramite('<?php echo $_SESSION["codperfil"] ?>', '<?php echo $ttramite["tu_id"] ?>', '<?php echo $ttramite["tu_codigo"] ?>', '<?php echo $ttramite["reg_id"] ?>', '<?php echo $ttramite["tra_respuesta"] ?>', '<?php echo $ttramite["tra_id"] ?>', '2');"><i class="zmdi zmdi-border-color"></i> Firmar y Contestar</a>
                         </div>
-                <?php
-                break;
-            case 1:
-                ?>
+                        <?php
+                        break;
+                    case 1:
+                        ?>
                         <div class="col-xs-3">
                             <a href="#" class="btn btn-secondary btnanchocompleto" data-toggle="modal" data-target="#ReasignarTramite" onclick="reasignar_tramite('<?php echo $_SESSION["codperfil"] ?>', '<?php echo $ttramite["tu_id"] ?>', '<?php echo $ttramite["tu_codigo"] ?>', '<?php echo $ttramite["reg_id"] ?>', '<?php echo $ttramite["tra_respuesta"] ?>', '<?php echo $ttramite["tra_id"] ?>');"><i class="zmdi zmdi-swap"></i> Reasignar</a>
                         </div>
@@ -220,18 +220,18 @@ if ((isset($_GET["idtu"]) && (!empty($_GET["idtu"])))) { //SI SE RECIBE EL ID DE
         </div>
     </div>
     <div class="container-fluid">
-    <?php include_once './includes/errores.php'; ?>
+        <?php include_once './includes/errores.php'; ?>
     </div>
-                <?php
-                include_once './includes/_visualizar_tramite.php';
-                ?>
+    <?php
+    include_once './includes/_visualizar_tramite.php';
+    ?>
     <div class="container-fluid">
         <div class="table-responsive">
             <table class="table">
                 <tr class="info">
                     <th colspan="6">Detalles del Trámite</th>	
                 </tr>
-    <?php include "_view_inf/vt_" . $tra_id . ".php"; ?>
+                <?php include "_view_inf/vt_" . $tra_id . ".php"; ?>
                 <input type="hidden" name="bandera_convalidar" id="bandera_convalidar" value="<?php echo $bandera_convalidar; ?>"/>
                 <input type="hidden" name="bandera_convanxres" id="bandera_convanxres" value="<?php echo $bandera_convanxres; ?>"/>
             </table>
