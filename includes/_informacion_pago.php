@@ -3,6 +3,11 @@
             <h6>Informacion Pago</h6>
         </div>-->
     <div class="row">
+        <div class="col-xs-12">
+            <legend><i class="zmdi zmdi-file-text"></i> &nbsp; Pago de trámite</legend>
+        </div>
+    </div>
+    <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-12 text-justify lead alert alert-success">
             <h4><b>INFORMACIÓN DE PAGO</b></h4>
             <b>INSTITUCIÓN:</b> Instituto Nacional de Patrimonio Cultural - <b>RUC:</b> 0603401662001 - <b>BANCO:</b> Banco Pichincha - <b>TIPO DE CUENTA:</b> Cuenta Ahorros - <b>NÚMERO DE CUENTA:</b> 2201100537.
@@ -33,4 +38,5 @@
             </div>
         </div>
     </div>
+    <br>
 </div> 

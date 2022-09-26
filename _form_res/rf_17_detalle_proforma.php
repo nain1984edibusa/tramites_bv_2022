@@ -20,16 +20,10 @@ include_once("./modelo/clstuanexos.php");
 include_once("./modelo/clstramiteusuario.php");
 include_once("./modelo/cls17AnalisisQuimico.php");
 include_once("./modelo/clsTipoAnalisis.php");
-include_once("./modelo/clstramite17DetalleProforma.php");
 
 $analisisQuimico = new cls17AnalisisQuimico();
 $analisisQuimico->setTu_id($tespecifico["tu_id"]);
 $analisisQuimico17 = $analisisQuimico->analisisQuimicoPorTramite();
-
-/* detalle proforma */
-$detalleProforma = new clstramite17DetalleProforma();
-$detalleProforma->setTu_id($tespecifico["tu_id"]);
-$detalleProforma = $detalleProforma->detalleProformaPorTramite();
 
 /* generar instancias */
 if ((isset($_GET["idtu"]) && (!empty($_GET["idtu"])))) { //SI SE RECIBE EL ID DEL TRÁMITE, PROCEDE
@@ -51,6 +45,7 @@ if ((isset($_GET["idtu"]) && (!empty($_GET["idtu"])))) { //SI SE RECIBE EL ID DE
         <table class="table table-bordered">
             <thead class="btn-primary">
                 <tr>
+                    <th style="width: 10%">Código Parámetro</th>
                     <th>Ensayo/Parámetro</th>
                 </tr>
             </thead>
@@ -75,37 +70,9 @@ if ((isset($_GET["idtu"]) && (!empty($_GET["idtu"])))) { //SI SE RECIBE EL ID DE
         </div>
     </div>
     <div class="group-material">
-        <button type="reset" id="registrarse" class="btn btn-info" data-toggle="modal" data-target="#ModalRegistroItem"> Agregar item &nbsp;&nbsp; <i class="zmdi zmdi-account-add"></i></button>       
+        <button type="button" id="registrarse" class="btn btn-info" data-toggle="modal" data-target="#ModalRegistroItem"> Agregar item &nbsp;&nbsp; <i class="zmdi zmdi-account-add"></i></button>       
     </div>
-    <div class="group-material" id="productos">
-        <table class="table table-bordered" id="lista">
-            <thead class="btn-primary">
-                <tr>
-                    <td>Ensayo/Parámetro</td>
-                    <td>Nro. Items <br> de ensayo</td>
-                    <td>Precio por <br> ítem de ensayo US$</td> 
-                    <td>Total a pagar</td>
-                    <td>Acciones</td>
-                </tr>
-            </thead>
-            <tbody style="background-color:#fff;">
-                <?php
-                $detalles = $detalleProforma;
-                while ($row = mysqli_fetch_array($detalles)) {
-                    ?>
-                    <tr>
-                        <td><?php echo $row[3] ?></td>
-                        <td><?php echo $row[2] ?></td>
-                        <td><?php echo $row[4] ?></td>
-                        <td><?php echo $row[5] ?></td>
-                    </tr>
-                <?php } //fin while
-                ?>
-            </tbody>
-        </table>
-        <div class="col-10 text-right" id="subtotal"></div>
-        <div class="col-10 text-right" id="iva"></div>
-        <div class="col-10 text-right" id="total"></div>
+    <div id="tabla">
     </div>
 </div>
 <div>
@@ -113,8 +80,24 @@ if ((isset($_GET["idtu"]) && (!empty($_GET["idtu"])))) { //SI SE RECIBE EL ID DE
     include_once('./modal/registro_detalle_proforma.php');
     ?>
 </div>
-<script type="text/javascript" src="js/app.js"></script>
+
 <script type="text/javascript">
+    cargarTabla();
+
+    function cargarTabla() {
+        var tramite_especifico = document.querySelector('#tu_id').value;
+        $.ajax({
+            type: "POST",
+            url: "_form_res/rf_17_tabla_proforma.php",
+            cache: false,
+            data: {tramite_especifico: tramite_especifico},
+            success: function (data) {
+                $("#tabla").html(data);
+            }
+        });
+    }
+
+
     function seleccionarTipoAnalisis() {
         check = document.getElementById("analisis-quimico");
         var itemSeleccionado = check.value;
@@ -132,6 +115,35 @@ if ((isset($_GET["idtu"]) && (!empty($_GET["idtu"])))) { //SI SE RECIBE EL ID DE
                     $("#valor_unitario").val(item.valor_unitario);
                     $("#descripcion").val(item.concepto);
                 });
+            }
+        });
+    }
+
+    var cant = 0;
+    var boton = document.getElementById('agregar');
+    var data = [];
+    var datos_tramite = [];
+    boton.addEventListener("click", guardarDetalle);
+
+    function guardarDetalle() {
+        var tramite_especifico = document.querySelector('#tu_id').value;
+        var id_analisis_quimico = document.querySelector('#analisis-quimico').value;
+        var descripcion = document.querySelector('#descripcion').value;
+        var precio = parseFloat(document.querySelector('#valor_unitario').value);
+        var cantidad = parseFloat(document.querySelector('#cantidad').value);
+        var total_a_pagar = precio * cantidad;
+        //agrega elementos al arreglo
+        data.push(
+                {"id": cant, "id_analisis_quimico": id_analisis_quimico, "tramite_especifico": tramite_especifico, "descripcion": descripcion, "cantidad": cantidad, "precio": precio, "total": total_a_pagar}
+        );
+        var json = JSON.stringify(data);
+        var json_datos_tramite = JSON.stringify(datos_tramite);
+        $.ajax({
+            type: "POST",
+            url: "controller/registrar_detalle_proforma.php",
+            data: {"json": json, "json_datos_tramite": json_datos_tramite},
+            success: function (respo) {
+                location.reload();
             }
         });
     }

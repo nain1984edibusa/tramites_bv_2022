@@ -1,9 +1,5 @@
 <?php
 
-/*
- * INSTITUTO NACIONAL DE PATRIMONIO CULTURAL
- * Portal de Trámites 2020
- */
 /* REGISTRAR TRÁMITE */
 /* Recibe las variables del formulario de registro del trámite, registra su información básica, e
  * incluye otros archivos sobre el tratamiento de cada trámite según sus características específicas */
@@ -14,8 +10,6 @@ require_once '../modelo/Config.class.php';
 require_once '../includes/functions.php';
 require_once "../modelo/util.php";
 require_once "../modelo/clstramite17DetalleProforma.php";
-
-
 
 $productos = json_decode($_POST['json'], true);
 //recorrer el arreglo
