@@ -238,7 +238,7 @@ Class clsusuarios{
     public function usu_email_byid(){
         // abro conexión a bases de datos
         $bd=Db::getInstance();
-        $sql = "select usu_correo, usu_nombre, usu_apellido, usu_tidentificador, usu_identificador FROM ct_usuarios WHERE ct_usuarios.usu_id =".$this->usu_id;
+        $sql = "select usu_correo, usu_nombre, usu_apellido, usu_tidentificador, usu_identificador, usu_direccion, usu_telefono FROM ct_usuarios WHERE ct_usuarios.usu_id =".$this->usu_id;
         $rsprv = $bd->ejecutar($sql);
         //$bd->cerrar();
         return $rsprv;

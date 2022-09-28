@@ -11,10 +11,12 @@ include_once("./includes/header.php");
 include_once("./includes/navbar.php");
 include_once("./includes/top.php");
 include_once("./includes/functions.php");
+
 /* incluir modelo(s) */
 include_once("./modelo/Config.class.php");
 include_once("./modelo/Db.class.php");
 include_once("./modelo/clstramiteusuario.php");
+include_once '../modelo/clsusuarios.php';
 /* generar instancias */
 if ((isset($_GET["idtu"]) && (!empty($_GET["idtu"])))) { //SI SE RECIBE EL ID DEL TRÁMITE, PROCEDE
     $tramiteusuario = new clstramiteusuario();
@@ -24,6 +26,8 @@ if ((isset($_GET["idtu"]) && (!empty($_GET["idtu"])))) { //SI SE RECIBE EL ID DE
     $tra_id = $ttramite["tra_id"]; //ID DEL TRÁMITE
     $tra_codigo = $ttramite["tu_codigo"];
     //echo $tra_id;
+
+
     ?>
     <!--<div class="container-fluid descripcion-container">
         <div class="row">

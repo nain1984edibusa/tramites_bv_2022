@@ -36,6 +36,10 @@ if ((isset($_GET["idtu"]) && (!empty($_GET["idtu"])))) { //SI SE RECIBE EL ID DE
     $regionalId = $ttramite["reg_id"]; // Para Tramite 5
 }
 ?>
+<!--<head>
+    <link rel="stylesheet" href="datatables/css/bootstrap.css">
+    <link rel="stylesheet" href="datatables/css/datatables.min.css">
+</head>-->
 <div class="col-xs-12 col-sm-12 col-md-12">
     <div class="group-material">
         <input type="hidden" id="tu_id" name="tu_id" value="<?php echo $tu_id; ?>" />
@@ -80,11 +84,14 @@ if ((isset($_GET["idtu"]) && (!empty($_GET["idtu"])))) { //SI SE RECIBE EL ID DE
     include_once('./modal/registro_detalle_proforma.php');
     ?>
 </div>
-
+<!--<script src="datatables/js/jquery.min.js"></script>
+<script src="datatables/js/bootstrap.js"></script>
+<script src="datatables/js/datatables.min.js"></script>-->
 <script type="text/javascript">
-    cargarTabla();
 
+    cargarTabla();
     function cargarTabla() {
+        debugger;
         var tramite_especifico = document.querySelector('#tu_id').value;
         $.ajax({
             type: "POST",
@@ -92,11 +99,57 @@ if ((isset($_GET["idtu"]) && (!empty($_GET["idtu"])))) { //SI SE RECIBE EL ID DE
             cache: false,
             data: {tramite_especifico: tramite_especifico},
             success: function (data) {
+                debugger;
                 $("#tabla").html(data);
+//                document.querySelector("#total").innerHTML = data.;
+            }
+        });
+    }
+    var cant = 0;
+    var boton = document.getElementById('agregar');
+    var data = [];
+    var datos_tramite = [];
+    boton.addEventListener("click", guardarDetalle);
+
+    function guardarDetalle() {
+        debugger;
+        var tramite_especifico = document.querySelector('#tu_id').value;
+        var id_analisis_quimico = document.querySelector('#analisis-quimico').value;
+        var descripcion = document.querySelector('#descripcion').value;
+        var precio = parseFloat(document.querySelector('#valor_unitario').value);
+        var cantidad = parseFloat(document.querySelector('#cantidad').value);
+        var total_a_pagar = precio * cantidad;
+        //agrega elementos al arreglo
+        data.push(
+                {"id": cant, "id_analisis_quimico": id_analisis_quimico, "tramite_especifico": tramite_especifico, "descripcion": descripcion, "cantidad": cantidad, "precio": precio, "total": total_a_pagar}
+        );
+
+        var json = JSON.stringify(data);
+        var json_datos_tramite = JSON.stringify(datos_tramite);
+        $.ajax({
+            type: "POST",
+            url: "controller/registrar_detalle_proforma.php",
+            data: {"json": json, "json_datos_tramite": json_datos_tramite},
+            success: function (respo) {
+                location.reload();
             }
         });
     }
 
+    function sumar() {
+        debugger;
+        let subtot = 0;
+        let tot = 0;
+        let iva = 0;
+        for (x of data) {
+            subtot = subtot + x.total;
+        }
+        iva = (subtot * 12) / 100;
+        tot = subtot + iva;
+        document.querySelector("#subtotal").innerHTML = "SUB TOTAL: " + subtot;
+        document.querySelector("#iva").innerHTML = "12% IVA: " + iva;
+        document.querySelector("#total").innerHTML = "TOTAL: " + tot;
+    }
 
     function seleccionarTipoAnalisis() {
         check = document.getElementById("analisis-quimico");
@@ -115,35 +168,6 @@ if ((isset($_GET["idtu"]) && (!empty($_GET["idtu"])))) { //SI SE RECIBE EL ID DE
                     $("#valor_unitario").val(item.valor_unitario);
                     $("#descripcion").val(item.concepto);
                 });
-            }
-        });
-    }
-
-    var cant = 0;
-    var boton = document.getElementById('agregar');
-    var data = [];
-    var datos_tramite = [];
-    boton.addEventListener("click", guardarDetalle);
-
-    function guardarDetalle() {
-        var tramite_especifico = document.querySelector('#tu_id').value;
-        var id_analisis_quimico = document.querySelector('#analisis-quimico').value;
-        var descripcion = document.querySelector('#descripcion').value;
-        var precio = parseFloat(document.querySelector('#valor_unitario').value);
-        var cantidad = parseFloat(document.querySelector('#cantidad').value);
-        var total_a_pagar = precio * cantidad;
-        //agrega elementos al arreglo
-        data.push(
-                {"id": cant, "id_analisis_quimico": id_analisis_quimico, "tramite_especifico": tramite_especifico, "descripcion": descripcion, "cantidad": cantidad, "precio": precio, "total": total_a_pagar}
-        );
-        var json = JSON.stringify(data);
-        var json_datos_tramite = JSON.stringify(datos_tramite);
-        $.ajax({
-            type: "POST",
-            url: "controller/registrar_detalle_proforma.php",
-            data: {"json": json, "json_datos_tramite": json_datos_tramite},
-            success: function (respo) {
-                location.reload();
             }
         });
     }

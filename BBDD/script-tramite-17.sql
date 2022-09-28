@@ -145,8 +145,7 @@ update tramites_bv.ct_tramiteanexos
 set anx_requerido = 'SI'
 where anx_id in ( 59)
 
-
-  <?php while ($requisito = mysql_fetch_array($trequisitos)) {
-                    echo '<input type="checkbox" name="' . $row["req_id"] . '" value="' . $row["req_nombre"] . '">' . $row["req_slug"];
-                }
-                ?>
+SET SQL_SAFE_UPDATES = 0;
+update  tramites_bv.ct_tramites
+set tra_resultado = 'Proforma'
+where tra_id = 17

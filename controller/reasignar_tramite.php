@@ -45,6 +45,8 @@ switch ($id_tramite) {
 $clstramitee->setTu_codigo($cod_tramite);
 $idtue = $clstramitee->tra_seleccionar_bycodigo();
 $idtue = mysqli_fetch_array($idtue);
+
+
 /* --fin-- */
 /* NUEVO ESTADO DEL TRAMITE Y REDIRECCIÓN */
 $nuevo_estado = "";
@@ -126,6 +128,7 @@ if ($firma == 2) {
         $ruta_archivo = RUTA_ARCHIVOSTRAMITES . $cod_tramite . "/" . $nombre_archivo;
         $clstramiteresp->setTuc_rutaarchivo($ruta_archivo);
         $clstramiteresp->tuc_actualizar_respuesta_firma($actualizador);
+
         //EL APROBADOR DEBE TENER LA OPCIÓN REASIGNAR (NO FIRMA NI GENERA PDF) O REASIGNAR Y ENVIAR CONTESTACIÓN.
         //CREACION DE PDF 
         include_once("../ajax/prev_respuesta_pdf.php");

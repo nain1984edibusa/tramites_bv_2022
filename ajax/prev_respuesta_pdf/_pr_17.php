@@ -1,44 +1,70 @@
 <?php
+//include_once("../modelo/cls17AnalisisQuimico.php");
+include_once("../modelo/clstramite17DetalleProforma.php");
+include_once("../modelo/clsusuarios.php");
 
-include_once("../modelo/cls17AnalisisQuimico.php");
+//$analisisQuimico = new cls17AnalisisQuimico();
+//$analisisQuimico->setTu_id($tespecifico["tu_id"]);
+//$analisisQuimico17 = $analisisQuimico->analisisQuimicoPorTramite();
+$detalleProforma = new clstramite17DetalleProforma();
+$detalleProforma->setTu_id($tespecifico["tu_id"]);
+$detalleProforma = $detalleProforma->detalleProformaPorTramite();
 
-$analisisQuimico = new cls17AnalisisQuimico();
-$analisisQuimico->setTu_id($tespecifico["tu_id"]);
-$analisisQuimico17 = $analisisQuimico->analisisQuimicoPorTramite();
+$rstra = $detalleProforma;
+$detalleProformaCalculos = $detalleProforma;
+$subtotal = 0;
+
+$usuarioProforma = new clsusuarios();
+$usuarioProforma->setUsu_id($ttramite["usu_extid"]);
+$tusuarioProforma = $usuarioProforma->usu_email_byid();
+$tusuarioProforma = mysqli_fetch_array($tusuarioProforma);
 
 $contenido_respuesta = "<h4>" . mb_strtoupper($ttramite["tra_resultado"]) . "</h4>"; //TIPO DE DOCUMENTO
-if ($respuesta["tu_id"]) {
-    $contenido_respuesta .= "<h4>" . mb_strtoupper("Nº " . $respuesta["tuc_num_serie_autorizacion"]) . "</h4>"; //Nro DE DOCUMENTO
-}
-
-$contenido_respuesta .= "<br/><h5>INFORMACIÓN GENERAL</h5><table>"
-        . "<tr><th>Fecha de emisión:</th><td>" . $res_fecha . "</td></tr>"
+//if ($respuesta["tu_id"]) {
+//    $contenido_respuesta .= "<h4>" . mb_strtoupper("Nº " . $respuesta["tuc_num_serie_autorizacion"]) . "</h4>"; //Nro DE DOCUMENTO
+//}
+$contenido_respuesta .= "<br/><h5>DATOS GENERALES</h5><table>"
         . "<tr><th>CUT:</th><td>" . $tra_codigo . "</td></tr>"
-        . "<tr><th>Solicitante:</th><td>" . $ttramite["usu_apellido"] . " " . $ttramite["usu_nombre"] . " (" . $ttramite["usu_identificador"] . ")" . "</td></tr>"
+        . "<tr><th>Solicitante:</th><td>" . $ttramite["usu_apellido"] . " " . $ttramite["usu_nombre"] . "</td><th>Teléfono:</th><td>" . $tusuarioProforma["usu_telefono"] . "</td></tr>"
+        . "<tr><th>e-mail:</th><td>" . $tusuarioProforma["usu_correo"] . "</td><th>Fecha:</th><td>" . $res_fecha . "</td></tr>"
+        . "<tr><th>Dirección:</th><td>" . $tusuarioProforma["usu_direccion"] . "</td></tr>"
         . "</table><br/>"; //DATOS GENERALES
 
 /* Armar la tabla proforma */
-$tabla = "<h5>TABLA PROFORMA</h5>"
+$tabla = "<h5>OFERTA</h5>"
         . "<table border=1>"
         . "<tr>"
-        . "<th>Codigo</th>"
-        . "<th>Descripcion</th>"
+        . "<th>Código</th>"
+        . "<th>Ensayo/Parámetro</th>"
+        . "<th>Nro. Items <br> de ensayo</th>"
+        . "<th>Precio por <br> item de ensayo<br> US$</th>"
+        . "<th>Total a <br> Pagar</th>"
         . "</tr>";
 
-$rstra = $analisisQuimico17;
-while ($anexo = mysqli_fetch_array($rstra)) {
+while ($row = mysqli_fetch_array($rstra)) {
     $cuerpo .= "<tr>"
-            . "<td>" . $anexo["ta_id"] . "</td>"
-            . "<td>" . $anexo["ta_concepto"] . "</td>"
+            . "<td>" . $row["ta_id"] . "</td>"
+            . "<td>" . $row["ta_concepto"] . "</td>"
+            . "<td>" . $row["ta_cantidad"] . "</td>"
+            . "<td>" . $row["ta_valor_unitario"] . "</td>"
+            . "<td>" . $row["ta_valor_total"] . "</td>"
             . "</tr>";
+
+    $subtotal += $row[5];
 }
-$tabla = $tabla . $cuerpo . "</table>";
 
-
+$iva = ($subtotal * 12) / 100;
+$total = $subtotal + $iva;
+$tabla = $tabla . $cuerpo . "<tr><td colspan=4 align=right>SUBTOTAL:</td><td>" . $subtotal . "</td>" . "</tr>" . "<tr><td colspan=4 align=right>12% IVA:</td><td>" . $iva . "</td>" . "</tr>" . "<tr><td colspan=4 align=right>TOTAL:</td><td>" . $total . "</td>" . "</tr>" .
+        "</table>";
 
 $contenido_respuesta .= $tabla;
 
-
+//$contenido_respuesta .= "<br/><table>"
+//        . "<tr><th> </th><td>   </td><th>SubTotal:</th><td>" . $subtotal . "</td></tr>"
+//        . "<tr><th> </th><td>   </td><th>12% IVA:</th><td>" . $iva . "</td></tr>"
+//        . "<tr><th> </th><td>   </td><th>Total:</th><td>" . $total . "</td></tr>"
+//        . "</table><br/>"; //DATOS GENERALES
 //$contenido_respuesta .= "<br/><b>Anexos:</b><br/>";
 //while ($anexo = mysqli_fetch_array($rstra)) {
 //    $contenido_respuesta .= "<tr><td>" . $anexo["ta_id"] . "</td></tr>";
@@ -55,8 +81,3 @@ if ($respuesta["tuc_tipocontestacion"] == "AFIRMATIVO") {
 } else {
     
 }
-
-
-
-
-
