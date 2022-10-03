@@ -7,7 +7,7 @@ include("includes/_visualizar_tramite.php");
 //echo URL_SIS.DIRDOWNLOAD.$documento_visualizar;
     ?>
 </div>
-<?php if (($_SESSION["codperfil"] == CIUDADANO && $ttramite["et_id"] == CONTESTADO_DESPACHADO) || ($_SESSION["codperfil"] != CIUDADANO)) { ?>
+<?php if (($_SESSION["codperfil"] == CIUDADANO && $ttramite["et_id"] == CONTESTADO_DESPACHADO)) { ?>
     <div class="container-fluid">
         <?php
         include("includes/_informacion_pago.php");

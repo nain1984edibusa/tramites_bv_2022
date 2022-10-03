@@ -352,9 +352,9 @@ if ((isset($_GET["idtu"]) && (!empty($_GET["idtu"])))) { //SI SE RECIBE EL ID DE
                                 <button type="reset" class="btn btn-info" style="margin-right: 20px;"><i class="zmdi zmdi-roller"></i> &nbsp;&nbsp; Limpiar</button>
                                 <!--<button type="button" class="btn btn-primary"><i class="zmdi zmdi-arrow-right"></i> &nbsp;&nbsp; Guardar</button>-->
                                 <?php if ($numanexos == $numarequeridos) { ?>
-                                    <button type="submit" id="GRR" class="btn btn-primary"><i class="zmdi zmdi-arrow-right"></i> &nbsp;&nbsp; Guardar RR</button>
+                                    <button type="submit" id="GRR" class="btn btn-primary"><i class="zmdi zmdi-arrow-right"></i> &nbsp;&nbsp; Guardar</button>
                                 <?php } else { ?>
-                                    <button type="button"  class="btn btn-primary btndesactivado"><i class="zmdi zmdi-arrow-right"></i> &nbsp;&nbsp; Guardar registrar respueta</button>
+                                    <button type="button"  class="btn btn-primary btndesactivado"><i class="zmdi zmdi-arrow-right"></i> &nbsp;&nbsp; Guardar</button>
                                 <?php } ?>
                             </p>
                         </div>

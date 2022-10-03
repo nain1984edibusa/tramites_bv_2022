@@ -126,6 +126,7 @@ if($res==0){
     $dcc=$clsusuario->setUsu_id($tespecifico["usu_intid"]);
     $dcc=$clsusuario->usu_email_byid();
     $dcc= mysqli_fetch_array($dcc);
+    
     $cc=$dcc["usu_correo"];
     $namecc=$dcc["usu_nombre"]." ".$dcc["usu_apellido"];
     $mensaje_especifico="Estimado/a ".$namecc." ha recibido la subsanación de un trámite de '".$tipot["tra_nombre"]."', el cual tiene como fecha aproximada de respuesta el ".$tespecifico["tu_fecha_aprocont"];

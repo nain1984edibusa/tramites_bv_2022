@@ -31,7 +31,7 @@ include_once("./modal/ayuda.php");
                     </div>
                 </div>
             </div>
-            <div class="footer-copyright full-reset all-tittles">© 2020 INSTITUTO NACIONAL DE PATRIMONIO CULTURAL</div>
+            <div class="footer-copyright full-reset all-tittles">©s</div>
         </footer>
     </div>
 <script type="text/javascript">

@@ -17,7 +17,7 @@
                     <input id="caracteristicasBien" name="caracteristicasBien" type="text" class="material-control tooltips-general" placeholder="Por ejemplo: Escultura, Pintura" required="" maxlength="100" data-toggle="tooltip" data-placement="top" title="Escriba la dirección" onKeyUp="this.value = this.value.toUpperCase();"> <!--title="Escriba la dirección de su domicilio" -->
                     <span class="highlight"></span>
                     <span class="bar"></span>
-                    <label>Tipo Bien <span class="sp-requerido">*</span></label>
+                    <label>Tipo de bien <span class="sp-requerido">*</span></label>
                 </div>
             </div> 
             <div class="col-xs-12">

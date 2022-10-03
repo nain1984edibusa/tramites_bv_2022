@@ -6,7 +6,9 @@ include_once("../modelo/clstramiteusuario.php");
 include_once ("../modelo/clstramite17DetalleProforma.php");
 
 /* detalle proforma */
-$suma = 0;
+$subTotal = 0;
+$iva = 0;
+$total = 0;
 if (isset($_POST["tramite_especifico"])) {
     $tramite_especifico = $_POST["tramite_especifico"];
 
@@ -58,7 +60,9 @@ if (isset($_POST["tramite_especifico"])) {
                         </tr>
                         <tr>
                             <?php
-                            $suma += $row[5];
+                            $subTotal += $row[5];
+                            $iva = ($subTotal * 12) / 100;
+                            $total = $subTotal + $iva;
                             ?>
                         </tr>
                     <?php } //fin while
@@ -77,7 +81,7 @@ if (isset($_POST["tramite_especifico"])) {
                 <label text-align:left >SubTotal:</label>
             </div>
             <div class="col-md-3">
-                <input type="number" id="subtotal" placeholder="0.00" readonly="ReadOnly" class="form-control" value= "<?php echo $suma ?>" >
+                <input type="number" id="subtotal" placeholder="0.00" readonly="ReadOnly" class="form-control" value= "<?php echo $subTotal ?>" >
             </div> 
         </div> 
     </div>
@@ -92,7 +96,7 @@ if (isset($_POST["tramite_especifico"])) {
                 <label text-align:left >12 % IVA:</label>
             </div>
             <div class="col-md-3">
-                <input type="number" id="iva" placeholder="0.00" readonly="ReadOnly" class="form-control" value= "<?php echo $suma ?>" >
+                <input type="number" id="iva" placeholder="0.00" readonly="ReadOnly" class="form-control" value= "<?php echo $iva ?>" >
             </div> 
         </div> 
     </div>
@@ -107,7 +111,7 @@ if (isset($_POST["tramite_especifico"])) {
                 <label text-align:left >Total:</label>
             </div>
             <div class="col-md-3">
-                <input type="number" id="total" placeholder="0.00" readonly="ReadOnly" class="form-control" value= "<?php echo $suma ?>" >
+                <input type="number" id="total" placeholder="0.00" readonly="ReadOnly" class="form-control" value= "<?php echo $total ?>" >
             </div> 
         </div> 
     </div>

@@ -135,7 +135,7 @@ CREATE TABLE `_ct_tramite17_detalle_proforma` (
   `ta_cantidad` int(11) NOT NULL,
   `ta_concepto` varchar(250) COLLATE utf8_spanish_ci DEFAULT NULL,
   `ta_valor_unitario` 	DECIMAL(19,2) NOT NULL,
-  PRIMARY KEY (`aq_id`)
+  PRIMARY KEY (`dp_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 

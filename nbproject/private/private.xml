@@ -3,11 +3,7 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/xampp/htdocs/tramites_bv/_form_res/rf_17_detalle_proforma.php</file>
-            <file>file:/C:/xampp/htdocs/tramites_bv/BBDD/script-tramite-17.sql</file>
-            <file>file:/C:/xampp/htdocs/tramites_bv/_form_res/rf_17_tabla_proforma.php</file>
-            <file>file:/C:/xampp/htdocs/tramites_bv/controller/reasignar_tramite.php</file>
-            <file>file:/C:/xampp/htdocs/tramites_bv/ajax/prev_respuesta_pdf/_pr_17.php</file>
+            <file>file:/C:/xampp/htdocs/tramites_bv/config/variables.php</file>
         </group>
     </open-files>
 </project-private>

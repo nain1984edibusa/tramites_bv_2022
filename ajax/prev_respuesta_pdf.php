@@ -39,7 +39,7 @@ if ((isset($_REQUEST["idtu"]) && (!empty($_REQUEST["idtu"]))) || (isset($tramite
         case "16":
             $tramitee = new clstramite16();
             break;
-         case "17":
+        case "17":
             $tramitee = new clstramite17();
             break;
         case "18":
@@ -77,15 +77,15 @@ if ((isset($_REQUEST["idtu"]) && (!empty($_REQUEST["idtu"]))) || (isset($tramite
         $usuario_ejecutor["usu_nombre"] = $usuario_ejecutor["usu_apellido"] = $usuario_ejecutor["usu_direccion"] = "NO DEFINIDO";
     }
     include('prev_respuesta_pdf/_pr_' . $tra_id . '.php');
-    $contenido_respuesta .= "<br/><p><small><b>Anexos:</b><br/>";
+   $contenido_respuesta .= "<br/><p><small><b>Anexos:</b><br/>";
     while ($anexo = mysqli_fetch_array($anexos)) {
-        $contenido_respuesta .= "<i>" . $anexo["anx_nombre"] . "</i> " . $anexo["tua_codigoe"] . " (Nombre del archivo: " . str_replace(RUTA_ARCHIVOSTRAMITES . $tra_codigo . "/", "", $anexo["tua_rutaarchivo"]) . ")<br/>";
+//        $contenido_respuesta .= "<i>" . $anexo["anx_nombre"] . "</i> " . $anexo["tua_codigoe"] . " (Nombre del archivo: " . str_replace(RUTA_ARCHIVOSTRAMITES . $tra_codigo . "/", "", $anexo["tua_rutaarchivo"]) . ")<br/>";
     }
     $contenido_respuesta .= "</small></p></div><br/><br/>";
-    $contenido_respuesta .= "<p>El solicitante podrá hacer uso del presente documento, como convenga a sus intereses.</p><br/><br/>";
+//    $contenido_respuesta .= "<p>El solicitante podrá hacer uso del presente documento, como convenga a sus intereses.</p><br/><br/>";
     $contenido_respuesta .= "<br/><small>" . $usuario_aprobador["usu_nombre"] . " " . $usuario_aprobador["usu_apellido"] . "<br/><b>" . $usuario_aprobador["usu_direccion"] . "</b> (Aprobación)</small>";
     $contenido_respuesta .= "<br/><br/><small>" . $usuario_ejecutor["usu_nombre"] . " " . $usuario_ejecutor["usu_apellido"] . "<br/><b>" . $usuario_ejecutor["usu_direccion"] . "</b> (Análisis Técnico)</small>";
-    $contenido_respuesta .= "<br/><br/><i class='firma_ec'>Documento firmado electrónicamente</i>";
+//    $contenido_respuesta .= "<br/><br/><i class='firma_ec'>Documento firmado electrónicamente</i>";
     if (!((isset($firma)) && ($firma == 1))) {
         echo urlencode($contenido_respuesta);
     }
