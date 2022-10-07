@@ -12,7 +12,7 @@ include_once("./modelo/clsgenero.php");
 <div class="container-fluid">
     <div class="container-flat-form">
         <div class="title-flat-form title-flat-blue">Formulario de Información</div>
-        <form enctype="multipart/form-data" method="post" class="form-padding" action="controller/registrar_tramite.php" autocomplete="off">
+        <!--<form enctype="multipart/form-data" method="post" class="form-padding" action="controller/registrar_tramite.php" autocomplete="off">-->
             <input type="hidden" name="idt" id="idt" value="<?php echo $_GET["idt"]; ?>">
             <input type="hidden" name="estadot" id="estadot" value="<?php echo $estado_inicial; ?>">
             <input type="hidden" name="duraciont" id="duraciont" value="<?php echo $tramite_tiempo; ?>">
@@ -38,7 +38,7 @@ include_once("./modelo/clsgenero.php");
                         <span class="bar"></span>
                         <label>Provincia <span class="sp-requerido">*</span></label>
                         <input type="hidden" name="id_provincia" id="id_provincia"/>
-                        <input type="hidden" name="id_regional" id="id_regional" value="<?php echo $_SESSION["regional"];?>"/>
+                        <input type="hidden" name="id_regional" id="id_regional" value="<?php echo $_SESSION["regional"]; ?>"/>
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-4 col-md-4">
@@ -134,6 +134,10 @@ include_once("./modelo/clsgenero.php");
                 </div> 
             </div>
             <br>
+            <?php
+            include("includes/_lista_bienes_no_patrimonial.php");
+            ?>
+
             <div class="row">
                 <div class = "col-xs-12">
                     <legend><i class = "zmdi zmdi-calendar-alt"></i> &nbsp;
@@ -160,8 +164,8 @@ include_once("./modelo/clsgenero.php");
             <div class="row">
                 <div class="col-xs-12 col-sm-6 col-md-6">
                     <div class="group-material">
-                        
-                        <!--<input id="fecha-envio" name="fecha-envio"  type="date" class="tooltips-general material-control " title="Escriba/seleccione la fecha de envió" placeholder="Escoja una fecha de envió" step="1" max="<?php echo date("Y-m-d"); ?>" value="<?php echo date("Y-m-d"); ?>" required data-toggle="tooltip" data-placement="top" > title="Escribe el código correlativo del libro, solamente números"-->
+
+<!--<input id="fecha-envio" name="fecha-envio"  type="date" class="tooltips-general material-control " title="Escriba/seleccione la fecha de envió" placeholder="Escoja una fecha de envió" step="1" max="<?php echo date("Y-m-d"); ?>" value="<?php echo date("Y-m-d"); ?>" required data-toggle="tooltip" data-placement="top" > title="Escribe el código correlativo del libro, solamente números"-->
 
                         <input id="fecha_atencion" name="fecha_atencion" type="date" class="tooltips-general material-control" title="Escriba/seleccione la fecha de atención" placeholder="Escoge la fecha de atención" pattern="[0-9]{1,20}"  maxlength="20" data-toggle="tooltip" data-placement="top" >
                         <span class="highlight"></span>
@@ -204,9 +208,22 @@ include_once("./modelo/clsgenero.php");
                     </p>
                 </div>
             </div>
-        </form>
+        <!--</form>-->
     </div>
 </div>
 <?php include_once("./modal/acuerdo_conf.php"); ?>
 <?php include_once("./includes/footer.php"); ?>
+
+<script>
+    
+    $("#agregar").submit(function (e) {
+        debugger;
+        e.preventDefault();
+        $.post("controller/registrar_objeto.php", $("#agregar").serialize(), function (data) {
+        });
+        //alert("Agregado exitosamente!");
+        $("#agregar")[0].reset();
+        $('#ModalRegistroObjeto').modal('hide');
+    });
+</script>
 
