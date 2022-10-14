@@ -7,21 +7,24 @@ require_once '../modelo/clstramite4.php';
 require_once '../modelo/clstramiteanexos.php';
 require_once '../modelo/clstuanexos.php';
 
-$te_provincia=$_POST["id_provincia"];
-$te_canton=$_POST["id_canton"];
-$te_parroquia=$_POST["id_parroquia"];
-$te_regional=$_POST["id_regional"];
-$te_direccion=$_POST["direccion"];
+$tramite_especifico = json_decode($_POST['json_datos_tramite_especifico'], true);
 
+foreach ($tramite_especifico as $item) {
+    $te_provincia = $item['id_provincia'];
+    $te_canton = $item['id_canton'];
+    $te_parroquia = $item['id_parroquia'];
+    $te_regional = $item['id_regional'];
+    $te_direccion = $item['direccion'];
 
-$te_nacionalidad = $_POST["id_nacionalidad"];
-$te_fecha_envio = $_POST["fecha_envio"];
-$te_direccion_envio = $_POST["direccion_envio"];
-$te_pais_envio = $_POST["id_pais_envio"];
-$te_ciudad_envio = $_POST["ciudad_envio"];
-$te_regional = $_POST["id_regional"];
-$te_fecha_atencion = $_POST["fecha_atencion"];
-$te_hora = $_POST["id_hora"];
+    $te_pais_origen = $item['id_pais_origen'];
+    $te_fecha_envio = $item['fecha_envio'];
+    $te_direccion_envio = $item['direccion_envio'];
+    $te_pais_envio = $item['id_pais_envio'];
+    $te_ciudad_envio = $item['ciudad_envio'];
+    $te_zonal = $item['id_zonal'];
+    $te_fecha_atencion = $item['fecha_atencion'];
+    $te_hora = $item['id_hora'];
+}
 
 //CREANDO EL TRÁMITE
 $clstut = new clstramite4();
@@ -46,34 +49,39 @@ $clstut->setTe_parroquia($te_parroquia);
 $clstut->setTe_regional($te_regional);
 $clstut->setTe_direccion($te_direccion);
 
-$clstut->setTe_pais_origen($te_nacionalidad);
+$clstut->setTe_pais_origen($te_pais_origen);
 $clstut->setTe_fecha_envio($te_fecha_envio);
 $clstut->setTe_direccion_envio($te_direccion_envio);
 $clstut->setTe_codigo_pais_evio($te_pais_envio);
-
 $clstut->setTe_ciudad_envio($te_ciudad_envio);
-$clstut->setTe_regional($te_regional);
+
 $clstut->setTe_fecha_envio($te_fecha_atencion);
 $clstut->setTe_hora($te_hora);
 
-//
-$tu4_id=$clstut->tu_insertar();
-if($tu4_id_id!=0){
-    /*REGISTRAR LOS ANEXOS BASE-VACIOS*/
-    $anexos=new clstramiteanexos();
-    $anexos->setTra_id($tramite);
-    $nanexos=$anexos->obtener_tramiteanexos();
-    $anexoe=new clstuanexos();
-    while($ranexo=mysqli_fetch_array($nanexos)){
-        //echo $tu8_id."ID<br/>";
-        $anexoe->setTu_id($tu4_id);
-        $anexoe->setTra_id($tramite);
-        $anexoe->setTua_codigoe("");
-        $anexoe->setTua_rutaarchivo("");
-        $anexoe->setAnx_id($ranexo["anx_id"]);
-        $anexoe->tua_insertar();
+//Inserta datos del tramite 4
+$tu4_id = $clstut->tu_insertar();
+
+if ($tu4_id_id != 0) {
+    /* REGISTRAR LOS ANEXOS BASE-VACIOS */
+    foreach ($objetos as $objeto) {
+
+        $clsTramite4Objeto = new clsTramite4Objeto();
+        $clsTramite4Objeto->setTu_id($objeto['tramite_especifico']);
+        $clsTramite4Objeto->setTbc_codigo($objeto['tipo_bien_cultural']);
+        $clsTramite4Objeto->setEob_codigo($objeto['descripcion']);
+        $clsTramite4Objeto->setCon_codigo($objeto['descripcion']);
+
+        $clsTramite4Objeto->setObj_cantidad($objeto['cantidad']);
+        $clsTramite4Objeto->setObj_tema($objeto['tema']);
+        $clsTramite4Objeto->setObj_autor($objeto['autor']);
+        $clsTramite4Objeto->setObj_tecnica($objeto['tecnica']);
+        $clsTramite4Objeto->setObj_largo($objeto['largo']);
+        $clsTramite4Objeto->setObj_ancho($objeto['ancho']);
+        $clsTramite4Objeto->setObj_profundidad($objeto['profundidad']);
+
+        $clsTramite4Objeto->obj_insertar();
     }
-    $band=1;
-}else{
-    $band=0;
+    $band = 1;
+} else {
+    $band = 0;
 }

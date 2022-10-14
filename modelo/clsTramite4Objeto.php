@@ -152,19 +152,19 @@ Class clstramite4objeto {
     public function obj_seleccionartodo() {
         // abro conexión a bases de datos
         $bd = Db::getInstance();
-        $sql = 'select obj_codigo'
-                . ', tu_id'
-                . ', tbc_codigo'
-                . ', eob_codigo'
-                . ', con_codigo'
-                . ', obj_cantidad'
-                . ', obj_tema'
-                . ', obj_autor'
-                . ', obj_tecnica'
-                . ', obj_largo'
-                . ', obj_ancho'
-                . ', obj_profundidad'
-                . 'FROM _ct_tramite4_objeto';
+        $sql = "select obj_codigo"
+                . ", tu_id "
+                . ", tbc_codigo "
+                . ", eob_codigo "
+                . ", con_codigo "
+                . ", obj_cantidad "
+                . ", obj_tema "
+                . ", obj_autor "
+                . ", obj_tecnica "
+                . ", obj_largo "
+                . ", obj_ancho "
+                . ", obj_profundidad "
+                . "FROM _ct_tramite4_objeto ";
         $rsprv = $bd->ejecutar($sql);
         //$bd->cerrar();
         return $rsprv;
@@ -185,12 +185,27 @@ Class clstramite4objeto {
         $bd->cerrar();
     }
 
-    //////   seleccionar género    ///////////////////
-    public function gen_seleccionar() {
+    //////   seleccionar objeto por tramite    ///////////////////
+    public function obj_seleccionar_objeto_por_tramite() {
         // abro conexión a bases de datos
         $bd = Db::getInstance();
-        $sql = "select gen_codigo, gen_nombre FROM ct_genero WHERE gen_codigo = " . $this->gen_codigo;
+        $sql = "select obj_codigo"
+                . ", tu_id "
+                . ", tbc_codigo "
+                . ", eob_codigo "
+                . ", con_codigo "
+                . ", obj_cantidad "
+                . ", obj_tema "
+                . ", obj_autor "
+                . ", obj_tecnica "
+                . ", obj_largo "
+                . ", obj_ancho "
+                . ", obj_profundidad "
+                . "FROM _ct_tramite4_objeto "
+                . "WHERE tu_id = " . $this->tu_id;
         $rsprv = $bd->ejecutar($sql);
+        
+        
         $bd->cerrar();
         return $rsprv;
     }

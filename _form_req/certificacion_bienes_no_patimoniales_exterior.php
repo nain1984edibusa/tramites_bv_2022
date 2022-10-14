@@ -7,12 +7,15 @@ include_once 'modelo/clsNacionalidad.php';
 include_once 'modelo/clspais.php';
 include_once 'modelo/clsregional.php';
 include_once 'modelo/clsHorario.php';
-include_once("./modelo/clsgenero.php");
+include_once 'modelo/clsTramite4Objeto.php';
+include_once("./modelo/clsTipoBienCultural.php");
+
+session_start();
 ?>
 <div class="container-fluid">
     <div class="container-flat-form">
         <div class="title-flat-form title-flat-blue">Formulario de Información</div>
-        <!--<form enctype="multipart/form-data" method="post" class="form-padding" action="controller/registrar_tramite.php" autocomplete="off">-->
+        <form id="formulario_tramite" class="form-padding">
             <input type="hidden" name="idt" id="idt" value="<?php echo $_GET["idt"]; ?>">
             <input type="hidden" name="estadot" id="estadot" value="<?php echo $estado_inicial; ?>">
             <input type="hidden" name="duraciont" id="duraciont" value="<?php echo $tramite_tiempo; ?>">
@@ -70,7 +73,7 @@ include_once("./modelo/clsgenero.php");
                 <div class="col-xs-12 col-sm-6 col-md-6">
                     <div class="group-material">
                         <span>País de Origen <span class="sp-requerido">*</span></span>
-                        <select name="id_nacionalidad" id="id_nacionalidad" class="tooltips-general material-control" required="" data-toggle="tooltip" data-placement="top" title="Elija el país de origen">
+                        <select name="id_pais_origen" id="id_pais_origen" class="tooltips-general material-control" required="" data-toggle="tooltip" data-placement="top" title="Elija el país de origen">
                             <option value="" disabled="" selected="">Selecciona el país de origen</option>
                             <?php
                             $pais = new clsNacionalidad;
@@ -99,7 +102,7 @@ include_once("./modelo/clsgenero.php");
                 </div>
                 <div class="col-xs-12 col-sm-6 col-md-6">
                     <div class="group-material">
-                        <input id="direccion-envio" name="direccion_envio" type="text" class="material-control tooltips-general" title="Escriba la dirección de envió" placeholder="Por ejemplo: Av. Miguel Angel Nº 193A Urb. Fiori " required="" maxlength="100" data-toggle="tooltip" data-placement="top" onKeyUp="this.value = this.value.toUpperCase();"> <!--title="Escriba la dirección de su domicilio" -->
+                        <input id="direccion_envio" name="direccion_envio" type="text" class="material-control tooltips-general" placeholder="Por ejemplo: Av. Miguel Angel Nº 193A Urb. Fiori" required="" maxlength="100" data-toggle="tooltip" data-placement="top" title="Escriba la dirección de envió" onKeyUp="this.value = this.value.toUpperCase();"> <!--title="Escriba la dirección de su domicilio" -->
                         <span class="highlight"></span>
                         <span class="bar"></span>
                         <label>Dirección de envió<span class="sp-requerido">*</span></label>
@@ -126,18 +129,139 @@ include_once("./modelo/clsgenero.php");
                 </div>
                 <div class="col-xs-12 col-sm-6 col-md-6">
                     <div class="group-material">
-                        <input id="ciudad-envio" name="ciudad_envio" type="text" class="material-control tooltips-general" placeholder="Por ejemplo: Lima" required="" maxlength="100" data-toggle="tooltip" title="Escriba la ciudad de envió" data-placement="top" onKeyUp="this.value = this.value.toUpperCase();"> <!-- -->
+                        <input id="ciudad_envio" name="ciudad_envio" type="text" class="material-control tooltips-general" placeholder="Por ejemplo: Lima" required="" maxlength="100" data-toggle="tooltip" title="Escriba la ciudad de envió" data-placement="top" onKeyUp="this.value = this.value.toUpperCase();"> <!-- -->
                         <span class="highlight"></span>
                         <span class="bar"></span>
                         <label>Ciudad de envió<span class="sp-requerido">*</span></label>
                     </div>
                 </div> 
             </div>
-            <br>
-            <?php
-            include("includes/_lista_bienes_no_patrimonial.php");
-            ?>
-
+            <div class="row">
+                <div class="col-xs-12">
+                    <legend><i class="zmdi zmdi-file-text"></i> &nbsp;  <b>Objetos a certificar</b></legend></legend>
+                </div>
+            </div>
+            <div id="mensaje" class="alert alert-warning" role="alert" style="display: none;"></div>
+            <div class="panel panel-default" id="formularioObjetos">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-4">
+                            <div class="group-material">
+                                <input id="cantidad" name="cantidad"  min="0" type="number" class="tooltips-general material-control" placeholder="Por ejemplo: 10" required="" maxlength="70" data-toggle="tooltip" data-placement="top"  onKeyUp="this.value = this.value.toUpperCase();"><!--title="Escriba su número de identificación"-->
+                                <span class="highlight"></span>
+                                <span class="bar"></span>
+                                <label>Cantidad<span class="sp-requerido">*</span></label>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-4">
+                            <div class="group-material">
+                                <span>Tipo de bien cultural <span class="sp-requerido">*</span></span>
+                                <select name="tipo_biencul_tural" id="tipo_bien_cultural" class="tooltips-general material-control" required="" data-toggle="tooltip" data-placement="top" title="Elija el bien cultural" onchange="javascript:seleccionarTipoBienCultural();">
+                                    <option value="" disabled="" selected="">Selecciona el tipo de bien cultural</option>
+                                    <?php
+                                    $tipoBienCultural = new clsTipoBienCultural();
+                                    $rsTipoBienCultural = $tipoBienCultural->tipoBienCulturalSeleccionarActivos();
+                                    while ($row = mysqli_fetch_array($rsTipoBienCultural)) {
+                                        ?>
+                                        <option value="<?php echo $row["tbc_codigo"]; ?>"><?php echo $row["tbc_nombre"]; ?></option>
+                                        <?php
+                                    }
+                                    ?>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-4" hidden="">
+                            <div class="group-material">
+                                <input id="descripcion_bien_cultural" name="descripcion_bien_cultural" readonly="ReadOnly" type="text" class="tooltips-general material-control" required="" maxlength="50" data-toggle="tooltip" data-placement="top" onKeyUp="this.value = this.value.toUpperCase();">
+                                <span class="highlight"></span>
+                                <span class="bar"></span>
+                                <label>Descripción bien cultural <span class="sp-requerido">*</span></label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-4">
+                            <div class="group-material">
+                                <input id="tema" name="tema" type="text" class="tooltips-general material-control" placeholder="Por ejemplo: Abstracto" required="" maxlength="70" data-toggle="tooltip" data-placement="top" onKeyUp="this.value = this.value.toUpperCase();"> <!--title="Escriba sus nombres completos"--> 
+                                <span class="highlight"></span>
+                                <span class="bar"></span>
+                                <label>Tema <span class="sp-requerido">*</span></label>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-4">
+                            <div class="group-material">
+                                <input id="autor" name="autor" type="text" class="tooltips-general material-control" placeholder="Por ejemplo: Silva Cuadrado" required="" maxlength="50" data-toggle="tooltip" data-placement="top" onKeyUp="this.value = this.value.toUpperCase();"> <!--title="Escriba sus apellidos completos"--> 
+                                <span class="highlight"></span>
+                                <span class="bar"></span>
+                                <label>Autor <span class="sp-requerido">*</span></label>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-4">
+                            <div class="group-material">
+                                <input id="tecnica" name="tecnica" type="text" class="tooltips-general material-control" placeholder="Por ejemplo: Oleo" required="" maxlength="50" data-toggle="tooltip" data-placement="top" onKeyUp="this.value = this.value.toUpperCase();">
+                                <span class="highlight"></span>
+                                <span class="bar"></span>
+                                <label>Técnica <span class="sp-requerido">*</span></label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-4">
+                            <div class="group-material">
+                                <div class="group-material">
+                                    <input id="largo" name="largo" min="0" type="number" class="material-control tooltips-general" placeholder="Por ejemplo: 10" required="" maxlength="100" data-toggle="tooltip" data-placement="top";"> 
+                                    <span class="highlight"></span>
+                                    <span class="bar"></span>
+                                    <label>Largo (cm)<span class="sp-requerido">*</span></label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-4">
+                            <div class="group-material">
+                                <input id="ancho" name="ancho" min="0" type="number" class="material-control tooltips-general" placeholder="Por ejemplo: 10" required="" maxlength="100" data-toggle="tooltip" data-placement="top";"> 
+                                <span class="highlight"></span>
+                                <span class="bar"></span>
+                                <label>Ancho (cm)<span class="sp-requerido">*</span></label>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-4">
+                            <div class="group-material">
+                                <input id="profundidad" min="0" name="profundidad" type="number" class="material-control tooltips-general" placeholder="Por ejemplo: 10" required="" maxlength="100" data-toggle="tooltip" data-placement="top";"> 
+                                <span class="highlight"></span>
+                                <span class="bar"></span>
+                                <label>Profundidad (cm)<span class="sp-requerido">*</span></label>
+                            </div>
+                        </div>
+                    </div>
+                    <!--                    <label>Nombre</label>
+                                        <input type="text" class="form-control" id="nombre">
+                                        <label>Precio:</label>
+                                        <input type="number" class="form-control" id="precio">
+                                        <label>Cantidad:</label>
+                                        <input type="number" class="form-control" id="cantidad">-->
+                    <div class="row">
+                        <div class="col-xs-12 text-right">
+                            <button type="button" value="Agregar"  id="agregar" class="btn btn-success"><i class="zmdi zmdi-plus-circle"></i> &nbsp; Agregar</button>
+                        </div>
+                    </div>
+                    <div class="col-xs-12">
+                        <legend><i class="zmdi zmdi-check-all"></i> &nbsp;  <b>Objetos a ser revisados</b></legend></legend>
+                    </div>
+                    <div class="col-12" id="productos" >
+                        <table class="table table-striped" id="lista">
+                            <tr>
+                                <td style="width: 5%"><b>Cantidad</b></td>
+                                <td><b>Tipo de bien cultural</b></td> 
+                                <td><b>Tema</b></td>
+                                <td><b>Autor</b></td>
+                                <td><b>Técnica</b></td>
+                                <td style="width: 5%"><b>Dimensiones</b></td>
+                                <td style="width: 5%"><b>Acciones</b></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
             <div class="row">
                 <div class = "col-xs-12">
                     <legend><i class = "zmdi zmdi-calendar-alt"></i> &nbsp;
@@ -146,7 +270,7 @@ include_once("./modelo/clsgenero.php");
                 <div class = "col-xs-12 col-sm-12 col-md-12">
                     <div class = "group-material">
                         <span>Lugar de la cita <span class = "sp-requerido">*</span></span>
-                        <select name = "id_regional" id = "id_regional" class = "tooltips-general material-control" required = "" data-toggle = "tooltip" data-placement = "top" title = "Elija la zonal">
+                        <select name = "id_zonal" id = "id_zonal" class = "tooltips-general material-control" required = "" data-toggle = "tooltip" data-placement = "top" title = "Elija la zonal">
                             <option value = "" disabled = "" selected = "">Selecciona la regional</option>
                             <?php
                             $regional = new clsregional();
@@ -203,27 +327,21 @@ include_once("./modelo/clsgenero.php");
                 <div class="col-xs-12">
                     <p class="text-center">
                         <button type="reset" class="btn btn-info" style="margin-right: 20px;"><i class="zmdi zmdi-roller"></i> &nbsp;&nbsp; Limpiar</button>
-                        <button type="submit" class="btn btn-primary"><i class="zmdi zmdi-arrow-right"></i> &nbsp;&nbsp; Enviar</button>
-                        <!--<a href="ue_bandeja_enviados.php?proc=regtra&est=1" class="enlace_especial">Completado</a>-->
+                        <!--<button type="submit" class="btn btn-primary"><i class="zmdi zmdi-arrow-right"></i> &nbsp;&nbsp; Enviar</button>-->
+                        <!--<button type="button" value="Agregar"  id="agregar" class="btn btn-success"><i class="zmdi zmdi-plus-circle"></i> &nbsp; Agregar</button>-->
+                        <input type="button" value="Guardar" class="btn btn-success mt-3" id="guardar">
+                        <!--<button type="button" value="Guardar2"  id="guardar2" class="btn btn-primary"><i class="zmdi zmdi-arrow-right"></i> &nbsp; Enviar</button>-->
                     </p>
                 </div>
             </div>
-        <!--</form>-->
+        </form>
     </div>
 </div>
 <?php include_once("./modal/acuerdo_conf.php"); ?>
 <?php include_once("./includes/footer.php"); ?>
 
+<script src="js/js_tramite4.js"></script>
 <script>
-    
-    $("#agregar").submit(function (e) {
-        debugger;
-        e.preventDefault();
-        $.post("controller/registrar_objeto.php", $("#agregar").serialize(), function (data) {
-        });
-        //alert("Agregado exitosamente!");
-        $("#agregar")[0].reset();
-        $('#ModalRegistroObjeto').modal('hide');
-    });
+
 </script>
 

@@ -8,7 +8,7 @@ Class clsTipoBienCultural {
     private $tbc_estado;
 
     //////////////////////////////   funciones //////////////////////
-    
+
     public function getTbc_codigo() {
         return $this->tbc_codigo;
     }
@@ -32,7 +32,7 @@ Class clsTipoBienCultural {
     public function setTbc_estado($tbc_estado): void {
         $this->tbc_estado = $tbc_estado;
     }
-    
+
 //    
 //    ////////   insertar género   //////////////////
 //    public function gen_insertar() {
@@ -101,7 +101,7 @@ Class clsTipoBienCultural {
         //$bd->cerrar();
         return $rsprv;
     }
-    
+
     public function tipoBienCulturalSeleccionarActivos() {
         // abro conexión a bases de datos
         $bd = Db::getInstance();
@@ -111,7 +111,16 @@ Class clsTipoBienCultural {
         return $rsprv;
     }
 
-    /////////////////////////////    fin de provicnias      ///////////////////////
+    public function BienCulturalPorId($item_seleccionado) {
+        // abro conexión a bases de datos
+        $bd = Db::getInstance();
+//        $sql = "select ta_id, ta_concepto, ta_costo FROM _ct_tramite17_tipo_analisis WHERE ta_id='" . $item_seleccionado . "' ";
+        $sql = "select tbc_codigo, tbc_nombre FROM _ct_tramite4_tipo_bien_cultural WHERE tbc_codigo='" . $item_seleccionado . "'";
+        $rsprv = $bd->ejecutar($sql);
+        //$bd->cerrar();
+        return $rsprv;
+    }
+
 }
 
 ?>

@@ -3,17 +3,13 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/xampp/htdocs/tramites_bv/modelo/clsTramite4Objeto.php</file>
-            <file>file:/C:/xampp/htdocs/tramites_bv/controller/registrar_tramite/_rt_17.php</file>
-            <file>file:/C:/xampp/htdocs/tramites_bv/controller/registrar_anexo.php</file>
-            <file>file:/C:/xampp/htdocs/tramites_bv/ajax/obtener_turnos_disponibles.php</file>
-            <file>file:/C:/xampp/htdocs/tramites_bv/includes/_lista_bienes_no_patrimonial.php</file>
+            <file>file:/C:/xampp/htdocs/tramites_bv/js/js_tramite4.js</file>
+            <file>file:/C:/xampp/htdocs/tramites_bv/controller/registrar_tramite_ajax.php</file>
             <file>file:/C:/xampp/htdocs/tramites_bv/controller/registrar_objeto.php</file>
+            <file>file:/C:/xampp/htdocs/tramites_bv/modelo/clstramite4.php</file>
             <file>file:/C:/xampp/htdocs/tramites_bv/_form_req/certificacion_bienes_no_patimoniales_exterior.php</file>
-            <file>file:/C:/xampp/htdocs/tramites_bv/controller/registrar_feriado.php</file>
             <file>file:/C:/xampp/htdocs/tramites_bv/ajax/obtener_contadores_bandejas.php</file>
-            <file>file:/C:/xampp/htdocs/tramites_bv/modal/registro_objeto_no_patrimonial.php</file>
-            <file>file:/C:/xampp/htdocs/tramites_bv/ajax/obtener_usuario.php</file>
+            <file>file:/C:/xampp/htdocs/tramites_bv/controller/registrar_tramite/_rt_4.php</file>
         </group>
     </open-files>
 </project-private>

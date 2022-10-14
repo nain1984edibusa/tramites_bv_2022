@@ -60,6 +60,7 @@ INSERT INTO `_ct_tramite4_estado_objeto` (`eob_codigo`, `eob_nombre`) VALUES
 
 CREATE TABLE `_ct_tramite4_objeto` (
   `obj_codigo` int(11) NOT NULL AUTO_INCREMENT,
+  `tu_id` bigint(20) NOT NULL,
   `tbc_codigo` int(11) NOT NULL,
   `eob_codigo` int(11) NOT NULL,
   `con_codigo` int(11) NOT NULL,
@@ -71,7 +72,6 @@ CREATE TABLE `_ct_tramite4_objeto` (
   `obj_ancho` int(11) NOT NULL,
   `obj_profundidad` int(11) NOT NULL,
   PRIMARY KEY (`obj_codigo`),
-  CONSTRAINT `fk_con_codigo` FOREIGN KEY (`con_codigo`) REFERENCES `_ct_tramite4_contenedor` (`con_codigo`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_eob_codigo` FOREIGN KEY (`eob_codigo`) REFERENCES `_ct_tramite4_estado_objeto` (`eob_codigo`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
