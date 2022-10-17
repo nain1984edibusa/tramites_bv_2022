@@ -131,9 +131,44 @@ Class clstramite4 extends clstramiteusuario {
 
     public function tu_insertar() {
         $bd = Db::getInstance();
-        //$this->carga_rol_id($bd->lastID()); // sacar el siguiente registro de la tabla y lo cargo en id
-        $bd->carga_valores("'" . $this->getTu_codigo() . "','" . $this->getUsu_eid() . "','" . $this->getUsu_iid() . "','" . $this->getTra_id() . "','" . $this->getTu_fecha_ingreso() . "','" . $this->getTu_fecha_contcont() . "','" . $this->getTu_fecha_aprocont() . "','" . $this->getReg_id() . "','" . $this->getEt_id() . "','" . $this->te_provincia . "','" . $this->te_canton . "','" . $this->te_parroquia . "','" . $this->te_regional . "','" . $this->te_pais_origen . "','" . $this->te_direccion . "','" . $this->te_fecha_envio . "','" . $this->te_direccion_envio . "','" . $this->te_codigo_pais_envio . "','" . $this->te_ciudad_envio . "'"); // valores a insertae
-        $bd->carga_campos("tu_codigo,usu_extid,usu_intid,tra_id,tu_fecha_ingreso,tu_fecha_contcont,tu_fecha_aprocont,reg_id,et_id,te_provincia,te_canton,te_parroquia,te_regional, te_pais_origen,te_direccion,te_fecha_envio,te_direccion_envio,te_codigo_pais_envio,te_ciudad_envio"); // campos a ser insertados
+        $bd->carga_valores("'" . $this->getTu_codigo() . "'"
+                . ",'" . $this->getUsu_eid() . "'"
+                . ",'" . $this->getUsu_iid() . "'"
+                . ",'" . $this->getTra_id() . "'"
+                . ",'" . $this->getTu_fecha_ingreso() . "'"
+                . ",'" . $this->getTu_fecha_contcont() . "'"
+                . ",'" . $this->getTu_fecha_aprocont() . "'"
+                . ",'" . $this->getReg_id() . "'"
+                . ",'" . $this->getEt_id() . "'"
+                . ",'" . $this->te_provincia . "'"
+                . ",'" . $this->te_canton . "'"
+                . ",'" . $this->te_parroquia . "'"
+                . ",'" . $this->te_regional . "'"
+                . ",'" . $this->te_pais_origen . "'"
+                . ",'" . $this->te_direccion . "'"
+                . ",'" . $this->te_fecha_envio . "'"
+                . ",'" . $this->te_direccion_envio . "'"
+                . ",'" . $this->te_codigo_pais_envio . "'"
+                . ",'" . $this->te_ciudad_envio . "'"); // valores a insertae
+        $bd->carga_campos("tu_codigo,"
+                . "usu_extid,"
+                . "usu_intid,"
+                . "tra_id,"
+                . "tu_fecha_ingreso,"
+                . "tu_fecha_contcont,"
+                . "tu_fecha_aprocont,"
+                . "reg_id,"
+                . "et_id,"
+                . "te_provincia,"
+                . "te_canton,"
+                . "te_parroquia,"
+                . "te_regional,"
+                . "te_pais_origen,"
+                . "te_direccion,"
+                . "te_fecha_envio,"
+                . "te_direccion_envio,"
+                . "te_codigo_pais_envio,"
+                . "te_ciudad_envio"); // campos a ser insertados
         if ($bd->insertar("_ct_tramite4")) // insertar
             return $bd->lastID();  // exito
         else

@@ -24,16 +24,16 @@ include_once "_obtener_feriados.php";
 /* add */
 /* OBTENCIÓN DE DATOS DE LA SESION Y DEL FORMULARIO */
 
-$productos = json_decode($_POST['json_datos_tramite'], true);
+$datos_tramite = json_decode($_POST['json_datos_tramite'], true);
 //recorrer el arreglo
 $tramite = "";
 $estado_tramite = "";
 $duracion_tramite = "";
 
-foreach ($productos as $producto) {
-    $tramite =$producto['idt']; //id del trámite
-    $estado_tramite = $producto['estadot']; //estado del trámite
-    $duracion_tramite = $producto["duraciont"]; //estado del trámite
+foreach ($datos_tramite as $item) {
+    $tramite = $item['idt']; //id del trámite
+    $estado_tramite = $item['estadot']; //estado del trámite
+    $duracion_tramite = $item["duraciont"]; //estado del trámite
 }
 
 $usuario = $_SESSION["codusuario"]; //código usuario

@@ -16,6 +16,10 @@ session_start();
     <div class="container-flat-form">
         <div class="title-flat-form title-flat-blue">Formulario de Información</div>
         <form id="formulario_tramite" class="form-padding">
+            
+            <div id="msg-alert-danger" class="alert alert-danger alert-dismissible"  style="display: none;"></div>
+            <div id="msg-alert-success" class="alert alert-success alert-dismissible"  style="display: none;"></div>
+            
             <input type="hidden" name="idt" id="idt" value="<?php echo $_GET["idt"]; ?>">
             <input type="hidden" name="estadot" id="estadot" value="<?php echo $estado_inicial; ?>">
             <input type="hidden" name="duraciont" id="duraciont" value="<?php echo $tramite_tiempo; ?>">
@@ -141,7 +145,7 @@ session_start();
                     <legend><i class="zmdi zmdi-file-text"></i> &nbsp;  <b>Objetos a certificar</b></legend></legend>
                 </div>
             </div>
-            <div id="mensaje" class="alert alert-warning" role="alert" style="display: none;"></div>
+            <div id="mensaje" class="alert alert-danger" role="alert" style="display: none;"></div>
             <div class="panel panel-default" id="formularioObjetos">
                 <div class="panel-body">
                     <div class="row">
@@ -327,14 +331,18 @@ session_start();
                 <div class="col-xs-12">
                     <p class="text-center">
                         <button type="reset" class="btn btn-info" style="margin-right: 20px;"><i class="zmdi zmdi-roller"></i> &nbsp;&nbsp; Limpiar</button>
-                        <!--<button type="submit" class="btn btn-primary"><i class="zmdi zmdi-arrow-right"></i> &nbsp;&nbsp; Enviar</button>-->
+                        <button type="button" id="guardar" disabled="disabled" value="Guardar" class="btn btn-primary"><i class="zmdi zmdi-arrow-right"></i> &nbsp;&nbsp; Enviar</button>
                         <!--<button type="button" value="Agregar"  id="agregar" class="btn btn-success"><i class="zmdi zmdi-plus-circle"></i> &nbsp; Agregar</button>-->
-                        <input type="button" value="Guardar" class="btn btn-success mt-3" id="guardar">
-                        <!--<button type="button" value="Guardar2"  id="guardar2" class="btn btn-primary"><i class="zmdi zmdi-arrow-right"></i> &nbsp; Enviar</button>-->
                     </p>
                 </div>
             </div>
         </form>
+    </div>
+    <div class="form-group" id="process" style="display:none;">
+        <div class="progress">
+            <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100" style="">
+            </div>
+        </div>
     </div>
 </div>
 <?php include_once("./modal/acuerdo_conf.php"); ?>

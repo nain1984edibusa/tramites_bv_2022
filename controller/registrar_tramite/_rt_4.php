@@ -2,10 +2,9 @@
 
 //CAMPOS ESPECÍFICOS DEL TRÁMITE 4
 require_once '../modelo/clstramite4.php';
-//require_once '../modelo/clstramiterequisitos.php';
-//require_once '../modelo/clsturequisitos.php';
 require_once '../modelo/clstramiteanexos.php';
 require_once '../modelo/clstuanexos.php';
+require_once '../modelo/clsTramite4Objeto.php';
 
 $tramite_especifico = json_decode($_POST['json_datos_tramite_especifico'], true);
 
@@ -56,28 +55,28 @@ $clstut->setTe_codigo_pais_evio($te_pais_envio);
 $clstut->setTe_ciudad_envio($te_ciudad_envio);
 
 $clstut->setTe_fecha_envio($te_fecha_atencion);
-$clstut->setTe_hora($te_hora);
+//$clstut->setTe_hora($te_hora);
 
 //Inserta datos del tramite 4
 $tu4_id = $clstut->tu_insertar();
-
-if ($tu4_id_id != 0) {
+if ($tu4_id > 0) {
     /* REGISTRAR LOS ANEXOS BASE-VACIOS */
-    foreach ($objetos as $objeto) {
+    $objetos = json_decode($_POST['json_datos_objeto'], true);
+    foreach ($objetos as $item) {
 
         $clsTramite4Objeto = new clsTramite4Objeto();
-        $clsTramite4Objeto->setTu_id($objeto['tramite_especifico']);
-        $clsTramite4Objeto->setTbc_codigo($objeto['tipo_bien_cultural']);
-        $clsTramite4Objeto->setEob_codigo($objeto['descripcion']);
-        $clsTramite4Objeto->setCon_codigo($objeto['descripcion']);
+        $clsTramite4Objeto->setTu_id($tu4_id);
+        $clsTramite4Objeto->setTbc_codigo($item['tipo_bien_cultural']);
+        $clsTramite4Objeto->setEob_codigo(1);
+        $clsTramite4Objeto->setCon_codigo(0);
 
-        $clsTramite4Objeto->setObj_cantidad($objeto['cantidad']);
-        $clsTramite4Objeto->setObj_tema($objeto['tema']);
-        $clsTramite4Objeto->setObj_autor($objeto['autor']);
-        $clsTramite4Objeto->setObj_tecnica($objeto['tecnica']);
-        $clsTramite4Objeto->setObj_largo($objeto['largo']);
-        $clsTramite4Objeto->setObj_ancho($objeto['ancho']);
-        $clsTramite4Objeto->setObj_profundidad($objeto['profundidad']);
+        $clsTramite4Objeto->setObj_cantidad($item['cantidad']);
+        $clsTramite4Objeto->setObj_tema($item['tema']);
+        $clsTramite4Objeto->setObj_autor($item['autor']);
+        $clsTramite4Objeto->setObj_tecnica($item['tecnica']);
+        $clsTramite4Objeto->setObj_largo($item['largo']);
+        $clsTramite4Objeto->setObj_ancho($item['ancho']);
+        $clsTramite4Objeto->setObj_profundidad($item['profundidad']);
 
         $clsTramite4Objeto->obj_insertar();
     }

@@ -117,8 +117,8 @@ Class clstramite4objeto {
     ////////   insertar objeto   //////////////////
     public function obj_insertar() {
         $bd = Db::getInstance();
-        $bd->carga_valores("'" . $this->getTbc_codigo() . "', "
-                . "'" . $this->getTu_id() . "', "
+        $bd->carga_valores("'" . $this->getTu_id() . "', "
+                . "'" . $this->getTbc_codigo() . "', "
                 . "'" . $this->getEob_codigo() . "', "
                 . "'" . $this->getCon_codigo() . "', "
                 . "'" . $this->getObj_cantidad() . "', "
@@ -129,8 +129,8 @@ Class clstramite4objeto {
                 . "'" . $this->getObj_ancho() . "',"
                 . "'" . $this->getObj_profundidad() . "'");
 
-        $bd->carga_campos("tbc_codigo, "
-                . "tu_id, "
+        $bd->carga_campos("tu_id, "
+                . "tbc_codigo, "
                 . "eob_codigo, "
                 . "con_codigo, "
                 . "obj_cantidad, "
