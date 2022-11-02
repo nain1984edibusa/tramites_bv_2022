@@ -84,7 +84,7 @@ $clstramiteusuario->setTu_fecha_concoa($fecha_control_coa);
 //$clstramiteusuario->setTu_fecha_concon($fecha_control_con);
 /* add */
 $clsusuario = new clsusuarios();
-$asignador = $clsusuario->get_usuario_by_zonal_perfil($regional, ASIGNADOR);
+$asignador = $clsusuario->get_usuario_by_zonal_perfil($regional, ASIGNADOR, $tramite);
 $asignador = mysqli_fetch_array($asignador);
 //echo $asignador["usu_id"];
 $clstramiteusuario->setUsu_iid($asignador["usu_id"]);

@@ -2,10 +2,12 @@
 //include_once("../modelo/cls17AnalisisQuimico.php");
 include_once("../modelo/clstramite17DetalleProforma.php");
 include_once("../modelo/clsusuarios.php");
+include_once("../modelo/clstramite4objeto.php");
 
 //$analisisQuimico = new cls17AnalisisQuimico();
 //$analisisQuimico->setTu_id($tespecifico["tu_id"]);
 //$analisisQuimico17 = $analisisQuimico->analisisQuimicoPorTramite();
+
 $detalleProforma = new clstramite17DetalleProforma();
 $detalleProforma->setTu_id($tespecifico["tu_id"]);
 $detalleProforma = $detalleProforma->detalleProformaPorTramite();
@@ -13,6 +15,12 @@ $detalleProforma = $detalleProforma->detalleProformaPorTramite();
 $rstra = $detalleProforma;
 $detalleProformaCalculos = $detalleProforma;
 $subtotal = 0;
+
+
+//$clstramite4objeto = new clstramite4objeto();
+//$clstramite4objeto->setTu_id($tespecifico["tu_id"]);
+//$clstramite4objeto = $clstramite4objeto->obj_seleccionar_objeto_por_tramite();
+
 
 $usuarioProforma = new clsusuarios();
 $usuarioProforma->setUsu_id($ttramite["usu_extid"]);

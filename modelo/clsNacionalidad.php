@@ -1,6 +1,6 @@
 <?php
 
-Class clsNacionalidad {
+Class clsnacionalidad {
 
     //    definio los campos de la tabla 
     private $nac_codigo;

@@ -31,6 +31,12 @@ $ruta_archivo = NULL; //"PENDIENTERUTA";
 /* REGISTRAR RESPUESTA DEL TRÁMITE ESPECÍFICO */
 switch ($id_tramite) {
 
+    case "4":
+       $clstramiteer = new clstu14respuestas();
+        $infoadicional = "respuesta";
+        $clstramiteer->setInfo_adicional($infoadicional);
+        break;
+    
     case "5":
         $clstramiteer = new clstu5respuestas();
         //$marco_legal=nl2br($_POST["marcolegal"]);
@@ -97,6 +103,8 @@ switch ($id_tramite) {
         $clstramiteer->setInfo_adicional($infoadicional);
         break;
 }
+
+
 $clstramiteer->setTra_id($id_tramite);
 $clstramiteer->setTu_id($tu_id);
 $clstramiteer->setTuc_cumple("PENDIENTE");

@@ -8,7 +8,7 @@ include_once("./includes/header.php");
 include_once("./includes/navbar.php");
 include_once("./includes/top.php");
 include_once("./modelo/util.php");
-include_once("./modelo/clsTipoBienCultural.php");
+include_once("./modelo/clstipobiencultural.php");
 ?>
 
 <div class="modal fade" tabindex="-1" role="dialog" id="ModalRegistroObjeto">
@@ -37,7 +37,7 @@ include_once("./modelo/clsTipoBienCultural.php");
                                 <select name="tipobiencultural" id="tipobiencultural" class="tooltips-general material-control" required="" data-toggle="tooltip" data-placement="top" title="Elija el bien cultural">
                                     <option value="" disabled="" selected="">Selecciona el tipo de bien cultural</option>
                                     <?php
-                                    $tipoBienCultural = new clsTipoBienCultural();
+                                    $tipoBienCultural = new clstipobiencultural();
                                     $rsTipoBienCultural = $tipoBienCultural->tipoBienCulturalSeleccionarActivos();
                                     while ($row = mysqli_fetch_array($rsTipoBienCultural)) {
                                         ?>

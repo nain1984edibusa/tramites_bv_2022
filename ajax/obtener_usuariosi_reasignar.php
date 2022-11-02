@@ -27,6 +27,7 @@ switch ($perfil_reasigna){
 $tu=$_POST["idtu"]; //id del trámite usuario específico
 $regional_procede=$_POST["reg"];
 $respuesta=$_POST["respuesta"];
+$usu_asigna_tramite = $_POST["tra_id"];
 $regional_recibe="";
 switch ($respuesta){
     case "Matriz": $regional_recibe=MATRIZ; break;
@@ -34,10 +35,10 @@ switch ($respuesta){
 }
 /*CREAR ESTRUCTURA HTML PARA INCLUIRLA EN SELECT*/
 $clsusuario = new clsusuarios();
-$receptores=$clsusuario->get_usuario_by_zonal_perfil($regional_recibe,$perfil_recibe);
+$receptores=$clsusuario->get_usuario_by_zonal_perfil($regional_recibe,$perfil_recibe, $usu_asigna_tramite);
 $respuesta="<option value='' selected=''>Selecciona un profesional</option>";
 while($receptor= mysqli_fetch_array($receptores)){
-    $respuesta.="<option value='".$receptor["usu_id"]."'>".$receptor["usu_apellido"]." ".$receptor["usu_nombre"]." -- ".$receptor["usu_direccion"]."</option>";
+    $respuesta.="<option value='".$receptor["usu_id"]."'>".$receptor["usu_apellido"]." ".$receptor["usu_nombre"]."</option>";
 }
 echo $respuesta;
 

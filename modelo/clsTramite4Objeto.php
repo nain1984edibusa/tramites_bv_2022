@@ -3,11 +3,11 @@
 Class clstramite4objeto {
 
     //    definio los campos de la tabla 
-    private $obj_codigo;
+    private $obj_id;
     private $tu_id;
-    private $tbc_codigo;
-    private $eob_codigo;
-    private $con_codigo;
+    private $tbc_id;
+    private $eob_id;
+    private $con_id;
     private $obj_cantidad;
     private $obj_tema;
     private $obj_autor;
@@ -18,24 +18,24 @@ Class clstramite4objeto {
 
     //////////////////////////////   funciones //////////////////////
 
-    public function getObj_codigo() {
-        return $this->obj_codigo;
+    public function getObj_id() {
+        return $this->obj_id;
     }
 
     public function getTu_id() {
         return $this->tu_id;
     }
 
-    public function getTbc_codigo() {
-        return $this->tbc_codigo;
+    public function getTbc_id() {
+        return $this->tbc_id;
     }
 
-    public function getEob_codigo() {
-        return $this->eob_codigo;
+    public function getEob_id() {
+        return $this->eob_id;
     }
 
-    public function getCon_codigo() {
-        return $this->con_codigo;
+    public function getCon_id() {
+        return $this->con_id;
     }
 
     public function getObj_cantidad() {
@@ -66,24 +66,24 @@ Class clstramite4objeto {
         return $this->obj_profundidad;
     }
 
-    public function setObj_codigo($obj_codigo): void {
-        $this->obj_codigo = $obj_codigo;
+    public function setObj_id($obj_id): void {
+        $this->obj_id = $obj_id;
     }
 
     public function setTu_id($tu_id): void {
         $this->tu_id = $tu_id;
     }
 
-    public function setTbc_codigo($tbc_codigo): void {
-        $this->tbc_codigo = $tbc_codigo;
+    public function setTbc_id($tbc_id): void {
+        $this->tbc_id = $tbc_id;
     }
 
-    public function setEob_codigo($eob_codigo): void {
-        $this->eob_codigo = $eob_codigo;
+    public function setEob_id($eob_id): void {
+        $this->eob_id = $eob_id;
     }
 
-    public function setCon_codigo($con_codigo): void {
-        $this->con_codigo = $con_codigo;
+    public function setCon_id($con_id): void {
+        $this->con_id = $con_id;
     }
 
     public function setObj_cantidad($obj_cantidad): void {
@@ -118,9 +118,9 @@ Class clstramite4objeto {
     public function obj_insertar() {
         $bd = Db::getInstance();
         $bd->carga_valores("'" . $this->getTu_id() . "', "
-                . "'" . $this->getTbc_codigo() . "', "
-                . "'" . $this->getEob_codigo() . "', "
-                . "'" . $this->getCon_codigo() . "', "
+                . "'" . $this->getTbc_id() . "', "
+                . "'" . $this->getEob_id() . "', "
+                . "'" . $this->getCon_id() . "', "
                 . "'" . $this->getObj_cantidad() . "', "
                 . "'" . $this->getObj_tema() . "',"
                 . "'" . $this->getObj_autor() . "',"
@@ -130,9 +130,9 @@ Class clstramite4objeto {
                 . "'" . $this->getObj_profundidad() . "'");
 
         $bd->carga_campos("tu_id, "
-                . "tbc_codigo, "
-                . "eob_codigo, "
-                . "con_codigo, "
+                . "tbc_id, "
+                . "eob_id, "
+                . "con_id, "
                 . "obj_cantidad, "
                 . "obj_tema, "
                 . "obj_autor, "
@@ -148,77 +148,72 @@ Class clstramite4objeto {
         $bd->cerrar();  // cerrar coneccion
     }
 
-    ////////   obtener objeto   //////////////////
-    public function obj_seleccionartodo() {
-        // abro conexión a bases de datos
-        $bd = Db::getInstance();
-        $sql = "select obj_codigo"
-                . ", tu_id "
-                . ", tbc_codigo "
-                . ", eob_codigo "
-                . ", con_codigo "
-                . ", obj_cantidad "
-                . ", obj_tema "
-                . ", obj_autor "
-                . ", obj_tecnica "
-                . ", obj_largo "
-                . ", obj_ancho "
-                . ", obj_profundidad "
-                . "FROM _ct_tramite4_objeto ";
-        $rsprv = $bd->ejecutar($sql);
-        //$bd->cerrar();
-        return $rsprv;
-    }
-
-    //////   actualizar género    ///////////////////
-    public function gen_actualizar() {
+    public function obj_actualizar() {
         // abro conexión a bases de datos
         $bd = Db::getInstance();
 
-        $parametros = "gen_nombre = '$this->gen_nombre'";
-        $bd->carga_valores("gen_codigo = " . $this->gen_codigo);
+        $parametros = "con_id = '$this->con_id',eob_id = '$this->eob_id',obj_cantidad = '$this->obj_cantidad',obj_tema = '$this->obj_tema',obj_autor = '$this->obj_autor',obj_tecnica = '$this->obj_tecnica',obj_largo = '$this->obj_largo',obj_ancho = '$this->obj_ancho',obj_profundidad = '$this->obj_profundidad'";
+        $bd->carga_valores("obj_id = " . $this->obj_id);
         $bd->carga_campos($parametros);
-        if ($bd->actualizar("ct_genero"))
+        if ($bd->actualizar("_ct_tramite4_objeto"))
             return 1;
         else
             return 0;
         $bd->cerrar();
     }
 
-    //////   seleccionar objeto por tramite    ///////////////////
-    public function obj_seleccionar_objeto_por_tramite() {
+    ////////   obtener objeto   //////////////////
+    public function obj_seleccionar_objeto_por_id() {
         // abro conexión a bases de datos
         $bd = Db::getInstance();
-        $sql = "select obj_codigo"
-                . ", tu_id "
-                . ", tbc_codigo "
-                . ", eob_codigo "
-                . ", con_codigo "
-                . ", obj_cantidad "
-                . ", obj_tema "
-                . ", obj_autor "
-                . ", obj_tecnica "
-                . ", obj_largo "
-                . ", obj_ancho "
-                . ", obj_profundidad "
-                . "FROM _ct_tramite4_objeto "
-                . "WHERE tu_id = " . $this->tu_id;
+        $sql = "SELECT _ct_tramite4_objeto.* , _ct_tramite4_tipo_bien_cultural.* FROM _ct_tramite4_objeto  "
+                . " inner join _ct_tramite4_tipo_bien_cultural  on _ct_tramite4_objeto.tbc_id = _ct_tramite4_tipo_bien_cultural.tbc_id "
+                . " WHERE obj_id = " . $this->obj_id;
         $rsprv = $bd->ejecutar($sql);
-        
-        
+
         $bd->cerrar();
         return $rsprv;
     }
 
-    /////// ELIMINAR género
-    public function gen_eliminar() {
+    //////   seleccionar objeto por tramite    ///////////////////
+//    public function obj_seleccionar_objeto_por_tramite() {
+//        // abro conexión a bases de datos
+//        $bd = Db::getInstance();
+//        $sql = "SELECT * FROM _ct_tramite4_objeto "
+//                . " inner join _ct_tramite4_tipo_bien_cultural  on _ct_tramite4_objeto.tbc_id = _ct_tramite4_tipo_bien_cultural.tbc_id "
+//                . " inner join _ct_tramite4_estado_objeto  on _ct_tramite4_estado_objeto.eob_id = _ct_tramite4_objeto.eob_id "
+//                . " WHERE tu_id = " . $this->tu_id;
+//        $rsprv = $bd->ejecutar($sql);
+//
+//        $bd->cerrar();
+//        return $rsprv;
+//    }
+
+    public function obj_seleccionar_objeto_por_tramite() {
         // abro conexión a bases de datos
         $bd = Db::getInstance();
-        $sql = "DELETE FROM ct_genero WHERE gen_codigo = " . $this->gen_codigo;
+        $sql = " SELECT * FROM _ct_tramite4_objeto  o
+        inner join _ct_tramite4_tipo_bien_cultural b on o.tbc_id = b.tbc_id  
+        inner join _ct_tramite4_estado_objeto e on e.eob_id = o.eob_id  
+        inner join _ct_tramite4_contenedor c on c.obj_id = o.obj_id
+        WHERE o.tu_id = " . $this->tu_id;
         $rsprv = $bd->ejecutar($sql);
-        //$bd->cerrar();
+
+        $bd->cerrar();
         return $rsprv;
     }
+
+    
+
+    public function eo_seleccionartodo() {
+    // abro conexión a bases de datos
+    $bd = Db::getInstance();
+    $sql = "SELECT * FROM clstramite4estadoobjeto ";
+    $rsprv = $bd->ejecutar($sql);
+
+    $bd->cerrar();
+    return $rsprv;
+}
 
 }
 

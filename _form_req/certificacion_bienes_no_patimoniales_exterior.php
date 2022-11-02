@@ -3,12 +3,13 @@
  * INSTITUTO NACIONAL DE PATRIMONIO CULTURAL
  * Portal de Trámites 2020
  */
-include_once 'modelo/clsNacionalidad.php';
+include_once 'modelo/clsnacionalidad.php';
 include_once 'modelo/clspais.php';
 include_once 'modelo/clsregional.php';
 include_once 'modelo/clsHorario.php';
-include_once 'modelo/clsTramite4Objeto.php';
-include_once("./modelo/clsTipoBienCultural.php");
+include_once 'modelo/clstramite4objeto.php';
+include_once 'modelo/clstramite4modoenvio.php';
+include_once 'modelo/clstipobiencultural.php';
 
 session_start();
 ?>
@@ -16,10 +17,10 @@ session_start();
     <div class="container-flat-form">
         <div class="title-flat-form title-flat-blue">Formulario de Información</div>
         <form id="formulario_tramite" class="form-padding">
-            
+
             <div id="msg-alert-danger" class="alert alert-danger alert-dismissible"  style="display: none;"></div>
             <div id="msg-alert-success" class="alert alert-success alert-dismissible"  style="display: none;"></div>
-            
+
             <input type="hidden" name="idt" id="idt" value="<?php echo $_GET["idt"]; ?>">
             <input type="hidden" name="estadot" id="estadot" value="<?php echo $estado_inicial; ?>">
             <input type="hidden" name="duraciont" id="duraciont" value="<?php echo $tramite_tiempo; ?>">
@@ -80,8 +81,8 @@ session_start();
                         <select name="id_pais_origen" id="id_pais_origen" class="tooltips-general material-control" required="" data-toggle="tooltip" data-placement="top" title="Elija el país de origen">
                             <option value="" disabled="" selected="">Selecciona el país de origen</option>
                             <?php
-                            $pais = new clsNacionalidad;
-                            $rsNacionalidad = $pais->nac_seleccionartodo();
+                            $nacionalidad = new clsnacionalidad;
+                            $rsNacionalidad = $nacionalidad->nac_seleccionartodo();
                             while ($row = mysqli_fetch_array($rsNacionalidad)) {
                                 ?>
                                 <option value="<?php echo $row["nac_codigo"]; ?>"><?php echo $row["nac_nombre"]; ?></option>
@@ -96,25 +97,7 @@ session_start();
                 <legend><i class="zmdi zmdi-gps-dot"></i> &nbsp; Datos destino</legend>
             </div>
             <div class="row">
-                <div class="col-xs-12 col-sm-6 col-md-6">
-                    <div class="group-material">
-                        <input name="fecha_envio" id="fecha_envio" type="date" class="material-control tooltips-general" title="Escriba/seleccione la fecha de envió" placeholder="Escoja una fecha de envió" data-toggle="tooltip" data-placement="top" > <!--title="Escribe el código correlativo del libro, solamente números"-->
-                        <span class="highlight"></span>
-                        <span class="bar"></span>
-                        <label>Fecha de envió <span class="sp-requerido">*</span></label>
-                    </div>
-                </div>
-                <div class="col-xs-12 col-sm-6 col-md-6">
-                    <div class="group-material">
-                        <input id="direccion_envio" name="direccion_envio" type="text" class="material-control tooltips-general" placeholder="Por ejemplo: Av. Miguel Angel Nº 193A Urb. Fiori" required="" maxlength="100" data-toggle="tooltip" data-placement="top" title="Escriba la dirección de envió" onKeyUp="this.value = this.value.toUpperCase();"> <!--title="Escriba la dirección de su domicilio" -->
-                        <span class="highlight"></span>
-                        <span class="bar"></span>
-                        <label>Dirección de envió<span class="sp-requerido">*</span></label>
-                    </div>
-                </div> 
-            </div>
-            <div class="row">
-                <div class="col-xs-12 col-sm-6 col-md-6">
+                <div class="col-xs-12 col-sm-4 col-md-4">
                     <div class="group-material">
                         <span>País de Envió <span class="sp-requerido">*</span></span>
                         <select name="id_pais_envio" id="id_pais_envio" class="tooltips-general material-control" required="" data-toggle="tooltip" data-placement="top" title="Elija el país de envió">
@@ -131,7 +114,7 @@ session_start();
                         </select>
                     </div>
                 </div>
-                <div class="col-xs-12 col-sm-6 col-md-6">
+                <div class="col-xs-12 col-sm-4 col-md-4">
                     <div class="group-material">
                         <input id="ciudad_envio" name="ciudad_envio" type="text" class="material-control tooltips-general" placeholder="Por ejemplo: Lima" required="" maxlength="100" data-toggle="tooltip" title="Escriba la ciudad de envió" data-placement="top" onKeyUp="this.value = this.value.toUpperCase();"> <!-- -->
                         <span class="highlight"></span>
@@ -139,6 +122,56 @@ session_start();
                         <label>Ciudad de envió<span class="sp-requerido">*</span></label>
                     </div>
                 </div> 
+                <div class="col-xs-12 col-sm-4 col-md-4">
+                    <div class="group-material">
+                        <input id="direccion_envio" name="direccion_envio" type="text" class="material-control tooltips-general" placeholder="Por ejemplo: Av. Miguel Angel Nº 193A Urb. Fiori" required="" maxlength="100" data-toggle="tooltip" data-placement="top" title="Escriba la dirección de envió" onKeyUp="this.value = this.value.toUpperCase();"> <!--title="Escriba la dirección de su domicilio" -->
+                        <span class="highlight"></span>
+                        <span class="bar"></span>
+                        <label>Dirección de envió<span class="sp-requerido">*</span></label>
+                    </div>
+                </div> 
+            </div>
+            <div class="row">
+                <div class="col-xs-12 col-sm-4 col-md-4">
+                    <div class="group-material">
+                        <input name="fecha_envio" id="fecha_envio" type="date" class="material-control tooltips-general" title="Escriba/seleccione la fecha de envió" placeholder="Escoja una fecha de envió" data-toggle="tooltip" data-placement="top" > <!--title="Escribe el código correlativo del libro, solamente números"-->
+                        <span class="highlight"></span>
+                        <span class="bar"></span>
+                        <label>Fecha de envió <span class="sp-requerido">*</span></label>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-4 col-md-4">
+                    <div class="group-material">
+                        <!--<span>Viaja con el paquete <span class="sp-requerido">*</span></span>-->
+                        <span>Viaja con el paquete<span class="sp-requerido">*</span></span>
+                        <span class="highlight"></span>
+                        <span class="bar"></span>
+                        <input type="radio" name="rdgllevo" id="rdgllevo_1"  value="1" checked="true"> SI
+                        <input type="radio" name="rdgllevo" id="rdgllevo_2"  value="2" > NO
+
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-4 col-md-4">
+                    <div class="group-material">
+                        <span>Método de envío<span class="sp-requerido">*</span></span>
+                        <select name="id_metodo_envio" id="id_metodo_envio" class="tooltips-general material-control" required="" data-toggle="tooltip" data-placement="top" title="Elija el país de envió">
+                            <option value="" disabled="" selected="">Selecciona el método de envió</option>
+                            <?php
+                            $modoEnvio = new clstramite4modoenvio();
+                            $rsModoEnvio = $modoEnvio->modo_envio_seleccionarActivos();
+                            while ($row = mysqli_fetch_array($rsModoEnvio)) {
+                                ?>
+                                <option value="<?php echo $row["me_id"]; ?>"><?php echo $row["me_nombre"]; ?></option>
+                                <?php
+                            }
+                            ?>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+
+
             </div>
             <div class="row">
                 <div class="col-xs-12">
@@ -160,21 +193,21 @@ session_start();
                         <div class="col-xs-12 col-sm-4">
                             <div class="group-material">
                                 <span>Tipo de bien cultural <span class="sp-requerido">*</span></span>
-                                <select name="tipo_biencul_tural" id="tipo_bien_cultural" class="tooltips-general material-control" required="" data-toggle="tooltip" data-placement="top" title="Elija el bien cultural" onchange="javascript:seleccionarTipoBienCultural();">
+                                <select name="tipo_bien_cultural" id="tipo_bien_cultural" class="tooltips-general material-control" required="" data-toggle="tooltip" data-placement="top" title="Elija el bien cultural" onchange="javascript:seleccionarTipoBienCultural();">
                                     <option value="" disabled="" selected="">Selecciona el tipo de bien cultural</option>
                                     <?php
-                                    $tipoBienCultural = new clsTipoBienCultural();
-                                    $rsTipoBienCultural = $tipoBienCultural->tipoBienCulturalSeleccionarActivos();
+                                    $tipoBienCultural = new clstipobiencultural();
+                                    $rsTipoBienCultural = $tipoBienCultural->tbc_seleccionaractivos();
                                     while ($row = mysqli_fetch_array($rsTipoBienCultural)) {
                                         ?>
-                                        <option value="<?php echo $row["tbc_codigo"]; ?>"><?php echo $row["tbc_nombre"]; ?></option>
+                                        <option value="<?php echo $row["tbc_id"]; ?>"><?php echo $row["tbc_nombre"]; ?></option>
                                         <?php
                                     }
                                     ?>
                                 </select>
                             </div>
                         </div>
-                        <div class="col-xs-12 col-sm-4" hidden="">
+                        <div class="col-xs-12 col-sm-4" >
                             <div class="group-material">
                                 <input id="descripcion_bien_cultural" name="descripcion_bien_cultural" readonly="ReadOnly" type="text" class="tooltips-general material-control" required="" maxlength="50" data-toggle="tooltip" data-placement="top" onKeyUp="this.value = this.value.toUpperCase();">
                                 <span class="highlight"></span>
@@ -237,12 +270,6 @@ session_start();
                             </div>
                         </div>
                     </div>
-                    <!--                    <label>Nombre</label>
-                                        <input type="text" class="form-control" id="nombre">
-                                        <label>Precio:</label>
-                                        <input type="number" class="form-control" id="precio">
-                                        <label>Cantidad:</label>
-                                        <input type="number" class="form-control" id="cantidad">-->
                     <div class="row">
                         <div class="col-xs-12 text-right">
                             <button type="button" value="Agregar"  id="agregar" class="btn btn-success"><i class="zmdi zmdi-plus-circle"></i> &nbsp; Agregar</button>
@@ -251,7 +278,7 @@ session_start();
                     <div class="col-xs-12">
                         <legend><i class="zmdi zmdi-check-all"></i> &nbsp;  <b>Objetos a ser revisados</b></legend></legend>
                     </div>
-                    <div class="col-12" id="productos" >
+                    <div class="col-xs-12" id="productos" >
                         <table class="table table-striped" id="lista">
                             <tr>
                                 <td style="width: 5%"><b>Cantidad</b></td>
@@ -292,9 +319,6 @@ session_start();
             <div class="row">
                 <div class="col-xs-12 col-sm-6 col-md-6">
                     <div class="group-material">
-
-<!--<input id="fecha-envio" name="fecha-envio"  type="date" class="tooltips-general material-control " title="Escriba/seleccione la fecha de envió" placeholder="Escoja una fecha de envió" step="1" max="<?php echo date("Y-m-d"); ?>" value="<?php echo date("Y-m-d"); ?>" required data-toggle="tooltip" data-placement="top" > title="Escribe el código correlativo del libro, solamente números"-->
-
                         <input id="fecha_atencion" name="fecha_atencion" type="date" class="tooltips-general material-control" title="Escriba/seleccione la fecha de atención" placeholder="Escoge la fecha de atención" pattern="[0-9]{1,20}"  maxlength="20" data-toggle="tooltip" data-placement="top" >
                         <span class="highlight"></span>
                         <span class="bar"></span>
@@ -331,7 +355,7 @@ session_start();
                 <div class="col-xs-12">
                     <p class="text-center">
                         <button type="reset" class="btn btn-info" style="margin-right: 20px;"><i class="zmdi zmdi-roller"></i> &nbsp;&nbsp; Limpiar</button>
-                        <button type="button" id="guardar" disabled="disabled" value="Guardar" class="btn btn-primary"><i class="zmdi zmdi-arrow-right"></i> &nbsp;&nbsp; Enviar</button>
+                        <button type="button" id="guardar"  value="Guardar" class="btn btn-primary"><i class="zmdi zmdi-arrow-right"></i> &nbsp;&nbsp; Enviar</button>
                         <!--<button type="button" value="Agregar"  id="agregar" class="btn btn-success"><i class="zmdi zmdi-plus-circle"></i> &nbsp; Agregar</button>-->
                     </p>
                 </div>

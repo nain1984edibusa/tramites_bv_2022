@@ -136,7 +136,7 @@
                 }
                 if($_GET["est"]=="1"){?>
                     <div class="alert alert-success">
-                        <strong>Proceso exitoso!</strong> La validación del requisito ha sido registrada correctamente. Si va revisado todos los requisitos, puede proceder a enviar el trámite a convalidación.
+                        <strong>Proceso exitoso!</strong> La validación del requisito ha sido registrada correctamente.Puede proceder a reasignarla al técnico.
                 <?php
                 }
                 break;

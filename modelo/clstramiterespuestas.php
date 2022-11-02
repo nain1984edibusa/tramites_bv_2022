@@ -1,6 +1,7 @@
 <?php
 
-Class clstramiterespuestas{	 
+Class clstramiterespuestas{
+    
     //campos de la tabla 
     private $tuc_id;
     private $tuc_rutaarchivo;

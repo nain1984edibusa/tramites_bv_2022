@@ -1,4 +1,20 @@
 use tramites_bv;
+
+CREATE TABLE `_ct_tramite4_respuestas` (
+  `tuc_id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `tuc_tipocontestacion` varchar(10) COLLATE utf8_spanish_ci NOT NULL,
+  `tuc_rutaarchivo` varchar(250) COLLATE utf8_spanish_ci NOT NULL,
+  `tuc_infoadicional` text COLLATE utf8_spanish_ci NOT NULL,
+  `tuc_cumple` varchar(50) COLLATE utf8_spanish_ci DEFAULT NULL,
+  `tuc_observaciones` varchar(250) COLLATE utf8_spanish_ci DEFAULT NULL,
+  `usu_aprobador` int(11) NOT NULL DEFAULT 0,
+  `usu_ejecutor` int(11) NOT NULL DEFAULT 0,
+  `tu_id` int(11) NOT NULL,
+  PRIMARY KEY (`tuc_id`),
+  KEY `fk_TU_ID` (`tu_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+
 CREATE TABLE `_ct_tramite4` (
   `tu_id` bigint(11) NOT NULL AUTO_INCREMENT,
   `tu_codigo` varchar(30) COLLATE utf8_spanish_ci NOT NULL,
@@ -27,43 +43,64 @@ CREATE TABLE `_ct_tramite4` (
   `te_direccion` varchar(200) COLLATE utf8_spanish_ci NOT NULL,
   `te_cumple` varchar(50) COLLATE utf8_spanish_ci DEFAULT 'PENDIENTE',
   `te_observaciones` varchar(250) COLLATE utf8_spanish_ci DEFAULT NULL,
-  `te_fecha_envio` datetime NOT NULL,
+  `te_fecha_envio` date NOT NULL,
   `te_direccion_envio` varchar(200) COLLATE utf8_spanish_ci NOT NULL,
   `te_codigo_pais_envio` int(11) NOT NULL,
   `te_ciudad_envio` varchar(200) COLLATE utf8_spanish_ci NOT NULL,
   `te_viaja_con_paquete` int(11) NULL DEFAULT 0,
-  `te_metodo_envio` int(11) NULL,
+  `te_modo_envio` int(11) NULL,
   PRIMARY KEY (`tu_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
-
 CREATE TABLE `_ct_tramite4_contenedor` (
-  `con_codigo` int(11) NOT NULL AUTO_INCREMENT,
-  `sol_codigo` int(11) NOT NULL,
+  `con_id` int(11) NOT NULL AUTO_INCREMENT,
+  `tu_id` int(11) NOT NULL,
+  `obj_id` int(11) NOT NULL,
+  `tc_id` int(11) NOT NULL,
   `con_numero` int(11) NOT NULL,
-  `con_tipo` varchar(50) COLLATE utf8_spanish_ci NOT NULL,
   `con_seguridad` int(11) NOT NULL,
-  PRIMARY KEY (`con_codigo`)
+  PRIMARY KEY (`con_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 CREATE TABLE `_ct_tramite4_estado_objeto` (
-  `eob_codigo` int(11) NOT NULL AUTO_INCREMENT,
+  `eob_id` int(11) NOT NULL AUTO_INCREMENT,
   `eob_nombre` varchar(50) COLLATE utf8_spanish_ci NOT NULL,
   `eob_estado` 	ENUM ('ACT', 'INA') NOT NULL DEFAULT 'ACT',
-  PRIMARY KEY (`eob_codigo`)
+  PRIMARY KEY (`eob_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
-INSERT INTO `_ct_tramite4_estado_objeto` (`eob_codigo`, `eob_nombre`) VALUES
+INSERT INTO `_ct_tramite4_estado_objeto` (`eob_id`, `eob_nombre`) VALUES
 (1, 'PENDIENTE'),
 (2, 'NO PATRIMONIAL'),
 (3, 'SE PRESUME PATRIMONIAL');
 
+CREATE TABLE `_ct_tramite4_tipo_bien_cultural` (
+   `tbc_id` int(10) NOT NULL AUTO_INCREMENT,
+   `tbc_nombre` varchar(50) COLLATE utf8_spanish_ci NOT NULL,
+    `tbc_estado` 	ENUM ('ACT', 'INA') NOT NULL DEFAULT 'ACT',
+  PRIMARY KEY (`tbc_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+INSERT INTO `_ct_tramite4_tipo_bien_cultural` (`tbc_id`, `tbc_nombre`) VALUES
+(1, 'ATESANIAS'),
+(2, 'DOCUMENOS SUELTOS'),
+(3, 'ESCULTURAS'),
+(4, 'FOTOGRAFIAS'),
+(5, 'IMPRESION GRAFICA'),
+(6, 'MISCELANEOS'),
+(7, 'ORFEBRERIA'),
+(8, 'PINTURAS'),
+(9, 'REPLICAS ARQUEOLOGICAS'),
+(10, 'TEXTILES'),
+(11, 'OTROS');
+
+
 CREATE TABLE `_ct_tramite4_objeto` (
-  `obj_codigo` int(11) NOT NULL AUTO_INCREMENT,
+  `obj_id` int(11) NOT NULL AUTO_INCREMENT,
   `tu_id` bigint(20) NOT NULL,
-  `tbc_codigo` int(11) NOT NULL,
-  `eob_codigo` int(11) NOT NULL,
-  `con_codigo` int(11) NOT NULL,
+  `tbc_id` int(11) NOT NULL,
+  `eob_id` int(11) NOT NULL,
+  `con_id` int(11) NOT NULL,
   `obj_cantidad` int(11) NOT NULL,
   `obj_tema` varchar(50) COLLATE utf8_spanish_ci NOT NULL,
   `obj_autor` varchar(100) COLLATE utf8_spanish_ci NOT NULL,
@@ -71,17 +108,46 @@ CREATE TABLE `_ct_tramite4_objeto` (
   `obj_largo` int(11) NOT NULL,
   `obj_ancho` int(11) NOT NULL,
   `obj_profundidad` int(11) NOT NULL,
-  PRIMARY KEY (`obj_codigo`),
-  CONSTRAINT `fk_eob_codigo` FOREIGN KEY (`eob_codigo`) REFERENCES `_ct_tramite4_estado_objeto` (`eob_codigo`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  PRIMARY KEY (`obj_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+CREATE TABLE `_ct_tramite4_tipo_contenedor` (
+   `tc_id` int(10) NOT NULL AUTO_INCREMENT,
+   `tc_nombre` varchar(50) COLLATE utf8_spanish_ci NOT NULL,
+   `tc_estado` 	ENUM ('ACT', 'INA') NOT NULL DEFAULT 'ACT',
+  PRIMARY KEY (`tc_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+INSERT INTO `_ct_tramite4_tipo_contenedor` (`tc_id`, `tc_nombre`) VALUES
+(1, 'CAJA'),
+(2, 'MALETA'),
+(3, 'TUBO'),
+(4, 'EMBALAJE MENOR'),
+(5, 'OTROS'),
+(6, 'NINGUNO');
+
+CREATE TABLE `_ct_tramite4_modo_envio` (
+   `me_id` int(10) NOT NULL AUTO_INCREMENT,
+   `me_nombre` varchar(50) COLLATE utf8_spanish_ci NOT NULL,
+   `me_estado` 	ENUM ('ACT', 'INA') NOT NULL DEFAULT 'ACT',
+  PRIMARY KEY (`me_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+
+INSERT INTO `_ct_tramite4_modo_envio` (`me_id`, `me_nombre`) VALUES
+(1, 'AEREO'),
+(2, 'POSTAL'),
+(3, 'MARITIMO');
+
+
+
+
 
 CREATE TABLE `ct_nacionalidad` (
   `nac_codigo` int(10) NOT NULL AUTO_INCREMENT,
   `nac_nombre` varchar(50) COLLATE utf8_spanish_ci NOT NULL,
   PRIMARY KEY (`nac_codigo`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
-
-
 
 INSERT INTO `ct_nacionalidad` (`nac_codigo`, `nac_nombre`) VALUES
 (1, 'Afgano'),
@@ -226,7 +292,7 @@ INSERT INTO `ct_nacionalidad` (`nac_codigo`, `nac_nombre`) VALUES
 (140, 'Maltés'),
 (141, 'Marroquí'),
 (142, 'Marshalés'),
-(143, '?Martiniqués'),
+(143, 'Martiniqués'),
 (144, 'Mauritano'),
 (145, 'Mauriciano'),
 (146, 'Mayotés'),
@@ -336,7 +402,7 @@ CREATE TABLE `ct_pais` (
   PRIMARY KEY (`pai_codigo`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
-INSERT INTO `rg_pais` (`PAI_CODIGO`, `PAI_ISO`, `PAI_NOMBRE`) VALUES
+INSERT INTO `ct_pais` (`pai_codigo`, `pai_iso`, `pai_nombre`) VALUES
 (1, 'AF', 'AFGHANISTAN'),
 (2, 'AX', 'ALAND ISLANDS'),
 (3, 'AL', 'ALBANIA'),
@@ -602,29 +668,6 @@ INSERT INTO `ct_regional` (`reg_id`, `reg_nombre`, `reg_ciudad`, `reg_direccion`
 (6, 'Zonal 6', 'Cuenca', 'Benigno Malo 640 entre Presidente Córdova y Juan Jaramillo. Casa de las Palomas', 'Cañar, Azuay,Morona Santiago'),
 (7, 'Zonal 7', 'Loja', 'Sucre y Quito. Esq.', 'El Oro, Loja, Zamora');
 
-
-CREATE TABLE `_ct_tramite4_tipo_bien_cultural` (
-   `tbc_codigo` int(10) NOT NULL AUTO_INCREMENT,
-   `tbc_nombre` varchar(50) COLLATE utf8_spanish_ci NOT NULL,
-    `tbc_estado` 	ENUM ('ACT', 'INA') NOT NULL DEFAULT 'ACT',
-  PRIMARY KEY (`tbc_codigo`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
-
-
-INSERT INTO `_ct_tramite4_tipo_bien_cultural` (`tbc_codigo`, `tbc_nombre`) VALUES
-(1, 'Artesanías'),
-(2, 'Documentos sueltos'),
-(3, 'Esculturas'),
-(4, 'Fotografí­as'),
-(5, 'Impresión gráfica'),
-(6, 'Misceláneos'),
-(7, 'Orfebrería'),
-(8, 'Pinturas'),
-(9, 'Réplicas Arqueológicas'),
-(10, 'Textiles'),
-(11, 'Otros');
-
-
 CREATE TABLE `ct_horario` (
    `ho_codigo` int(10) NOT NULL AUTO_INCREMENT,
    `ho_hora` varchar(50) COLLATE utf8_spanish_ci NOT NULL,
@@ -652,32 +695,55 @@ INSERT INTO `ct_horario` (`ho_codigo`, `ho_hora`) VALUES
 (16, '15:30 - 16:00'),
 (17, '16:00 - 16:30');
 
-CREATE TABLE `_ct_tramite4_tipo_contenedor` (
-   `tc_codigo` int(10) NOT NULL AUTO_INCREMENT,
-   `tc_nombre` varchar(50) COLLATE utf8_spanish_ci NOT NULL,
-   `tc_estado` 	ENUM ('ACT', 'INA') NOT NULL DEFAULT 'ACT',
-  PRIMARY KEY (`tc_codigo`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
-
-INSERT INTO `_ct_tramite4_tipo_contenedor` (`tc_codigo`, `tc_nombre`) VALUES
-(1, 'CAJA'),
-(2, 'MALETA'),
-(3, 'TUBO'),
-(4, 'EMBALAJE MENOR'),
-(5, 'OTROS'),
-(6, 'NINGUNO');
-
-CREATE TABLE `_ct_tramite4_modo_envio` (
-   `me_codigo` int(10) NOT NULL AUTO_INCREMENT,
-   `me_nombre` varchar(50) COLLATE utf8_spanish_ci NOT NULL,
-   `me_estado` 	ENUM ('ACT', 'INA') NOT NULL DEFAULT 'ACT',
-  PRIMARY KEY (`me_codigo`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 
-INSERT INTO `_ct_tramite4_modo_envio` (`me_codigo`, `me_nombre`) VALUES
-(1, 'Aéreo'),
-(2, 'Postal'),
-(3, 'Marítimo');
+CREATE TABLE `ct_tramite_usuario_turno` (
+  `tut_id` int(11) NOT NULL AUTO_INCREMENT,
+  `tut_fecha` date NOT NULL,
+  `tut_hora` int NOT NULL,
+  `tut_zonal_id` int(11) NOT NULL,
+  `tu_id` int(11) NOT NULL,
+  PRIMARY KEY (`tut_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 
+INSERT INTO `tramites_bv`.`ct_usuarios`
+(`usu_usuario`,
+`rol_id`,
+`usu_tidentificador`,
+`usu_identificador`,
+`usu_nombre`,
+`usu_apellido`,
+`pro_id`,
+`can_id`,
+`par_id`,
+`usu_telefono`,
+`usu_direccion`,
+`reg_id`,
+`usu_correo`,
+`usu_contrasena`,
+`usu_fechcreacion`,
+`usu_estado`,
+`usu_certificado`)
+VALUES
+('asignador_riesgos_matriz',
+'3',
+'CI',
+'1715141877',
+'ASIGNADOR RIESGOS',
+'MATRIZ',
+17,
+'1701',
+'170101',
+'0995728605',
+'MATRIZ',
+'2',
+'eduardo.bustillos@patrimoniocultural.gob.ec',
+'$2y$10$p2Sb3LaHoWQbtQCp1eY1muTFQg4C2vCOGccpFUvICvmHqNIAapbbq',
+NOW(),
+'ACTIVO',
+'0');
+
+
+alter table tramites_bv.ct_usuarios
+  add usu_asignado_tramite int(11) NULL;

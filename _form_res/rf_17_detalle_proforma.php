@@ -19,7 +19,7 @@ include_once("./modelo/clstuanexos.php");
 //include_once("./modelo/clstramiteanexos.php");
 include_once("./modelo/clstramiteusuario.php");
 include_once("./modelo/cls17AnalisisQuimico.php");
-include_once("./modelo/clsTipoAnalisis.php");
+//include_once("./modelo/clsTipoAnalisis.php");
 
 $analisisQuimico = new cls17AnalisisQuimico();
 $analisisQuimico->setTu_id($tespecifico["tu_id"]);
@@ -74,7 +74,7 @@ if ((isset($_GET["idtu"]) && (!empty($_GET["idtu"])))) { //SI SE RECIBE EL ID DE
         </div>
     </div>
     <div class="group-material">
-        <button type="button" id="registrarse" class="btn btn-info" data-toggle="modal" data-target="#ModalRegistroItem"> Agregar item &nbsp;&nbsp; <i class="zmdi zmdi-plus-circle"></i></button>       
+        <button type="button" id="registrarse" class="btn btn-info" data-toggle="modal" data-target="#ModalRegistroItem2"> Agregar item &nbsp;&nbsp; <i class="zmdi zmdi-plus-circle"></i></button>       
     </div>
     <div id="tabla">
     </div>

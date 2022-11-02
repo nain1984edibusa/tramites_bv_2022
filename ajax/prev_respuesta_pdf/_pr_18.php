@@ -1,8 +1,12 @@
 <?php
 include_once("../modelo/clstipoevento.php");
+
 $evento = new clstipoevento();
 $evento->carga_tev_codigo($tespecifico["te_evento"]);
 $evento=mysqli_fetch_array($evento->tipoevento_seleccionar());
+
+
+
 $contenido_respuesta="<h4>".mb_strtoupper($ttramite["tra_resultado"])."</h4>";//TIPO DE DOCUMENTO
 $contenido_respuesta.="<br/><h5>INFORMACIÓN GENERAL</h5><table>"
                     . "<tr><th>Fecha de emisión:</th><td>".$res_fecha."</td></tr>"

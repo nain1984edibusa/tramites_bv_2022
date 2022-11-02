@@ -73,7 +73,7 @@ $clstramiteusuario->setTu_fecha_concoa($fecha_control_coa);
 //$clstramiteusuario->setTu_fecha_concon($fecha_control_con);
 /*add*/
 $clsusuario = new clsusuarios();
-$asignador=$clsusuario->get_usuario_by_zonal_perfil($regional, ASIGNADOR);
+$asignador=$clsusuario->get_usuario_by_zonal_perfil($regional, ASIGNADOR,$tramite);
 $asignador= mysqli_fetch_array($asignador);
 //echo $asignador["usu_id"];
 $clstramiteusuario->setUsu_iid($asignador["usu_id"]);
@@ -131,6 +131,7 @@ if($id_tramite==0){
         $mensaje=get_contenido_mensaje($tipo_mensaje,$mensaje_especifico);
         $template="../includes/email_template.html";
         sendemail(SENDEREMAIL_USER,SENDEREMAIL_PASS,SENDEREMAIL_USER,"Sistema de Trámites en Línea INPC",$destinatario,$mensaje,"INPC: Notificación Sistema de Trámites en Línea",$template,"","");
+        
         /*Envío de correo al asignador*/
         $tipo_mensaje="registro_tra_asi";
         $dcc=$clsusuario->setUsu_id($asignador["usu_id"]);

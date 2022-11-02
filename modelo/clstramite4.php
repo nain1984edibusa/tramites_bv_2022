@@ -12,10 +12,10 @@ Class clstramite4 extends clstramiteusuario {
     private $te_observaciones;
     private $te_fecha_envio;
     private $te_direccion_envio;
-    private $te_codigo_pais_evio;
+    private $te_codigo_pais_envio;
     private $te_ciudad_envio;
     private $te_viaja_con_paquete;
-    private $te_metodo_envio;
+    private $te_modo_envio;
 
     function getTe_provincia() {
         return $this->te_provincia;
@@ -85,8 +85,8 @@ Class clstramite4 extends clstramiteusuario {
         return $this->te_direccion_envio;
     }
 
-    function getTe_codigo_pais_evio() {
-        return $this->te_codigo_pais_evio;
+    function getTe_codigo_pais_envio() {
+        return $this->te_codigo_pais_envio;
     }
 
     function getTe_ciudad_envio() {
@@ -97,16 +97,16 @@ Class clstramite4 extends clstramiteusuario {
         return $this->te_viaja_con_paquete;
     }
 
-    function getTe_metodo_envio() {
-        return $this->te_metodo_envio;
+    function getTe_modo_envio() {
+        return $this->te_modo_envio;
     }
 
     function setTe_direccion_envio($te_direccion_envio): void {
         $this->te_direccion_envio = $te_direccion_envio;
     }
 
-    function setTe_codigo_pais_evio($te_codigo_pais_evio): void {
-        $this->te_codigo_pais_evio = $te_codigo_pais_evio;
+    function setTe_codigo_pais_envio($te_codigo_pais_envio): void {
+        $this->te_codigo_pais_envio = $te_codigo_pais_envio;
     }
 
     function setTe_ciudad_envio($te_ciudad_envio): void {
@@ -117,8 +117,8 @@ Class clstramite4 extends clstramiteusuario {
         $this->te_viaja_con_paquete = $te_viaja_con_paquete;
     }
 
-    function setTe_metodo_envio($te_metodo_envio): void {
-        $this->te_metodo_envio = $te_metodo_envio;
+    function setTe_modo_envio($te_modo_envio): void {
+        $this->te_modo_envio = $te_modo_envio;
     }
 
     public function getTe_pais_origen() {
@@ -149,7 +149,9 @@ Class clstramite4 extends clstramiteusuario {
                 . ",'" . $this->te_fecha_envio . "'"
                 . ",'" . $this->te_direccion_envio . "'"
                 . ",'" . $this->te_codigo_pais_envio . "'"
-                . ",'" . $this->te_ciudad_envio . "'"); // valores a insertae
+                . ",'" . $this->te_ciudad_envio . "'"
+                . ",'" . $this->te_viaja_con_paquete . "'"
+                . ",'" . $this->te_modo_envio . "'"); // valores a insertae
         $bd->carga_campos("tu_codigo,"
                 . "usu_extid,"
                 . "usu_intid,"
@@ -168,7 +170,9 @@ Class clstramite4 extends clstramiteusuario {
                 . "te_fecha_envio,"
                 . "te_direccion_envio,"
                 . "te_codigo_pais_envio,"
-                . "te_ciudad_envio"); // campos a ser insertados
+                . "te_ciudad_envio,"
+                . "te_viaja_con_paquete,"
+                . "te_modo_envio"); // campos a ser insertados
         if ($bd->insertar("_ct_tramite4")) // insertar
             return $bd->lastID();  // exito
         else
@@ -179,8 +183,12 @@ Class clstramite4 extends clstramiteusuario {
     public function tra_seleccionar_bycodigo() {
         // abro conexión a bases de datos
         $bd = Db::getInstance();
-        $sql = "select _ct_tramite4.*, ct_provincia.pro_nombre, ct_canton.can_nombre, ct_parroquia.par_nombre FROM _ct_tramite4 "
-                . " inner join ct_provincia ON _ct_tramite4.te_provincia=ct_provincia.pro_id inner join ct_canton ON _ct_tramite4.te_canton=ct_canton.can_id inner join ct_parroquia ON _ct_tramite4.te_parroquia=ct_parroquia.par_id "
+        $sql = "select _ct_tramite4.*, ct_provincia.pro_nombre, ct_canton.can_nombre, ct_parroquia.par_nombre, ct_pais.pai_nombre"
+                . " FROM _ct_tramite4 "
+                . " inner join ct_provincia ON _ct_tramite4.te_provincia=ct_provincia.pro_id "
+                . "inner join ct_canton ON _ct_tramite4.te_canton=ct_canton.can_id "
+                . "inner join ct_parroquia ON _ct_tramite4.te_parroquia=ct_parroquia.par_id "
+                . "inner join ct_pais ON _ct_tramite4.te_codigo_pais_envio = ct_pais.pai_codigo "
                 . " WHERE _ct_tramite4.tu_codigo='" . $this->getTu_codigo() . "'";
         //echo $sql;
         $res = $bd->ejecutar($sql);
@@ -214,6 +222,8 @@ Class clstramite4 extends clstramiteusuario {
 
 
 
+
+
             
 //$bd->cerrar();  // cerrar coneccion
     }
@@ -227,6 +237,8 @@ Class clstramite4 extends clstramiteusuario {
             return 1;  // exito
         else
             return 0;  // error
+
+
 
 
 

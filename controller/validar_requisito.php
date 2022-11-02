@@ -39,6 +39,9 @@ $convalidar = $_POST["etu_convalidar"];
 require_once '../modelo/clstramiteusuario.php';
 require_once '../modelo/clstramite' . $id_tramite . '.php';
 switch ($id_tramite) {
+    case "4": $clste = new clstramite4();
+        $req = 0;
+        break; //1=TIENEN REQUISITOS 0=NO TIENEN REQUISITOS
     case "5": $clste = new clstramite5();
         $req = 1;
         break; //1=TIENEN REQUISITOS 0=NO TIENEN REQUISITOS

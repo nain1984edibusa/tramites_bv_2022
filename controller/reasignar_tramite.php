@@ -27,6 +27,8 @@ $cod_tramite = $_POST["cod_tra"]; //código del trámite
 require_once '../modelo/clstramite' . $id_tramite . '.php';
 /* OTENER INFORMACIÓN DEL TRÁMITE ESPECÍFICO */
 switch ($id_tramite) {
+    case "4": $clstramitee = new clstramite4();
+        break;
     case "5": $clstramitee = new clstramite5();
         break;
     case "8": $clstramitee = new clstramite8();
@@ -45,7 +47,6 @@ switch ($id_tramite) {
 $clstramitee->setTu_codigo($cod_tramite);
 $idtue = $clstramitee->tra_seleccionar_bycodigo();
 $idtue = mysqli_fetch_array($idtue);
-
 
 /* --fin-- */
 /* NUEVO ESTADO DEL TRAMITE Y REDIRECCIÓN */
@@ -71,28 +72,60 @@ if ($firma == 2) {
     require_once '../modelo/clstu' . $id_tramite . 'respuestas.php';
     //require_once '../modelo/clstramite'.$id_tramite.'.php';
     switch ($id_tramite) {
-        case "8": $clstramiteresp = new clstu8respuestas();
-            break;
-        //case "12": $clstramitee = new clstramite12();break;
-        case "13": $clstramiteresp = new clstu13respuestas();
+        case "4": $clstramiteresp = new clstu4respuestas();
             break;
     }
-    //$nombre_archivo=$cod_tramite.'.pdf';
-    //$ruta_archivo=RUTA_ARCHIVOSTRAMITES.$cod_tramite."/".$nombre_archivo;
-    $clsaud = new clsauditoria();
-    $clsaud->setAud_fechahora_proceso($fecha_firma);
-    $clsaud->setAud_objeto("TRAMITE");
-    $clsaud->setAud_proceso("GENERACIÓN DE DOCUMENTO DE RESPUESTA");
-    $clsaud->setTu_id($tramite);
-    $clsaud->setUsu_id($_SESSION["codusuario"]);
-    $clsaud->setAud_descripcion("");
-    $clsaud->auditoria_insertar();
-    //REDIRECCIONAR
-    //exit();
-    //redireccionar("../".$redireccion.".php?proc=rftra&est=1");
+    //ACTUALIZAR CONTESTACIÓN, INCLUIDA RUTA PREESTABLECIDA DE LA RESPUESTA
+    switch ($_SESSION["codperfil"]) {
+        case EJECUTOR:  //SI EL EJECUTOR REASIGNA AL APROBADOR, DEBE GENERAR EL PDF Y FIRMAR.
+            $clstramiteresp->setUsu_aprobador($reasignado_a);
+            $actualizador = "aprobador";
+            break;
+    }
+
+    $nombre_archivo = $cod_tramite . '.pdf';
+    $ruta_archivo = RUTA_ARCHIVOSTRAMITES . $cod_tramite . "/" . $nombre_archivo;
+
+    $clstramiteresp->setTu_id($idtue["tu_id"]);
+    $clstramiteresp->setTuc_cumple("CORRECTO");
+    $clstramiteresp->setTuc_rutaarchivo($ruta_archivo);
+    $clstramiteresp->setTuc_tipo_contestacion("AFIRMATIVO");
+
+    $responsable_proceso = "";
+    switch ($_SESSION["codperfil"]) {
+        case EJECUTOR: $responsable_proceso = "ejecutor";
+            $clstramiteresp->setUsu_ejecutor($_SESSION["codusuario"]);
+            break;
+        case APROBADOR: $responsable_proceso = "aprobador";
+            $clstramiteresp->setUsu_aprobador($_SESSION["codusuario"]);
+            break;
+    }
+
+    $reg_respuesta = $clstramiteresp->tuc_insertar();
+
+    //EL APROBADOR DEBE TENER LA OPCIÓN REASIGNAR (NO FIRMA NI GENERA PDF) O REASIGNAR Y ENVIAR CONTESTACIÓN.
+    //CREACION DE PDF 
+    include_once("../ajax/prev_respuesta_pdf.php");
+    include_once("../librerias/pdf/reportes/respuesta_tramite_crearpdf.php");
     $redireccion = "ui_firmar_tramite.php";
-    //redireccionar("../".$redireccion."?idtu=".$tramite."&ruta=".$ruta_archivo."&pro=cont&obs=".$observaciones_r);
-    redireccionar("../" . $redireccion . "?idtu=" . $tramite . "&pro=cont&obs=" . $observaciones_r);
+    if ($resultado_crear == 1) {
+        /* REGISTRAR PROCESO EN AUDITORIA */
+        $clsaud = new clsauditoria();
+        $clsaud->setAud_fechahora_proceso($fecha_firma);
+        $clsaud->setAud_objeto("TRAMITE");
+        $clsaud->setAud_proceso("GENERACIÓN DE DOCUMENTO DE RESPUESTA");
+        $clsaud->setTu_id($tramite);
+        $clsaud->setUsu_id($_SESSION["codusuario"]);
+        $clsaud->setAud_descripcion("");
+        $clsaud->auditoria_insertar();
+        //REDIRECCIONAR
+        //exit();
+        //redireccionar("../".$redireccion.".php?proc=rftra&est=1");
+        redireccionar("../" . $redireccion . "?idtu=" . $tramite . "&rea=" . $reasignado_a . "&obs=" . $observaciones_r);
+        //redireccionar("../".$redireccion."?idtu=".$tramite."&ruta=".$ruta_archivo."&rea=".$reasignado_a."&obs=".$observaciones_r);
+    } else {
+        redireccionar("../" . $redireccion . ".php?proc=rftra&est=0");
+    }
 } else {
     $reasignado_a = $_POST["reasignado_a"]; //usuario al que se va a reasignar
     if ($firma == 1) {
@@ -100,6 +133,8 @@ if ($firma == 2) {
         require_once '../modelo/clstu' . $id_tramite . 'respuestas.php';
         //require_once '../modelo/clstramite'.$id_tramite.'.php';
         switch ($id_tramite) {
+            case "4": $clstramiteresp = new clstu4respuestas();
+                break;
             case "5": $clstramiteresp = new clstu5respuestas();
                 break;
             case "8": $clstramiteresp = new clstu8respuestas();
@@ -115,43 +150,7 @@ if ($firma == 2) {
             case "18": $clstramiteresp = new clstu18respuestas();
                 break;
         }
-        //ACTUALIZAR CONTESTACIÓN, INCLUIDA RUTA PREESTABLECIDA DE LA RESPUESTA
-        switch ($_SESSION["codperfil"]) {
-            case EJECUTOR:  //SI EL EJECUTOR REASIGNA AL APROBADOR, DEBE GENERAR EL PDF Y FIRMAR.
-                $clstramiteresp->setUsu_aprobador($reasignado_a);
-                $actualizador = "aprobador";
-                break;
-        }
-        $clstramiteresp->setTu_id($idtue["tu_id"]);
-        //$nombre_archivo=md5(time().$cod_tramite).'.pdf';
-        $nombre_archivo = $cod_tramite . '.pdf';
-        $ruta_archivo = RUTA_ARCHIVOSTRAMITES . $cod_tramite . "/" . $nombre_archivo;
-        $clstramiteresp->setTuc_rutaarchivo($ruta_archivo);
-        $clstramiteresp->tuc_actualizar_respuesta_firma($actualizador);
 
-        //EL APROBADOR DEBE TENER LA OPCIÓN REASIGNAR (NO FIRMA NI GENERA PDF) O REASIGNAR Y ENVIAR CONTESTACIÓN.
-        //CREACION DE PDF 
-        include_once("../ajax/prev_respuesta_pdf.php");
-        include_once("../librerias/pdf/reportes/respuesta_tramite_crearpdf.php");
-        $redireccion = "ui_firmar_tramite.php";
-        if ($resultado_crear == 1) {
-            /* REGISTRAR PROCESO EN AUDITORIA */
-            $clsaud = new clsauditoria();
-            $clsaud->setAud_fechahora_proceso($fecha_firma);
-            $clsaud->setAud_objeto("TRAMITE");
-            $clsaud->setAud_proceso("GENERACIÓN DE DOCUMENTO DE RESPUESTA");
-            $clsaud->setTu_id($tramite);
-            $clsaud->setUsu_id($_SESSION["codusuario"]);
-            $clsaud->setAud_descripcion("");
-            $clsaud->auditoria_insertar();
-            //REDIRECCIONAR
-            //exit();
-            //redireccionar("../".$redireccion.".php?proc=rftra&est=1");
-            redireccionar("../" . $redireccion . "?idtu=" . $tramite . "&rea=" . $reasignado_a . "&obs=" . $observaciones_r);
-            //redireccionar("../".$redireccion."?idtu=".$tramite."&ruta=".$ruta_archivo."&rea=".$reasignado_a."&obs=".$observaciones_r);
-        } else {
-            redireccionar("../" . $redireccion . ".php?proc=rftra&est=0");
-        }
         //FIRMA DEL ARCHIVO --PENDIENTE Y EN UNA SIGUIENTE PÁGINA--
     } else {
         $fecha_reasignacion = date("Y-m-d H:i:s"); //fecha de ingreso

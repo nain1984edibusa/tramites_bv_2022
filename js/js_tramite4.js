@@ -1,16 +1,24 @@
 var boton_agregar = document.getElementById('agregar');
 var boton_guardar = document.getElementById('guardar');
+
 var lista = document.getElementById("lista");
 var datos_objeto = [];
 var datos_tramite = [];
 var datos_tramite_especifico = [];
+var radioboton_1 = document.getElementById('rdgllevo_1');
+var radioboton_2 = document.getElementById('rdgllevo_2');
+
 boton_agregar.addEventListener("click", agregar);
 boton_guardar.addEventListener("click", enviar);
+
+radioboton_1.addEventListener("click", cambiarModoEnvio);
+radioboton_2.addEventListener("click", cambiarModoEnvio);
+
 var cant = 0;
+cambiarModoEnvio();
 
 function agregar() {
     //        alert('0K');
-    debugger
     isBool = validarCamposObjeto();
     if (isBool === true) {
         var cantidad = parseFloat(document.querySelector('#cantidad').value)
@@ -43,9 +51,9 @@ function agregar() {
         $("#ancho").val('');
         $("#profundidad").val('');
         cant++;
-        if (datos_objeto.length > 0) {
-            $('#guardar').attr('disabled', false);
-        }
+//        if (datos_objeto.length > 0) {
+//            $('#guardar').attr('disabled', false);
+//        }
 
     } else {
 //        alert ('KO');
@@ -53,7 +61,7 @@ function agregar() {
 
 }
 function eliminar(row) {
-    debugger
+    
 //remueve la fila de la tabla html
     $("#row" + row).remove();
     //remover el elmento del arreglo
@@ -70,9 +78,9 @@ function eliminar(row) {
     }
     datos_objeto.splice(pos, 1);
 
-    if (datos_objeto.length == 0) {
-        $('#guardar').attr('disabled', true);
-    }
+//    if (datos_objeto.length == 0) {
+//        $('#guardar').attr('disabled', true);
+//    }
 }
 function cantidad(row) {
     var canti = parseInt(prompt("Nueva cantidad"));
@@ -165,7 +173,7 @@ function seleccionarTipoBienCultural() {
 }
 
 function enviar() {
-    debugger
+    
 //    alert('0K');
     isBool = validarCamposTramiteEspecifico();
     if (isBool === true) {
@@ -194,12 +202,13 @@ function enviar() {
                 var percentage = 0;
 
                 var timer = setInterval(function () {
-                    debugger
+                    
                     percentage = percentage + 5;
                     progress_bar_process(percentage, timer);
                 }, 100);
+                location.reload("http://localhost/tramites_bv/ue_bandeja_enviados.php");
             }
-//           location.reload();
+//          location.reload();
 //    }
         });
     } else {
@@ -214,6 +223,7 @@ function progress_bar_process(percentage, timer)
     {
         clearInterval(timer);
         $('#formulario_tramite')[0].reset();
+         $("#lista")[0].reset();
         $('#process').css('display', 'none');
         $('.progress-bar').css('width', '0%');
         $('#guardar').attr('disabled', false);
@@ -225,7 +235,10 @@ function progress_bar_process(percentage, timer)
 }
 
 function validarCamposTramiteEspecifico() {
-    debugger
+    let date = new Date();
+    var fecha_sistema = (date.toISOString().split('T')[0]);
+    var hora_sistema = date.getHours() + ':' + date.getMinutes();
+
     var id_provincia = document.querySelector('#id_provincia').value;
     var id_canton = document.querySelector('#id_canton').value;
     var id_parroquia = document.querySelector('#id_parroquia').value;
@@ -235,10 +248,77 @@ function validarCamposTramiteEspecifico() {
     var direccion_envio = document.querySelector('#direccion_envio').value;
     var id_pais_envio = document.querySelector('#id_pais_envio').value;
     var ciudad_envio = document.querySelector('#ciudad_envio').value;
+    var viaja_con_paquete = 1;
+    var id_metodo_envio = document.querySelector('#id_metodo_envio').value;
+
+    if (id_metodo_envio != "") {
+        viaja_con_paquete = 2;
+    }
+
     var id_regional = document.querySelector('#id_regional').value;
     var id_zonal = document.querySelector('#id_zonal').value;
+
     var fecha_atencion = document.querySelector('#fecha_atencion').value;
     var id_hora = document.querySelector('#id_hora').value;
+
+    if ($.trim(id_provincia) === "") {
+        $("#msg-alert-danger").show();
+        $("#msg-alert-danger").html("Seleccione la provincia.");
+        $("#msg-alert-danger").fadeOut(5000);
+        $("#id_provincia").focus();
+        return false;
+    } else if ($.trim(id_canton) == "") {
+        $("#msg-alert-danger").show();
+        $("#msg-alert-danger").html("Seleccione el catón.");
+        $("#msg-alert-danger").fadeOut(5000);
+        $("#id_canton").focus();
+        return false;
+    } else if ($.trim(id_parroquia) == "") {
+        $("#msg-alert-danger").show();
+        $("#msg-alert-danger").html("Seleccione la parroquia.");
+        $("#msg-alert-danger").fadeOut(5000);
+        $("#id_parroquia").focus();
+        return false;
+    } else if ($.trim(direccion) == "") {
+        $("#msg-alert-danger").show();
+        $("#msg-alert-danger").html("Seleccione la dirección.");
+        $("#msg-alert-danger").fadeOut(5000);
+        $("#direccion").focus();
+        return false;
+    } else if ($.trim(id_pais_origen) == "") {
+        $("#msg-alert-danger").show();
+        $("#msg-alert-danger").html("Seleccione el país de origen.");
+        $("#msg-alert-danger").fadeOut(5000);
+        $("#id_pais_origen").focus();
+        return false;
+    }
+    if ($.trim(fecha_envio) == "") {
+        $("#msg-alert-danger").show();
+        $("#msg-alert-danger").html("Ingrese la fecha de envió.");
+        $("#msg-alert-danger").fadeOut(4000);
+        $("#fecha_envio").focus();
+        return false;
+    } else if (fecha_envio < fecha_sistema) {
+        $("#msg-alert-danger").show();
+        $("#msg-alert-danger").html("La fecha de envio debe ser mayor o igual a la fecha actual.");
+        $("#msg-alert-danger").fadeOut(4000);
+        $("#fecha_envio").focus();
+        return false;
+    }
+    if ($.trim(fecha_atencion) == "") {
+        $("#msg-alert-danger").show();
+        $("#msg-alert-danger").html("Ingrese la fecha de atención.");
+        $("#msg-alert-danger").fadeOut(4000);
+        $("#fecha_atencion").focus();
+        return false;
+    } else if (fecha_atencion < fecha_sistema) {
+        $("#msg-alert-danger").show();
+        $("#msg-alert-danger").html("La fecha de atención debe ser mayor o igual a la fecha actual.");
+        $("#msg-alert-danger").fadeOut(4000);
+        $("#fecha_atencion").focus();
+        return false;
+    }
+
     datos_tramite_especifico.push(
             {"id_provincia": id_provincia,
                 "id_canton": id_canton,
@@ -249,60 +329,26 @@ function validarCamposTramiteEspecifico() {
                 "direccion_envio": direccion_envio,
                 "id_pais_envio": id_pais_envio,
                 "ciudad_envio": ciudad_envio,
+                "viaja_con_paquete": viaja_con_paquete,
+                "id_metodo_envio": id_metodo_envio,
                 "id_regional": id_regional,
                 "id_zonal": id_zonal,
                 "fecha_atencion": fecha_atencion,
                 "id_hora": id_hora}
     );
-    if ($.trim(id_provincia) == "") {
-        $("#msg-alert-danger").show();
-        $("#msg-alert-danger").html("Seleccione la provincia.");
-        $("#msg-alert-danger").fadeOut(5000);
-        $("#id_provincia").focus();
-        return false;
-    }
-//    else if ($.trim(tipobiencultural) == "") {
-//        $("#mensaje").show();
-//        $("#mensaje").html("Seleccione el tipo de bien cultural.");
-//        $("#mensaje").fadeOut(4000);
-//        $("#tipobiencultural").focus();
-//        return false;
-//    } else if ($.trim(tema) == "") {
-//        $("#mensaje").show();
-//        $("#mensaje").html("Ingrese el tema.");
-//        $("#mensaje").fadeOut(4000);
-//        $("#tema").focus();
-//        return false;
-//    } else if ($.trim(autor) == "") {
-//        $("#mensaje").show();
-//        $("#mensaje").html("Ingrese el autor.");
-//        $("#mensaje").fadeOut(4000);
-//        $("#autor").focus();
-//        return false;
-//    } else if ($.trim(tecnica) == "") {
-//        $("#mensaje").show();
-//        $("#mensaje").html("Ingrese la tecnica.");
-//        $("#mensaje").fadeOut(4000);
-//        $("#tecnica").focus();
-//        return false;
-//    } else if ($.trim(largo) == "") {
-//        $("#mensaje").show();
-//        $("#mensaje").html("Ingrese el largo.");
-//        $("#mensaje").fadeOut(4000);
-//        $("#largo").focus();
-//        return false;
-//    } else if ($.trim(ancho) == "") {
-//        $("#mensaje").show();
-//        $("#mensaje").html("Ingrese el ancho.");
-//        $("#mensaje").fadeOut(4000);
-//        $("#ancho").focus();
-//        return false;
-//    } else if ($.trim(profundidad) == "") {
-//        $("#mensaje").show();
-//        $("#mensaje").html("Ingrese la profundidad.");
-//        $("#mensaje").fadeOut(4000);
-//        $("#profundidad").focus();
-//        return false;
-//    }
     return true;
+}
+
+function cambiarModoEnvio() {
+    
+    if (document.getElementById("rdgllevo_1").checked) {
+        document.getElementById("id_metodo_envio").disabled = true;
+    } else {
+        document.getElementById("id_metodo_envio").disabled = false;
+        document.getElementById("id_metodo_envio").value = "";
+    }
+}
+
+function actualizar() {
+    alert('Actualizar');
 }

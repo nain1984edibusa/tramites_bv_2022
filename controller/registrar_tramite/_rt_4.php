@@ -4,7 +4,9 @@
 require_once '../modelo/clstramite4.php';
 require_once '../modelo/clstramiteanexos.php';
 require_once '../modelo/clstuanexos.php';
-require_once '../modelo/clsTramite4Objeto.php';
+require_once '../modelo/clstramite4objeto.php';
+require_once '../modelo/clstramite4contenedor.php';
+require_once '../modelo/clstramiteusuarioturno.php';
 
 $tramite_especifico = json_decode($_POST['json_datos_tramite_especifico'], true);
 
@@ -14,15 +16,16 @@ foreach ($tramite_especifico as $item) {
     $te_parroquia = $item['id_parroquia'];
     $te_regional = $item['id_regional'];
     $te_direccion = $item['direccion'];
-
     $te_pais_origen = $item['id_pais_origen'];
     $te_fecha_envio = $item['fecha_envio'];
     $te_direccion_envio = $item['direccion_envio'];
-    $te_pais_envio = $item['id_pais_envio'];
+    $te_codigo_pais_envio = $item['id_pais_envio'];
     $te_ciudad_envio = $item['ciudad_envio'];
-    $te_zonal = $item['id_zonal'];
-    $te_fecha_atencion = $item['fecha_atencion'];
-    $te_hora = $item['id_hora'];
+    $te_viaja_con_paquete = $item['viaja_con_paquete'];
+    $te_modo_envio = $item['id_metodo_envio'];
+    $tut_zonal_id = $item['id_zonal'];
+    $tut_fecha_atencion = $item['fecha_atencion'];
+    $tut_hora = $item['id_hora'];
 }
 
 //CREANDO EL TRÁMITE
@@ -51,24 +54,33 @@ $clstut->setTe_direccion($te_direccion);
 $clstut->setTe_pais_origen($te_pais_origen);
 $clstut->setTe_fecha_envio($te_fecha_envio);
 $clstut->setTe_direccion_envio($te_direccion_envio);
-$clstut->setTe_codigo_pais_evio($te_pais_envio);
+$clstut->setTe_codigo_pais_envio($te_codigo_pais_envio);
 $clstut->setTe_ciudad_envio($te_ciudad_envio);
-
-$clstut->setTe_fecha_envio($te_fecha_atencion);
-//$clstut->setTe_hora($te_hora);
+$clstut->setTe_viaja_con_paquete($te_viaja_con_paquete);
+$clstut->setTe_modo_envio($te_modo_envio);
 
 //Inserta datos del tramite 4
 $tu4_id = $clstut->tu_insertar();
+
 if ($tu4_id > 0) {
-    /* REGISTRAR LOS ANEXOS BASE-VACIOS */
+    /* Registrar turno */
+    $clsTramiteUsuarioTurno = new clstramiteusuarioturno();
+    $clsTramiteUsuarioTurno->setTut_fecha($tut_fecha_atencion);
+    $clsTramiteUsuarioTurno->setTut_hora($tut_hora);
+    $clsTramiteUsuarioTurno->setTut_zonal_id($tut_zonal_id);
+    $clsTramiteUsuarioTurno->setTu_id($tu4_id);
+
+    $clsTramiteUsuarioTurno->tut_insertar();
+
+    /* Registrar objetos */
     $objetos = json_decode($_POST['json_datos_objeto'], true);
     foreach ($objetos as $item) {
 
-        $clsTramite4Objeto = new clsTramite4Objeto();
+        $clsTramite4Objeto = new clstramite4objeto();
         $clsTramite4Objeto->setTu_id($tu4_id);
-        $clsTramite4Objeto->setTbc_codigo($item['tipo_bien_cultural']);
-        $clsTramite4Objeto->setEob_codigo(1);
-        $clsTramite4Objeto->setCon_codigo(0);
+        $clsTramite4Objeto->setTbc_id($item['tipo_bien_cultural']);
+        $clsTramite4Objeto->setEob_id(1);
+        $clsTramite4Objeto->setCon_id(0);
 
         $clsTramite4Objeto->setObj_cantidad($item['cantidad']);
         $clsTramite4Objeto->setObj_tema($item['tema']);
@@ -78,7 +90,19 @@ if ($tu4_id > 0) {
         $clsTramite4Objeto->setObj_ancho($item['ancho']);
         $clsTramite4Objeto->setObj_profundidad($item['profundidad']);
 
-        $clsTramite4Objeto->obj_insertar();
+        $obj_id = $clsTramite4Objeto->obj_insertar();
+
+        /* Registrar contenedor */
+        if ($obj_id > 0) {
+            $clstramite4contenedor = new clstramite4contenedor();
+            $clstramite4contenedor->setTu_id($tu4_id);
+            $clstramite4contenedor->setObj_id($obj_id);
+            $clstramite4contenedor->setTc_id(0);
+            $clstramite4contenedor->setCon_numero(0);
+            $clstramite4contenedor->setCon_seguridad(0);
+
+            $clstramite4contenedor->con_insertar();
+        }
     }
     $band = 1;
 } else {

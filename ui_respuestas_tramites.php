@@ -30,7 +30,9 @@ if ((isset($_GET["idtu"]) && (!empty($_GET["idtu"])))) { //SI SE RECIBE EL ID DE
     include_once("./modelo/clstramite" . $tra_id . ".php");
     include_once("./modelo/clstramiterespuestas.php");
     switch ($tra_id) {
-
+        case "4":
+            $tramitee = new clstramite4();
+            break;
         case "5":
             $tramitee = new clstramite5();
             break;
@@ -129,14 +131,14 @@ if ((isset($_GET["idtu"]) && (!empty($_GET["idtu"])))) { //SI SE RECIBE EL ID DE
                         ?>
                         <?php if (($ttramite["tu_band_convanxres"] == 1)) { ?>
                             <div class="col-xs-3">
-                                <a href="#" class="btn btn-secondary btnanchocompleto btndesactivado"><i class="zmdi zmdi-border-color"></i> Firmar y Reasignar</a>
+                                <a href="#" class="btn btn-secondary btnanchocompleto btndesactivado"><i class="zmdi zmdi-border-color"></i> Firmar y Reasignar 1</a>
                             </div>
                             <?php
                         }
                         if ($ttramite["tu_band_convanxres"] == -1) {
                             ?>
                             <div class="col-xs-3">
-                                <a href="#" data-toggle="modal" data-target="#ReasignarTramite" class='btn btn-secondary btnanchocompleto' onclick="reasignar_tramite('<?php echo $_SESSION["codperfil"] ?>', '<?php echo $_GET["idtu"] ?>', '<?php echo $tra_codigo; ?>', '<?php echo $ttramite["reg_id"] ?>', '<?php echo $ttramite["tra_respuesta"] ?>', '<?php echo $tra_id; ?>', '1');"><i class="zmdi zmdi-border-color"></i> Firmar y Reasignar</a>
+                                <a href="#" data-toggle="modal" data-target="#ReasignarTramite" class='btn btn-secondary btnanchocompleto' onclick="reasignar_tramite('<?php echo $_SESSION["codperfil"] ?>', '<?php echo $_GET["idtu"] ?>', '<?php echo $tra_codigo; ?>', '<?php echo $ttramite["reg_id"] ?>', '<?php echo $ttramite["tra_respuesta"] ?>', '<?php echo $tra_id; ?>', '1');"><i class="zmdi zmdi-border-color"></i> Firmar y Reasignar 2</a>
                             </div>
                         <?php }
                         ?>
@@ -209,11 +211,11 @@ if ((isset($_GET["idtu"]) && (!empty($_GET["idtu"])))) { //SI SE RECIBE EL ID DE
                             <div class="col-xs-12 col-sm-6 col-md-6">
                                 <div class="group-material">
                                     <!--ANEXO ID , TU_ID, RUTA_ARCHIVO-->
-                                    <!--<input type="hidden" id="anexo_id" name="anexo_id" value="<?php //echo $anexo["anx_id"];         ?>" />-->
+                                    <!--<input type="hidden" id="anexo_id" name="anexo_id" value="<?php //echo $anexo["anx_id"];          ?>" />-->
                                     <input type="hidden" id="tra_codigo" name="tra_codigo" value="<?php echo $tra_codigo; ?>"/>
                                     <input type="hidden" id="tra_id" name="tra_id" value="<?php echo $_GET["idt"]; ?>" />
                                     <input type="hidden" id="tua_id" name="tua_id" value="<?php echo $anexo["tua_id"]; ?>" />
-                                    <!---<input type="hidden" id="tu_id" name="tu_id" value="<?php //echo $tu_id;         ?>" />-->
+                                    <!---<input type="hidden" id="tu_id" name="tu_id" value="<?php //echo $tu_id;          ?>" />-->
                                     <input type="hidden" id="tu_idg" name="tu_idg" value="<?php echo $_GET["idtu"]; ?>" />
                                     <input name="anexo_file" id="anexo_file" type="file" class="tooltips-general material-control" data-toggle="tooltip" data-placement="top" <?php if ($anexo["anx_requerido"] == "SI"): ?> required=''<?php endif; ?> accept="application/pdf"> <!--title="Escribe el código correlativo del libro, solamente números"-->
                                     <span class="highlight"></span>
@@ -385,4 +387,3 @@ if ((isset($_GET["idtu"]) && (!empty($_GET["idtu"])))) { //SI SE RECIBE EL ID DE
 <script type="text/javascript" src="js/funciones_generales.js"></script>
 <script type="text/javascript" src="js/_ui_respuestas_tramites.js"></script>
 <script type="text/javascript" src="js/VentanaCentrada.js"></script>
-

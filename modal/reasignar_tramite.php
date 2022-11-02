@@ -20,7 +20,7 @@
                     <input type="hidden" name="firma" id="firma"/>
                     <div class="col-xs-12 col-sm-12" id="reasignacion">
                         <div class="group-material">
-                            <span>Usuarios disponibles para reasignación <span class="sp-requerido">*</span></span>
+                            <span>Usuarios disponibles para reasignación </span>
                             <select name="reasignado_a" id="reasignado_a" class="tooltips-general material-control" data-toggle="tooltip" data-placement="top" title="Elija un profesional del listado" required="">         
                             </select>
                         </div>

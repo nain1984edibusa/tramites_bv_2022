@@ -8,6 +8,7 @@ include_once("../modelo/Db.class.php");
 include_once("../modelo/clstramiteusuario.php");
 include_once("../modelo/clstuanexos.php");
 include_once("../modelo/clsusuarios.php");
+include_once("../modelo/clstramite4objeto.php");
 /* generar instancias */
 if ((isset($_REQUEST["idtu"]) && (!empty($_REQUEST["idtu"]))) || (isset($tramite))) { //SI SE RECIBE EL ID DEL TRÁMITE, PROCEDE
     if (isset($_REQUEST["idtu"])) {
@@ -24,6 +25,9 @@ if ((isset($_REQUEST["idtu"]) && (!empty($_REQUEST["idtu"]))) || (isset($tramite
     include_once("../modelo/clstramite" . $tra_id . ".php");
     include_once("../modelo/clstramiterespuestas.php");
     switch ($tra_id) {
+        case "4":
+            $tramitee = new clstramite4();
+            break;
         case "5":
             $tramitee = new clstramite5();
             break;
@@ -46,6 +50,7 @@ if ((isset($_REQUEST["idtu"]) && (!empty($_REQUEST["idtu"]))) || (isset($tramite
             $tramitee = new clstramite18();
             break;
     }
+
     $tramitee->setTu_codigo($tra_codigo);
     $tespecifico = $tramitee->tra_seleccionar_bycodigo();
     $tespecifico = mysqli_fetch_array($tespecifico);
@@ -57,12 +62,14 @@ if ((isset($_REQUEST["idtu"]) && (!empty($_REQUEST["idtu"]))) || (isset($tramite
     $trespuestas = $respuestas->obtener_tramiterespuestas();
     $respuesta = mysqli_fetch_array($trespuestas);
     $res_fecha = date("Y-m-d H:i:s");
-    //OBTENER ANEXOS
+
+//OBTENER ANEXOS
     $anexose = new clstuanexos();
     $anexose->setTu_id($tespecifico["tu_id"]);
     $anexose->setTra_id($tra_id);
     $anexos = $anexose->tua_seleccionar_byte();
-    //OBTENER DATOS USUARIOS
+
+//OBTENER DATOS USUARIOS
     $usuario = new clsusuarios();
     if ($respuesta["usu_aprobador"] != 0) {
         $usuario->setUsu_id($respuesta["usu_aprobador"]);
@@ -76,17 +83,54 @@ if ((isset($_REQUEST["idtu"]) && (!empty($_REQUEST["idtu"]))) || (isset($tramite
     } else {
         $usuario_ejecutor["usu_nombre"] = $usuario_ejecutor["usu_apellido"] = $usuario_ejecutor["usu_direccion"] = "NO DEFINIDO";
     }
+
+    switch ($tra_id) {
+        case "4":
+            //OBTENER USUARIO
+            $datosUsuario = new clsusuarios();
+            $datosUsuario->setUsu_id($ttramite["usu_extid"]);
+            $tusuario = $datosUsuario->usu_email_byid();
+            $tusuario = mysqli_fetch_array($tusuario);
+
+            //OBTENER OBJETOS
+            $clstramite4objeto = new clstramite4objeto();
+            $clstramite4objeto->setTu_id($tespecifico["tu_id"]);
+            $clstramite4objeto = $clstramite4objeto->obj_seleccionar_objeto_por_tramite();
+
+//            $clstramite4objetoAux = new clstramite4objeto();
+//            $clstramite4objetoAux->setTu_id($tespecifico["tu_id"]);
+//            $clstramite4objetoAux = $clstramite4objetoAux->obj_seleccionar_objeto_por_tramite();
+//
+            $return_arr = array();
+            $return_arr1 = array();
+
+            while ($row = mysqli_fetch_array($clstramite4objeto)) {
+                $eob_id = $row["eob_id"];
+                if ($eob_id == "2") {
+                    array_push($return_arr, $row);
+                } else {
+                    $return_arr1 = array();
+                }
+            }
+
+            $cont = count($return_arr);
+            
+            break;
+    }
+
     include('prev_respuesta_pdf/_pr_' . $tra_id . '.php');
-   $contenido_respuesta .= "<br/><p><small><b>Anexos:</b><br/>";
-    while ($anexo = mysqli_fetch_array($anexos)) {
-//        $contenido_respuesta .= "<i>" . $anexo["anx_nombre"] . "</i> " . $anexo["tua_codigoe"] . " (Nombre del archivo: " . str_replace(RUTA_ARCHIVOSTRAMITES . $tra_codigo . "/", "", $anexo["tua_rutaarchivo"]) . ")<br/>";
-    }
+
+    $contenido_respuesta .= "<br/><p><small><b>Anexos:</b><br/>";
+    //    while ($anexo = mysqli_fetch_array($anexos)) {
+    ////        $contenido_respuesta .= "<i>" . $anexo["anx_nombre"] . "</i> " . $anexo["tua_codigoe"] . " (Nombre del archivo: " . str_replace(RUTA_ARCHIVOSTRAMITES . $tra_codigo . "/", "", $anexo["tua_rutaarchivo"]) . ")<br/>";
+    //    }
     $contenido_respuesta .= "</small></p></div><br/><br/>";
+
 //    $contenido_respuesta .= "<p>El solicitante podrá hacer uso del presente documento, como convenga a sus intereses.</p><br/><br/>";
-    $contenido_respuesta .= "<br/><small>" . $usuario_aprobador["usu_nombre"] . " " . $usuario_aprobador["usu_apellido"] . "<br/><b>" . $usuario_aprobador["usu_direccion"] . "</b> (Aprobación)</small>";
-    $contenido_respuesta .= "<br/><br/><small>" . $usuario_ejecutor["usu_nombre"] . " " . $usuario_ejecutor["usu_apellido"] . "<br/><b>" . $usuario_ejecutor["usu_direccion"] . "</b> (Análisis Técnico)</small>";
+//    $contenido_respuesta .= "<br/><small>" . $usuario_aprobador["usu_nombre"] . " " . $usuario_aprobador["usu_apellido"] . "<br/><b>" . $usuario_aprobador["usu_direccion"] . "</b> (Aprobación)</small>";
+//    $contenido_respuesta .= "<br/><br/><small>" . $usuario_ejecutor["usu_nombre"] . " " . $usuario_ejecutor["usu_apellido"] . "<br/><b>" . $usuario_ejecutor["usu_direccion"] . "</b> (Análisis Técnico)</small>";
 //    $contenido_respuesta .= "<br/><br/><i class='firma_ec'>Documento firmado electrónicamente</i>";
-    if (!((isset($firma)) && ($firma == 1))) {
-        echo urlencode($contenido_respuesta);
-    }
+//    if (!((isset($firma)) && ($firma == 1))) {
+//        echo urlencode($contenido_respuesta);
+//    }
 }

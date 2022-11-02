@@ -61,7 +61,7 @@ if ((isset($_GET["idtu"]) && (!empty($_GET["idtu"])))) { //SI SE RECIBE EL ID DE
                 <button onclick="javascript:location.reload()" type="submit" class="btn btn-secondary btnanchocompleto" data-dismiss="modal"><i class="zmdi zmdi-refresh-alt"></i>&nbsp; Recargar Página</button>
             </div>
             <!--<div class="col-xs-3">
-                <a href="firmaec://<?php //print $sistema      ?>/firmar?token=<?php //print $token      ?><?php //print $certificadoDigital      ?><?php //print $estampado      ?><?php //print $pre      ?>" ><button type="button" class="btn btn-primary btnanchocompleto" ><i class="zmdi zmdi-border-color"></i> &nbsp;&nbsp; Firmar Respuesta</button></a>
+                <a href="firmaec://<?php //print $sistema       ?>/firmar?token=<?php //print $token       ?><?php //print $certificadoDigital       ?><?php //print $estampado       ?><?php //print $pre       ?>" ><button type="button" class="btn btn-primary btnanchocompleto" ><i class="zmdi zmdi-border-color"></i> &nbsp;&nbsp; Firmar Respuesta</button></a>
             </div>-->
             <div class="col-xs-3">
                 <?php
@@ -86,9 +86,6 @@ if ((isset($_GET["idtu"]) && (!empty($_GET["idtu"])))) { //SI SE RECIBE EL ID DE
             </div>
         </div>
     </div>
-    <!--    <script type="text/javascript">
-        window.open("firmaec://<?php print $sistema ?>/firmar?token=<?php print $token ?><?php print $certificadoDigital ?><?php print $estampado ?><?php print $pre ?>");
-    </script>-->
     <?php
     $documento_visualizar = $ruta_archivo;
     include_once("_visualizar_tramite.php");

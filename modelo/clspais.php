@@ -18,7 +18,7 @@ Class clspais {
     ////////   insertar cantones   //////////////////
     public function pais_insertar() {
         // abro conexión a bases de datos
-        $bd = Db::getInstance();
+        $bd = new Db();
         $this->carga_pai_codigo($bd->lastID()); // sacar el siguiente registro de la tabla y lo cargo en codigo
         $bd->carga_valores($this->pai_codigo . ",'" . $this->pai_nombre . "'"); // valores a insertae
         $bd->carga_campos("pai_codigo,pai_nombre,"); // campos a ser insertados
