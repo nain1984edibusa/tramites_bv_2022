@@ -192,8 +192,8 @@ Class clstramite4objeto {
     public function obj_seleccionar_objeto_por_tramite() {
         // abro conexión a bases de datos
         $bd = Db::getInstance();
-        $sql = " SELECT * FROM _ct_tramite4_objeto  o
-        inner join _ct_tramite4_tipo_bien_cultural b on o.tbc_id = b.tbc_id  
+        $sql = " SELECT * FROM _ct_tramite4_objeto  o 
+            inner join _ct_tramite4_tipo_bien_cultural b on o.tbc_id = b.tbc_id  
         inner join _ct_tramite4_estado_objeto e on e.eob_id = o.eob_id  
         inner join _ct_tramite4_contenedor c on c.obj_id = o.obj_id
         WHERE o.tu_id = " . $this->tu_id;

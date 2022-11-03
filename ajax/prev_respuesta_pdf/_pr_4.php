@@ -17,9 +17,6 @@ $contenido_respuesta .= "<br/><h5>DATOS ENVIO</h5><table>"
         . "<tr><th>Dirección:</th><td>" . $tespecifico["te_direccion_envio"] . "</td><th>Fecha envió:</th><td>" . $tespecifico["te_fecha_envio"] . "</td></tr>"
         . "</table><br/>"; //DATOS GENERALES
 
-//while ($row = mysqli_fetch_array($return_arr)) {
-//    
-//}
 
 /* Armar la tabla proforma */
 $tabla = "<h5>DETALLE DE LOS OBJETOS/BIENES CULTURALES CERTIFICADOS:</h5>"
@@ -34,7 +31,7 @@ $tabla = "<h5>DETALLE DE LOS OBJETOS/BIENES CULTURALES CERTIFICADOS:</h5>"
         . "<th>Contenedor <br> Nro. Cont. <br> Nro. Seg.</th>"
         . "<th>Condición</th>"
         . "</tr>";
-while ($row = mysqli_fetch_array($return_arr)) {
+foreach  ($noPatrimoniales as $row) {
     $cuerpo .= "<tr>"
             . "<td>" . $row["obj_cantidad"] . "</td>"
             . "<td>" . $row["tbc_nombre"] . "</td>"
@@ -55,7 +52,6 @@ $contenido_respuesta .= "<br/><br/><br/><br/><br/><table>"
         . "<tr><th>INSPECTOR DE TRÁFICO ILÍCITO</th></tr>"
         . "<tr><th>INSTITUTO NACIONAL DE PATRIMONIO CULTURAL</th></tr>"
         . "</table><br/>"; //DATOS GENERALES
-
 
 
 if ($respuesta["tuc_tipocontestacion"] == "AFIRMATIVO") {

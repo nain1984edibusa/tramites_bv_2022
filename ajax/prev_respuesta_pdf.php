@@ -97,28 +97,25 @@ if ((isset($_REQUEST["idtu"]) && (!empty($_REQUEST["idtu"]))) || (isset($tramite
             $clstramite4objeto->setTu_id($tespecifico["tu_id"]);
             $clstramite4objeto = $clstramite4objeto->obj_seleccionar_objeto_por_tramite();
 
-//            $clstramite4objetoAux = new clstramite4objeto();
-//            $clstramite4objetoAux->setTu_id($tespecifico["tu_id"]);
-//            $clstramite4objetoAux = $clstramite4objetoAux->obj_seleccionar_objeto_por_tramite();
-//
-            $return_arr = array();
-            $return_arr1 = array();
-
-            while ($row = mysqli_fetch_array($clstramite4objeto)) {
+            $noPatrimoniales = array();
+            $sePresumePatrimoniales = array();
+            while ($row = $clstramite4objeto->fetch_assoc()) {
                 $eob_id = $row["eob_id"];
                 if ($eob_id == "2") {
-                    array_push($return_arr, $row);
-                } else {
-                    $return_arr1 = array();
+                    $objeto = new clstramite4objeto();
+                    $objeto = $row;
+                    $noPatrimoniales[] = $objeto;
+                } elseif ($eob_id == "3") {
+                    $objeto = new clstramite4objeto();
+                    $objeto = $row;
+                    $sePresumePatrimoniales[] = $objeto;
                 }
-            }
 
-            $cont = count($return_arr);
-            
+            }
             break;
     }
-
     include('prev_respuesta_pdf/_pr_' . $tra_id . '.php');
+    include('prev_respuesta_pdf/_pr_4_presume_patrimoniales.php');
 
     $contenido_respuesta .= "<br/><p><small><b>Anexos:</b><br/>";
     //    while ($anexo = mysqli_fetch_array($anexos)) {

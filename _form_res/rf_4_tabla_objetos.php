@@ -27,14 +27,14 @@ if (isset($_POST["tramite_especifico"])) {
 <div class="col-xs-12">
     <table class="table table-striped">
         <tr>
-            <td><b>Id</b></td> 
-            <td><b>Condición <br> del objeto</b></td> 
-            <td><b>Contenedor</b></td> 
+            <!--<td><b>Id</b></td> --> 
+            <td style="width: 10%"><b>Condición <br> del objeto</b></td>
+            <td style="width: 10%"><b>Contenedor</b></td> 
             <td style="width: 5%"><b>Cantidad</b></td>
-            <td><b>Tipo de <br> bien cultural</b></td> 
-            <td><b>Tema</b></td>
-            <td><b>Autor</b></td>
-            <td><b>Técnica</b></td>
+            <td style="width: 10%"><b>Tipo de <br> bien cultural</b></td> 
+            <td style="width: 10%"><b>Tema</b></td>
+            <td style="width: 10%"><b>Autor</b></td>
+            <td style="width: 10%"><b>Técnica</b></td>
             <td style="width: 5%"><b>Dimensiones</b></td>
             <td style="width: 10%"><b>Acciones</b></td>
         </tr>
@@ -43,7 +43,7 @@ if (isset($_POST["tramite_especifico"])) {
             while ($row = mysqli_fetch_array($oespecifico)) {
                 ?>
                 <tr>
-                    <td><?php echo $row[0] ?></td>
+                    <!--<td><?php echo $row[0] ?></td>-->
                     <td><?php echo $row[16] ?></td>
                     <td><?php echo $row[25] ?> <?php echo " - " ?><?php echo $row[22] ?><?php echo " - " ?><?php echo $row[23] ?></td>
                     <td><?php echo $row[5] ?></td>
