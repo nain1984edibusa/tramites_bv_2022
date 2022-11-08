@@ -97,9 +97,9 @@ if ($tu4_id > 0) {
             $clstramite4contenedor = new clstramite4contenedor();
             $clstramite4contenedor->setTu_id($tu4_id);
             $clstramite4contenedor->setObj_id($obj_id);
-            $clstramite4contenedor->setTc_id(0);
-            $clstramite4contenedor->setCon_numero(0);
-            $clstramite4contenedor->setCon_seguridad(0);
+            $clstramite4contenedor->setTc_id(6); /*tipo 6 ninguno*/
+            $clstramite4contenedor->setCon_numero(null);
+            $clstramite4contenedor->setCon_seguridad(null);
 
             $clstramite4contenedor->con_insertar();
         }

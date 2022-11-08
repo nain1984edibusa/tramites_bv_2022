@@ -115,9 +115,9 @@ if ((isset($_REQUEST["idtu"]) && (!empty($_REQUEST["idtu"]))) || (isset($tramite
             break;
     }
     include('prev_respuesta_pdf/_pr_' . $tra_id . '.php');
-    include('prev_respuesta_pdf/_pr_4_presume_patrimoniales.php');
+//    include('prev_respuesta_pdf/_pr_4_presume_patrimoniales.php');
 
-    $contenido_respuesta .= "<br/><p><small><b>Anexos:</b><br/>";
+    $contenido_respuesta .= "<br/><p><small><br/>";
     //    while ($anexo = mysqli_fetch_array($anexos)) {
     ////        $contenido_respuesta .= "<i>" . $anexo["anx_nombre"] . "</i> " . $anexo["tua_codigoe"] . " (Nombre del archivo: " . str_replace(RUTA_ARCHIVOSTRAMITES . $tra_codigo . "/", "", $anexo["tua_rutaarchivo"]) . ")<br/>";
     //    }

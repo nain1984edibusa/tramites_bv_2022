@@ -78,7 +78,6 @@ if (isset($_POST["tramite_especifico"])) {
 </div>
 <script>
     $(".btn-edit").click(function () {
-        debugger
         id = $(this).data("id");
         $.get("./modal/actualizar_objeto.php", "id=" + id, function (data) {
             $("#form-edit").html(data);

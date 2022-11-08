@@ -77,7 +77,7 @@ session_start();
                 </div> 
                 <div class="col-xs-12 col-sm-6 col-md-6">
                     <div class="group-material">
-                        <span>País de Origen <span class="sp-requerido">*</span></span>
+                        <span>Nacionalidad<span class="sp-requerido">*</span></span>
                         <select name="id_pais_origen" id="id_pais_origen" class="tooltips-general material-control" required="" data-toggle="tooltip" data-placement="top" title="Elija el país de origen">
                             <option value="" disabled="" selected="">Selecciona el país de origen</option>
                             <?php

@@ -55,5 +55,5 @@ $contenido_respuesta .= "<br/><br/><br/><br/><br/><table>"
 
 
 if ($respuesta["tuc_tipocontestacion"] == "AFIRMATIVO") {
-    $contenido_respuesta .= "<br/><div class='bloque_especifico'><p><br/>" . $observaciones . "</p>";
+    $contenido_respuesta .= "<br/><div>";
 } 

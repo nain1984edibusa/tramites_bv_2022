@@ -24,7 +24,7 @@
                             <select name="cumple" id="cumple" class="tooltips-general material-control" data-toggle="tooltip" data-placement="top" title="Elija una opción" required="">
                                 <option value="" selected="">Selecciona una opción</option>
                                 <option value="CORRECTO">Correcto</option>
-                                <option value="INCORRECTO">Incorrecto</option>
+<!--                                <option value="INCORRECTO">Incorrecto</option>-->
                             </select>
                         </div>
                     </div>

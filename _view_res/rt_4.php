@@ -21,7 +21,6 @@ $tramiteturno->setTu_id($tespecifico["tu_id"]);
 $tturno = $tramiteturno->tut_turno();
 $tturno = mysqli_fetch_array($tturno);
 
-
 //OBTENER REQUISITOS
 $requisitose = new clsturequisitos();
 $requisitose->setTu_id($tespecifico["tu_id"]);
@@ -48,30 +47,39 @@ $respuesta4 = $respuestae->obtener_tramiterespuestas();
         <th colspan='6'><i class="zmdi zmdi-collection-item"></i> Requisitos</th>
     </tr>
     <tr>
-        <td colspan="6">NA</td>        
+        <td colspan="6" class="col-xs-12 col-sm-12 col-md-12 text-justify lead alert alert-success">            
+            <p> <h5> <b>Los objetos/bienes culturales motivo de la inspección, deberán ser llevados al lugar agendado en la 
+                    cita pre-embalado (sin sellar los contenedores), el técnico del INPC realizará una revisión física y 
+                    colocará cintas y sellos de seguridad sobre los contenedores (cajas, tubos, maletas, entre otros). 
+            </b></h5></p>
+            <p> <h5> <b>La información ingresada en la solicitud relacionada con el detalle de los objetos/bienes culturales 
+                    está sujeta a verificación y podrá ser modificada por el técnico designado para el trámite si esta 
+                    tuviere algún error. 
+            </b></h5></p>
+        </td>  
     </tr>
     <tr class="row-light">
-    <th colspan='6'><i class="zmdi zmdi-assignment-o"></i> Datos destino</th>
-</tr>
+        <th colspan='6'><i class="zmdi zmdi-assignment-o"></i> Datos destino</th>
+    </tr>
 
-<tr>
-    <th class="text-right">País:</th><td colspan="3"><?php echo $tespecifico["pai_nombre"] ?></td>
-    <th class="text-right">Ciudad:</th><td><?php echo $tespecifico["te_ciudad_envio"] ?></td>
-</tr>
-<tr>
-    <th class="text-right">Dirección:</th><td colspan="3"><?php echo $tespecifico["te_direccion_envio"] ?></td>
-    <th class="text-right">Fecha envió:</th><td><?php echo $tespecifico["te_fecha_envio"] ?></td>
-</tr>
-<tr class="row-light">
-    <th colspan='6'><i class="zmdi zmdi-assignment-o"></i> Lugar, fecha y hora de la cita</th>
-</tr>
-<tr>
-    <th class="text-right">Lugar:</th><td colspan="3"><?php echo $tturno["reg_ciudad"] ?></td>
-</tr>
-<tr>
-    <th class="text-right">Fecha:</th><td colspan="3"><?php echo $tturno["tut_fecha"] ?></td>
-    <th class="text-right">Hora:</th><td><?php echo $tturno["ho_hora"] ?></td>
-</tr>
+    <tr>
+        <th class="text-right">País:</th><td colspan="3"><?php echo $tespecifico["pai_nombre"] ?></td>
+        <th class="text-right">Ciudad:</th><td><?php echo $tespecifico["te_ciudad_envio"] ?></td>
+    </tr>
+    <tr>
+        <th class="text-right">Dirección:</th><td colspan="3"><?php echo $tespecifico["te_direccion_envio"] ?></td>
+        <th class="text-right">Fecha envió:</th><td><?php echo $tespecifico["te_fecha_envio"] ?></td>
+    </tr>
+    <tr class="row-light">
+        <th colspan='6'><i class="zmdi zmdi-assignment-o"></i> Lugar, fecha y hora de la cita</th>
+    </tr>
+    <tr>
+        <th class="text-right">Lugar:</th><td colspan="3"><?php echo $tturno["reg_ciudad"] ?></td>
+    </tr>
+    <tr>
+        <th class="text-right">Fecha:</th><td colspan="3"><?php echo $tturno["tut_fecha"] ?></td>
+        <th class="text-right">Hora:</th><td><?php echo $tturno["ho_hora"] ?></td>
+    </tr>
     <tr class="tr_validacion <?php echo "tr_" . strtolower($tespecifico["te_cumple"]); ?>">
         <th class="text-right"><i class="zmdi zmdi-check"></i> Validación</th>
         <td><?php echo $tespecifico["te_cumple"]; ?></td>

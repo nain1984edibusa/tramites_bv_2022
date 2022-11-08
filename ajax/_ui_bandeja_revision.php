@@ -1,4 +1,9 @@
 <?php
+/*
+ * INSTITUTO NACIONAL DE PATRIMONIO CULTURAL
+ * Portal de Trámites 2020
+ */
+
 /* incluir modelo(s) */
 session_start();
 include_once("../config/variables.php");
@@ -45,9 +50,9 @@ $tramites = $listado_tramites_br->tra_seleccionar_all_byusu_ve($_SESSION["codusu
                 <tr class="info">
                     <th style="width: 5%">Cod</th>
                     <th style="width: 45%">Trámite</th>
-                    <th style="width: 10%">Fecha de Ingreso</th>
-                    <th style="width: 10%">Fecha Máx de Trámite</th>
-                    <th style="width: 5%">Días restantes</th>
+                    <th style="width: 10%">Fecha de <br> Ingreso</th>
+                    <th style="width: 10%">Fecha Máxima <br> de Trámite</th>
+                    <th style="width: 5%">Días <br> restantes</th>
                     <th style="width: 25%;" class="text-right">Acciones</th>	
                 </tr>
             </thead>
@@ -95,13 +100,11 @@ $tramites = $listado_tramites_br->tra_seleccionar_all_byusu_ve($_SESSION["codusu
                                             ?>
                                             <?php if ($row["tu_band_respuesta"] == 0) { ?>
                                                 <i class="zmdi zmdi-rotate-ccw btn btn-default btn-desactivado" title="Acción no permitida"></i>
-                                                <a href="ui_respuestas_tramites_ajax.php?idt=<?php echo $row["tra_id"] ?>&idtu=<?php echo $row["tu_id"] ?>" class='btn btn-default' title='Añadir respuesta'><i class="zmdi zmdi-attachment-alt"></i></a>
-                                                <a href="ui_respuestas_tramites.php?idt=<?php echo $row["tra_id"] ?>&idtu=<?php echo $row["tu_id"] ?>" class='btn btn-default' title='Añadir respuesta 17'><i class="zmdi zmdi-attachment-alt"></i></a>
+                                                <a href="ui_respuestas_tramites_ajax.php?idt=<?php echo $row["tra_id"] ?>&idtu=<?php echo $row["tu_id"] ?>" class='btn btn-default' title='Añadir respuesta prueba'><i class="zmdi zmdi-attachment-alt"></i></a>
                                                 <i class="zmdi zmdi-border-color btn btn-default btn-desactivado" title="Acción no permitida"></i>
                                             <?php } else { /* EXISTE RESPUESTA, PERO SE DEBE VERIFICAR QUE NO EXISTA CONVALIDACIÓN DEL APROBADOR = 1 */ ?>
                                                 <i class="zmdi zmdi-rotate-ccw btn btn-default btn-desactivado" title="Acción no permitida"></i> 
-                                                <a href="ui_respuestas_tramites_ajax.php?idt=<?php echo $row["tra_id"] ?>&idtu=<?php echo $row["tu_id"] ?>" class='btn btn-default' title='Añadir respuesta'><i class="zmdi zmdi-attachment-alt"></i></a>
-                                                <a href="ui_respuestas_tramites.php?idt=<?php echo $row["tra_id"] ?>&idtu=<?php echo $row["tu_id"] ?>" class='btn btn-default' title='Añadir respuesta17'><i class="zmdi zmdi-attachment-alt"></i></a>
+                                                <a href="ui_respuestas_tramites_ajax.php?idt=<?php echo $row["tra_id"] ?>&idtu=<?php echo $row["tu_id"] ?>" class='btn btn-default' title='Añadir respuesta prueba'><i class="zmdi zmdi-attachment-alt"></i></a>
                                                 <?php if ($row["tu_band_convanxres"] == 1) { ?>
                                                     <i class="zmdi zmdi-border-color btn btn-default btn-desactivado" title="Acción no permitida"></i>
                                                 <?php } else { ?>

@@ -41,7 +41,7 @@ $rsContenedor = mysqli_fetch_object($rsContenedor);
         <div class="row">
             <div class="col-xs-12 col-sm-6">
                 <div class="group-material">
-                    <input id="cantidad" name="cantidad"  type="number" value="<?php echo $oespecifico->obj_cantidad; ?>" min="0" type="number" class="tooltips-general material-control"  required="" data-toggle="tooltip" data-placement="top" onkeypress="valida_solonumeros()";"><!--title="Escriba su número de identificación"-->
+                    <input id="cantidad" name="cantidad"  type="number" value="<?php echo $oespecifico->obj_cantidad; ?>" min="0" type="number" class="tooltips-general material-control"  required="" data-toggle="tooltip" data-placement="top" onkeypress="return valida_solonumeros(event)";"><!--title="Escriba su número de identificación"-->
                     <span class="highlight"></span>
                     <span class="bar"></span>
                     <label>Cantidad<span class="sp-requerido">*</span></label>
@@ -196,7 +196,7 @@ $rsContenedor = mysqli_fetch_object($rsContenedor);
                         <input type="hidden"  name="obj_id" value="<?php echo $oespecifico->obj_id; ?>">
                         <input type="hidden" id="tu_id" name="tu_id" value="<?php echo $oespecifico->tu_id; ?>">
                         <input type="hidden" name="tbc_id" value="<?php echo $oespecifico->tbc_id; ?>">
-                        <input type="hidden" name="eob_id" value="<?php echo $oespecifico->eob_id; ?>">
+                        <input type="hidden"  name="eob_id" value="<?php echo $oespecifico->eob_id; ?>">
                         <input type="hidden" name="con_id" value="<?php echo $oespecifico->con_id; ?>">
                         <button type="submit" formnovalidate="" class="btn btn-primary"><i class="zmdi zmdi-arrow-right"></i>&nbsp; Guardar</button>
                     </div>
@@ -206,8 +206,9 @@ $rsContenedor = mysqli_fetch_object($rsContenedor);
 </div>
 
 <script>
-//    cargarTabla();
+    
     showContent();
+    
     function showContent() {
         element2 = document.getElementById("datosContenedor");
         check = document.getElementById("id_condicion");
@@ -215,57 +216,15 @@ $rsContenedor = mysqli_fetch_object($rsContenedor);
             element2.style.display = 'block';
         } else {
             element2.style.display = 'none';
-
         }
     }
-
+    
     $("#actualizar").submit(function (e) {
         e.preventDefault();
         $.post("./controller/actualizar_objeto.php", $("#actualizar").serialize(), function (data) {
+             cargarTablaObjetos();
         });
-        //alert("Agregado exitosamente!");
-        //$("#actualizar")[0].reset();
-        $('#editModal').modal('hide');
-        $('body').removeClass('modal-open');
-        $('.modal-backdrop').remove();
-        cargarTabla1();
     });
-
-    function cargarTabla1() {
-        debugger
-        var tramite_especifico = document.querySelector('#tu_id').value;
-        $.ajax({
-            type: "POST",
-            url: "_form_res/rf_4_tabla_objetos.php",
-            cache: false,
-            data: {tramite_especifico: tramite_especifico},
-            success: function (data) {
-                debugger;
-                $("#tabla").html(data);
-            }
-        });
-    }
-
-//    function loadTabla() {
-//        debugger
-//        tu_id = <?php echo $oespecifico->tu_id; ?>;
-//        $.ajax({
-//            type: "GET",
-//            url: "./ajax/obtener_lista_objetos.php",
-//            cache: false,
-//            data: {tu_id: tu_id},
-//            success: function (datos) {
-//                debugger
-//                //alert(datos);
-//                if (datos.length > 0) {
-//                    $("#tabla").html(datos);
-//                } else {
-//                    alert("No existen turnos disponibles en la fecha seleccionada");
-//                }
-//            }
-//        });
-//    }
-
 
 </script>
 

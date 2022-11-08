@@ -161,6 +161,14 @@ if ($firma == 2) {
         $clstramiteusuario->setEt_id($nuevo_estado);
         $reasignacion = $clstramiteusuario->tra_reasignar("ct_tramite_usuario");
 
+        if ($id_tramite == 4) {
+            $clstramiteusuario = new clstramiteusuario();
+            $clstramiteusuario->setTu_id($tramite);
+            $clstramiteusuario->setTu_band_respuesta("1");
+            $clstramiteusuario->tra_cambiar_bandrespuesta("ct_tramite_usuario");
+        }
+
+
         /* ACTUALIZAR TRÁMITE ESPECÍFICO */
         /* switch ($id_tramite){
           case "8": $clstramitee = new clstramite8();
@@ -174,7 +182,8 @@ if ($firma == 2) {
         $clstramitee->setUsu_iid($reasignado_a);
         $clstramitee->setEt_id($nuevo_estado);
         $reasignacion = $clstramitee->tra_reasignar("_ct_tramite" . $id_tramite);
-        //exit();
+
+//exit();
         if ($reasignacion == 0) {
             redireccionar("../ui_bandeja_recibidos.php?proc=reatra&est=0");
         } else {

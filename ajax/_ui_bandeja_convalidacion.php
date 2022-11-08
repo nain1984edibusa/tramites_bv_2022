@@ -43,9 +43,9 @@ $tramites=$listado_tramites_br->tra_seleccionar_all_byusu_ve($_SESSION["codusuar
                 <tr class="info">
                     <th style="width: 5%">Cod</th>
                     <th style="width: 50%">Trámite</th>
-                    <th style="width: 10%">Fecha de Ingreso</th>
-                    <th style="width: 10%">Fecha Máx de Trámite</th>
-                    <th style="width: 5%">Días restantes</th>
+                    <th style="width: 10%">Fecha de <br> Ingreso</th>
+                    <th style="width: 10%">Fecha Máxima <br> de Trámite</th>
+                    <th style="width: 5%">Días <br> restantes</th>
                     <th style="width: 20%;" class="text-right">Acciones</th>	
                 </tr>
             </thead>

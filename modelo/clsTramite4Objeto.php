@@ -196,6 +196,7 @@ Class clstramite4objeto {
             inner join _ct_tramite4_tipo_bien_cultural b on o.tbc_id = b.tbc_id  
         inner join _ct_tramite4_estado_objeto e on e.eob_id = o.eob_id  
         inner join _ct_tramite4_contenedor c on c.obj_id = o.obj_id
+        inner join _ct_tramite4_tipo_contenedor tc on tc.tc_id = c.tc_id
         WHERE o.tu_id = " . $this->tu_id;
         $rsprv = $bd->ejecutar($sql);
 
