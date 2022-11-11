@@ -1,6 +1,10 @@
 <?php
 
+<<<<<<< HEAD
 Class clstramite4 extends clstramiteusuario {
+=======
+Class clstramite3 extends clstramiteusuario {
+>>>>>>> tramite3
 
     private $te_provincia;
     private $te_canton;
@@ -217,6 +221,7 @@ Class clstramite4 extends clstramiteusuario {
             return 1;  // exito
         else
             return 0;  // error
+<<<<<<< HEAD
 
 
 
@@ -228,6 +233,8 @@ Class clstramite4 extends clstramiteusuario {
 
             
 //$bd->cerrar();  // cerrar coneccion
+=======
+>>>>>>> tramite3
     }
 
     public function tra_validar_formsolicitud() { //varios estados
@@ -239,6 +246,7 @@ Class clstramite4 extends clstramiteusuario {
             return 1;  // exito
         else
             return 0;  // error
+<<<<<<< HEAD
 
 
 
@@ -250,6 +258,8 @@ Class clstramite4 extends clstramiteusuario {
 
             
 //$bd->cerrar();  // cerrar coneccion
+=======
+>>>>>>> tramite3
     }
 
     public function tra_contar_validacionrequisitos($estado) {

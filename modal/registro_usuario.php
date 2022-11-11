@@ -1,5 +1,5 @@
 <?php
-/* 
+/*
  * INSTITUTO NACIONAL DE PATRIMONIO CULTURAL
  * Portal de Trámites 2020
  */
@@ -16,10 +16,10 @@
                 </br>
                 <div class="modal-body">
                     <p>Ingrese la información personal solicitada. El correo electrónico que registre le permitirá activar su cuenta, por lo tanto ingrese una cuenta de correo electrónico a la cual tenga acceso.</p>
-			<div class="alert alert-warning alert-dismissable">
-  				<!--<button type="button" class="close" data-dismiss="alert">&times;</button>-->
-  				<strong>Importante:</strong> En los campos de Provincia, Cantón, Parroquia y Dirección, registre su información domiciliaria actual.
-			</div>
+                    <div class="alert alert-warning alert-dismissable">
+                        <!--<button type="button" class="close" data-dismiss="alert">&times;</button>-->
+                        <strong>Importante:</strong> En los campos de Provincia, Cantón, Parroquia y Dirección, registre su información domiciliaria actual.
+                    </div>
                     <div class="row">
                         <div class="col-xs-12 col-sm-6">
                             <div class="group-material">
@@ -67,7 +67,7 @@
                                 <span class="bar"></span>
                                 <label>Provincia <span class="sp-requerido">*</span></label>
                                 <input type="hidden" name="id_provincia" id="id_provincia"/>
-                                <input type="hidden" name="id_regional" id="id_regional"/>
+                                <input type="hidden" name="id_regional" id="id_regional" value="<?php echo $_SESSION["regional"]; ?>"/>
                             </div>
                         </div>
                         <div class="col-xs-12 col-sm-6">
@@ -84,10 +84,10 @@
                         <div class="col-xs-12 col-sm-6">
                             <div class="group-material">
                                 <input id="parroquia" name="parroquia" type="text" class="tooltips-general material-control" placeholder="Por ejemplo: Juan Montalvo" required="" maxlength="50" data-toggle="tooltip" data-placement="top" title="Escriba/seleccione su parroquia de residencia" onKeyUp="this.value = this.value.toUpperCase();">
-                                <span class="highlight"></span>
-                                <span class="bar"></span>
-                                <label>Parroquia <span class="sp-requerido">*</span></label>
-                                <input type="hidden" name="id_parroquia" id="id_parroquia"/>
+                               <span class="highlight"></span>
+                        <span class="bar"></span>
+                        <label>Parroquia <span class="sp-requerido">*</span></label>
+                        <input type="hidden" name="id_parroquia" id="id_parroquia"/>
                             </div>
                         </div>
                         <div class="col-xs-12 col-sm-6">
@@ -138,21 +138,21 @@
                             </div>
                         </div>
                     </div>
-<!--                    <div class="row">
-                        <div class="col-xs-12 col-sm-6">
-                            <img src="./includes/captcha.php" alt="CAPTCHA" class="captcha-image">
-                            <i class="zmdi zmdi-refresh-alt refresh-captcha"></i>
-                        </div>
-                        <div class="col-xs-12 col-sm-6">
-                            <div class="group-material">
-                                <input id="txtcaptcha" name="txtcaptcha" class="tooltips-general material-control " required="" type="text" id="captcha" name="captcha_challenge" pattern="[A-Z]{6}" onKeyUp="this.value = this.value.toUpperCase();">
-                                <span class="highlight"></span>
-                                <span class="bar"></span>
-                                <label for="captcha">Captcha <span class="sp-requerido">*</span></label>
-                                
-                            </div>
-                        </div>
-                    </div>-->
+                    <!--                    <div class="row">
+                                            <div class="col-xs-12 col-sm-6">
+                                                <img src="./includes/captcha.php" alt="CAPTCHA" class="captcha-image">
+                                                <i class="zmdi zmdi-refresh-alt refresh-captcha"></i>
+                                            </div>
+                                            <div class="col-xs-12 col-sm-6">
+                                                <div class="group-material">
+                                                    <input id="txtcaptcha" name="txtcaptcha" class="tooltips-general material-control " required="" type="text" id="captcha" name="captcha_challenge" pattern="[A-Z]{6}" onKeyUp="this.value = this.value.toUpperCase();">
+                                                    <span class="highlight"></span>
+                                                    <span class="bar"></span>
+                                                    <label for="captcha">Captcha <span class="sp-requerido">*</span></label>
+                                                    
+                                                </div>
+                                            </div>
+                                        </div>-->
                     <div class="row">
                         <div class="col-xs-12 col-sm-12 checkbox">
                             <div class="group-material">
