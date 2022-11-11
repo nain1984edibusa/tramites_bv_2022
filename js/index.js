@@ -3,10 +3,10 @@
  * Portal de Trámites 2020
  */
 
-var refreshButton = document.querySelector(".refresh-captcha");
-refreshButton.onclick = function() {
-  document.querySelector(".captcha-image").src = './includes/captcha.php?' + Date.now();
-}
+//var refreshButton = document.querySelector(".refresh-captcha");
+//refreshButton.onclick = function() {
+//  document.querySelector(".captcha-image").src = './includes/captcha.php?' + Date.now();
+//}
 $("#tipo_identificacion" ).on( "change", function( event ) {
     $("#identificacion").val("");
     $("#identificacion").focus();

@@ -24,7 +24,7 @@ i.firma_ec{
     border: 1px solid #e3e4e5;
 }
 .tableGrid { vertical-align: top; 
-        font-size:8pt;
+        
 }
 .trGrid    { vertical-align: top; 
             text-align: center;
@@ -34,7 +34,6 @@ i.firma_ec{
             text-align: center;
 }
 table { vertical-align: top; 
- font-size:8pt;
 }
 tr    { vertical-align: top; }
 td    { vertical-align: top; height:10px; padding: 2px 2px 3px 2px;}
@@ -73,7 +72,7 @@ h3{
     text-align: center;
 }
 h4{
-    font-size: 12pt;
+    font-size: 14pt;
 }
 .especial{
     background: #ffffcc;
@@ -84,7 +83,7 @@ h4{
 table.page_footer {width: 100%; border: none; background-color: white; padding: 2mm;border-collapse:collapse; border: none;}
 } 
 </style>
-<page backimg='" . DIRSERVIDOR . "/librerias/pdf/reportes/fondo_oficio.jpg' backtop='40mm' backbottom='20mm' backleft='30mm' backright='20mm' footer='page' >
+<page backimg='" . DIRSERVIDOR . "/librerias/pdf/reportes/fondo_oficio.jpg' backtop='35mm' backbottom='20mm' backleft='30mm' backright='25mm' footer='page' >
   <page_footer>
   </page_footer>
     <page_header>

@@ -61,7 +61,7 @@ function agregar() {
 
 }
 function eliminar(row) {
-
+    
 //remueve la fila de la tabla html
     $("#row" + row).remove();
     //remover el elmento del arreglo
@@ -92,7 +92,6 @@ function cantidad(row) {
     celda[3].innerHTML = datos_objeto[row].total;
     console.log(datos_objeto);
 }
-
 function validarCamposObjeto() {
     var cantidad = document.querySelector('#cantidad').value;
     var tipobiencultural = document.querySelector('#tipo_bien_cultural').value;
@@ -153,7 +152,6 @@ function validarCamposObjeto() {
     }
     return true;
 }
-
 function seleccionarTipoBienCultural() {
     check = document.getElementById("tipo_bien_cultural");
     var itemSeleccionado = check.value;
@@ -171,9 +169,7 @@ function seleccionarTipoBienCultural() {
         }
     });
 }
-
 function enviar() {
-
 //    alert('0K');
     isBool = validarCamposTramiteEspecifico();
     if (isBool === true) {
@@ -202,7 +198,7 @@ function enviar() {
                 var percentage = 0;
 
                 var timer = setInterval(function () {
-
+                    
                     percentage = percentage + 5;
                     progress_bar_process(percentage, timer);
                 }, 100);
@@ -211,11 +207,9 @@ function enviar() {
 //          location.reload();
 //    }
         });
+    } else {
+        validarCamposTramiteEspecifico();
     }
-
-//    else {
-//        validarCamposTramiteEspecifico();
-//    }
 }
 
 function progress_bar_process(percentage, timer)
@@ -225,7 +219,7 @@ function progress_bar_process(percentage, timer)
     {
         clearInterval(timer);
         $('#formulario_tramite')[0].reset();
-        $("#lista")[0].reset();
+         $("#lista")[0].reset();
         $('#process').css('display', 'none');
         $('.progress-bar').css('width', '0%');
         $('#guardar').attr('disabled', false);
@@ -237,7 +231,6 @@ function progress_bar_process(percentage, timer)
 }
 
 function validarCamposTramiteEspecifico() {
-    debugger
     let date = new Date();
     var fecha_sistema = (date.toISOString().split('T')[0]);
     var hora_sistema = date.getHours() + ':' + date.getMinutes();
@@ -265,40 +258,59 @@ function validarCamposTramiteEspecifico() {
     var id_hora = document.querySelector('#id_hora').value;
 
     if ($.trim(id_provincia) === "") {
-        toastr.error("Seleccione la provincia");
+        $("#msg-alert-danger").show();
+        $("#msg-alert-danger").html("Seleccione la provincia.");
+        $("#msg-alert-danger").fadeOut(5000);
         $("#id_provincia").focus();
         return false;
     } else if ($.trim(id_canton) == "") {
-        toastr.error("Seleccione el catón.");
+        $("#msg-alert-danger").show();
+        $("#msg-alert-danger").html("Seleccione el catón.");
+        $("#msg-alert-danger").fadeOut(5000);
         $("#id_canton").focus();
         return false;
     } else if ($.trim(id_parroquia) == "") {
-        toastr.error("Seleccione la parroquia.");
+        $("#msg-alert-danger").show();
+        $("#msg-alert-danger").html("Seleccione la parroquia.");
+        $("#msg-alert-danger").fadeOut(5000);
+        $("#id_parroquia").focus();
         return false;
     } else if ($.trim(direccion) == "") {
-        toastr.error("Seleccione la dirección.");
+        $("#msg-alert-danger").show();
+        $("#msg-alert-danger").html("Seleccione la dirección.");
+        $("#msg-alert-danger").fadeOut(5000);
         $("#direccion").focus();
         return false;
     } else if ($.trim(id_pais_origen) == "") {
-        toastr.error("Seleccione la nacionalidad");
+        $("#msg-alert-danger").show();
+        $("#msg-alert-danger").html("Seleccione el país de origen.");
+        $("#msg-alert-danger").fadeOut(5000);
         $("#id_pais_origen").focus();
         return false;
     }
     if ($.trim(fecha_envio) == "") {
-        toastr.error("Ingrese la fecha de envió");
+        $("#msg-alert-danger").show();
+        $("#msg-alert-danger").html("Ingrese la fecha de envió.");
+        $("#msg-alert-danger").fadeOut(4000);
         $("#fecha_envio").focus();
         return false;
     } else if (fecha_envio < fecha_sistema) {
-        toastr.error("La fecha de envio debe ser mayor o igual a la fecha actual");
+        $("#msg-alert-danger").show();
+        $("#msg-alert-danger").html("La fecha de envio debe ser mayor o igual a la fecha actual.");
+        $("#msg-alert-danger").fadeOut(4000);
         $("#fecha_envio").focus();
         return false;
     }
     if ($.trim(fecha_atencion) == "") {
-        toastr.error("Ingrese la fecha de atención.");
+        $("#msg-alert-danger").show();
+        $("#msg-alert-danger").html("Ingrese la fecha de atención.");
+        $("#msg-alert-danger").fadeOut(4000);
         $("#fecha_atencion").focus();
         return false;
     } else if (fecha_atencion < fecha_sistema) {
-        toastr.error("La fecha de atención debe ser mayor o igual a la fecha actual");
+        $("#msg-alert-danger").show();
+        $("#msg-alert-danger").html("La fecha de atención debe ser mayor o igual a la fecha actual.");
+        $("#msg-alert-danger").fadeOut(4000);
         $("#fecha_atencion").focus();
         return false;
     }
@@ -324,7 +336,7 @@ function validarCamposTramiteEspecifico() {
 }
 
 function cambiarModoEnvio() {
-
+    
     if (document.getElementById("rdgllevo_1").checked) {
         document.getElementById("id_metodo_envio").disabled = true;
     } else {
@@ -333,41 +345,6 @@ function cambiarModoEnvio() {
     }
 }
 
-function validarFechaEnvio() {
-//    alert('Validar');
-    let date = new Date();
-    var fecha_sistema = (date.toISOString().split('T')[0]);
-
-    var fecha_envio = document.querySelector('#fecha_envio').value;
-    if (fecha_envio != "") {
-        if (fecha_envio < fecha_sistema) {
-            toastr.error('Fecha seleccionada incorrecta');
-            $("#fecha_envio").val('');
-            $("#fecha_envio").focus();
-        }
-    }
-}
-
-function validarFechaAtención() {
-//    alert('Validar');
-    let date = new Date();
-    var fecha_sistema = (date.toISOString().split('T')[0]);
-    var fecha_envio = document.querySelector('#fecha_envio').value;
-    var fecha_atencion = document.querySelector('#fecha_atencion').value;
-
-    if (fecha_envio != "") {
-        if (fecha_atencion != "") {
-            if ((fecha_atencion < fecha_sistema) || (fecha_atencion > fecha_envio)) {
-                toastr.error('Fecha seleccionada incorrecta');
-                $("#fecha_atencion").val('');
-            }
-        } else {
-            toastr.error('Seleccionar fecha de atención');
-            $("#fecha_atencion").val('');
-        }
-    } else
-    {
-        toastr.error('Seleccionar fecha de envió');
-        $("#fecha_atencion").val('');
-    }
+function actualizar() {
+    alert('Actualizar');
 }

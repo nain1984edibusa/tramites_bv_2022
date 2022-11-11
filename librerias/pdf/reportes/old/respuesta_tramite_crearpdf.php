@@ -1,10 +1,10 @@
 <?php
-
-require_once(dirname(__FILE__) . '/../html2pdf.class.php');
+require_once(dirname(__FILE__).'/../html2pdf.class.php');
 ob_start();
-$respuesta = $contenido_respuesta;
+$respuesta=$contenido_respuesta;
 //INCLUIR FORMATO DEL TRAMITE
-$pre_respuesta = "<style type=text/css'>
+$pre_respuesta=
+"<style type=text/css'>
 h4{
     width:100%;
     text-align:center;
@@ -23,19 +23,7 @@ i.firma_ec{
     padding:10px;
     border: 1px solid #e3e4e5;
 }
-.tableGrid { vertical-align: top; 
-        font-size:8pt;
-}
-.trGrid    { vertical-align: top; 
-            text-align: center;
-            color='#DBE5F1';
-}
-.tdGrid    { vertical-align: top; 
-            text-align: center;
-}
-table { vertical-align: top; 
- font-size:8pt;
-}
+table { vertical-align: top; }
 tr    { vertical-align: top; }
 td    { vertical-align: top; height:10px; padding: 2px 2px 3px 2px;}
 .superior td{ height: 13px; padding: 4pt;}
@@ -73,7 +61,7 @@ h3{
     text-align: center;
 }
 h4{
-    font-size: 12pt;
+    font-size: 14pt;
 }
 .especial{
     background: #ffffcc;
@@ -84,26 +72,28 @@ h4{
 table.page_footer {width: 100%; border: none; background-color: white; padding: 2mm;border-collapse:collapse; border: none;}
 } 
 </style>
-<page backimg='" . DIRSERVIDOR . "/librerias/pdf/reportes/fondo_oficio.jpg' backtop='40mm' backbottom='20mm' backleft='30mm' backright='20mm' footer='page' >
+<page backimg='".DIRSERVIDOR."/librerias/pdf/reportes/fondo_oficio.jpg' backtop='25mm' backbottom='20mm' backleft='30mm' backright='25mm' footer='page' >
   <page_footer>
   </page_footer>
     <page_header>
     </page_header>";
-$pos_respuesta = "</page>";
-echo $pre_respuesta . $respuesta . $pos_respuesta; //venida de otro proceso
+$pos_respuesta="</page>";
+echo $pre_respuesta.$respuesta.$pos_respuesta; //venida de otro proceso
 //PROCESO DE CREACION DEL PDF
 $content = ob_get_clean();
-$resultado_crear = 0;
-try {
+$resultado_crear=0;
+try
+{
     // init HTML2PDF
-    $html2pdf = new HTML2PDF('P', array(210, 297), 'es', true, 'UTF-8', array(0, 0, 0, 0));
+    $html2pdf = new HTML2PDF('P', array(210,297), 'es', true, 'UTF-8', array(0, 0, 0, 0));
     // display the full page
     $html2pdf->pdf->SetDisplayMode('fullpage');
     // convert
     $html2pdf->writeHTML($content, isset($_GET['vuehtml']));
-    $html2pdf->Output(DIRSERVIDOR . $ruta_archivo, 'F');
-    $resultado_crear = 1;
-} catch (HTML2PDF_exception $e) {
+    $html2pdf->Output(DIRSERVIDOR.$ruta_archivo, 'F'); 
+    $resultado_crear=1;
+}
+catch(HTML2PDF_exception $e) {
     echo $e;
     exit;
 }
