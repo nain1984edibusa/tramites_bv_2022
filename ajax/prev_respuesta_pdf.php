@@ -25,6 +25,9 @@ if ((isset($_REQUEST["idtu"]) && (!empty($_REQUEST["idtu"]))) || (isset($tramite
     include_once("../modelo/clstramite" . $tra_id . ".php");
     include_once("../modelo/clstramiterespuestas.php");
     switch ($tra_id) {
+        case "3":
+            $tramitee = new clstramite3();
+            break;
         case "4":
             $tramitee = new clstramite4();
             break;

@@ -3,10 +3,10 @@
  * INSTITUTO NACIONAL DE PATRIMONIO CULTURAL
  * Portal de Trámites 2020
  */
-include_once("./modelo/clstramite3.php");
+include_once("./modelo/clstramite4.php");
 include_once("./modelo/clsturequisitos.php");
 //OBTENER CAMPOS ESPECÍFICOS DEL TRÁMITE
-$tramitee=new clstramite3();
+$tramitee=new clstramite8();
 $tramitee->setTu_codigo($tra_codigo);
 $tespecifico=$tramitee->tra_seleccionar_bycodigo();
 $tespecifico= mysqli_fetch_array($tespecifico);

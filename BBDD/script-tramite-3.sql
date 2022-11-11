@@ -52,9 +52,6 @@ CREATE TABLE `_ct_tramite3` (
   PRIMARY KEY (`tu_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
-<<<<<<< HEAD
-
-=======
 CREATE TABLE `_ct_tramite4_contenedor` (
   `con_id` int(11) NOT NULL AUTO_INCREMENT,
   `tu_id` int(11) NOT NULL,

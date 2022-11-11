@@ -1,6 +1,5 @@
 /*AUTOCOMPLETAR PROVINCIA*/
 $(function() {
-    debugger
     $("#provincia").autocomplete({
         source: "./ajax/autocompletar/provincias.php",
         minLength: 2,

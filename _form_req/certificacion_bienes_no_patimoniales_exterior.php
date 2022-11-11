@@ -13,7 +13,6 @@ include_once 'modelo/clstipobiencultural.php';
 
 session_start();
 ?>
-<<<<<<< HEAD
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -24,22 +23,7 @@ session_start();
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>-->
     <!--Toastr.js Después--> 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
-    <title>Toaster</title>
 </head> 
-=======
-<!--<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    Hoja de estilos Toastr 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
-       JQuery Primero 
-      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    Toastr.js Después 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
-    <title>Toaster</title>
-</head> -->
->>>>>>> tramite3
 <div class="container-fluid">
     <div class="container-flat-form">
         <div class="title-flat-form title-flat-blue">Formulario de Información</div>
@@ -234,14 +218,14 @@ session_start();
                                 </select>
                             </div>
                         </div>
-                        <!--                        <div class="col-xs-12 col-sm-4" >
-                                                    <div class="group-material">
-                                                        <input id="descripcion_bien_cultural" name="descripcion_bien_cultural" readonly="ReadOnly" type="text" class="tooltips-general material-control" required="" maxlength="50" data-toggle="tooltip" data-placement="top" onKeyUp="this.value = this.value.toUpperCase();">
-                                                        <span class="highlight"></span>
-                                                        <span class="bar"></span>
-                                                        <label>Descripción bien cultural <span class="sp-requerido">*</span></label>
-                                                    </div>
-                                                </div>-->
+                        <div class="col-xs-12 col-sm-4" >
+                            <div class="group-material">
+                                <input id="descripcion_bien_cultural" name="descripcion_bien_cultural" readonly="ReadOnly" type="text" class="tooltips-general material-control" required="" maxlength="50" data-toggle="tooltip" data-placement="top" onKeyUp="this.value = this.value.toUpperCase();">
+                                <span class="highlight"></span>
+                                <span class="bar"></span>
+                                <label>Descripción bien cultural <span class="sp-requerido">*</span></label>
+                            </div>
+                        </div>
                     </div>
                     <div class="row">
                         <div class="col-xs-12 col-sm-4">

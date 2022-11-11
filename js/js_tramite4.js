@@ -283,33 +283,6 @@ function validarCamposTramiteEspecifico() {
         toastr.error("Seleccione la nacionalidad");
         $("#id_pais_origen").focus();
         return false;
-<<<<<<< HEAD
-    } else if ($.trim(id_pais_envio) == "") {
-        toastr.error("Seleccione el país de destino");
-        $("#id_pais_envio").focus();
-        return false;
-    } else if ($.trim(ciudad_envio) == "") {
-        toastr.error("Ingrese la ciudad de destino");
-        $("#ciudad_envio").focus();
-        return false;
-    } else if ($.trim(direccion_envio) == "") {
-        toastr.error("Ingrese la dirección de destino");
-        $("#direccion_envio").focus();
-        return false;
-    } else if ($.trim(fecha_envio) == "") {
-        toastr.error("Ingrese la fecha de envio");
-        $("#fecha_envio").focus();
-        return false;
-    } else if ($.trim(id_zonal) == "") {
-        toastr.error("Seleccione la zonal");
-        $("#id_zonal").focus();
-        return false;
-    }else if (fecha_envio < fecha_sistema) {
-        toastr.error("La fecha de envio debe ser mayor o igual a la fecha actual");
-        $("#fecha_envio").focus();
-        return false;
-    }else if ($.trim(fecha_atencion) == "") {
-=======
     }
     if ($.trim(fecha_envio) == "") {
         toastr.error("Ingrese la fecha de envió");
@@ -321,17 +294,12 @@ function validarCamposTramiteEspecifico() {
         return false;
     }
     if ($.trim(fecha_atencion) == "") {
->>>>>>> tramite3
         toastr.error("Ingrese la fecha de atención.");
         $("#fecha_atencion").focus();
         return false;
     } else if (fecha_atencion < fecha_sistema) {
         toastr.error("La fecha de atención debe ser mayor o igual a la fecha actual");
         $("#fecha_atencion").focus();
-        return false;
-    }else if ($.trim(id_hora) == "") {
-        toastr.error("Seleccione la hora");
-        $("#id_hora").focus();
         return false;
     }
 
