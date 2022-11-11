@@ -32,7 +32,7 @@ if (isset($_POST["tramite_especifico"])) {
             <td style="width: 10%"><b>Contenedor</b></td> 
             <td style="width: 5%"><b>Cantidad</b></td>
             <td style="width: 10%"><b>Tipo de <br> bien cultural</b></td> 
-            <td style="width: 10%"><b>Tema</b></td>
+            <td style="width: 10%"><b>Temática/Título</b></td>
             <td style="width: 10%"><b>Autor</b></td>
             <td style="width: 10%"><b>Técnica</b></td>
             <td style="width: 5%"><b>Dimensiones</b></td>

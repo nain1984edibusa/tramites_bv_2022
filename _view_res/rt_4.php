@@ -48,14 +48,14 @@ $respuesta4 = $respuestae->obtener_tramiterespuestas();
     </tr>
     <tr>
         <td colspan="6" class="col-xs-12 col-sm-12 col-md-12 text-justify lead alert alert-success">            
-            <p> <h5> <b>Los objetos/bienes culturales motivo de la inspección, deberán ser llevados al lugar agendado en la 
+<!--            <p> <h5> <b>Los objetos/bienes culturales motivo de la inspección, deberán ser llevados al lugar agendado en la 
                     cita pre-embalado (sin sellar los contenedores), el técnico del INPC realizará una revisión física y 
                     colocará cintas y sellos de seguridad sobre los contenedores (cajas, tubos, maletas, entre otros). 
             </b></h5></p>
             <p> <h5> <b>La información ingresada en la solicitud relacionada con el detalle de los objetos/bienes culturales 
                     está sujeta a verificación y podrá ser modificada por el técnico designado para el trámite si esta 
                     tuviere algún error. 
-            </b></h5></p>
+            </b></h5></p>-->
         </td>  
     </tr>
     <tr class="row-light">

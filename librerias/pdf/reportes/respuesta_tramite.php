@@ -1,10 +1,10 @@
 <?php
-require_once(dirname(__FILE__).'/../html2pdf.class.php');
+
+require_once(dirname(__FILE__) . '/../html2pdf.class.php');
 ob_start();
-$respuesta= urldecode($_GET["datos"]);
+$respuesta = urldecode($_GET["datos"]);
 //INCLUIR FORMATO DEL TRAMITE
-$pre_respuesta=
-"<style type=text/css'>
+$pre_respuesta = "<style type=text/css'>
 h4{
     width:100%;
     text-align:center;
@@ -80,24 +80,21 @@ table.page_footer {width: 100%; border: none; background-color: white; padding: 
   </page_footer>
     <page_header>
     </page_header>";
-$pos_respuesta="</page>";
-echo $pre_respuesta.$respuesta.$pos_respuesta; //venida de otro proceso
+$pos_respuesta = "</page>";
+echo $pre_respuesta . $respuesta . $pos_respuesta; //venida de otro proceso
 //PROCESO DE CREACION DEL PDF
 $content = ob_get_clean();
-try
-{
+try {
     // init HTML2PDF
-    $html2pdf = new HTML2PDF('P', array(210,297), 'es', true, 'UTF-8', array(0, 0, 0, 0));
+    $html2pdf = new HTML2PDF('P', array(210, 297), 'es', true, 'UTF-8', array(0, 0, 0, 0));
     // display the full page
     $html2pdf->pdf->SetDisplayMode('fullpage');
     // convert
     $html2pdf->writeHTML($content, isset($_GET['vuehtml']));
     //MARCA DE AGUA
-
     // send the PDF
     $html2pdf->Output('respuestatramite.pdf');
-}
-catch(HTML2PDF_exception $e) {
+} catch (HTML2PDF_exception $e) {
     echo $e;
     exit;
 }

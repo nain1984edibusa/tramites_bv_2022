@@ -61,7 +61,8 @@ if ((isset($_REQUEST["idtu"]) && (!empty($_REQUEST["idtu"]))) || (isset($tramite
     $respuestas->setTu_id($tu_id);
     $trespuestas = $respuestas->obtener_tramiterespuestas();
     $respuesta = mysqli_fetch_array($trespuestas);
-    $res_fecha = date("Y-m-d H:i:s");
+    
+    $fecha_sistema = date("Y-m-d H:i:s");
 
 //OBTENER ANEXOS
     $anexose = new clstuanexos();

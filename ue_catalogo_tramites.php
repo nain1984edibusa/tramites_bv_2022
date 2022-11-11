@@ -87,6 +87,7 @@ $tramites=$listado_tramites->tra_seleccionar_all();
 </div>
 <?php 
 function contenido_informacion_tramite($titulo,$descripcion,$resultado){
+    
     $res= "<h5>".$titulo."</h5>";
     $res.= "<p>".$descripcion."</p>";
     $res.="<p><strong>¿Qué obtendré si completo satisfactoriamente el trámite?</strong><br>".$resultado.'</p>';
