@@ -1,5 +1,12 @@
 use tramites_bv;
 
+CREATE TABLE `rg_tipoidentificacion` (
+  `_CODIGO` int(2) NOT NULL AUTO_INCREMENT,
+  `TID_NOMBRE` varchar(20) DEFAULT NULL,
+  PRIMARY KEY (`TID_CODIGO`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+
+
 CREATE TABLE `_ct_tramite3_respuestas` (
   `tuc_id` bigint(20) NOT NULL AUTO_INCREMENT,
   `tuc_tipocontestacion` varchar(10) COLLATE utf8_spanish_ci NOT NULL,

@@ -7,7 +7,11 @@
 $contenido_respuesta = "<h4>" . mb_strtoupper($ttramite["tra_resultado"]) . "</h4>"; //TIPO DE DOCUMENTO
 //$contenido_respuesta .=  "<h2>" . $tespecifico["reg_ciudad"] . "</h2>" ;
 
-$contenido_respuesta .= "<p>El Instituto Nacional de Patromonio Cultural del Ecuador, una vez revisados los objetos y realizada la inspección de los mismos, determina que los bienes detallados en el presente certificado, NO presentan características descritas en los Art. 54 y 62 de la Ley Orgánica de Cultura; por lo tanto y en concordancia a lo estipulado en el Art. 76, literal a) del Reglamento a la Ley Orgánica de Cultura, se descarta su condición de bienes perteneciantes al patrimonio cultural nacional.</p>";
+$contenido_respuesta .= "<p>El Instituto Nacional de Patromonio Cultural del Ecuador, una vez revisados los objetos y realizada la "
+        . "inspección de los mismos, determina que los bienes detallados en el presente certificado, NO presentan características "
+        . "descritas en los Art. 54 y 62 de la Ley Orgánica de Cultura; por lo tanto y en concordancia a lo estipulado en el Art. 76, "
+        . "literal a) del Reglamento a la Ley Orgánica de Cultura, se descarta su condición de bienes perteneciantes al patrimonio "
+        . "cultural nacional.</p>";
 
 $contenido_respuesta .= "<br/><h5>DATOS GENERALES</h5><table>"
         . "<tr><th>Identificación:</th><td>" . $tusuario["usu_identificador"] . "</td><th>CUT:</th><td>" . $tra_codigo . "</td></tr>"

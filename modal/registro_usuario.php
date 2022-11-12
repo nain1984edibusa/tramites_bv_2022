@@ -41,7 +41,17 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row">
+                    <div id="divRazonSocial"  disabled="disabled" class="row">
+                        <div class="col-xs-12 col-sm-12">
+                            <div class="group-material">
+                                <input id="razon_social" name="razon_social" type="text" class="tooltips-general material-control" placeholder="Por ejemplo: Museo Nacional del Ecuador" required="" maxlength="70" data-toggle="tooltip" data-placement="top" onKeyUp="this.value = this.value.toUpperCase();"> <!--title="Escriba sus nombres completos"--> 
+                                <span class="highlight"></span>
+                                <span class="bar"></span>
+                                <label>Razón Social <span class="sp-requerido">*</span></label>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="divNombres" class="row" disabled="disabled">
                         <div class="col-xs-12 col-sm-6">
                             <div class="group-material">
                                 <input id="nombres" name="nombres" type="text" class="tooltips-general material-control" placeholder="Por ejemplo: Carlos Manuel" required="" maxlength="70" data-toggle="tooltip" data-placement="top" onKeyUp="this.value = this.value.toUpperCase();"> <!--title="Escriba sus nombres completos"--> 
@@ -84,10 +94,10 @@
                         <div class="col-xs-12 col-sm-6">
                             <div class="group-material">
                                 <input id="parroquia" name="parroquia" type="text" class="tooltips-general material-control" placeholder="Por ejemplo: Juan Montalvo" required="" maxlength="50" data-toggle="tooltip" data-placement="top" title="Escriba/seleccione su parroquia de residencia" onKeyUp="this.value = this.value.toUpperCase();">
-                               <span class="highlight"></span>
-                        <span class="bar"></span>
-                        <label>Parroquia <span class="sp-requerido">*</span></label>
-                        <input type="hidden" name="id_parroquia" id="id_parroquia"/>
+                                <span class="highlight"></span>
+                                <span class="bar"></span>
+                                <label>Parroquia <span class="sp-requerido">*</span></label>
+                                <input type="hidden" name="id_parroquia" id="id_parroquia"/>
                             </div>
                         </div>
                         <div class="col-xs-12 col-sm-6">
@@ -176,3 +186,32 @@
         </div>
     </div>
 </div>
+<script type="text/javascript">
+    debugger
+    var select = document.getElementById('tipo_identificacion');
+    select.addEventListener('change',
+            function () {
+                debugger
+                var selectedOption = this.options[select.selectedIndex];
+                var check = selectedOption.value;
+                element2 = document.getElementById("divRazonSocial");
+//                console.log(selectedOption.value + ': ' + selectedOption.text);
+                if (check == "RUC") {
+                    element2.style.display = 'none';
+                } else {
+                    element2.style.display = 'block';
+                }
+            });
+
+
+//    function seleccionarTipoIdentificacion() {
+//        debugger;
+//        check = document.getElementById("tipo_identificacion").value();
+//        element2 = document.getElementById("divRazonSocial");
+//        if (check.value != 5) {
+//            element2.style.display = 'none';
+//        } else {
+//            element2.style.display = 'block';
+//        }
+    }
+</script>

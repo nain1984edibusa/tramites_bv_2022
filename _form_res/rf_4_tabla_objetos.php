@@ -18,7 +18,7 @@ if (isset($_POST["tramite_especifico"])) {
 <div class="col-xs-12">
         <div class="col-xs-12 col-sm-12 col-md-12 text-justify lead alert alert-success">
             <h4><b>INFORMACIÓN</b></h4>
-            <b>Estimad@ técnico se le recuerda que antes de emitir el certificado debe validar todos los objetos en estado PENDIENTE</b> 
+            <b>Estimad@s técnicos se le recuerda que antes de emitir el certificado debe validar todos los objetos en estado PENDIENTE</b> 
         </div>
     </div>
 <div class="col-xs-12">
