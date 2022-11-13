@@ -8,7 +8,7 @@ include_once("./modelo/clsturequisitos.php");
 include_once("./modelo/clstramiterespuestas.php");
 include_once("./modelo/clstu4respuestas.php");
 include_once("./modelo/clstuanexos.php");
-include_once("./modelo/clsTramiteUsuarioTurno.php");
+include_once("./modelo/clstramiteusuarioturno.php");
 //OBTENER CAMPOS ESPECÍFICOS DEL TRÁMITE
 $tramitee = new clstramite4();
 $tramitee->setTu_codigo($tra_codigo);
@@ -16,7 +16,7 @@ $tespecifico = $tramitee->tra_seleccionar_bycodigo();
 $tespecifico = mysqli_fetch_array($tespecifico);
 
 //OBTENER DATOS TURNO
-$tramiteturno = new clsTramiteUsuarioTurno();
+$tramiteturno = new clstramiteusuarioturno();
 $tramiteturno->setTu_id($tespecifico["tu_id"]);
 $tturno = $tramiteturno->tut_turno();
 $tturno = mysqli_fetch_array($tturno);
