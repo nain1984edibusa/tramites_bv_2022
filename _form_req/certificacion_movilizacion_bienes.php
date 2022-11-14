@@ -83,11 +83,8 @@ session_start();
                 $rsNacionalidad = $nacionalidad->nac_seleccionartodo();
                 while ($row = mysqli_fetch_array($rsNacionalidad)) {
                     ?>
-<<<<<<< HEAD
-                                                            <option value="<?php echo $row["nac_codigo"]; ?>"><?php echo $row["nac_nombre"]; ?></option>
-=======
-                                                                    <option value="<?php echo $row["nac_codigo"]; ?>"><?php echo $row["nac_nombre"]; ?></option>
->>>>>>> tramite3
+                                                                                <option value="<?php echo $row["nac_codigo"]; ?>"><?php echo $row["nac_nombre"]; ?></option>
+                                                                                        <option value="<?php echo $row["nac_codigo"]; ?>"><?php echo $row["nac_nombre"]; ?></option>
                     <?php
                 }
                 ?>
@@ -96,69 +93,37 @@ session_start();
                                 </div>          -->
             </div>
             <div class="col-xs-12">
-<<<<<<< HEAD
                 <legend><i class="zmdi zmdi-gps-dot"></i> &nbsp; Datos destino</legend>
-            </div>
-            <div class="row">
-                <div class="col-xs-12 col-sm-4 col-md-4">
-                     <div class="group-material">
-                        <span>Provincia de Envió <span class="sp-requerido">*</span></span>
-                        <select name="id_provincia_envio" id="id_provincia_envio" class="tooltips-general material-control" required="" data-toggle="tooltip" data-placement="top" title="Elija la provincia de envió">
-                            <option value="" disabled="" selected="">Selecciona la provincia de envió</option>
-=======
-                <legend><i class="zmdi zmdi-gps-dot"></i> &nbsp; <b>Datos destino</b></legend>
             </div>
             <div class="row">
                 <div class="col-xs-12 col-sm-4 col-md-4">
                     <div class="group-material">
                         <span>Provincia de destino <span class="sp-requerido">*</span></span>
-                        <select name="id_provincia_envio" id="id_provincia_envio" class="tooltips-general material-control" required="" data-toggle="tooltip" data-placement="top" title="Elija la provincia de destino">
-                            <option value="" disabled="" selected="">Selecciona la provincia de destino</option>
->>>>>>> tramite3
-                            <?php
-                            $provincia = new clsprovincia();
-                            $rsProvincia = $provincia->provincia_seleccionartodo();
-                            while ($row = mysqli_fetch_array($rsProvincia)) {
-                                ?>
-                                <option value="<?php echo $row["pro_id"]; ?>"><?php echo $row["pro_nombre"]; ?></option>
-                                <?php
-                            }
-                            ?>
-                        </select>
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-4 col-md-4">
+                    <div class="group-material">
+                        <span>Cantón de destino <span class="sp-requerido">*</span></span>
+                    </div>
                 </div>
                 <div class="col-xs-12 col-sm-4 col-md-4">
                     <div class="group-material">
-<<<<<<< HEAD
-                        <input id="ciudad_envio" name="ciudad_envio" type="text" class="material-control tooltips-general" placeholder="Por ejemplo: Lima" required="" maxlength="100" data-toggle="tooltip" title="Escriba la ciudad de envió" data-placement="top" onKeyUp="this.value = this.value.toUpperCase();"> <!-- -->
-                        <span class="highlight"></span>
-                        <span class="bar"></span>
-                        <label>Ciudad de envió<span class="sp-requerido">*</span></label>
-=======
                         <input id="ciudad_envio" name="ciudad_envio" type="text" class="material-control tooltips-general" placeholder="Por ejemplo: Riobamba" required="" maxlength="100" data-toggle="tooltip" title="Escriba la ciudad de destino" data-placement="top" onKeyUp="this.value = this.value.toUpperCase();"> <!-- -->
                         <span class="highlight"></span>
                         <span class="bar"></span>
                         <label>Ciudad de destino<span class="sp-requerido">*</span></label>
->>>>>>> tramite3
+
                     </div>
                 </div> 
             </div>
             <div class="row">
                 <div class="col-xs-12 col-sm-8 col-md-8">
                     <div class="group-material">
-<<<<<<< HEAD
-                        <input id="direccion_envio" name="direccion_envio" type="text" class="material-control tooltips-general" placeholder="Por ejemplo: Av. Miguel Angel Nº 193A Urb. Fiori" required="" maxlength="100" data-toggle="tooltip" data-placement="top" title="Escriba la dirección de envió" onKeyUp="this.value = this.value.toUpperCase();"> <!--title="Escriba la dirección de su domicilio" -->
-                        <span class="highlight"></span>
-                        <span class="bar"></span>
-                        <label>Dirección de envió<span class="sp-requerido">*</span></label>
-=======
                         <input id="direccion_envio" name="direccion_envio" type="text" class="material-control tooltips-general" placeholder="Por ejemplo: Calle 5 de Junio y 1era. Constituyente" required="" maxlength="100" data-toggle="tooltip" data-placement="top" title="Escriba la dirección de destino" onKeyUp="this.value = this.value.toUpperCase();"> <!--title="Escriba la dirección de su domicilio" -->
                         <span class="highlight"></span>
                         <span class="bar"></span>
                         <label>Dirección de destino<span class="sp-requerido">*</span></label>
->>>>>>> tramite3
+
                     </div>
                 </div>
             </div>
@@ -175,11 +140,7 @@ session_start();
                 </div>
                 <div class="col-xs-12 col-sm-4 col-md-4">
                     <div class="group-material">
-<<<<<<< HEAD
-                        <input name="fecha_envio" id="fecha_envio" type="date" class="material-control tooltips-general" title="Escriba/seleccione la fecha de envió" placeholder="Escoja una fecha de envió" data-toggle="tooltip" data-placement="top" > <!--title="Escribe el código correlativo del libro, solamente números"-->
-=======
                         <input name="fecha_envio" id="fecha_envio" type="date" class="material-control tooltips-general" title="Escriba/seleccione la fecha" placeholder="Escoja una fecha" data-toggle="tooltip" data-placement="top" > <!--title="Escribe el código correlativo del libro, solamente números"-->
->>>>>>> tramite3
                         <span class="highlight"></span>
                         <span class="bar"></span>
                         <label>Fecha desde <span class="sp-requerido">*</span></label>
@@ -187,11 +148,7 @@ session_start();
                 </div>
                 <div class="col-xs-12 col-sm-4 col-md-4">
                     <div class="group-material">
-<<<<<<< HEAD
-                        <input name="fecha_envio" id="fecha_envio" type="date" class="material-control tooltips-general" title="Escriba/seleccione la fecha de envió" placeholder="Escoja una fecha de envió" data-toggle="tooltip" data-placement="top" > <!--title="Escribe el código correlativo del libro, solamente números"-->
-=======
                         <input name="fecha_envio" id="fecha_envio" type="date" class="material-control tooltips-general" title="Escriba/seleccione la fecha" placeholder="Escoja una fecha" data-toggle="tooltip" data-placement="top" > <!--title="Escribe el código correlativo del libro, solamente números"-->
->>>>>>> tramite3
                         <span class="highlight"></span>
                         <span class="bar"></span>
                         <label>Fecha hasta <span class="sp-requerido">*</span></label>
@@ -227,11 +184,7 @@ session_start();
                         </div>
                         <div class="col-xs-12 col-sm-4">
                             <div class="group-material">
-<<<<<<< HEAD
                                 <input id="tema" name="tema" type="text" class="tooltips-general material-control" placeholder="Por ejemplo: Abstracto" required="" maxlength="70" data-toggle="tooltip" data-placement="top" onKeyUp="this.value = this.value.toUpperCase();"> <!--title="Escriba sus nombres completos"--> 
-=======
-                                <input id="tema" name="tema" type="text" class="tooltips-general material-control" placeholder="Por ejemplo: Abstracto" required="" title="Escrba el código" data-toggle="tooltip" data-placement="top" onKeyUp="this.value = this.value.toUpperCase();"> <!--title="Escriba sus nombres completos"--> 
->>>>>>> tramite3
                                 <span class="highlight"></span>
                                 <span class="bar"></span>
                                 <label>Código <span class="sp-requerido">*</span></label>
@@ -266,26 +219,15 @@ session_start();
                     <div class="row">
                         <div class="col-xs-12 col-sm-4">
                             <div class="group-material">
-<<<<<<< HEAD
-                                <input id="tema" name="tema" type="text" class="tooltips-general material-control" placeholder="Por ejemplo: Abstracto" required="" maxlength="70" data-toggle="tooltip" data-placement="top" onKeyUp="this.value = this.value.toUpperCase();"> <!--title="Escriba sus nombres completos"--> 
-                                <span class="highlight"></span>
-                                <span class="bar"></span>
-                                <label>Tema/Título <span class="sp-requerido">*</span></label>
-=======
                                 <input id="tema" name="tema" type="text" class="tooltips-general material-control" placeholder="Por ejemplo: Abstracto" required="" title="Escriba la temática o Título" data-toggle="tooltip" data-placement="top" onKeyUp="this.value = this.value.toUpperCase();"> <!--title="Escriba sus nombres completos"--> 
                                 <span class="highlight"></span>
                                 <span class="bar"></span>
                                 <label>Temática/Título <span class="sp-requerido">*</span></label>
->>>>>>> tramite3
                             </div>
                         </div>
                         <div class="col-xs-12 col-sm-4">
                             <div class="group-material">
-<<<<<<< HEAD
-                                <input id="autor" name="autor" type="text" class="tooltips-general material-control" placeholder="Por ejemplo: Silva Cuadrado" required="" maxlength="50" data-toggle="tooltip" data-placement="top" onKeyUp="this.value = this.value.toUpperCase();"> <!--title="Escriba sus apellidos completos"--> 
-=======
                                 <input id="autor" name="autor" type="text" class="tooltips-general material-control" placeholder="Por ejemplo: Silva Cuadrado" required="" maxlength="50" title="Escriba el autor" data-toggle="tooltip" data-placement="top" onKeyUp="this.value = this.value.toUpperCase();"> <!--title="Escriba sus apellidos completos"--> 
->>>>>>> tramite3
                                 <span class="highlight"></span>
                                 <span class="bar"></span>
                                 <label>Autor <span class="sp-requerido">*</span></label>
@@ -293,11 +235,7 @@ session_start();
                         </div>
                         <div class="col-xs-12 col-sm-4">
                             <div class="group-material">
-<<<<<<< HEAD
-                                <input id="tecnica" name="tecnica" type="text" class="tooltips-general material-control" placeholder="Por ejemplo: Oleo" required="" maxlength="50" data-toggle="tooltip" data-placement="top" onKeyUp="this.value = this.value.toUpperCase();">
-=======
                                 <input id="tecnica" name="tecnica" type="text" class="tooltips-general material-control" placeholder="Por ejemplo: Oleo" required="" maxlength="50" title="Escriba la técnica"data-toggle="tooltip" data-placement="top" onKeyUp="this.value = this.value.toUpperCase();">
->>>>>>> tramite3
                                 <span class="highlight"></span>
                                 <span class="bar"></span>
                                 <label>Técnica <span class="sp-requerido">*</span></label>
@@ -308,11 +246,7 @@ session_start();
                         <div class="col-xs-12 col-sm-4">
                             <div class="group-material">
                                 <div class="group-material">
-<<<<<<< HEAD
-                                    <input id="largo" name="largo" min="0" type="number" class="material-control tooltips-general" placeholder="Por ejemplo: 10" required="" maxlength="100" data-toggle="tooltip" data-placement="top";"> 
-=======
                                     <input id="largo" name="largo" min="0" type="number" class="material-control tooltips-general" placeholder="Por ejemplo: 10" required="" maxlength="100" title="Escriba el largo"data-toggle="tooltip" data-placement="top";"> 
->>>>>>> tramite3
                                     <span class="highlight"></span>
                                     <span class="bar"></span>
                                     <label>Largo (cm)<span class="sp-requerido">*</span></label>
@@ -321,11 +255,7 @@ session_start();
                         </div>
                         <div class="col-xs-12 col-sm-4">
                             <div class="group-material">
-<<<<<<< HEAD
-                                <input id="ancho" name="ancho" min="0" type="number" class="material-control tooltips-general" placeholder="Por ejemplo: 10" required="" maxlength="100" data-toggle="tooltip" data-placement="top";"> 
-=======
                                 <input id="ancho" name="ancho" min="0" type="number" class="material-control tooltips-general" placeholder="Por ejemplo: 10" required="" maxlength="100" title="Escriba el ancho" data-toggle="tooltip" data-placement="top";"> 
->>>>>>> tramite3
                                 <span class="highlight"></span>
                                 <span class="bar"></span>
                                 <label>Ancho (cm)<span class="sp-requerido">*</span></label>
@@ -333,11 +263,7 @@ session_start();
                         </div>
                         <div class="col-xs-12 col-sm-4">
                             <div class="group-material">
-<<<<<<< HEAD
-                                <input id="profundidad" min="0" name="profundidad" type="number" class="material-control tooltips-general" placeholder="Por ejemplo: 10" required="" maxlength="100" data-toggle="tooltip" data-placement="top";"> 
-=======
                                 <input id="profundidad" min="0" name="profundidad" type="number" class="material-control tooltips-general" placeholder="Por ejemplo: 10" required="" maxlength="100" title="Escriba la profundidad" data-toggle="tooltip" data-placement="top";"> 
->>>>>>> tramite3
                                 <span class="highlight"></span>
                                 <span class="bar"></span>
                                 <label>Profundidad (cm)<span class="sp-requerido">*</span></label>
@@ -356,15 +282,15 @@ session_start();
                         <table class="table table-striped" id="lista">
                             <tr>
                                 <td style="width: 5%"><b>Cantidad</b></td>
-<<<<<<< HEAD
+
                                 <td><b>Tipo de bien cultural</b></td> 
                                 <td><b>Tema</b></td>
-=======
+
                                 <td><b>Tipo de <br>bien cultural</b></td> 
                                 <td><b>Tipo de <br> Movimiento</b></td>
                                 <td><b>Código</b></td>
                                 <td><b>Temática/Título</b></td>
->>>>>>> tramite3
+
                                 <td><b>Autor</b></td>
                                 <td><b>Técnica</b></td>
                                 <td style="width: 5%"><b>Dimensiones</b></td>
@@ -376,12 +302,7 @@ session_start();
             </div>
             <div class="row">
                 <div class = "col-xs-12">
-<<<<<<< HEAD
-                    <legend><i class = "zmdi zmdi-calendar-alt"></i> &nbsp;
-                        Lugar, Fecha y Hora de Atención</legend>
-=======
                     <legend><i class = "zmdi zmdi-calendar-alt"></i> &nbsp; <b>Lugar, Fecha y Hora de Inspección</b></legend>
->>>>>>> tramite3
                 </div>
                 <div class = "col-xs-12 col-sm-12 col-md-12">
                     <div class = "group-material">

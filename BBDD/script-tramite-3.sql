@@ -1,5 +1,19 @@
 use tramites_bv;
 
+CREATE TABLE `ct_tipo_identificacion` (
+   `ti_id` int(10) NOT NULL AUTO_INCREMENT,
+   `ti_nombre` varchar(50) COLLATE utf8_spanish_ci NOT NULL,
+   `ti_estado` 	ENUM ('ACT', 'INA') NOT NULL DEFAULT 'ACT',
+  PRIMARY KEY (`ti_id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+
+
+INSERT INTO `ct_tipo_identificacion` (`ti_nombre`, `ti_estado`) VALUES
+(1, 'CI'),
+(2, 'RUC'),
+(3, 'PASAPORTE');
+
+
 CREATE TABLE `rg_tipoidentificacion` (
   `_CODIGO` int(2) NOT NULL AUTO_INCREMENT,
   `TID_NOMBRE` varchar(20) DEFAULT NULL,

@@ -139,10 +139,6 @@ INSERT INTO `_ct_tramite4_modo_envio` (`me_id`, `me_nombre`) VALUES
 (2, 'POSTAL'),
 (3, 'MARITIMO');
 
-
-
-
-
 CREATE TABLE `ct_nacionalidad` (
   `nac_codigo` int(10) NOT NULL AUTO_INCREMENT,
   `nac_nombre` varchar(50) COLLATE utf8_spanish_ci NOT NULL,
@@ -747,3 +743,6 @@ NOW(),
 
 alter table tramites_bv.ct_usuarios
   add usu_asignado_tramite int(11) NULL;
+
+alter table tramites_bv.ct_usuarios
+  add usu_razon_social varchar(250) COLLATE utf8_spanish_ci DEFAULT NULL;

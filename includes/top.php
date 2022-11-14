@@ -23,7 +23,7 @@
         <li class="tooltips-general info-user-button" data-placement="bottom" title="Información del usuario">
             <a href="#" data-toggle="modal" data-target= "#infoCuenta">
             <i class="zmdi zmdi-account-o"></i>
-            <span class="all-tittles infotop"><?php echo $_SESSION["nombre"];?> <i>(<?php echo $_SESSION["perfil"]; ?>)</i></span></a>
+            <span class="all-tittles infotop"><?php if($_SESSION["tipo_identificacion"]=="RUC"){echo $_SESSION["razon_social"];} else {echo $_SESSION["nombre"];}?> <i>(<?php echo $_SESSION["perfil"]; ?>)</i></span></a>
         </li>
         <!--<li  class="tooltips-general search-book-button" data-href="searchbook.html" data-placement="bottom" title="Buscar libro">
             <i class="zmdi zmdi-search"></i>

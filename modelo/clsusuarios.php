@@ -22,6 +22,7 @@ Class clsusuarios {
     private $usu_estado;
     private $gen_codigo;
     private $usu_certificado;
+    private $usu_razon_social;
 
     //////////////////////////////   funciones  creo mis constructores//////////////////////
 
@@ -168,14 +169,22 @@ Class clsusuarios {
     function setUsu_certificado($usu_certificado) {
         $this->usu_certificado = $usu_certificado;
     }
+    
+    public function getUsu_razon_social() {
+        return $this->usu_razon_social;
+    }
 
-    ////////   insertar valores    //////////////////
+    public function setUsu_razon_social($usu_razon_social): void {
+        $this->usu_razon_social = $usu_razon_social;
+    }
+
+        ////////   insertar valores    //////////////////
     public function usu_insertar() {
         // abro conexión a bases de datos
         $bd = Db::getInstance();
         //$this->carga_usu_id($bd->lastID()); // sacar el siguiente registro de la tabla y lo cargo en id
-        $bd->carga_valores("'" . $this->usu_usuario . "','" . $this->rol_id . "','" . $this->usu_tidentificacion . "','" . $this->usu_identificador . "','" . $this->usu_nombre . "','" . $this->usu_apellido . "','" . $this->pro_id . "','" . $this->can_id . "','" . $this->par_id . "','" . $this->usu_telefono . "','" . $this->usu_direccion . "','" . $this->reg_id . "','" . $this->usu_correo . "','" . $this->usu_contrasena . "','" . $this->usu_fechcreacion . "','" . $this->usu_estado . "',0"); // valores a insertae
-        $bd->carga_campos("usu_usuario,rol_id,usu_tidentificador,usu_identificador,usu_nombre,usu_apellido,pro_id,can_id,par_id,usu_telefono,usu_direccion,reg_id,usu_correo,usu_contrasena,usu_fechcreacion,usu_estado,usu_certificado"); // campos a ser insertados
+        $bd->carga_valores("'" . $this->usu_usuario . "','" . $this->rol_id . "','" . $this->usu_tidentificacion . "','" . $this->usu_identificador . "','" . $this->usu_nombre . "','" . $this->usu_apellido . "','" . $this->pro_id . "','" . $this->can_id . "','" . $this->par_id . "','" . $this->usu_telefono . "','" . $this->usu_direccion . "','" . $this->reg_id . "','" . $this->usu_correo . "','" . $this->usu_contrasena . "','" . $this->usu_fechcreacion . "','" . $this->usu_estado . "',0 ,'" . $this->usu_razon_social . "'"); // valores a insertae
+        $bd->carga_campos("usu_usuario,rol_id,usu_tidentificador,usu_identificador,usu_nombre,usu_apellido,pro_id,can_id,par_id,usu_telefono,usu_direccion,reg_id,usu_correo,usu_contrasena,usu_fechcreacion,usu_estado,usu_certificado, usu_razon_social"); // campos a ser insertados
         if ($bd->insertar("ct_usuarios")) {// insertar
             return 1;  // exito
             //echo "carga exitosa"; 
@@ -250,7 +259,7 @@ Class clsusuarios {
     public function usu_ingreso() {
         // abro conexión a bases de datos
         $bd = Db::getInstance();
-        $sql = "select usu_id, usu_nombre, usu_apellido, usu_identificador, usu_certificado, reg_id, ct_roles.* FROM ct_usuarios INNER JOIN ct_roles ON ct_usuarios.rol_id=ct_roles.rol_id WHERE usu_estado='ACTIVO' and usu_usuario = '" . $this->usu_usuario . "'"; //and usu_contrasena = '".$this->usu_contrasena."'
+        $sql = "select usu_id, usu_nombre, usu_apellido, usu_identificador, usu_certificado, usu_tidentificador, usu_razon_social, reg_id, ct_roles.* FROM ct_usuarios INNER JOIN ct_roles ON ct_usuarios.rol_id=ct_roles.rol_id WHERE usu_estado='ACTIVO' and usu_usuario = '" . $this->usu_usuario . "'"; //and usu_contrasena = '".$this->usu_contrasena."'
         //echo $sql;
         //exit();
         $rsprv = $bd->ejecutar($sql);
