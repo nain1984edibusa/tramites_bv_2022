@@ -34,7 +34,7 @@ $rsTipoIdentificacion = $con->query($sql);
                         <div class="col-xs-12 col-sm-6">
                             <div class="group-material">
                                 <span>Tipo de identificación <span class="sp-requerido">*</span></span>
-                                <select name="tipo_identificacion" id="tipo_identificacion" class="tooltips-general material-control" required="" data-toggle="tooltip" data-placement="top" title="Elija el bien cultural" onchange="javascript:seleccionarTipoIdentificacion();">
+                                <select name="tipo_identificacion" id="tipo_identificacion" class="tooltips-general material-control" required="" data-toggle="tooltip" data-placement="top" title="Elija el tipo de identificación" onchange="javascript:seleccionarTipoIdentificacion();">
                                     <option value="" disabled="" selected="">Selecciona el tipo identificación</option>
                                     <?php
                                     while ($row = mysqli_fetch_array($rsTipoIdentificacion)) {
