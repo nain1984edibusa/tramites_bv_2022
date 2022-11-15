@@ -283,11 +283,13 @@ Class clsusuarios {
     public function get_usuario_by_zonal_perfil($regional, $perfil, $tramite) {
         // abro conexión a bases de datos
         $bd = Db::getInstance();
-        $sql = "select usu_id, usu_nombre, usu_apellido, usu_direccion "
-                . "FROM ct_usuarios WHERE reg_id='" . $regional . "' "
-                . "and rol_id='" . $perfil . "' "
-                . "and usu_asignado_tramite='" . $tramite . "' "
-                . "and usu_estado='ACTIVO' ";
+        $sql = "select u.usu_id, u.usu_nombre, u.usu_apellido, u.usu_direccion, tt.tra_id "
+                . " FROM ct_usuarios u "
+                . " inner join ct_tramite_tecnico_asignado tt on u.usu_id = tt.usu_id "
+                . " WHERE reg_id = '" . $regional . "' "
+                . " and rol_id = '" . $perfil . "' "
+                . " and tt.tra_id = '" . $tramite . "' "
+                . " and usu_estado='ACTIVO' ";
         //echo $sql;
         //exit();
         $rsprv = $bd->ejecutar($sql);
