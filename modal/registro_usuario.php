@@ -3,12 +3,22 @@
  * INSTITUTO NACIONAL DE PATRIMONIO CULTURAL
  * Portal de Trámites 2020
  */
+
+
+$host = "localhost";
+$user = "tramitesp";
+$password = "Patrimoni02019";
+$db = "tramites_bv";
+$con = new mysqli($host, $user, $password, $db);
+
+$sql = " SELECT * FROM ct_tipo_identificacion ";
+$rsTipoIdentificacion = $con->query($sql);
 ?>
 
 <div class="modal fade" tabindex="-1" role="dialog" id="ModalRegistroUsuario">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
-            <form action="controller/registrar_usuario.php" autocomplete="off" method="POST">
+            <form action="controller/registrar_usuario.php" autocomplete="off" method="POST" enctype="multipart/form-data">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     <h4 class="modal-title text-center all-tittles">Registro de Usuarios</h4>
@@ -24,11 +34,15 @@
                         <div class="col-xs-12 col-sm-6">
                             <div class="group-material">
                                 <span>Tipo de identificación <span class="sp-requerido">*</span></span>
-                                <select id="tipo_identificacion" name="tipo_identificacion" class="tooltips-general material-control" data-toggle="tooltip" data-placement="top" <!--title="Elija su tipo de indentificación"-->>
-                                    <option value="" disabled="" selected="">Selecciona una opción</option>
-                                    <option value="CI">CI</option>
-                                    <option value="RUC">RUC</option>
-                                    <option value="PASAPORTE">Pasaporte</option>
+                                <select name="tipo_identificacion" id="tipo_identificacion" class="tooltips-general material-control" required="" data-toggle="tooltip" data-placement="top" title="Elija el tipo de identificación" onchange="javascript:seleccionarTipoIdentificacion();">
+                                    <option value="" disabled="" selected="">Selecciona el tipo identificación</option>
+                                    <?php
+                                    while ($row = mysqli_fetch_array($rsTipoIdentificacion)) {
+                                        ?>
+                                        <option value="<?php echo $row["ti_id"]; ?>"><?php echo $row["ti_nombre"]; ?></option>
+                                        <?php
+                                    }
+                                    ?>
                                 </select>
                             </div>
                         </div>
@@ -41,41 +55,51 @@
                             </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-xs-12 col-sm-6">
+                    <div id="divRuc" class="row" style="display:none">
+                        <div class="col-xs-12 col-sm-12">
                             <div class="group-material">
-                                <input id="nombres" name="nombres" type="text" class="tooltips-general material-control" placeholder="Por ejemplo: Carlos Manuel" required="" maxlength="70" data-toggle="tooltip" data-placement="top" onKeyUp="this.value = this.value.toUpperCase();"> <!--title="Escriba sus nombres completos"--> 
+                                <input id="razon_social" name="razon_social" type="text" class="tooltips-general material-control" placeholder="Por ejemplo: Fundación Museos de la Ciudad"  maxlength="70" data-toggle="tooltip" data-placement="top" onKeyUp="this.value = this.value.toUpperCase();"> <!--title="Escriba sus nombres completos"--> 
                                 <span class="highlight"></span>
                                 <span class="bar"></span>
-                                <label>Nombres Prueba <span class="sp-requerido">*</span></label>
+                                <label>Razon Social</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="divCi" class="row" style="display:none" >
+                        <div class="col-xs-12 col-sm-6">
+                            <div class="group-material">
+                                <input id="nombres" name="nombres" type="text" class="tooltips-general material-control" placeholder="Por ejemplo: Carlos Manuel"  maxlength="70" data-toggle="tooltip" data-placement="top" onKeyUp="this.value = this.value.toUpperCase();"> <!--title="Escriba sus nombres completos"--> 
+                                <span class="highlight"></span>
+                                <span class="bar"></span>
+                                <label>Nombres</label>
                             </div>
                         </div>
                         <div class="col-xs-12 col-sm-6">
                             <div class="group-material">
-                                <input id="apellidos" name="apellidos" type="text" class="tooltips-general material-control" placeholder="Por ejemplo: Silva Cuadrado" required="" maxlength="50" data-toggle="tooltip" data-placement="top" onKeyUp="this.value = this.value.toUpperCase();"> <!--title="Escriba sus apellidos completos"--> 
+                                <input id="apellidos" name="apellidos" type="text" class="tooltips-general material-control" placeholder="Por ejemplo: Silva Cuadrado"  maxlength="50" data-toggle="tooltip" data-placement="top" onKeyUp="this.value = this.value.toUpperCase();"> <!--title="Escriba sus apellidos completos"--> 
                                 <span class="highlight"></span>
                                 <span class="bar"></span>
-                                <label>Apellidos <span class="sp-requerido">*</span></label>
+                                <label>Apellidos </label>
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-xs-12 col-sm-6">
                             <div class="group-material">
-                                <input id="provincia" name="provincia" type="text" class="tooltips-general material-control" placeholder="Por ejemplo: Cotopaxi" required="" maxlength="50" data-toggle="tooltip" data-placement="top" title="Escriba/seleccione su provincia de residencia" onKeyUp="this.value = this.value.toUpperCase();">
+                                <input id="provincia" name="provincia" type="text" class="tooltips-general material-control" placeholder="Por ejemplo: Cotopaxi"  maxlength="50" data-toggle="tooltip" data-placement="top" title="Escriba/seleccione su provincia de residencia" onKeyUp="this.value = this.value.toUpperCase();">
                                 <span class="highlight"></span>
                                 <span class="bar"></span>
-                                <label>Provincia <span class="sp-requerido">*</span></label>
+                                <label>Provincia </label>
                                 <input type="hidden" name="id_provincia" id="id_provincia"/>
                                 <input type="hidden" name="id_regional" id="id_regional" value="<?php echo $_SESSION["regional"]; ?>"/>
                             </div>
                         </div>
                         <div class="col-xs-12 col-sm-6">
                             <div class="group-material">
-                                <input id="canton" name="canton" type="text" class="tooltips-general material-control" placeholder="Por ejemplo: Latacunga" required="" maxlength="50" data-toggle="tooltip" data-placement="top" title="Escriba/seleccione su cantón de residencia" onKeyUp="this.value = this.value.toUpperCase();">
+                                <input id="canton" name="canton" type="text" class="tooltips-general material-control" placeholder="Por ejemplo: Latacunga"  maxlength="50" data-toggle="tooltip" data-placement="top" title="Escriba/seleccione su cantón de residencia" onKeyUp="this.value = this.value.toUpperCase();">
                                 <span class="highlight"></span>
                                 <span class="bar"></span>
-                                <label>Cantón <span class="sp-requerido">*</span></label>
+                                <label>Cantón </label>
                                 <input type="hidden" name="id_canton" id="id_canton"/>
                             </div>
                         </div>
@@ -83,10 +107,10 @@
                     <div class="row">
                         <div class="col-xs-12 col-sm-6">
                             <div class="group-material">
-                                <input id="parroquia" name="parroquia" type="text" class="tooltips-general material-control" placeholder="Por ejemplo: Juan Montalvo" required="" maxlength="50" data-toggle="tooltip" data-placement="top" title="Escriba/seleccione su parroquia de residencia" onKeyUp="this.value = this.value.toUpperCase();">
+                                <input id="parroquia" name="parroquia" type="text" class="tooltips-general material-control" placeholder="Por ejemplo: Juan Montalvo"  maxlength="50" data-toggle="tooltip" data-placement="top" title="Escriba/seleccione su parroquia de residencia" onKeyUp="this.value = this.value.toUpperCase();">
                                 <span class="highlight"></span>
                                 <span class="bar"></span>
-                                <label>Parroquia <span class="sp-requerido">*</span></label>
+                                <label>Parroquia </label>
                                 <input type="hidden" name="id_parroquia" id="id_parroquia"/>
                             </div>
                         </div>
@@ -176,4 +200,19 @@
         </div>
     </div>
 </div>
-
+<script type="text/javascript">
+    
+    function seleccionarTipoIdentificacion() {
+        debugger;
+        divCi = document.getElementById("divCi");
+        divRuc = document.getElementById("divRuc");
+        check = document.getElementById("tipo_identificacion");
+        if (check.value == 2) {
+            divRuc.style.display = 'block';
+            divCi.style.display = 'none';
+        } else {
+            divRuc.style.display = 'none';
+            divCi.style.display = 'block';
+        }
+    }
+</script>

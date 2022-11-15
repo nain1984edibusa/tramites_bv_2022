@@ -11,7 +11,6 @@ require_once '../config/variables.php';
 require_once '../modelo/Db.class.php';
 require_once '../modelo/Config.class.php';
 require_once '../modelo/clsusuarios.php';
-require_once '../modelo/clstramite_tecnico_asignado.php';
 require_once '../includes/functions.php';
 require_once "../modelo/util.php";
 //DETERMINAR EL PERFIL QUE RECIBE, EN BASE AL QUE REASIGNA

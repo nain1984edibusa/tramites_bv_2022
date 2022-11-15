@@ -1,6 +1,6 @@
 <?php
 
-Class clstramite_tecnico_asignado {
+Class clstramitetecnicoasignado {
 
     //defino los campos de la tabla usuarios
     private $tt_id;
