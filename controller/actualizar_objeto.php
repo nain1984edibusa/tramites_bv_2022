@@ -9,18 +9,18 @@ include_once '../modelo/clstramite4contenedor.php';
 <?php
 
 $id_condicion = $_POST["id_condicion"];
+$contenedor = new clstramite4contenedor();
+$contenedor->setTu_id($_POST["tu_id"]);
+$contenedor->setObj_id($_POST["obj_id"]);
+$contenedor = $contenedor->con_seleccionar_por_objeto();
+$contenedor = mysqli_fetch_array($contenedor);
+
+$con_id = $contenedor["con_id"];
+$tu_id = $contenedor["tu_id"];
+$obj_id = $contenedor["obj_id"];
 
 if (!empty($_POST)) {
     if ($id_condicion == "2") {
-        $contenedor = new clstramite4contenedor();
-        $contenedor->setTu_id($_POST["tu_id"]);
-        $contenedor->setObj_id($_POST["obj_id"]);
-        $contenedor = $contenedor->con_seleccionar_por_objeto();
-        $contenedor = mysqli_fetch_array($contenedor);
-
-        $con_id = $contenedor["con_id"];
-        $tu_id = $contenedor["tu_id"];
-        $obj_id = $contenedor["obj_id"];
 
 //        $registros = mysqli_num_rows($contenedor);
         if ($con_id > 0) {
@@ -46,8 +46,18 @@ if (!empty($_POST)) {
         $clstramite4objeto->setEob_id($_POST["id_condicion"]);
         $clstramite4objeto->setCon_id($con_id);
     } else {
-        $clstramite4objeto->setEob_id($_POST["eob_id"]);
-        $clstramite4objeto->setCon_id($_POST["con_id"]);
+        $clstramite4objeto->setEob_id($id_condicion);
+        $clstramite4objeto->setCon_id(6); //ninguno
+
+        $clstramite4contenedor = new clstramite4contenedor();
+        $clstramite4contenedor->setCon_id($con_id);
+        $clstramite4contenedor->setTu_id($tu_id);
+        $clstramite4contenedor->setObj_id($obj_id);
+        $clstramite4contenedor->setTc_id(6);
+        $clstramite4contenedor->setCon_numero(0);
+        $clstramite4contenedor->setCon_seguridad(0);
+
+        $clstramite4contenedor->con_actualizar();
     }
 
     $clstramite4objeto->setObj_cantidad($_POST["cantidad"]);

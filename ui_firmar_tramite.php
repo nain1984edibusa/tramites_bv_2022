@@ -73,14 +73,14 @@ if ((isset($_GET["idtu"]) && (!empty($_GET["idtu"])))) { //SI SE RECIBE EL ID DE
                     $reasignado_a = $_GET["rea"];
                 }
                 ?>
-                <form id="form_completarproceso" action="<?php echo $controlador; ?>" method="post">
+<!--                <form id="form_completarproceso" action="<?php echo $controlador; ?>" method="post">
                     <input type="hidden" name="id_tu_r" id="id_tu_r" value="<?php echo $_GET["idtu"] ?>"/>
                     <input type="hidden" name="id_tra" id="id_tra" value="<?php echo $tra_id; ?>"/>
                     <input type="hidden" name="cod_tra" id="cod_tra" value="<?php echo $tra_codigo; ?>"/>
                     <input type="hidden" name="reasignado_a" id="reasignado_a" value="<?php echo $reasignado_a ?>"/>
                     <input type="hidden" name="observaciones_r" id="observaciones_r" value="<?php echo $_GET["obs"] ?>"/>
                     <input type="hidden" name="firma" id="firma" value="0"/>
-                    <button type="submit" class="btn btn-success bnt_reasignar_firmar btnanchocompleto"><i class="zmdi zmdi-swap"></i> &nbsp;Completar Proceso</a>
+                    <button type="submit" class="btn btn-success bnt_reasignar_firmar btnanchocompleto"><i class="zmdi zmdi-swap"></i> &nbsp;Completar Proceso</a>-->
 
                 </form>
             </div>
@@ -88,14 +88,14 @@ if ((isset($_GET["idtu"]) && (!empty($_GET["idtu"])))) { //SI SE RECIBE EL ID DE
     </div>
     <?php
     $documento_visualizar = $ruta_archivo;
-    include_once("_visualizar_tramite.php");
+    include_once("_visualizar_reporte.php");
     ?>
     <?php
     include_once("./includes/footer.php");
     include_once('./modal/auditoria.php');
     ?>
     <script type="text/javascript" src="js/funciones_generales.js"></script>
-    <script type="text/javascript" src="js/VentanaCentrada.js"></script>
+    <!--<script type="text/javascript" src="js/VentanaCentrada.js"></script>-->
     <script type="text/javascript" src="js/_ui_firmar_tramite.js"></script>
     <?php
 } else { //SI NO RECIBE EL ID DEL TRÁMITE, REDIRIGE AL CATÁLOGO DE TRÁMITES

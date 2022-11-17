@@ -122,7 +122,7 @@ if ((isset($_GET["idtu"]) && (!empty($_GET["idtu"])))) { //SI SE RECIBE EL ID DE
                 case 0:
                     ?>
                     <div class="col-xs-3">
-                        <a href="#" class="btn btn-secondary "><i class="zmdi zmdi-border-color btn-desactivado" title="Acción no permitida"></i> Firmar y Contestar </a>
+                        <a href="#" class="btn btn-secondary "><i class="zmdi zmdi-border-color btn-desactivado" title="Acción no permitida"></i> Firmar y Contestar ultimo </a>
                     </div>
                     <?php
                     break;
@@ -146,7 +146,7 @@ if ((isset($_GET["idtu"]) && (!empty($_GET["idtu"])))) { //SI SE RECIBE EL ID DE
                             ?>
                             <?php if ($tra_id == 4) { ?>
                                 <div class="col-xs-3">
-                                    <a href="#" data-toggle="modal" data-target="#ReasignarTramite" class='btn btn-secondary btnanchocompleto' onclick="reasignar_tramite('<?php echo $_SESSION["codperfil"] ?>', '<?php echo $_GET["idtu"] ?>', '<?php echo $tra_codigo; ?>', '<?php echo $ttramite["reg_id"] ?>', '<?php echo $ttramite["tra_respuesta"] ?>', '<?php echo $tra_id; ?>', '2');"><i class="zmdi zmdi-border-color"></i> Firmar y Contestar </a>
+                                    <!--<a href="#" data-toggle="modal" data-target="#ReasignarTramite" class='btn btn-secondary btnanchocompleto'  onclick="reasignar_tramite('<?php echo $_SESSION["codperfil"] ?>', '<?php echo $_GET["idtu"] ?>', '<?php echo $tra_codigo; ?>', '<?php echo $ttramite["reg_id"] ?>', '<?php echo $ttramite["tra_respuesta"] ?>', '<?php echo $tra_id; ?>', '2');"><i class="zmdi zmdi-border-color btn-desactivado"></i> Firmar y Contestar cetificado </a>-->
                                 </div>
                                 <?php
                             } else

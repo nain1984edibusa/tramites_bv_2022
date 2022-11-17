@@ -23,6 +23,7 @@ $usuario = $_SESSION["codusuario"]; //código usuario
 $tramite = $_POST["id_tu_r"]; //id del trámite usuario
 $id_tramite = $_POST["id_tra"]; //id del trámite
 $cod_tramite = $_POST["cod_tra"]; //código del trámite
+$generar = $_POST["generar"]; // certificado - informe
 //INCLUIR TRAMITE ESPECÍFICO
 require_once '../modelo/clstramite' . $id_tramite . '.php';
 /* OTENER INFORMACIÓN DEL TRÁMITE ESPECÍFICO */
@@ -65,8 +66,15 @@ switch ($_SESSION["codperfil"]) {
     default: $nuevo_estado = "0";
         break;
 }
-$firma = $_REQUEST["firma"]; //código del trámite GENERAMOS EL PDF Y FIRMAMOS
-$observaciones_r = $_POST["observaciones_r"]; //observaciones de la reasignación
+
+if (($generar == "certificado") || ($generar == "informe")) {
+    $firma = 2; //código del trámite GENERAMOS EL PDF Y FIRMAMOS
+    $observaciones_r = $generar; //observaciones de la reasignación
+} else {
+    $firma = $_REQUEST["firma"]; //código del trámite GENERAMOS EL PDF Y FIRMAMOS
+    $observaciones_r = $_POST["observaciones_r"]; //observaciones de la reasignación
+}
+
 if ($firma == 2) {
     $fecha_firma = date("Y-m-d H:i:s"); //fecha de ingreso
     require_once '../modelo/clstu' . $id_tramite . 'respuestas.php';
@@ -107,7 +115,7 @@ if ($firma == 2) {
     //CREACION DE PDF 
     include_once("../ajax/prev_respuesta_pdf.php");
     include_once("../librerias/pdf/reportes/respuesta_tramite_crearpdf.php");
-    $redireccion = "ui_firmar_tramite.php";
+    $redireccion = "tramites_bv/ui_firmar_tramite.php";
     if ($resultado_crear == 1) {
         /* REGISTRAR PROCESO EN AUDITORIA */
         $clsaud = new clsauditoria();
@@ -121,8 +129,12 @@ if ($firma == 2) {
         //REDIRECCIONAR
         //exit();
         //redireccionar("../".$redireccion.".php?proc=rftra&est=1");
-        redireccionar("../" . $redireccion . "?idtu=" . $tramite . "&rea=" . $reasignado_a . "&obs=" . $observaciones_r);
-        //redireccionar("../".$redireccion."?idtu=".$tramite."&ruta=".$ruta_archivo."&rea=".$reasignado_a."&obs=".$observaciones_r);
+//       redireccionar("../" . $redireccion . "?idtu=" . $tramite . "&rea=" . $reasignado_a . "&obs=" . $observaciones_r);
+
+        $documento_visualizar = $ruta_archivo;
+        include_once("../_visualizar_reporte.php");
+
+//redireccionar("../".$redireccion."?idtu=".$tramite."&ruta=".$ruta_archivo."&rea=".$reasignado_a."&obs=".$observaciones_r);
     } else {
         redireccionar("../" . $redireccion . ".php?proc=rftra&est=0");
     }
@@ -202,6 +214,7 @@ if ($firma == 2) {
             $tipot = $ttipot->tra_seleccionar_byid();
             $tipot = mysqli_fetch_array($tipot);
             $tipo_mensaje = "reasignacion_tra";
+
             $clsusuario = new clsusuarios();
             $clsusuario->setUsu_id($reasignado_a);
             $ddestinatario = $clsusuario->usu_email_byid();

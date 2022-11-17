@@ -22,6 +22,9 @@ if ((isset($_REQUEST["idtu"]) && (!empty($_REQUEST["idtu"]))) || (isset($tramite
     $ttramite = mysqli_fetch_array($ttramite);
     $tra_id = $ttramite["tra_id"];
     $tra_codigo = $ttramite["tu_codigo"];
+    
+    $generar = $_POST["generar"]; // certificado - informe
+    
     include_once("../modelo/clstramite" . $tra_id . ".php");
     include_once("../modelo/clstramiterespuestas.php");
     switch ($tra_id) {
@@ -64,7 +67,7 @@ if ((isset($_REQUEST["idtu"]) && (!empty($_REQUEST["idtu"]))) || (isset($tramite
     $respuestas->setTu_id($tu_id);
     $trespuestas = $respuestas->obtener_tramiterespuestas();
     $respuesta = mysqli_fetch_array($trespuestas);
-    
+
     $fecha_sistema = date("Y-m-d H:i:s");
 
 //OBTENER ANEXOS
@@ -114,12 +117,18 @@ if ((isset($_REQUEST["idtu"]) && (!empty($_REQUEST["idtu"]))) || (isset($tramite
                     $objeto = $row;
                     $sePresumePatrimoniales[] = $objeto;
                 }
+            }
 
+            $countNoPatrimoniales = count($noPatrimoniales);
+            $countSePresumePatrimoniales = count($sePresumePatrimoniales);
+
+            if ($generar == "certificado") {
+                include('prev_respuesta_pdf/_pr_' . $tra_id . '.php');
+            }else if ($generar == "informe") {
+                include('prev_respuesta_pdf/_pr_4_presume_patrimoniales.php');
             }
             break;
     }
-    include('prev_respuesta_pdf/_pr_' . $tra_id . '.php');
-//    include('prev_respuesta_pdf/_pr_4_presume_patrimoniales.php');
 
     $contenido_respuesta .= "<br/><p><small><br/>";
     //    while ($anexo = mysqli_fetch_array($anexos)) {

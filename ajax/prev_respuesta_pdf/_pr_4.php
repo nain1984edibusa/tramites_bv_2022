@@ -1,9 +1,5 @@
 <?php
 
-//$date = echo date("Y-m-d");
-//$fecha_sistema = ($date . toISOString() . split('T')[0]);
-//$hora_sistema = $date . getHours() + ':' + $date . getMinutes();
-
 $contenido_respuesta = "<h4>" . mb_strtoupper($ttramite["tra_resultado"]) . "</h4>"; //TIPO DE DOCUMENTO
 //$contenido_respuesta .=  "<h2>" . $tespecifico["reg_ciudad"] . "</h2>" ;
 
