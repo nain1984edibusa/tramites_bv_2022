@@ -62,12 +62,12 @@ $bandera_convanxres = "";
 </tr>
 
 <tr class="tr_validacion <?php echo "tr_" . strtolower($tespecifico["te_cumple"]); ?>">
-    <th class="text-right"><i class="zmdi zmdi-check"></i> Validación</th>
+    <th class="text-right"><i class="zmdi zmdi-check"></i> Disponibilidad técnico</th>
     <td><?php echo $tespecifico["te_cumple"]; ?></td>
     <td colspan="3"><?php echo ($tespecifico["te_observaciones"] == "") ? "<span>Sin observaciones</span>" : "<span class='sp-requerido'>" . $tespecifico["te_observaciones"] . "</span>"; ?></td>
     <td>
         <?php if ((($_SESSION["codperfil"] == ASIGNADOR) || ($_SESSION["codperfil"] == EJECUTOR)) && ($ttramite["et_id"] != CONVALIDACIÓN_REQUISITOS1) && ($ttramite["et_id"] != CONVALIDACIÓN_REQUISITOS2) && ($ttramite["tu_band_respuesta"] == 0)): ?>
-            <button href="#" class='btn btn-default'  title='Validar Requisito' data-toggle="modal" data-target="#ValidarRequisito" onclick="cargar_datos_vrte('<?php echo $tra_id ?>', '<?php echo $_GET["idtu"]; ?>', '<?php echo $tespecifico["tu_codigo"]; ?>')"><i class="zmdi zmdi-check-all"></i> Validar Formulario</button>
+            <button href="#" class='btn btn-default'  title='Validar Requisito' data-toggle="modal" data-target="#ValidarRequisito" onclick="cargar_datos_vrte('<?php echo $tra_id ?>', '<?php echo $_GET["idtu"]; ?>', '<?php echo $tespecifico["tu_codigo"]; ?>')"><i class="zmdi zmdi-check-all"></i> Disponibilidad de Técnicos</button>
         <?php endif; ?>
     </td>
 </tr>

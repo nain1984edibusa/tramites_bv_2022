@@ -9,7 +9,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title text-center all-tittles">Validar Requisito</h4>
+                <h4 class="modal-title text-center all-tittles">Disponibilidad Técnico</h4>
             </div>
             <form action="controller/validar_requisito.php" method="post">
                 <div class="modal-body">
@@ -20,10 +20,10 @@
                             <input type="hidden" name="etur_id" id="etur_id" value=""/>
                             <input type="hidden" name="etra_id" id="etra_id" value=""/>
                             <input type="hidden" name="etu_convalidar" id="etu_convalidar" value=""/>
-                            <span>Estado del requisito <span class="sp-requerido">*</span></span>
+                            <span>Tecnico disponible <span class="sp-requerido">*</span></span>
                             <select name="cumple" id="cumple" class="tooltips-general material-control" data-toggle="tooltip" data-placement="top" title="Elija una opción" required="">
-                                <option value="" selected="">Selecciona una opción</option>
-                                <option value="CORRECTO">Correcto</option>
+                                <option value="" selected=""></option>
+                                <option value="CORRECTO">SI</option>
 <!--                                <option value="INCORRECTO">Incorrecto</option>-->
                             </select>
                         </div>
@@ -41,7 +41,7 @@
                             <button type="submit" class="btn btn-secondary" data-dismiss="modal"><i class="zmdi zmdi-close"></i> &nbsp; Cancelar</button>
                         </div>
                         <div class="col-xs-6 text-center">
-                            <button type="submit" class="btn btn-success"><i class="zmdi zmdi-check-all"></i> &nbsp; Registrar Validación</button>
+                            <button type="submit" class="btn btn-success"><i class="zmdi zmdi-check-all"></i> &nbsp; Validar Técnico</button>
                         </div>
                     </div>
                 </div>
