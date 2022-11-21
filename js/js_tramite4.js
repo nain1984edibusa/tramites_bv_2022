@@ -334,12 +334,13 @@ function cambiarModoEnvio() {
 }
 
 function validarFechaEnvio() {
-//    alert('Validar');
     let date = new Date();
     var fecha_sistema = (date.toISOString().split('T')[0]);
 
     var fecha_envio = document.querySelector('#fecha_envio').value;
     if (fecha_envio != "") {
+
+
         if (fecha_envio < fecha_sistema) {
             toastr.error('Fecha seleccionada incorrecta');
             $("#fecha_envio").val('');
@@ -350,13 +351,22 @@ function validarFechaEnvio() {
 
 function validarFechaAtención() {
 //    alert('Validar');
+    debugger
     let date = new Date();
     var fecha_sistema = (date.toISOString().split('T')[0]);
     var fecha_envio = document.querySelector('#fecha_envio').value;
     var fecha_atencion = document.querySelector('#fecha_atencion').value;
-
+    var numeroDia = new Date(fecha_atencion).getDay();
+    
     if (fecha_envio != "") {
         if (fecha_atencion != "") {
+            if (numeroDia == 5 || numeroDia == 6)// indica que es fin de semana
+            {
+                toastr.error("Fecha seleccionada incorrecta");
+                $("#fecha_atencion").val('');
+                $("#fecha_atencion").focus();
+                return false;
+            }
             if ((fecha_atencion < fecha_sistema) || (fecha_atencion > fecha_envio)) {
                 toastr.error('Fecha seleccionada incorrecta');
                 $("#fecha_atencion").val('');

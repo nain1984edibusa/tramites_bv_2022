@@ -99,7 +99,7 @@ $rsContenedor = mysqli_fetch_object($rsContenedor);
                             <input id="largo" name="largo" min="0" type="number" value="<?php echo $oespecifico->obj_largo; ?>"class="material-control tooltips-general" required="" maxlength="100" data-toggle="tooltip" data-placement="top";"> 
                             <span class="highlight"></span>
                             <span class="bar"></span>
-                            <label>Largo (cm)<span class="sp-requerido">*</span></label>
+                            <label>Altura (cm)<span class="sp-requerido">*</span></label>
                         </div>
                     </div>
                 </div>

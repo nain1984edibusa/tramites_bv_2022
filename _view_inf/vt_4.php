@@ -60,6 +60,7 @@ $bandera_convanxres = "";
     <th class="text-right">Fecha:</th><td colspan="3"><?php echo $tturno["tut_fecha"] ?></td>
     <th class="text-right">Hora:</th><td><?php echo $tturno["ho_hora"] ?></td>
 </tr>
+
 <tr class="tr_validacion <?php echo "tr_" . strtolower($tespecifico["te_cumple"]); ?>">
     <th class="text-right"><i class="zmdi zmdi-check"></i> Validación</th>
     <td><?php echo $tespecifico["te_cumple"]; ?></td>
@@ -70,6 +71,7 @@ $bandera_convanxres = "";
         <?php endif; ?>
     </td>
 </tr>
+
 <!--SI EL ESTADO DEL TRAMITE ES 5 NO PERMITIR QUE VE AL CIUDADANO, Y MOSTRARLE EN UN FORMATO SIN VALIDACIÓN-->
 <!--<tr class="info">
     <th colspan="6">Respuesta</th>	

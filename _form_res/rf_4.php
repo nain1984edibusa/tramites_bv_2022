@@ -7,8 +7,8 @@
     <div class="row">
         <div class="col-xs-12">
             <p class="text-center">
-                <button type="button" id="certificado"  value="certificado" class="btn btn-primary" onclick="generarCertificado();"><i class="zmdi zmdi-arrow-right"></i> &nbsp;&nbsp; Emitir Certificado</button>
-                <button type="button" id="informe"  value="informe" class="btn btn-primary" onclick="generarInforme();"> <i class="zmdi zmdi-arrow-right"></i> &nbsp;&nbsp; Emitir Informe</button>
+                <button type="button" id="certificado"   value="certificado" class="btn btn-primary" onclick="generarCertificado();"><i class="zmdi zmdi-arrow-right"></i> &nbsp;&nbsp; Emitir Certificado</button>
+                <button type="button" id="informe"   value="informe" class="btn btn-primary" onclick="generarInforme();"> <i class="zmdi zmdi-arrow-right"></i> &nbsp;&nbsp; Emitir Informe</button>
             </p>
         </div>
     </div>
@@ -38,6 +38,7 @@
                 $("#resultado").html("Procesando, espere por favor...");
             },
             success: function (response) {
+                debugger
                 $("#resultado").html(response);
             }
         });

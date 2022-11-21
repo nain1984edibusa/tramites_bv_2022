@@ -257,10 +257,10 @@ session_start();
                         <div class="col-xs-12 col-sm-4">
                             <div class="group-material">
                                 <div class="group-material">
-                                    <input id="largo" name="largo" min="0" type="number" class="material-control tooltips-general" placeholder="Por ejemplo: 10" title="Escriba el largo" required="" maxlength="100" data-toggle="tooltip" data-placement="top";"> 
+                                    <input id="largo" name="largo" min="0" type="number" class="material-control tooltips-general" placeholder="Por ejemplo: 10" title="Escriba la altura" required="" maxlength="100" data-toggle="tooltip" data-placement="top";"> 
                                     <span class="highlight"></span>
                                     <span class="bar"></span>
-                                    <label>Largo (cm)<span class="sp-requerido">*</span></label>
+                                    <label>Altura (cm)<span class="sp-requerido">*</span></label>
                                 </div>
                             </div>
                         </div>

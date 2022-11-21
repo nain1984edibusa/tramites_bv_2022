@@ -86,7 +86,7 @@ if ((isset($_GET["idtu"]) && (!empty($_GET["idtu"])))) { //SI SE RECIBE EL ID DE
                     case 0: /* REASIGNAR, NO CONVALIDAR */
                         ?>
                         <div class="col-xs-3">
-                            <a href="#" class="btn btn-secondary btnanchocompleto" data-toggle="modal" data-target="#ReasignarTramite" title='Reasignar' onclick="reasignar_tramite('<?php echo $_SESSION["codperfil"] ?>', '<?php echo $ttramite["tu_id"] ?>', '<?php echo $ttramite["tu_codigo"] ?>', '<?php echo $ttramite["reg_id"] ?>', '<?php echo $ttramite["tra_respuesta"] ?>', '<?php echo $ttramite["tra_id"] ?>');"><i class="zmdi zmdi-swap"></i> Asignar</a></li>
+                            <a href="#" class="btn btn-secondary btnanchocompleto" data-toggle="modal" data-target="#ReasignarTramite" title='Asignar' onclick="reasignar_tramite('<?php echo $_SESSION["codperfil"] ?>', '<?php echo $ttramite["tu_id"] ?>', '<?php echo $ttramite["tu_codigo"] ?>', '<?php echo $ttramite["reg_id"] ?>', '<?php echo $ttramite["tra_respuesta"] ?>', '<?php echo $ttramite["tra_id"] ?>');"><i class="zmdi zmdi-swap"></i> Asignar</a></li>
                         </div>
 <!--                        <div class="col-xs-3">
                             <a href="#" class="btn btn-primary btnanchocompleto btndesactivado"><i class="zmdi zmdi-rotate-ccw btn-desactivado" title="Acción no permitida"></i> Convalidar</li></a>
