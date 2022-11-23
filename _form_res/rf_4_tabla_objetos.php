@@ -10,17 +10,17 @@ if (isset($_POST["tramite_especifico"])) {
     $objeto = new clstramite4objeto();
     $objeto->setTu_id($tramite_especifico);
     $oespecifico = $objeto->obj_seleccionar_objeto_por_tramite();
-}
+        }
 ?>
 <script>
 
 </script>
 <div class="col-xs-12">
-        <div class="col-xs-12 col-sm-12 col-md-12 text-justify lead alert alert-success">
-            <h4><b>INFORMACIÓN</b></h4>
-            <b>Estimad@s técnicos se le recuerda que antes de emitir el certificado debe validar todos los objetos en estado PENDIENTE</b> 
-        </div>
+    <div class="col-xs-12 col-sm-12 col-md-12 text-justify lead alert alert-success">
+        <h4><b>INFORMACIÓN</b></h4>
+        <b>Estimad@s técnicos se le recuerda que antes de emitir el certificado debe validar todos los objetos en estado PENDIENTE</b> 
     </div>
+</div>
 <div class="col-xs-12">
     <legend><i class="zmdi zmdi-check-all"></i> &nbsp; <b>Certificar Solicitud </b></legend>
 </div>

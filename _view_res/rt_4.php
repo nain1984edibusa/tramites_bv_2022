@@ -41,7 +41,7 @@ $respuesta4 = $respuestae->obtener_tramiterespuestas();
 ?>
 <table class="table">
     <tr class="info">
-        <th colspan="6">Detalles del Trámite</th>	
+        <th colspan="6">Detalle del Trámite</th>	
     </tr>
     <tr class="row-light">
         <th colspan='6'><i class="zmdi zmdi-collection-item"></i> Requisitos</th>
@@ -81,15 +81,15 @@ $respuesta4 = $respuestae->obtener_tramiterespuestas();
         <th class="text-right">Fecha:</th><td colspan="3"><?php echo $tturno["tut_fecha"] ?></td>
         <th class="text-right">Hora:</th><td><?php echo $tturno["ho_hora"] ?></td>
     </tr>
-    <tr class="tr_validacion <?php echo "tr_" . strtolower($tespecifico["te_cumple"]); ?>">
+<!--    <tr class="tr_validacion <?php echo "tr_" . strtolower($tespecifico["te_cumple"]); ?>">
         <th class="text-right"><i class="zmdi zmdi-check"></i> Validación</th>
         <td><?php echo $tespecifico["te_cumple"]; ?></td>
         <td colspan="4"><?php echo ($tespecifico["te_observaciones"] == "") ? "<span>Sin observaciones</span>" : "<span class='sp-requerido'>" . $tespecifico["te_observaciones"] . "</span>"; ?></td>
-    </tr>
+    </tr>-->
     <!--SI EL ESTADO DEL TRAMITE ES 5 NO PERMITIR QUE VE AL CIUDADANO, Y MOSTRARLE EN UN FORMATO SIN VALIDACIÓN-->
     <?php if (($_SESSION["codperfil"] == CIUDADANO && $ttramite["et_id"] == CONTESTADO_DESPACHADO) || ($_SESSION["codperfil"] != CIUDADANO)) { ?>
         <tr class="info">
-            <th colspan="6">Respuesta</th>	
+            <th colspan="6">Descarga de archivos</th>	
         </tr>
         <tr>
             <td colspan="4" style="padding:0px">
@@ -116,7 +116,7 @@ $respuesta4 = $respuestae->obtener_tramiterespuestas();
                     $respuesta = mysqli_fetch_array($respuesta4);
                     ?>
                     <tr class="row-light">
-                        <th colspan='2'><i class="zmdi zmdi-collection-item"></i> Respuesta</th>
+                        <th colspan='2'><i class="zmdi zmdi-collection-item"></i> Descarga de archivos</th>
                     </tr>
                     <tr>
                         <td><a href="" onclick="VentanaCentrada('<?php echo DIRDOWNLOAD . $respuesta["tuc_rutaarchivo"] ?>', 'Requisito', '', '1024', '768', 'true');return false;"><?php echo "Respuesta"; ?></a></td>

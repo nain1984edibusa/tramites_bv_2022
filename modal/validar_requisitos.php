@@ -23,7 +23,7 @@
                             <span>Tecnico disponible <span class="sp-requerido">*</span></span>
                             <select name="cumple" id="cumple" class="tooltips-general material-control" data-toggle="tooltip" data-placement="top" title="Elija una opción" required="">
                                 <option value="" selected=""></option>
-                                <option value="CORRECTO">SI</option>
+                                <option value="SI">SI</option>
 <!--                                <option value="INCORRECTO">Incorrecto</option>-->
                             </select>
                         </div>

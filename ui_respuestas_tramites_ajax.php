@@ -145,16 +145,42 @@ if ((isset($_GET["idtu"]) && (!empty($_GET["idtu"])))) { //SI SE RECIBE EL ID DE
                         if ($ttramite["tu_band_convanxres"] == -1) {
                             ?>
                             <?php if ($tra_id == 4) { ?>
+                                <!--                                <div class="col-xs-3">
+                                                                    <a href="#" data-toggle="modal" data-target="#ReasignarTramite" class='btn btn-secondary btnanchocompleto'  onclick="reasignar_tramite('<?php echo $_SESSION["codperfil"] ?>', '<?php echo $_GET["idtu"] ?>', '<?php echo $tra_codigo; ?>', '<?php echo $ttramite["reg_id"] ?>', '<?php echo $ttramite["tra_respuesta"] ?>', '<?php echo $tra_id; ?>', '2');"><i class="zmdi zmdi-border-color btn-desactivado"></i> Firmar y Contestar cetificado </a>
+                                                                </div>-->
+
                                 <div class="col-xs-3">
-                                    <!--<a href="#" data-toggle="modal" data-target="#ReasignarTramite" class='btn btn-secondary btnanchocompleto'  onclick="reasignar_tramite('<?php echo $_SESSION["codperfil"] ?>', '<?php echo $_GET["idtu"] ?>', '<?php echo $tra_codigo; ?>', '<?php echo $ttramite["reg_id"] ?>', '<?php echo $ttramite["tra_respuesta"] ?>', '<?php echo $tra_id; ?>', '2');"><i class="zmdi zmdi-border-color btn-desactivado"></i> Firmar y Contestar cetificado </a>-->
+                                    <?php
+                                    if (isset($_GET["pro"]) && ($_GET["pro"] == "cont")) {
+                                        $controlador = "controller/contestar_tramite.php";
+                                        $reasignado_a = 0;
+                                    } else {
+//                                        $controlador = "controller/reasignar_tramite.php";
+//                                        $reasignado_a = $_GET["rea"];
+                                        $controlador = "controller/contestar_tramite.php";
+                                        $reasignado_a = 0;
+                                    }
+                                    ?>
+                                    <form id="form_completarproceso" action="<?php echo $controlador; ?>" method="post">
+                                        <input type="hidden" name="id_tu_r" id="id_tu_r" value="<?php echo $_GET["idtu"] ?>"/>
+                                        <input type="hidden" name="id_tra" id="id_tra" value="<?php echo $tra_id; ?>"/>
+                                        <input type="hidden" name="cod_tra" id="cod_tra" value="<?php echo $tra_codigo; ?>"/>
+                                        <input type="hidden" name="reasignado_a" id="reasignado_a" value="<?php echo $reasignado_a ?>"/>
+                                        <input type="hidden" name="observaciones_r" id="observaciones_r" value="<?php echo $_GET["obs"] ?>"/>
+                                        <input type="hidden" name="firma" id="firma" value="0"/>
+                                        <button type="submit" class="btn btn-success bnt_reasignar_firmar btnanchocompleto"><i class="zmdi zmdi-swap"></i> &nbsp;Completar Proceso</a>
+
+                                    </form>
                                 </div>
+
+
                                 <?php
                             } else
                                 
                                 ?>
-<!--                            <div class = "col-xs-3">
-                                <a href="#" class="btn btn-secondary btn-desactivado" ><i class="zmdi zmdi-border-color"></i> Firmar y Reasignar 1</a>
-                            </div>-->
+                            <!--                            <div class = "col-xs-3">
+                                                            <a href="#" class="btn btn-secondary btn-desactivado" ><i class="zmdi zmdi-border-color"></i> Firmar y Reasignar 1</a>
+                                                        </div>-->
                             <?php
                         }
                         ?>
@@ -176,7 +202,7 @@ if ((isset($_GET["idtu"]) && (!empty($_GET["idtu"])))) { //SI SE RECIBE EL ID DE
                 <legend><i class="zmdi zmdi-border-color"></i> &nbsp; Respuesta</legend>
             </div>
             <form class="form-padding">
-                
+
                 <div class="row">
                     <?php include_once '_form_res/rf_' . $tra_id . ".php"; ?>
                     <?php if ($tra_id == 17) { ?>

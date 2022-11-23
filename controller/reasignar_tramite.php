@@ -115,7 +115,7 @@ if ($firma == 2) {
     //CREACION DE PDF 
     include_once("../ajax/prev_respuesta_pdf.php");
     include_once("../librerias/pdf/reportes/respuesta_tramite_crearpdf.php");
-    $redireccion = "tramites_bv/ui_firmar_tramite.php";
+    $redireccion = "/ui_firmar_tramite.php";
     if ($resultado_crear == 1) {
         /* REGISTRAR PROCESO EN AUDITORIA */
         $clsaud = new clsauditoria();

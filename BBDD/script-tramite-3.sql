@@ -21,31 +21,6 @@ CREATE TABLE `ct_tramite_tecnico_asignado` (
 PRIMARY KEY (`tt_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
-
-INSERT INTO `ct_tramite_tecnico_asignado` ( `tt_id`,`usu_id`, `tra_id`) VALUES
-(1, 6, 4),
-(2, 7, 4),
-(3, 8, 4),
-(4, 9, 4),
-(5, 10, 4),
-(6, 11, 4),
-(7, 12, 4),
-(8, 13, 4),
-(9, 14, 4),
-(10, 15, 4),
-(11, 16, 4),
-(12, 17, 4),
-(13, 18, 4),
-(14, 19, 4),
-(15, 20, 4),
-(16, 21, 4),
-(17, 22, 4),
-(18, 23, 4),
-(19, 24, 4),
-(20, 25, 4),
-(21, 6, 3),
-(22, 7, 3);
-
 CREATE TABLE `_ct_tramite3_respuestas` (
   `tuc_id` bigint(20) NOT NULL AUTO_INCREMENT,
   `tuc_tipocontestacion` varchar(10) COLLATE utf8_spanish_ci NOT NULL,
