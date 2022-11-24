@@ -10,7 +10,7 @@ if (isset($_POST["tramite_especifico"])) {
     $objeto = new clstramite4objeto();
     $objeto->setTu_id($tramite_especifico);
     $oespecifico = $objeto->obj_seleccionar_objeto_por_tramite();
-        }
+}
 ?>
 <script>
 

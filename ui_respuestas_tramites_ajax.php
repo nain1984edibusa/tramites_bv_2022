@@ -168,7 +168,7 @@ if ((isset($_GET["idtu"]) && (!empty($_GET["idtu"])))) { //SI SE RECIBE EL ID DE
                                         <input type="hidden" name="reasignado_a" id="reasignado_a" value="<?php echo $reasignado_a ?>"/>
                                         <input type="hidden" name="observaciones_r" id="observaciones_r" value="<?php echo $_GET["obs"] ?>"/>
                                         <input type="hidden" name="firma" id="firma" value="0"/>
-                                        <button type="submit" class="btn btn-success bnt_reasignar_firmar btnanchocompleto"><i class="zmdi zmdi-swap"></i> &nbsp;Completar Proceso</a>
+                                        <button type="submit" id="btnCompletarProceso" class="btn btn-success bnt_reasignar_firmar btnanchocompleto"><i class="zmdi zmdi-swap"></i> &nbsp;Completar Proceso</a>
 
                                     </form>
                                 </div>
@@ -224,5 +224,13 @@ if ((isset($_GET["idtu"]) && (!empty($_GET["idtu"])))) { //SI SE RECIBE EL ID DE
 <script type="text/javascript" src="js/funciones_generales.js"></script>
 <script type="text/javascript" src="js/_ui_respuestas_tramites.js"></script>
 <script type="text/javascript" src="js/VentanaCentrada.js"></script>
+
+
+<script type="text/javascript">
+//                $('#btnCertificado').prop('disabled', true);
+//                $('#btnInforme').prop('disabled', true);
+//                $('#btnCompletarProceso').prop('disabled', true);
+</script>
+
 
 

@@ -81,6 +81,9 @@ if ($firma == 2) {
     //require_once '../modelo/clstramite'.$id_tramite.'.php';
     switch ($id_tramite) {
         case "4": $clstramiteresp = new clstu4respuestas();
+            $nombre_archivo = $generar . "_" . $cod_tramite . '.pdf';
+            $ruta_archivo = RUTA_ARCHIVOSTRAMITES . $cod_tramite . "/" . $nombre_archivo;
+
             break;
     }
     //ACTUALIZAR CONTESTACIÓN, INCLUIDA RUTA PREESTABLECIDA DE LA RESPUESTA
@@ -91,10 +94,8 @@ if ($firma == 2) {
             break;
     }
 
-    $nombre_archivo = $cod_tramite . '.pdf';
-    $ruta_archivo = RUTA_ARCHIVOSTRAMITES . $cod_tramite . "/" . $nombre_archivo;
-
     $clstramiteresp->setTu_id($idtue["tu_id"]);
+    $clstramiteresp->setInfo_adicional($generar);
     $clstramiteresp->setTuc_cumple("CORRECTO");
     $clstramiteresp->setTuc_rutaarchivo($ruta_archivo);
     $clstramiteresp->setTuc_tipo_contestacion("AFIRMATIVO");
