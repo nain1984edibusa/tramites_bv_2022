@@ -49,20 +49,23 @@
 
     function generarInforme() {
         var generar = "";
+        var loading = $('#processing-modal');
         var id_tu_r = document.querySelector('#tu_id').value; //id del trámite usuario
         var id_tra = document.querySelector('#tra_id').value; //id del trámite
         var cod_tra = document.querySelector('#tra_codigo').value; //código del trámite
-        var generar = document.querySelector('#informe').value; //código del trámite
+        var generar = document.querySelector('#btnInforme').value; //código del trámite
         $.ajax({
             type: "POST",
             url: 'controller/reasignar_tramite.php',
             cache: false,
             data: {id_tu_r: id_tu_r, id_tra: id_tra, cod_tra: cod_tra, generar: generar},
             beforeSend: function () {
-                $("#resultado").html("Procesando, espere por favor...");
+//                $("#resultado").html("Procesando, espere por favor...");
+                loading.modal('show');
             },
             success: function (response) {
                 $("#resultado").html(response);
+                loading.modal('hide');
             }
         });
     }

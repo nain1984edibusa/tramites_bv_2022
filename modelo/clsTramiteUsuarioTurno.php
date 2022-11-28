@@ -9,7 +9,6 @@ Class clstramiteusuarioturno {
     private $tu_id;
 
     /* GETS Y SETS */
-
     public function getTut_id() {
         return $this->tut_id;
     }
@@ -78,7 +77,5 @@ Class clstramiteusuarioturno {
         //$bd->cerrar();
         return $rsprv;
     }
-
 }
-
 ?>
