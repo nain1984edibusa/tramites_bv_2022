@@ -108,7 +108,7 @@ $tramites = $listado_tramites_br->tra_seleccionar_all_byusu_ve($_SESSION["codusu
                                                 <?php if ($row["tu_band_convanxres"] == 1) { ?>
                                                     <i class="zmdi zmdi-border-color btn btn-default btn-desactivado" title="Acción no permitida"></i>
                                                 <?php } else { ?>
-                                                    <a href="#" data-toggle="modal" data-target="#ReasignarTramite" class='btn btn-default' title='Firmar y Reasignar' onclick="reasignar_tramite('<?php echo $_SESSION["codperfil"] ?>', '<?php echo $row["tu_id"] ?>', '<?php echo $row["tu_codigo"] ?>', '<?php echo $row["reg_id"] ?>', '<?php echo $row["tra_respuesta"] ?>', '<?php echo $row["tra_id"] ?>', '1');"><i class="zmdi zmdi-border-color"></i></a>
+                                                    <!--<a href="#" data-toggle="modal" data-target="#ReasignarTramite" class='btn btn-default' title='Firmar y Reasignar' onclick="reasignar_tramite('<?php echo $_SESSION["codperfil"] ?>', '<?php echo $row["tu_id"] ?>', '<?php echo $row["tu_codigo"] ?>', '<?php echo $row["reg_id"] ?>', '<?php echo $row["tra_respuesta"] ?>', '<?php echo $row["tra_id"] ?>', '1');"><i class="zmdi zmdi-border-color"></i></a>-->
                                                     <?php
                                                 }
                                             }

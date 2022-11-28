@@ -12,27 +12,37 @@
             </p>
         </div>
     </div>
-    Resultado: <span id="resultado">0</span>
+    <span id="resultado"></span>
 </div>
+
+<?php include_once("./modal/loading.php"); ?>
 <script>
     cargarTablaObjetos();
 
     function generarCertificado() {
+        debugger
         var generar = "";
+        var loading = $('#processing-modal');
         var id_tu_r = document.querySelector('#tu_id').value; //id del trámite usuario
         var id_tra = document.querySelector('#tra_id').value; //id del trámite
         var cod_tra = document.querySelector('#tra_codigo').value; //código del trámite
         var generar = document.querySelector('#btnCertificado').value; //código del trámite
+
+
+
         $.ajax({
             type: "POST",
             url: 'controller/reasignar_tramite.php',
             cache: false,
             data: {id_tu_r: id_tu_r, id_tra: id_tra, cod_tra: cod_tra, generar: generar},
             beforeSend: function () {
-                $("#resultado").html("Procesando, espere por favor...");
+//                $("#resultado").html("Procesando, espere por favor...");
+                loading.modal('show');
             },
             success: function (response) {
                 $("#resultado").html(response);
+                loading.modal('hide');
+
             }
         });
     }
@@ -61,7 +71,7 @@
         var tramite_especifico = document.querySelector('#tu_id').value;
         $.ajax({
             type: "POST",
-           url: "_form_res/rf_4_tabla_objetos.php",
+            url: "_form_res/rf_4_tabla_objetos.php",
             cache: false,
             data: {tramite_especifico: tramite_especifico},
             success: function (data) {
