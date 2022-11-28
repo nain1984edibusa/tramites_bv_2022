@@ -91,7 +91,6 @@ if ((isset($_GET["idtu"]) && (!empty($_GET["idtu"])))) { //SI SE RECIBE EL ID DE
 
     cargarTabla();
     function cargarTabla() {
-        debugger;
         var tramite_especifico = document.querySelector('#tu_id').value;
         $.ajax({
             type: "POST",
@@ -99,7 +98,6 @@ if ((isset($_GET["idtu"]) && (!empty($_GET["idtu"])))) { //SI SE RECIBE EL ID DE
             cache: false,
             data: {tramite_especifico: tramite_especifico},
             success: function (data) {
-                debugger;
                 $("#tabla").html(data);
 //                document.querySelector("#total").innerHTML = data.;
             }
@@ -112,7 +110,6 @@ if ((isset($_GET["idtu"]) && (!empty($_GET["idtu"])))) { //SI SE RECIBE EL ID DE
     boton.addEventListener("click", guardarDetalle);
 
     function guardarDetalle() {
-        debugger;
         var tramite_especifico = document.querySelector('#tu_id').value;
         var id_analisis_quimico = document.querySelector('#analisis-quimico').value;
         var descripcion = document.querySelector('#descripcion').value;

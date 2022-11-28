@@ -16,6 +16,7 @@ require_once '../modelo/clstramiterespuestas.php';
 require_once '../modelo/clstramites.php';
 require_once '../modelo/clsauditoria.php';
 require_once '../modelo/clsusuarios.php';
+require_once '../modelo/clstramiteusuarioturno.php';
 require_once '../includes/functions.php';
 require_once "../modelo/util.php";
 /* OBTENCIÓN DE DATOS DEL FORMULARIO */
@@ -230,7 +231,35 @@ if ($firma == 2) {
             $mensaje = get_contenido_mensaje($tipo_mensaje, $mensaje_especifico);
             $template = "../includes/email_template_interno.html";
             sendemail(SENDEREMAIL_USER, SENDEREMAIL_PASS, SENDEREMAIL_USER, "Sistema de Trámites en Línea INPC", $destinatario, $mensaje, "INPC: Notificación Sistema de Trámites en Línea", $template, "", "");
-            //include_once "enviar_correo.php";
+
+            /* Envío de correo al ciudadano con la confirmació del turno */
+            $tipo_mensaje_c = "confirmacion_cita";
+            $datosUsuario = new clsusuarios();
+            $datosUsuario->setUsu_id($idtue["usu_extid"]);
+            $tusuario = $datosUsuario->usu_email_byid();
+            $tusuario = mysqli_fetch_array($tusuario);
+            $tdestinatario = $tusuario["usu_correo"];
+
+            //OBTENER DATOS TURNO
+            $tramiteturno = new clstramiteusuarioturno();
+            $tramiteturno->setTu_id($idtue["tu_id"]);
+            $tturno = $tramiteturno->tut_turno();
+            $tturno = mysqli_fetch_array($tturno);
+
+            $mensaje_especifico = "<p>Estimado/a <b>" . $tusuario["usu_nombre"] . " " . $tusuario["usu_apellido"] . "</b>, su cita se ha registrado con exito:</p>";
+            $mensaje_especifico_c = "<div class='bloque_especifico'><p><b>Tipo de trámite:</b> " . $tipot["tra_nombre"] . "</p>";
+            $mensaje_especifico_c .= "<p><b>CUT:</b> " . $cod_tramite . "</p>";
+            $mensaje_especifico_c .= "<p><b>Fecha de ingreso:</b> " . $idtue["tu_fecha_ingreso"] . "</p>";
+            $mensaje_especifico_c .= "<p><b>Fecha estimada de respuesta:</b> " . $idtue["tu_fecha_aprocont"] . "</p></div>";
+            $mensaje_especifico_c .= "<p><b>Lugar de la cita:</b> " . $tturno["reg_ciudad"] . " " . $tturno["reg_direccion"] . " </p>";
+            $mensaje_especifico_c .= "<p><b>Fecha de la cita:</b> " . $tturno["tut_fecha"] . "</p>";
+            $mensaje_especifico_c .= "<p><b>Hora de la cita:</b> " . $tturno["ho_hora"] . "</p>";
+            $mensaje_especifico_c .= "<p><b>Técnico asignado:</b> " . $ddestinatario["usu_nombre"] . " " . $ddestinatario["usu_apellido"] . "</p></div>";
+            $mensaje_especifico .= $mensaje_especifico_c;
+            $mensaje = get_contenido_mensaje($tipo_mensaje_c, $mensaje_especifico);
+            $template = "../includes/email_template.html";
+            sendemail(SENDEREMAIL_USER, SENDEREMAIL_PASS, SENDEREMAIL_USER, "Sistema de Trámites en Línea INPC", $tdestinatario, $mensaje, "INPC: Notificación Sistema de Trámites en Línea", $template, "", "");
+//include_once "enviar_correo.php";
             //REDIRECCIONAR
             //exit();
             redireccionar("../" . $redireccion . ".php?proc=reatra&est=1");

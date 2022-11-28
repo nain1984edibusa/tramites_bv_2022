@@ -203,7 +203,6 @@ $rsTipoIdentificacion = $con->query($sql);
 <script type="text/javascript">
     
     function seleccionarTipoIdentificacion() {
-        debugger;
         divCi = document.getElementById("divCi");
         divRuc = document.getElementById("divRuc");
         check = document.getElementById("tipo_identificacion");

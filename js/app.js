@@ -14,7 +14,6 @@ datos_tramite.push(
 );
 var cant = 0;
 function agregar() {
-    debugger;
     var tramite_especifico = document.querySelector('#tu_id').value;
     var id_analisis_quimico = document.querySelector('#analisis-quimico').value;
     var descripcion = document.querySelector('#descripcion').value;
@@ -90,7 +89,6 @@ function sumar() {
 
 
 function save() {
-    debugger
     var json = JSON.stringify(data);
     var json_datos_tramite = JSON.stringify(datos_tramite);
     $.ajax({

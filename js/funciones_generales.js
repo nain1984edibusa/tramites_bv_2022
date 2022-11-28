@@ -355,7 +355,6 @@ function obtener_auditoria(id_tramite_usuario) {
     });
 }
 function reasignar_tramite(id_perfil_usuario, id_tramite_usuario, cut, regional_proc, respuesta, id_tramite, firma = 0) {
-    debugger
     reset_rt();
     //alert(id_tramite);
     $("#id_tu_r").val(id_tramite_usuario);

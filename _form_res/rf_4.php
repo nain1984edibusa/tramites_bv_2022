@@ -20,7 +20,6 @@
     cargarTablaObjetos();
 
     function generarCertificado() {
-        debugger
         var generar = "";
         var loading = $('#processing-modal');
         var id_tu_r = document.querySelector('#tu_id').value; //id del trámite usuario

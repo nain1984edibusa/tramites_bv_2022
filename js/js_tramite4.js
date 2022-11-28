@@ -237,7 +237,6 @@ function progress_bar_process(percentage, timer)
 }
 
 function validarCamposTramiteEspecifico() {
-    debugger
     let date = new Date();
     var fecha_sistema = (date.toISOString().split('T')[0]);
     var hora_sistema = date.getHours() + ':' + date.getMinutes();
@@ -351,7 +350,6 @@ function validarFechaEnvio() {
 
 function validarFechaAtención() {
 //    alert('Validar');
-    debugger
     let date = new Date();
     var fecha_sistema = (date.toISOString().split('T')[0]);
     var fecha_envio = document.querySelector('#fecha_envio').value;
