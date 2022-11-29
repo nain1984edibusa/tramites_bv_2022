@@ -133,12 +133,15 @@ function sendemail($mail_username, $mail_userpassword, $mail_setFromEmail, $mail
     //$mail->addAttachment($_SERVER['DOCUMENT_ROOT'].'/syscatleia/xml/docelectronicos/pdfs/'.$archivopdf);
     //$mail->addAttachment($_SERVER['DOCUMENT_ROOT'].'/syscatleia/xml/docelectronicos/porfirmar/'.$archivoxml);
     $mail->msgHTML($message);
-    if (!$mail->send()) {
-        echo '<p style="color:red">No se pudo enviar el mensaje..';
-        echo 'Error de correo: ' . $mail->ErrorInfo . "</p>";
-    } else {
-        //echo "se envió";
-    }
+    $mail->send();
+//    if (!$mail->send()) {
+//        echo '<p style="color:red">No se pudo enviar el mensaje..';
+//        echo 'Error de correo: ' . $mail->ErrorInfo . "</p>";
+////        $row_array['error'] = $row[$mail->ErrorInfo];
+////        echo json_encode(array('error' => $mail->ErrorInfo ));
+//    } else {
+//        //echo "se envió";
+//    }
 }
 
 function get_contenido_mensaje($tipo_mensaje, $mensaje_especifico) {

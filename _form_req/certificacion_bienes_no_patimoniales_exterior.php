@@ -382,6 +382,7 @@ session_start();
 </div>
 <?php include_once("./modal/acuerdo_conf.php"); ?>
 <?php include_once("./includes/footer.php"); ?>
+<?php include_once("./modal/loading.php"); ?>
 
 <script src="js/js_tramite4.js"></script>
 <script>

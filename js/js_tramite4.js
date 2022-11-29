@@ -173,8 +173,8 @@ function seleccionarTipoBienCultural() {
 }
 
 function enviar() {
-
 //    alert('0K');
+    var loading = $('#processing-modal');
     isBool = validarCamposTramiteEspecifico();
     if (isBool === true) {
         var tramite_especifico = 0;
@@ -195,27 +195,18 @@ function enviar() {
             data: {"json_datos_objeto": json_datos_objeto, "json_datos_tramite": json_datos_tramite, "json_datos_tramite_especifico": json_datos_tramite_especifico},
             beforeSend: function ()
             {
-                $('#guardar').attr('disabled', 'disabled');
-                $('#process').css('display', 'block');
+                loading.modal('show');
             },
-            success: function (respo) {
-                var percentage = 0;
-
-                var timer = setInterval(function () {
-
-                    percentage = percentage + 5;
-                    progress_bar_process(percentage, timer);
-                }, 100);
-                location.reload("http://localhost/tramites_bv/ue_bandeja_enviados.php");
+            success: function (result) {
+                var jsonData = $.parseJSON(result);
+                if (jsonData.success == "1")
+                {
+                    loading.modal('hide');
+                    location.href = './ue_bandeja_enviados.php?proc=regtra&est=1';
+                }
             }
-//          location.reload();
-//    }
         });
     }
-
-//    else {
-//        validarCamposTramiteEspecifico();
-//    }
 }
 
 function progress_bar_process(percentage, timer)
@@ -355,7 +346,7 @@ function validarFechaAtención() {
     var fecha_envio = document.querySelector('#fecha_envio').value;
     var fecha_atencion = document.querySelector('#fecha_atencion').value;
     var numeroDia = new Date(fecha_atencion).getDay();
-    
+
     if (fecha_envio != "") {
         if (fecha_atencion != "") {
             if (numeroDia == 5 || numeroDia == 6)// indica que es fin de semana

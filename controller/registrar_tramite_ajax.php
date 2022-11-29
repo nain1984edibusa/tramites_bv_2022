@@ -17,7 +17,7 @@ require_once '../modelo/clsusuarios.php';
 require_once '../modelo/clsauditoria.php';
 require_once '../modelo/clstramites.php';
 require_once '../includes/functions.php';
-require_once "../modelo/util.php";
+//require_once "../modelo/util.php";
 /* ADD 1/3 */
 include_once "../modelo/clsferiadosanioc.php";
 include_once "_obtener_feriados.php";
@@ -105,7 +105,7 @@ if ($id_tramite == 0) {
         $clstramiteusuario->tu_cambiar_estado();
         //exit();
         //REDIRECCIONAR
-        redireccionar("../ue_formularios_tramites.php?idt=$tramite&proc=regtra&est=0");
+        //redireccionar("../ue_formularios_tramites.php?idt=$tramite&proc=regtra&est=0");
     } else {
         /* REGISTRAR PROCESO EN AUDITORIA */
         $clsaud = new clsauditoria();
@@ -138,7 +138,10 @@ if ($id_tramite == 0) {
         $mensaje_especifico .= $mensaje_especifico_c;
         $mensaje = get_contenido_mensaje($tipo_mensaje, $mensaje_especifico);
         $template = "../includes/email_template.html";
-        sendemail(SENDEREMAIL_USER, SENDEREMAIL_PASS, SENDEREMAIL_USER, "Sistema de Trámites en Línea INPC", $destinatario, $mensaje, "INPC: Notificación Sistema de Trámites en Línea", $template, "", "");
+        try {
+            sendemail(SENDEREMAIL_USER, SENDEREMAIL_PASS, SENDEREMAIL_USER, "Sistema de Trámites en Línea INPC", $destinatario, $mensaje, "INPC: Notificación Sistema de Trámites en Línea", $template, "", "");
+        } catch (Exception $exc) {}
+
         /* Envío de correo al asignador */
         $tipo_mensaje = "registro_tra_asi";
         $dcc = $clsusuario->setUsu_id($asignador["usu_id"]);
@@ -150,13 +153,12 @@ if ($id_tramite == 0) {
         $mensaje_especifico .= $mensaje_especifico_c;
         $mensaje = get_contenido_mensaje($tipo_mensaje, $mensaje_especifico);
         $template = "../includes/email_template_interno.html";
-        sendemail(SENDEREMAIL_USER, SENDEREMAIL_PASS, SENDEREMAIL_USER, "Sistema de Trámites en Línea INPC", $cc, $mensaje, "INPC: Notificación Sistema de Trámites en Línea", $template, "", "");
 
-//include_once "enviar_correo.php";
-        //exit();
-        //REDIRECCIONAR
-        //exit();
-        redireccionar("../ue_bandeja_enviados.php?proc=regtra&est=1");
+        try {
+            sendemail(SENDEREMAIL_USER, SENDEREMAIL_PASS, SENDEREMAIL_USER, "Sistema de Trámites en Línea INPC", $cc, $mensaje, "INPC: Notificación Sistema de Trámites en Línea", $template, "", "");
+        } catch (Exception $exc) {}
+
+        echo json_encode(array('success' => 1));
     }
 }
 ?>
