@@ -26,22 +26,17 @@
         var id_tra = document.querySelector('#tra_id').value; //id del trámite
         var cod_tra = document.querySelector('#tra_codigo').value; //código del trámite
         var generar = document.querySelector('#btnCertificado').value; //código del trámite
-
-
-
         $.ajax({
             type: "POST",
             url: 'controller/reasignar_tramite.php',
             cache: false,
             data: {id_tu_r: id_tu_r, id_tra: id_tra, cod_tra: cod_tra, generar: generar},
             beforeSend: function () {
-//                $("#resultado").html("Procesando, espere por favor...");
                 loading.modal('show');
             },
             success: function (response) {
                 $("#resultado").html(response);
                 loading.modal('hide');
-
             }
         });
     }
@@ -59,7 +54,6 @@
             cache: false,
             data: {id_tu_r: id_tu_r, id_tra: id_tra, cod_tra: cod_tra, generar: generar},
             beforeSend: function () {
-//                $("#resultado").html("Procesando, espere por favor...");
                 loading.modal('show');
             },
             success: function (response) {
@@ -70,14 +64,34 @@
     }
 
     function cargarTablaObjetos() {
+        var loading = $('#processing-modal');
         var tramite_especifico = document.querySelector('#tu_id').value;
         $.ajax({
             type: "POST",
             url: "_form_res/rf_4_tabla_objetos.php",
             cache: false,
             data: {tramite_especifico: tramite_especifico},
+            beforeSend: function () {
+                loading.modal('show');
+            },
             success: function (data) {
                 $("#tablaObjetos").html(data);
+                loading.modal('hide');
+
+                var conNroRegistros = parseInt(document.querySelector('#nroRegistros').value);
+                var conNoPatrimonial = parseInt(document.querySelector('#noPatrimoniales').value);
+                var conPresumePatrimonial = parseInt(document.querySelector('#sePresumePatrimoniales').value);
+
+                if (conNoPatrimonial > 0) {
+                    $('#btnCertificado').prop('disabled', false);
+                    $('#btnCompletarProceso').prop('disabled', true);
+                }
+                if (conPresumePatrimonial > 0) {
+                    $('#btnInforme').prop('disabled', false);
+                }
+                if (conNroRegistros == (conNoPatrimonial + conPresumePatrimonial)) {
+                    $('#btnCompletarProceso').prop('disabled', false);
+                }
             }
         });
     }

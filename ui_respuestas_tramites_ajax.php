@@ -227,9 +227,9 @@ if ((isset($_GET["idtu"]) && (!empty($_GET["idtu"])))) { //SI SE RECIBE EL ID DE
 
 
 <script type="text/javascript">
-//                $('#btnCertificado').prop('disabled', true);
-//                $('#btnInforme').prop('disabled', true);
-//                $('#btnCompletarProceso').prop('disabled', true);
+                                $('#btnCertificado').prop('disabled', true);
+                                $('#btnInforme').prop('disabled', true);
+                                $('#btnCompletarProceso').prop('disabled', true);
 </script>
 
 

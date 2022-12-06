@@ -87,7 +87,7 @@ $respuesta4 = $respuestae->obtener_tramiterespuestas();
         <td colspan="4"><?php echo ($tespecifico["te_observaciones"] == "") ? "<span>Sin observaciones</span>" : "<span class='sp-requerido'>" . $tespecifico["te_observaciones"] . "</span>"; ?></td>
     </tr>-->
     <!--SI EL ESTADO DEL TRAMITE ES 5 NO PERMITIR QUE VE AL CIUDADANO, Y MOSTRARLE EN UN FORMATO SIN VALIDACIÓN-->
-    <?php if (($_SESSION["codperfil"] == CIUDADANO && $ttramite["et_id"] == CONTESTADO_DESPACHADO) || ($_SESSION["codperfil"] != CIUDADANO)) { ?>
+   <!-- <?php if (($_SESSION["codperfil"] == CIUDADANO && $ttramite["et_id"] == CONTESTADO_DESPACHADO) || ($_SESSION["codperfil"] != CIUDADANO)) { ?>
         <tr class="info">
             <th colspan="6">Descarga de archivos</th>	
         </tr>
@@ -125,6 +125,6 @@ $respuesta4 = $respuestae->obtener_tramiterespuestas();
                 </table>
             </td>
         </tr>
-    <?php } ?>
+    <?php } ?>-->
 </table>
 

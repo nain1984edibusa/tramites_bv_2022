@@ -10,11 +10,12 @@ if (isset($_POST["tramite_especifico"])) {
     $objeto = new clstramite4objeto();
     $objeto->setTu_id($tramite_especifico);
     $oespecifico = $objeto->obj_seleccionar_objeto_por_tramite();
+
+    //Array para habilitar botones de generar certificados o informes
+    $noPatrimoniales = array();
+    $sePresumePatrimoniales = array();
 }
 ?>
-<script>
-
-</script>
 <div class="col-xs-12">
     <div class="col-xs-12 col-sm-12 col-md-12 text-justify lead alert alert-success">
         <h4><b>INFORMACIÓN</b></h4>
@@ -24,6 +25,7 @@ if (isset($_POST["tramite_especifico"])) {
 <div class="col-xs-12">
     <legend><i class="zmdi zmdi-check-all"></i> &nbsp; <b>Certificar Solicitud </b></legend>
 </div>
+
 <div class="col-xs-12">
     <table class="table table-striped">
         <tr>
@@ -57,12 +59,36 @@ if (isset($_POST["tramite_especifico"])) {
                                                <!--<a data-id="<?php echo $row["id"]; ?>" class="btn btn-edit btn-sm btn-warning">Editar1</a>-->
                     </td>
                 </tr>
+                <tr>
+                    <?php
+                    $countNroRegistros = $oespecifico->num_rows;
+                    $eob_id = $row["eob_id"];
+                    if ($eob_id == "2") {
+                        $objeto = new clstramite4objeto();
+                        $objeto = $row;
+                        $noPatrimoniales[] = $objeto;
+                    } elseif ($eob_id == "3") {
+                        $objeto = new clstramite4objeto();
+                        $objeto = $row;
+                        $sePresumePatrimoniales[] = $objeto;
+                    }
+
+                    $countNoPatrimoniales = count($noPatrimoniales);
+                    $countSePresumePatrimoniales = count($sePresumePatrimoniales);
+                    ?>
+                </tr>
             <?php } //fin while
             ?>
         </tbody>
     </table>
 </div>
-
+<div class="row" >
+    <div class="col-md-3">
+        <input type="hidden" id="noPatrimoniales" readonly="ReadOnly" class="form-control" value= "<?php echo $countNoPatrimoniales ?>" >
+        <input type="hidden" id="sePresumePatrimoniales" readonly="ReadOnly" class="form-control" value= "<?php echo $countSePresumePatrimoniales ?>" >
+        <input type="hidden" id="nroRegistros" readonly="ReadOnly" class="form-control" value= "<?php echo $countNroRegistros ?>" >
+    </div> 
+</div>
 <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
