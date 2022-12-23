@@ -31,7 +31,7 @@ Class clsregional {
         $this->reg_ciudad = $reg_ciudad;
     }
 
-    ////////   insertar cantones   //////////////////
+    ////////   insertar regional   //////////////////
     public function regional_insertar() {
         // abro conexión a bases de datos
         $bd = Db::getInstance();
@@ -45,7 +45,7 @@ Class clsregional {
         $bd->cerrar();  // cerrar coneccion
     }
 
-    //////   actualizar cantones    ///////////////////
+    //////   actualizar regional    ///////////////////
     public function regional_actualizar() {
         // abro conexión a bases de datos
         $bd = Db::getInstance();
@@ -60,7 +60,7 @@ Class clsregional {
         $bd->cerrar();
     }
 
-    //////   seleccionar cantones    ///////////////////
+    //////   seleccionar regional    ///////////////////
     public function regional_seleccionar() {
         // abro conexión a bases de datos
         $bd = Db::getInstance();
@@ -89,7 +89,7 @@ Class clsregional {
         return $rsprv;
     }
 
-    /////// ELIMINAR PAISES
+    /////// eliminar regional
     public function regional_eliminar() {
         // abro conexión a bases de datos
         $bd = Db::getInstance();
@@ -98,7 +98,6 @@ Class clsregional {
         //$bd->cerrar();
         return $rsprv;
     }
-
 }
 
 ?>

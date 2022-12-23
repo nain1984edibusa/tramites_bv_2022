@@ -28,6 +28,3 @@ foreach ($productos as $producto) {
 
 $clstramiteer = new clstu17respuestas();
 ?>
-
-
-

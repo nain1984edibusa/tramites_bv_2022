@@ -130,18 +130,13 @@ function sendemail($mail_username, $mail_userpassword, $mail_setFromEmail, $mail
     $mail->isHTML(true);  // Establecer el formato de correo electrónico en HTML
 
     $mail->Subject = $mail_subject;
-    //$mail->addAttachment($_SERVER['DOCUMENT_ROOT'].'/syscatleia/xml/docelectronicos/pdfs/'.$archivopdf);
-    //$mail->addAttachment($_SERVER['DOCUMENT_ROOT'].'/syscatleia/xml/docelectronicos/porfirmar/'.$archivoxml);
     $mail->msgHTML($message);
-    $mail->send();
-//    if (!$mail->send()) {
-//        echo '<p style="color:red">No se pudo enviar el mensaje..';
-//        echo 'Error de correo: ' . $mail->ErrorInfo . "</p>";
-////        $row_array['error'] = $row[$mail->ErrorInfo];
-////        echo json_encode(array('error' => $mail->ErrorInfo ));
-//    } else {
-//        //echo "se envió";
-//    }
+    if (!$mail->send()) {
+        echo '<p style="color:red">No se pudo enviar el mensaje..';
+        echo 'Error de correo: ' . $mail->ErrorInfo . "</p>";
+    } else {
+        //echo "se envió";
+    }
 }
 
 function get_contenido_mensaje($tipo_mensaje, $mensaje_especifico) {
@@ -152,7 +147,7 @@ function get_contenido_mensaje($tipo_mensaje, $mensaje_especifico) {
             $titulo = "Su trámite se encuentra en proceso de subsanación!";
             $cuerpo .= $mensaje_especifico;
             $cuerpo .= "<p>Por favor ingrese al sistema de gestión de trámites ciudadanos, bandeja de trámites por subsanar y verifique las observaciones, haciendo clic en el siguiente enlace:</p>";
-            $cuerpo .= "<p><a href='" . URL_SIS . DIRDOWNLOAD . "'>Sistema de Trámites en Línea INPC</a></p>";
+            $cuerpo .= "<p><a href='" . URL_SIS . "'>Sistema de Trámites en Línea INPC</a></p>";
             $cuerpo .= "<p><b>Recuerde que el tiempo de subsanación es de 10 días hábiles, fuera de este plazo, se entenderá el desistimiento del trámite y en caso de persistir la necesidad, deberá iniciar nuevamente el proceso.</b></p>";
             //$cc=$namecc="";
             break;
@@ -160,7 +155,7 @@ function get_contenido_mensaje($tipo_mensaje, $mensaje_especifico) {
             $titulo = "TRÁMITE RECIBIDO";
             $cuerpo .= $mensaje_especifico;
             $cuerpo .= "<p>Recuerde que puede ingresar a la plataforma online para gestionar sus trámites:</p>";
-            $cuerpo .= "<p><a href='" . URL_SIS . DIRDOWNLOAD . "'>Sistema de Trámites en Línea INPC</a></p>";
+            $cuerpo .= "<p><a href='" . URL_SIS . "'>Sistema de Trámites en Línea INPC</a></p>";
             //$cc=$namecc="";
             break;
         case "registro_usu": /* L */
@@ -173,19 +168,19 @@ function get_contenido_mensaje($tipo_mensaje, $mensaje_especifico) {
             $titulo = "Su trámite ha sido ingresado exitosamente!";
             $cuerpo .= $mensaje_especifico;
             $cuerpo .= "<p>Recuerde que puede ingresar a la plataforma online para revisar la respuesta y descargarla:</p>";
-            $cuerpo .= "<p><a href='" . URL_SIS . DIRDOWNLOAD . "'>Sistema de Trámites en Línea INPC</a></p>";
+            $cuerpo .= "<p><a href='" . URL_SIS . "'>Sistema de Trámites en Línea INPC</a></p>";
             break;
         case "registro_tra_asi": /* L */
             $titulo = "TRÁMITE RECIBIDO";
             $cuerpo .= $mensaje_especifico;
             $cuerpo .= "<p>Recuerde que puede ingresar a la plataforma online para gestionar sus trámites:</p>";
-            $cuerpo .= "<p><a href='" . URL_SIS . DIRDOWNLOAD . "'>Sistema de Trámites en Línea INPC</a></p>";
+            $cuerpo .= "<p><a href='" . URL_SIS . "'>Sistema de Trámites en Línea INPC</a></p>";
             break;
         case "reasignacion_tra":
             $titulo = "TRÁMITE REASIGNADO";
             $cuerpo .= $mensaje_especifico;
             $cuerpo .= "<p>Recuerde que puede ingresar a la plataforma online para gestionar sus trámites:</p>";
-            $cuerpo .= "<p><a href='" . URL_SIS . DIRDOWNLOAD . "'>Sistema de Trámites en Línea INPC</a></p>";
+            $cuerpo .= "<p><a href='" . URL_SIS . "'>Sistema de Trámites en Línea INPC</a></p>";
             //$cc=$namecc="";
             break;
         case "confirmacion_cita":
@@ -194,28 +189,28 @@ function get_contenido_mensaje($tipo_mensaje, $mensaje_especifico) {
             $cuerpo .= "<p>Los objetos/bienes culturales motivo de la inspección, deberán ser llevados al lugar agendado en la cita pre-embalado (sin sellar los contenedores), el técnico del INPC realizará una revisión física y colocará cintas y sellos de seguridad sobre los contenedores (cajas, tubos, maletas, entre otros)</p>";
             $cuerpo .= "<p>La información ingresada en la solicitud relacionada con el detalle de los objetos/bienes culturales está sujeta a verificación y podrá ser modificada por el técnico designado para el trámite si esta tuviere algún error.</p>";
             $cuerpo .= "<p>Recuerde que puede ingresar a la plataforma online para gestionar sus trámites:</p>";
-            $cuerpo .= "<p><a href='" . URL_SIS . DIRDOWNLOAD . "'>Sistema de Trámites en Línea INPC</a></p>";
+            $cuerpo .= "<p><a href='" . URL_SIS . "'>Sistema de Trámites en Línea INPC</a></p>";
             //$cc=$namecc="";
             break;
         case "contestacion_tra":
             $titulo = "Su trámite ha sido respondido!";
             $cuerpo .= $mensaje_especifico;
             $cuerpo .= "<p>Recuerde que puede ingresar a la plataforma online para revisar la respuesta y descargarla:</p>";
-            $cuerpo .= "<p><a href='" . URL_SIS . DIRDOWNLOAD . "'>Sistema de Trámites en Línea INPC</a></p>";
+            $cuerpo .= "<p><a href='" . URL_SIS . "'>Sistema de Trámites en Línea INPC</a></p>";
             //$cc=$namecc="";
             break;
         case "recupera_passwd":
             $titulo = "Solicitud de recuperación de contraseña";
             $cuerpo .= $mensaje_especifico;
             //$cuerpo.="<p>Recuerde que puede ingresar a la plataforma online para revisar la respuesta y descargarla:</p>";
-            //$cuerpo.="<p><a href='".URL_SIS.DIRDOWNLOAD."'>Sistema de Tr�mites en L�nea INPC</a></p>";
+            //$cuerpo.="<p><a href='".URL_SIS."'>Sistema de Tr�mites en L�nea INPC</a></p>";
             //$cc=$namecc="";
             break;
         case "actualiza_cuenta":
             $titulo = "Actualizacion de Datos Personales";
             $cuerpo .= $mensaje_especifico;
             //$cuerpo.="<p>Recuerde que puede ingresar a la plataforma online para revisar la respuesta y descargarla:</p>";
-            //$cuerpo.="<p><a href='".URL_SIS.DIRDOWNLOAD."'>Sistema de Tr�mites en L�nea INPC</a></p>";
+            //$cuerpo.="<p><a href='".URL_SIS."'>Sistema de Trámites en Línea INPC</a></p>";
             //$cc=$namecc="";
             break;
     }

@@ -1,4 +1,31 @@
-<!doctype html>
+<?php
+//  echo $_SERVER["DOCUMENT_ROOT"];
+//          
+//echo $_SERVER['SERVER_NAME'];
+include_once("./config/variables.php");
+include_once("./includes/header.php");
+
+$tramite = "100";
+$fecha_ingreso = date("2022-12-20");
+$usuario = "ebustillos"; //código usuario
+//
+$codigo_tramite = "04202212191611989";
+$dirServidor = DIRSERVIDOR;
+$rutaArchivos = RUTA_ARCHIVOSTRAMITES;
+
+$carpeta = DIRSERVIDOR . RUTA_ARCHIVOSTRAMITES . $codigo_tramite;
+
+if (!file_exists($carpeta)) {
+    mkdir($carpeta, 0777, true);
+    print "Carpeta creada: Direccion Servidor " . $dirServidor . " Ruta Archivos: " . $rutaArchivos;
+} else {
+    print "Carpeta ya creada: Direccion dirServidor " . $dirServidor . " Ruta Archivos: " . $rutaArchivos;
+}
+?>
+
+
+
+<!--<!doctype html>
 <html>
 <head>
 <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
@@ -41,4 +68,4 @@ $(document).ready(function() {
 });
 </script>
 </body>
-</html>
+</html>-->

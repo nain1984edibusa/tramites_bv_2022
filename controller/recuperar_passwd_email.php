@@ -41,7 +41,7 @@ if (!$email) {
         $titulo="Solicitud de recuperación de contraseña";        
         $cuerpo="";
         $destinatario = $objUsuario->getUsu_correo();
-        $urlRecuperacion = URL_SIS."/tramites_bv/recupera_contrasena_form.php"."?idUser=".$resultQuery["usu_id"]."&email=".$objUsuario->getUsu_correo();
+        $urlRecuperacion = URL_SIS."/recupera_contrasena_form.php"."?idUser=".$resultQuery["usu_id"]."&email=".$objUsuario->getUsu_correo();
         $mensaje_especifico = 'Estimado/a ' .$resultQuery["usu_nombre"]. ' '. $resultQuery["usu_apellido"].", para poder recuperar su contraseña de acceso haga click en el siguiente enlace: <br><br>".' <a href="'.$urlRecuperacion.'">Recuperar Contraseña</a>';
         $correo_destino = $objUsuario->getUsu_correo();
         $nombre_destino= $resultQuery["usu_nombre"]. ' '. $resultQuery["usu_apellido"];

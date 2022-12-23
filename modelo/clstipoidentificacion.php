@@ -1,7 +1,6 @@
 <?php
 
 Class clstipoidentificacion {
-
     //    definio los campos de la tabla 
     private $ti_id;
     private $ti_nombre;
@@ -33,13 +32,14 @@ Class clstipoidentificacion {
         $this->ti_estado = $ti_estado;
     }
 
-        //////   seleccionar tipo bien cultural    ///////////////////
+    //////////////////////////////   metodos //////////////////////
+    //////   seleccionar tipo de identificacion   ///////////////////
     public function tipo_identificacion_seleccionartodo() {
         // abro conexión a bases de datos
         $bd = Db::getInstance();
         $sql = 'SELECT * FROM ct_tipo_identificacion ';
         $rsprv = $bd->ejecutar($sql);
-        //$bd->cerrar();
+//        $bd->cerrar();
         return $rsprv;
     }
 }

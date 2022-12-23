@@ -79,11 +79,15 @@ if (($generar == "certificado") || ($generar == "informe")) {
 if ($firma == 2) {
     $fecha_firma = date("Y-m-d H:i:s"); //fecha de ingreso
     require_once '../modelo/clstu' . $id_tramite . 'respuestas.php';
-    //require_once '../modelo/clstramite'.$id_tramite.'.php';
+//require_once '../modelo/clstramite'.$id_tramite.'.php';
     switch ($id_tramite) {
         case "4": $clstramiteresp = new clstu4respuestas();
             $nombre_archivo = $generar . "_" . $cod_tramite . '.pdf';
+            $rut = RUTA_ARCHIVOSTRAMITES;
+             $ser = DIRSERVIDOR;
             $ruta_archivo = RUTA_ARCHIVOSTRAMITES . $cod_tramite . "/" . $nombre_archivo;
+//            $ruta_archivo = "tramites_bv/upload" . "/" . $cod_tramite . "/" . $nombre_archivo;
+//../ajax/prev_respuesta_pdf.php"
 
             break;
     }
@@ -130,15 +134,15 @@ if ($firma == 2) {
         $clsaud->auditoria_insertar();
         //REDIRECCIONAR
         //exit();
-        //redireccionar("../".$redireccion.".php?proc=rftra&est=1");
-//       redireccionar("../" . $redireccion . "?idtu=" . $tramite . "&rea=" . $reasignado_a . "&obs=" . $observaciones_r);
+        //redireccionar("../".$redireccion.".php?proc = rftra&est = 1");
+//       redireccionar("../" . $redireccion . "?idtu = " . $tramite . "&rea = " . $reasignado_a . "&obs = " . $observaciones_r);
 
         $documento_visualizar = $ruta_archivo;
         include_once("../_visualizar_reporte.php");
 
-//redireccionar("../".$redireccion."?idtu=".$tramite."&ruta=".$ruta_archivo."&rea=".$reasignado_a."&obs=".$observaciones_r);
+//redireccionar("../".$redireccion."?idtu = ".$tramite."&ruta = ".$ruta_archivo."&rea = ".$reasignado_a."&obs = ".$observaciones_r);
     } else {
-        redireccionar("../" . $redireccion . ".php?proc=rftra&est=0");
+        redireccionar("../" . $redireccion . ".php?proc = rftra&est = 0");
     }
 } else {
     $reasignado_a = $_POST["reasignado_a"]; //usuario al que se va a reasignar
@@ -199,7 +203,7 @@ if ($firma == 2) {
 
 //exit();
         if ($reasignacion == 0) {
-            redireccionar("../ui_bandeja_recibidos.php?proc=reatra&est=0");
+            redireccionar("../ui_bandeja_recibidos.php?proc = reatra&est = 0");
         } else {
             /* REGISTRAR PROCESO EN AUDITORIA */
             $clsaud = new clsauditoria();
@@ -223,7 +227,7 @@ if ($firma == 2) {
             $ddestinatario = mysqli_fetch_array($ddestinatario);
             $destinatario = $ddestinatario["usu_correo"];
             $mensaje_especifico = "<p>Estimado/a <b>" . $ddestinatario["usu_nombre"] . " " . $ddestinatario["usu_apellido"] . "</b>, se le ha asignado el siguiente trámite:</p>";
-            $mensaje_especifico .= "<div class='bloque_especifico'><p><b>Tipo de trámite:</b> " . $tipot["tra_nombre"] . "</p>";
+            $mensaje_especifico .= "<div class = 'bloque_especifico'><p><b>Tipo de trámite:</b> " . $tipot["tra_nombre"] . "</p>";
             $mensaje_especifico .= "<p><b>CUT:</b> " . $cod_tramite . "</p>";
             $mensaje_especifico .= "<p><b>Fecha de ingreso:</b> " . $idtue["tu_fecha_ingreso"] . "</p>";
             $mensaje_especifico .= "<p><b>Fecha estimada de respuesta:</b> " . $idtue["tu_fecha_aprocont"] . "</p></div>";
@@ -247,7 +251,7 @@ if ($firma == 2) {
             $tturno = mysqli_fetch_array($tturno);
 
             $mensaje_especifico = "<p>Estimado/a <b>" . $tusuario["usu_nombre"] . " " . $tusuario["usu_apellido"] . "</b>, su cita se ha registrado con exito:</p>";
-            $mensaje_especifico_c = "<div class='bloque_especifico'><p><b>Tipo de trámite:</b> " . $tipot["tra_nombre"] . "</p>";
+            $mensaje_especifico_c = "<div class = 'bloque_especifico'><p><b>Tipo de trámite:</b> " . $tipot["tra_nombre"] . "</p>";
             $mensaje_especifico_c .= "<p><b>CUT:</b> " . $cod_tramite . "</p>";
             $mensaje_especifico_c .= "<p><b>Fecha de ingreso:</b> " . $idtue["tu_fecha_ingreso"] . "</p>";
             $mensaje_especifico_c .= "<p><b>Fecha estimada de respuesta:</b> " . $idtue["tu_fecha_aprocont"] . "</p></div>";
@@ -262,7 +266,7 @@ if ($firma == 2) {
 //include_once "enviar_correo.php";
             //REDIRECCIONAR
             //exit();
-            redireccionar("../" . $redireccion . ".php?proc=reatra&est=1");
+            redireccionar("../" . $redireccion . ".php?proc = reatra&est = 1");
         }
     }
 }
