@@ -3,6 +3,16 @@
  * INSTITUTO NACIONAL DE PATRIMONIO CULTURAL
  * Portal de Trámites 2020
  */
+
+include_once("./config/variables.php");
+include_once("./modelo/Config.class.php");
+include_once("./modelo/Db.class.php");
+include_once("./modelo/clstipoidentificacion.php");
+
+/* Listado tipo de identificacion */
+$listado_tipo_identificacion = new clstipoidentificacion();
+$rsTipoIdentificacion = $listado_tipo_identificacion->tipo_identificacion_seleccionartodo();
+
 ?>
 
 <div class="modal fade" tabindex="-1" role="dialog" id="ModalRegistroUsuario">
@@ -24,11 +34,15 @@
                         <div class="col-xs-12 col-sm-6">
                             <div class="group-material">
                                 <span>Tipo de identificación <span class="sp-requerido">*</span></span>
-                                <select id="tipo_identificacion" name="tipo_identificacion" class="tooltips-general material-control" data-toggle="tooltip" data-placement="top" <!--title="Elija su tipo de indentificación"-->>
-                                    <option value="" disabled="" selected="">Selecciona una opción</option>
-                                    <option value="CI">CI</option>
-                                    <option value="RUC">RUC</option>
-                                    <option value="PASAPORTE">Pasaporte</option>
+                                <select name="tipo_identificacion" id="tipo_identificacion" class="tooltips-general material-control" required="" data-toggle="tooltip" data-placement="top" title="Elija el tipo de identificación" onchange="javascript:seleccionarTipoIdentificacion();">
+                                    <option value="" disabled="" selected="">Selecciona el tipo identificación</option>
+                                    <?php
+                                    while ($row = mysqli_fetch_array($rsTipoIdentificacion)) {
+                                        ?>
+                                        <option value="<?php echo $row["ti_id"]; ?>"><?php echo $row["ti_nombre"]; ?></option>
+                                        <?php
+                                    }
+                                    ?>
                                 </select>
                             </div>
                         </div>
