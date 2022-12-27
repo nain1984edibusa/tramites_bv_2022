@@ -21,6 +21,7 @@ CREATE TABLE `ct_gestion_tramite` (
   `gt_nombre` varchar(250) COLLATE utf8_spanish_ci NOT NULL,
   `gt_email` varchar(50) COLLATE utf8_spanish_ci DEFAULT NULL,  
   `gt_numero_celular` varchar(250) COLLATE utf8_spanish_ci DEFAULT NULL, 
+  `usu_int_id` int(11) NOT NULL,
   PRIMARY KEY (`gt_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 

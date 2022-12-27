@@ -15,6 +15,7 @@ Class clsgestiontramite {
     private $gt_nombre;
     private $gt_email;
     private $gt_numero_celular;
+    private $usu_int_id;
 
     //////////////////////////////   funciones //////////////////////
 
@@ -122,7 +123,15 @@ Class clsgestiontramite {
         $this->gt_numero_celular = $gt_numero_celular;
     }
 
-    //////////////////////////////   metodos //////////////////////
+    public function getUsu_int_id() {
+        return $this->usu_int_id;
+    }
+
+    public function setUsu_int_id($usu_int_id): void {
+        $this->usu_int_id = $usu_int_id;
+    }
+
+        //////////////////////////////   metodos //////////////////////
 //insertar gestion tramites
     public function gt_insertar() {
         $bd = Db::getInstance();
@@ -135,6 +144,7 @@ Class clsgestiontramite {
                 . "'" . $this->getGt_identificacion() . "' ,"
                 . "'" . $this->getGt_nombre() . "' ,"
                 . "'" . $this->getGt_email() . "' ,"
+                . "'" . $this->getUsu_int_id() . "' ,"
                 . "'" . $this->getGt_numero_celular() . "'");
 
         $bd->carga_campos("reg_id, "
@@ -146,6 +156,7 @@ Class clsgestiontramite {
                 . "gt_identificacion, "
                 . "gt_nombre, "
                 . "gt_email, "
+                . "usu_int_id, "
                 . "gt_numero_celular");
 
         if ($bd->insertar("ct_gestion_tramite")) // insertar
@@ -171,7 +182,25 @@ Class clsgestiontramite {
 //        $bd->cerrar();
         return $res;
     }
+    
+    //selecionar tramites
+    public function gt_seleccionar_por_usuario() {
+        // abro conexión a bases de datos
+        $bd = Db::getInstance();
+        $sql = " select gt.*,  ti.* ,  tr.* , ag.* , eg.* ,  r.* FROM ct_gestion_tramite gt "
+                . " inner join ct_tipo_identificacion ti  on gt.ti_id = ti.ti_id "
+                . " inner join ct_area_gestion_tramite ag  on gt.agt_id = ag.agt_id "
+                . " inner join ct_estado_gestion_tramite eg  on gt.egt_id = eg.egt_id "
+                . " inner join ct_regional r  on gt.reg_id = r.reg_id "
+                . " inner join ct_tramites tr  on gt.tra_id = tr.tra_id "
+                . " WHERE usu_int_id = " . $this->usu_int_id . " "
+                . " order by gt.gt_fecha_recepcion desc ";
 
+        $res = $bd->ejecutar($sql);
+//        $bd->cerrar();
+        return $res;
+    }
+//    $sql = "DELETE FROM rg_regional WHERE reg_id = " . $this->reg_id;
     public function gt_cambiar_estado() {
         // abro conexión a bases de datos
         $bd = Db::getInstance();

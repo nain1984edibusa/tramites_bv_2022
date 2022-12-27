@@ -23,7 +23,9 @@ foreach ($datos_tramite as $item) {
     $gt_identificacion = $item['identificacion'];
     $gt_nombre = $item['nombres'];
     $gt_email = $item['email'];
+    $usu_int_id = $item['usuario'];
     $gt_numero_celular = $item['celular'];
+   
 }
 
 //$clstut->setTe_provincia($te_provincia);
@@ -38,6 +40,7 @@ $clsgestiontramite->setTi_id($ti_id);
 $clsgestiontramite->setGt_identificacion($gt_identificacion);
 $clsgestiontramite->setGt_nombre($gt_nombre);
 $clsgestiontramite->setGt_email($gt_email);
+$clsgestiontramite->setUsu_int_id($usu_int_id);
 $clsgestiontramite->setGt_numero_celular($gt_numero_celular);
 
 $id_gestion_tramite = $clsgestiontramite->gt_insertar();

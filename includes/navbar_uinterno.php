@@ -31,7 +31,7 @@
 </li>
 <li>
     <?php if ($_SESSION["codperfil"] == ASIGNADOR) { ?>
-    <li><a href="gestion_tramite.php"><i class="zmdi zmdi-help-outline zmdi-hc-fw"></i>Gestión de Tramites</a></li>
+    <li><a href="gestion_tramite.php"><i class="zmdi zmdi-assignment-check"></i>Gestión de Tramites</a></li>
     <?php } ?>    
 </li>
 <li><a href="reportes.php"><i class="zmdi zmdi-trending-up zmdi-hc-fw"></i>Reportes y estadísticas</a></li>

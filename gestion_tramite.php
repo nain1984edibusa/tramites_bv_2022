@@ -3,8 +3,10 @@
  * INSTITUTO NACIONAL DE PATRIMONIO CULTURAL
  * Portal de Trámites 2020
  */
-$modulo = "Administrador";
-$opcion = "Ayuda del Sistema de Trámites";
+session_start();
+
+//$modulo = "Administrador";
+$opcion = "Gestón de Trámites";
 include_once("./config/variables.php");
 include_once("./includes/header.php");
 include_once("./includes/navbar.php");
@@ -33,7 +35,18 @@ $areas = $listado_area->agt_cargar_areas();
 /* Listado de todos los trámites */
 $listado_catalogo_tramites = new cl_tramites();
 $catalogo_tramite = $listado_catalogo_tramites->tra_seleccionartodo();
+
+$usuario = $_SESSION["codusuario"]; //código usuario
 ?>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!--Hoja de estilos Toastr--> 
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css">
+    <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
+</head> 
 
 <div class="container-fluid">
     <div class="row">
@@ -42,35 +55,14 @@ $catalogo_tramite = $listado_catalogo_tramites->tra_seleccionartodo();
         </div>
     </div>
 </div>
-<!--<div class="container-fluid">
-    <div class="row">
-        <div class="col-xs-12 lead">
-            <ol class="breadcrumb">
-                <li><a href="<?php echo RUTA_BANDEJAS_UI; ?>">Inicio</a></li>
-                <li class="active"><?php echo $modulo ?></li>
-                <li class="active"><?php echo $opcion ?></li>
-            </ol>
-        </div>
-    </div>
-</div>-->
-
 <div class="container-fluid" >
-    <!--<iframe width="853" height="480" src="https://www.youtube.com/embed/8XeSGc_s8Mc" title="Certificación de bienes culturales No patrimoniales para su salida el exterior" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>-->
-    <form class="form-inline" role="search" id="buscar">
-        <!--        <div class="form-group">
-                    <input type="text" name="s" class="form-control" placeholder="Buscar">
-                </div>-->
-                <!--<button type="submit" class="btn btn-default">&nbsp;<i class="glyphicon glyphicon-search"></i>&nbsp;</button>-->
-        <a data-toggle="modal" href="#newModal" class="btn btn-default">Agregar</a>
-    </form>
-
     <!-- Modal -->
     <div class="modal fade" id="newModal" tabindex="-1" role="dialog" aria-labelledby="newModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title">Agregar Item</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title text-center all-tittles">Registro Gestión de Trámites</h4>
                 </div>
                 <div class="modal-body">
                     <form role="form" method="post" id="agregar">
@@ -169,10 +161,10 @@ $catalogo_tramite = $listado_catalogo_tramites->tra_seleccionartodo();
                         <div class="row">
                             <div class="col-xs-12 col-sm-12">
                                 <div class="group-material">
-                                    <input id="usu_nombres" name="usu_nombres" type="text" class="tooltips-general material-control" placeholder="Por ejemplo: Carlos Manuel"  maxlength="70" data-toggle="tooltip" data-placement="top" onKeyUp="this.value = this.value.toUpperCase();"> <!--title="Escriba sus nombres completos"--> 
+                                    <input id="usu_nombres" name="usu_nombres" type="text" class="tooltips-general material-control" placeholder="Por ejemplo: Carlos Manuel"  required="" maxlength="70" data-toggle="tooltip" data-placement="top" onKeyUp="this.value = this.value.toUpperCase();"> <!--title="Escriba sus nombres completos"--> 
                                     <span class="highlight"></span>
                                     <span class="bar"></span>
-                                    <label>Nombres Completo</label>
+                                    <label>Nombres Completo<span class="sp-requerido">*</span></label>
                                 </div>
                             </div>
                         </div>
@@ -197,29 +189,18 @@ $catalogo_tramite = $listado_catalogo_tramites->tra_seleccionartodo();
                                 </div>
                             </div>
                         </div>
-
-                        <!--                        <div class="form-group">
-                                                    <label for="name">Nombre</label>
-                                                    <input type="text" class="form-control" name="name" required>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="lastname">Apellido</label>
-                                                    <input type="text" class="form-control" name="lastname" required>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="address">Domicilio</label>
-                                                    <input type="text" class="form-control" name="address" required>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="email">Email</label>
-                                                    <input type="email" class="form-control" name="email" >
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="phone">Telefono</label>
-                                                    <input type="text" class="form-control" name="phone" >
-                                                </div>-->
-
-                        <button type="submit" class="btn btn-default">Agregar</button>
+                        <input type="hidden" name="usuario" id="usuario" value="<?php echo $usuario; ?>">
+                        <!--<button type="submit" class="btn btn-default">Agregar</button>-->
+                        <div class="modal-footer">
+                            <div class="row">
+                                <div class="col-xs-6 text-center">
+                                    <button type="submit" class="btn btn-secondary" data-dismiss="modal"><i class="zmdi zmdi-close"></i> &nbsp; Cancelar</button>
+                                </div>
+                                <div class="col-xs-6 text-center">
+                                    <button type="submit" class="btn btn-primary"><i class="zmdi zmdi-arrow-right"></i> &nbsp;&nbsp; Guardar</button>
+                                </div>
+                            </div>
+                        </div>
                     </form>
                 </div>
 
@@ -237,7 +218,6 @@ $catalogo_tramite = $listado_catalogo_tramites->tra_seleccionartodo();
 
 <?php include_once("./modal/loading.php"); ?>
 <script>
-
     var datos_tramite = [];
     loadTabla();
     function loadTabla() {
@@ -246,10 +226,49 @@ $catalogo_tramite = $listado_catalogo_tramites->tra_seleccionartodo();
         loading.modal('show');
         $.get("./tablaGestionTramite.php", "", function (data) {
             $("#tabla").html(data);
+            $('#example').DataTable({
+                "paging": true,
+                "lengthChange": true,
+                "searching": true,
+                "ordering": true,
+                "info": true,
+                "autoWidth": true,
+                "lengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "Mostrar Todo"]],
+                "language": idioma
+            });
+            
             loading.modal('hide');
-
         })
     }
+
+    let idioma = {
+        "sProcessing": "Procesando...",
+        "sLengthMenu": "Mostrar _MENU_ registros",
+        "sZeroRecords": "No se encontraron resultados",
+        "sEmptyTable": "Ningún dato disponible en esta tabla",
+        "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+        "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+        "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+        "sInfoPostFix": "",
+        "sSearch": "Buscar:",
+        "sUrl": "",
+        "sInfoThousands": ",",
+        "sLoadingRecords": "Cargando...",
+        "oPaginate": {
+            "sFirst": "Primero",
+            "sLast": "Último",
+            "sNext": "Siguiente",
+            "sPrevious": "Anterior"
+        },
+        "oAria": {
+            "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+            "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+        },
+        "buttons": {
+            "copy": "Copiar",
+            "colvis": "Visibilidad"
+        }
+    };
 
     $("#agregar").submit(function (e) {
         e.preventDefault();
@@ -257,7 +276,6 @@ $catalogo_tramite = $listado_catalogo_tramites->tra_seleccionartodo();
         isBool = validarCampos();
         if (isBool === true) {
             var json_datos_tramite = JSON.stringify(datos_tramite);
-
             $.ajax({
                 type: "POST",
                 url: "controller/registrar_gestion_tramite.php",
@@ -289,6 +307,7 @@ $catalogo_tramite = $listado_catalogo_tramites->tra_seleccionartodo();
         var nombres = document.querySelector('#usu_nombres').value;
         var email = document.querySelector('#usu_email').value;
         var celular = document.querySelector('#usu_celular').value;
+        var usuario = document.querySelector('#usuario').value;
         datos_tramite.push(
                 {"id_zonal": id_zonal,
                     "id_area": id_area,
@@ -298,6 +317,7 @@ $catalogo_tramite = $listado_catalogo_tramites->tra_seleccionartodo();
                     "identificacion": identificacion,
                     "nombres": nombres,
                     "email": email,
+                    "usuario": usuario,
                     "celular": celular}
         );
         return true;
