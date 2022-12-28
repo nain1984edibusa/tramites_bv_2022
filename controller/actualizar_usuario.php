@@ -74,10 +74,10 @@ if (isset($_POST["idUsuarioH"]) && isset($_POST["tipoId"])) { //SI SE RECIBIERON
         echo '<script language="javascript">alert("Datos actualizados correctamente.");</script>';
         
         if ($clsusu->getRol_id() == 4) { // Caso que sea ciudadano regresa a su menu asignado
-            $url = URL_SIS . RUTA_BANDEJAS_UE;
+            $url = URL_SIS . "/" . RUTA_BANDEJAS_UE;
             echo ("<script>location.href='$url'</script>");
         } else {
-            $url = URL_SIS . RUTA_BANDEJAS_UI;
+            $url = URL_SIS . "/" . RUTA_BANDEJAS_UI;
             echo ("<script>location.href='$url'</script>");
         }
     } else {
