@@ -7,7 +7,7 @@
 //define("URL_SIS","http://tramites.patrimoniocultural.gob.ec");
 //define("URL_SIS","http://190.152.16.183/");
 //define("URL_SIS","http://172.16.1.21/");
-define("URL_SIS","http://localhost/");
+define("URL_SIS","http://localhost");
 define("DIRSERVIDOR",$_SERVER['DOCUMENT_ROOT']);
 define("DIRDOWNLOAD","/tramites_bv");
 //define("RUTA_REQUISITOS","/upload/");
