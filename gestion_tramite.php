@@ -234,6 +234,7 @@ $usuario = $_SESSION["codusuario"]; //código usuario
                 "info": true,
                 "autoWidth": true,
                 "lengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "Mostrar Todo"]],
+                "scrollX": true,
                 "language": idioma
             });
             

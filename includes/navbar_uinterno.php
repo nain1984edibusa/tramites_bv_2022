@@ -7,7 +7,9 @@
 <li><a href="ui_home.php"><i class="zmdi zmdi-home zmdi-hc-fw"></i>Inicio</a></li>
 <!--<li><a href="formulario_aut_sal_fra.php"><i class="zmdi zmdi-file-plus zmdi-hc-fw"></i>Nuevo Trámite</a></li>-->
 <li>
-    <div class="dropdown-menu-button"><i class="zmdi zmdi-assignment-o zmdi-hc-fw"></i>Bandeja de Trámites <i class="zmdi zmdi-chevron-down pull-right zmdi-hc-fw icon-sub-menu"></i></div>
+    <?php if ($_SESSION["codperfil"] != SECRETARIA) { ?>
+        <div class="dropdown-menu-button"><i class="zmdi zmdi-assignment-o zmdi-hc-fw"></i>Bandeja de Trámites <i class="zmdi zmdi-chevron-down pull-right zmdi-hc-fw icon-sub-menu"></i></div>
+    <?php } ?>  
     <ul class="list-unstyled">
         <?php if ($_SESSION["codperfil"] == ASIGNADOR) { ?>
             <li><a href="ui_bandeja_recibidos.php"><i class="zmdi zmdi-edit zmdi-hc-fw"></i>Recibidos <span class="label label-info pull-right label-mhover navm_bandeja_recibidos"></span></a></li>
@@ -32,7 +34,12 @@
 <li>
     <?php if ($_SESSION["codperfil"] == ASIGNADOR) { ?>
     <li><a href="gestion_tramite.php"><i class="zmdi zmdi-assignment-check"></i>Gestión de Tramites</a></li>
-    <?php } ?>    
+<?php } ?>    
+</li>
+<li>
+    <?php if ($_SESSION["codperfil"] == SECRETARIA) { ?>
+    <li><a href="gestion_tramite.php"><i class="zmdi zmdi-assignment-check"></i>Gestión de Tramites</a></li>
+<?php } ?>    
 </li>
 <li><a href="reportes.php"><i class="zmdi zmdi-trending-up zmdi-hc-fw"></i>Reportes y estadísticas</a></li>
 <li><a href="actualiza_usuarios.php" ><i class="zmdi zmdi-settings zmdi-hc-fw"></i>Configuración de la Cuenta</a></li>

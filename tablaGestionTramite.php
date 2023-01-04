@@ -7,18 +7,25 @@ include_once("./modelo/clsgestiontramite.php");
 
 /* Listado de todos los trámites ordenados por el campo ct_orden */
 $usu_int_id = $_SESSION["codusuario"]; //código usuario
+$perfil_id = $_SESSION["codperfil"];
 
-$listado_tramites = new clsgestiontramite();
-$listado_tramites->setUsu_int_id($usu_int_id);
-$tramites = $listado_tramites->gt_seleccionar_por_usuario();
+if ($perfil_id != SECRETARIA) {
+    $listado_tramites = new clsgestiontramite();
+    $listado_tramites->setUsu_int_id($usu_int_id);
+    $tramites = $listado_tramites->gt_seleccionar_por_usuario();
+} else {
+    $listado_tramites = new clsgestiontramite();
+    $tramites = $listado_tramites->gt_seleccionartodo();
+}
 ?>
-
 
 <table id="example" class="table table-hover">
     <thead>
-        <tr class="info">
-            <td colspan="2" class="nuevo">Nuevo registro <a data-toggle="modal" href="#newModal"><img src="img/plus1.png" alt="Nuevo" width="20" height="20" /></a></td>
-        </tr>
+        <?php if ($_SESSION["codperfil"] != SECRETARIA) { ?>
+            <tr class="info">
+                <td colspan="2" class="nuevo">Nuevo registro <a data-toggle="modal" href="#newModal"><img src="img/plus1.png" alt="Nuevo" width="20" height="20" /></a></td>
+            </tr>
+        <?php } ?> 
         <tr class="info">
             <th>Id</th>
             <th>Fecha de <br> Recepción </th>
@@ -70,7 +77,6 @@ $tramites = $listado_tramites->gt_seleccionar_por_usuario();
         </tr>
     <?php endwhile; ?>
 </table>
-
 <!-- Modal -->
 <script>
     $(".btn-edit").click(function () {

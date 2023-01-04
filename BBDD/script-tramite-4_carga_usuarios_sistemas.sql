@@ -31,7 +31,11 @@ INSERT INTO `tramites_bv`.`ct_usuarios` (`usu_usuario`, `rol_id`, `usu_tidentifi
 
 ('asig_1103222855', '3', 'CI', '1103222855', 'GLENDA YADIRA', 'SOTO CORDOVA', 17, 1701, 170101, '0999999999', 'LOJA', 7, 'glenda.soto@patrimoniocultural.gob.ec', '$2y$10$p2Sb3LaHoWQbtQCp1eY1muTFQg4C2vCOGccpFUvICvmHqNIAapbbq', NOW(), 'ACTIVO', '0'),
 ('tec_0704607829', '5', 'CI', '0704607829', 'CRISTIAN ISRAEL', 'CUEVA GUERRERO', 17, 1701, 170101, '0999999999', 'LOJA', 7, 'cristian.cueva@patrimoniocultural.gob.ec', '$2y$10$p2Sb3LaHoWQbtQCp1eY1muTFQg4C2vCOGccpFUvICvmHqNIAapbbq', NOW(), 'ACTIVO', '0'),
-('tec_1105007353', '5', 'CI', '1105007353', 'DIEGO ESTEBAN', 'MOROCHO PIEDRA', 17, 1701, 170101, '0999999999', 'LOJA', 7, 'diego.morocho@patrimoniocultural.gob.ec', '$2y$10$p2Sb3LaHoWQbtQCp1eY1muTFQg4C2vCOGccpFUvICvmHqNIAapbbq', NOW(), 'ACTIVO', '0');
+('tec_1105007353', '5', 'CI', '1105007353', 'DIEGO ESTEBAN', 'MOROCHO PIEDRA', 17, 1701, 170101, '0999999999', 'LOJA', 7, 'diego.morocho@patrimoniocultural.gob.ec', '$2y$10$p2Sb3LaHoWQbtQCp1eY1muTFQg4C2vCOGccpFUvICvmHqNIAapbbq', NOW(), 'ACTIVO', '0'),
+
+('asig_0601772742', '3', 'CI', '0601772742', 'LEONOR', 'LEON PILCO', 17, 1701, 170101, '0999999999', 'QUITO', 2, 'leonor.leon@patrimoniocultural.gob.ec', '$2a$12$mCDbmDQlMJG0vj5uCeuAQOsKxIcblZXlW2tLSlvZzcUi/8qdnaas6', NOW(), 'ACTIVO', '0'),
+('asig_1709201105', '3', 'CI', '1709201105', 'RICHARD GONZALO', 'SANTOS ABARCA', 17, 1701, 170101, '0999999999', 'QUITO', 2, 'richard.santos@patrimoniocultural.gob.ec', '$2a$12$mCDbmDQlMJG0vj5uCeuAQOsKxIcblZXlW2tLSlvZzcUi/8qdnaas6', NOW(), 'ACTIVO', '0');
+
 /*Asignar tecnicos y asignadores a 1 o varios tramites*/
 INSERT INTO `ct_tramite_tecnico_asignado` ( `tt_id`,`usu_id`, `tra_id`) VALUES
 (1, 6, 4),

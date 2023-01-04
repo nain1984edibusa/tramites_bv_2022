@@ -23,6 +23,7 @@ define("ASIGNADOR",3);
 define("EJECUTOR",5);
 define("APROBADOR",2);
 define("CIUDADANO",4);
+define("SECRETARIA",8);
 /*ESTADOS DEL TRAMITE*/
 define("BORRADOR",0);
 define("VALIDACION_REQUISITOS",1);

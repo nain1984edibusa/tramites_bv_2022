@@ -12,7 +12,6 @@ include_once("./modelo/clstipoidentificacion.php");
 /* Listado tipo de identificacion */
 $listado_tipo_identificacion = new clstipoidentificacion();
 $rsTipoIdentificacion = $listado_tipo_identificacion->tipo_identificacion_seleccionartodo();
-
 ?>
 
 <div class="modal fade" tabindex="-1" role="dialog" id="ModalRegistroUsuario">
@@ -55,16 +54,16 @@ $rsTipoIdentificacion = $listado_tipo_identificacion->tipo_identificacion_selecc
                             </div>
                         </div>
                     </div>
-<!--                    <div id="divRazonSocial"  disabled="disabled" class="row">
-                        <div class="col-xs-12 col-sm-12">
-                            <div class="group-material">
-                                <input id="razon_social" name="razon_social" type="text" class="tooltips-general material-control" placeholder="Por ejemplo: Museo Nacional del Ecuador" required="" maxlength="70" data-toggle="tooltip" data-placement="top" onKeyUp="this.value = this.value.toUpperCase();"> title="Escriba sus nombres completos" 
-                                <span class="highlight"></span>
-                                <span class="bar"></span>
-                                <label>Razón Social <span class="sp-requerido">*</span></label>
-                            </div>
-                        </div>
-                    </div>-->
+                    <!--                    <div id="divRazonSocial"  disabled="disabled" class="row">
+                                            <div class="col-xs-12 col-sm-12">
+                                                <div class="group-material">
+                                                    <input id="razon_social" name="razon_social" type="text" class="tooltips-general material-control" placeholder="Por ejemplo: Museo Nacional del Ecuador" required="" maxlength="70" data-toggle="tooltip" data-placement="top" onKeyUp="this.value = this.value.toUpperCase();"> title="Escriba sus nombres completos" 
+                                                    <span class="highlight"></span>
+                                                    <span class="bar"></span>
+                                                    <label>Razón Social <span class="sp-requerido">*</span></label>
+                                                </div>
+                                            </div>
+                                        </div>-->
                     <div id="divNombres" class="row" disabled="disabled">
                         <div class="col-xs-12 col-sm-6">
                             <div class="group-material">
@@ -201,11 +200,9 @@ $rsTipoIdentificacion = $listado_tipo_identificacion->tipo_identificacion_selecc
     </div>
 </div>
 <script type="text/javascript">
-    debugger
     var select = document.getElementById('tipo_identificacion');
     select.addEventListener('change',
             function () {
-                debugger
                 var selectedOption = this.options[select.selectedIndex];
                 var check = selectedOption.value;
                 element2 = document.getElementById("divRazonSocial");
@@ -227,5 +224,5 @@ $rsTipoIdentificacion = $listado_tipo_identificacion->tipo_identificacion_selecc
 //        } else {
 //            element2.style.display = 'block';
 //        }
-    }
+//       }
 </script>

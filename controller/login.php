@@ -90,6 +90,8 @@ if ((isset($_COOKIE["usu_tinpc"])) || (isset($_POST["txtusu"]) && isset($_POST["
                 case 2: // aprobador
                     redireccionar("../ui_home.php");
                     break;
+                case 8: // secretari	  
+                    redireccionar("../ui_home.php");
             }/// fin switch
         } else {
             session_destroy();

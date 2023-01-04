@@ -32,7 +32,7 @@ if(!isset($_SESSION['perfil'])){
             <ul class="list-unstyled">
 <?php
 //echo $_SESSION["codperfil"];
-if(($_SESSION["codperfil"]==APROBADOR)||($_SESSION["codperfil"]==EJECUTOR)||($_SESSION["codperfil"]==ASIGNADOR)){ //superadministrador
+if(($_SESSION["codperfil"]==APROBADOR)||($_SESSION["codperfil"]==EJECUTOR)||($_SESSION["codperfil"]==ASIGNADOR) ||($_SESSION["codperfil"]==SECRETARIA)){ //superadministrador
     include_once ("./includes/navbar_uinterno.php");
 }elseif($_SESSION["codperfil"]==CIUDADANO){ //externo
     include_once ("./includes/navbar_uexterno.php");
