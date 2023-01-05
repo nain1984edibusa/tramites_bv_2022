@@ -51,3 +51,7 @@ INSERT INTO `ct_area_gestion_tramite` (`agt_id`, `agt_nombre`) VALUES
 (5, 'DGRPC'),
 (6, 'DII'),
 (7, 'UTCT');
+
+/*CAMBIO- NÚMERO DE QUIPUX DE INGRESO DE TRÁMITE*/
+alter table tramites_bv.ct_gestion_tramite
+  add gt_numero_quipux varchar(250) COLLATE utf8_spanish_ci DEFAULT NULL;

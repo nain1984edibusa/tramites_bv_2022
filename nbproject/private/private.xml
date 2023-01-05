@@ -13,11 +13,16 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/xampp/htdocs/tramitesp/tramites_bv/tablaGestionTramite.php</file>
-            <file>file:/C:/xampp/htdocs/tramitesp/tramites_bv/includes/navbar_uinterno.php</file>
+            <file>file:/C:/xampp/htdocs/tramitesp/tramites_bv/modelo/util.php</file>
+            <file>file:/C:/xampp/htdocs/tramitesp/tramites_bv/BBDD/script-gestion-tramites.sql</file>
             <file>file:/C:/xampp/htdocs/tramitesp/tramites_bv/controller/login.php</file>
+            <file>file:/C:/xampp/htdocs/tramitesp/tramites_bv/modal/registro_usuario.php</file>
+            <file>file:/C:/xampp/htdocs/tramitesp/tramites_bv/gestion_tramite.php</file>
             <file>file:/C:/xampp/htdocs/tramitesp/tramites_bv/modelo/clsgestiontramite.php</file>
-            <file>file:/C:/xampp/htdocs/tramitesp/tramites_bv/config/variables.php</file>
-            <file>file:/C:/xampp/htdocs/tramitesp/tramites_bv/includes/navbar.php</file>
+            <file>file:/C:/xampp/htdocs/tramitesp/tramites_bv/BBDD/script-tramite-17.sql</file>
+            <file>file:/C:/xampp/htdocs/tramitesp/tramites_bv/controller/actualizar_estado_gestion_tramite.php</file>
+            <file>file:/C:/xampp/htdocs/tramitesp/tramites_bv/controller/registrar_gestion_tramite.php</file>
+            <file>file:/C:/xampp/htdocs/tramitesp/tramites_bv/BBDD/script-inicializar%20tablas.sql</file>
             <file>file:/C:/xampp/htdocs/tramitesp/tramites_bv/BBDD/script-tramite-4_carga_usuarios_sistemas.sql</file>
         </group>
     </open-files>

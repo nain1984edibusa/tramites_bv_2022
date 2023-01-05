@@ -23,29 +23,31 @@ if ($perfil_id != SECRETARIA) {
     <thead>
         <?php if ($_SESSION["codperfil"] != SECRETARIA) { ?>
             <tr class="info">
-                <td colspan="2" class="nuevo">Nuevo registro <a data-toggle="modal" href="#newModal"><img src="img/plus1.png" alt="Nuevo" width="20" height="20" /></a></td>
+                <td colspan="3" class="nuevo">Nuevo registro <a data-toggle="modal" href="#newModal"><img src="img/plus1.png" alt="Nuevo" width="20" height="20" /></a></td>
             </tr>
         <?php } ?> 
         <tr class="info">
-            <th>Id</th>
-            <th>Fecha de <br> Recepción </th>
-            <th>Fecha de <br> Respuesta</th>
-            <th>Estado Tramite</th>
-            <th>Zonal</th>
-            <th>Dirección / Unidad</th>
-            <th>Tramite</th>
-            <th>Técnico <br> Responsable</th>
-            <th>Tipo de <br> Identificación <br> del Usuario</th>
-            <th>Identificación <br> del Usuario</th>
-            <th>Nombre Completo <br> del Usuario</th>
-            <th>E-mail</th>
-            <th>Nro. Celular</th>
-            <th>Acciones</th>
+            <td>Id</td>
+            <td style="width:50%">Nro de  Quipux <br> de Ingreso </td>
+            <td>Fecha de <br> Recepción </td>
+            <td>Fecha de <br> Respuesta</td>
+            <td>Estado Tramite</td>
+            <td>Zonal</td>
+            <td>Dirección / Unidad</td>
+            <td style="width:80%"><b>Tramite</b></td>
+            <td>Técnico <br> Responsable</td>
+            <td>Tipo de <br> Iden. <br> del Usuario</td>
+            <td>Identificación <br> del Usuario</td>
+            <td>Nombre Completo <br> del Usuario</td>
+            <td>E-mail</td>
+            <td>Nro. Celular</td>
+            <td style="width: 10%"><b>Acciones</b></td>
         </tr>
     </thead>
     <?php while ($r = $tramites->fetch_array()): ?>
         <tr>
             <td><?php echo $r["gt_id"]; ?></td>
+            <td><?php echo $r["gt_numero_quipux"]; ?></td>
             <td><?php echo $r["gt_fecha_recepcion"]; ?></td>
             <td><?php echo $r["gt_fecha_respuesta"]; ?></td>
             <td><?php echo $r["egt_nombre"]; ?></td>
@@ -60,9 +62,10 @@ if ($perfil_id != SECRETARIA) {
             <td><?php echo $r["gt_numero_celular"]; ?></td>
             <td style="width:50px;">
                 <!--<a data-id="<?php echo $row["gt_id"]; ?>" class='btn-edit btn btn-default' title='Finalizar tramite'><i class="zmdi zmdi-edit"></i></a>-->
-                <a href="#" id="del-<?php echo $r["gt_id"]; ?>" class="edit btn btn-default"title='Finalizar tramite'><i class="zmdi zmdi-edit"></i></a>
+                <a href="#" id="del-<?php echo $r["gt_id"]; ?>" class="edit btn btn-default"title='Finalizar tramite'><i class="zmdi zmdi-flash"></i></a>
                 <script>
                     $("#del-" +<?php echo $r["gt_id"]; ?>).click(function (e) {
+                        debugger;
                         e.preventDefault();
                         p = confirm("Estás seguro de finalizar el tramite?");
                         if (p) {

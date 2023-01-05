@@ -25,6 +25,7 @@ foreach ($datos_tramite as $item) {
     $gt_email = $item['email'];
     $usu_int_id = $item['usuario'];
     $gt_numero_celular = $item['celular'];
+    $gt_numero_quipux = $item['numero_quipux'];
    
 }
 
@@ -42,6 +43,7 @@ $clsgestiontramite->setGt_nombre($gt_nombre);
 $clsgestiontramite->setGt_email($gt_email);
 $clsgestiontramite->setUsu_int_id($usu_int_id);
 $clsgestiontramite->setGt_numero_celular($gt_numero_celular);
+$clsgestiontramite->setGt_numero_quipux($gt_numero_quipux);
 
 $id_gestion_tramite = $clsgestiontramite->gt_insertar();
 

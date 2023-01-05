@@ -8,7 +8,6 @@ require_once "../modelo/util.php";
 require_once "../modelo/clsgestiontramite.php";
 
 if (!empty($_GET)) {
-
     $clsgestiontramite = new clsgestiontramite;
     $clsgestiontramite->setGt_id($_GET["gt_id"]);
     $clsgestiontramite->setEgt_id("1");

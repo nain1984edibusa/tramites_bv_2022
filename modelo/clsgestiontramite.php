@@ -16,6 +16,7 @@ Class clsgestiontramite {
     private $gt_email;
     private $gt_numero_celular;
     private $usu_int_id;
+    private $gt_numero_quipux;
 
     //////////////////////////////   funciones //////////////////////
 
@@ -130,6 +131,14 @@ Class clsgestiontramite {
     public function setUsu_int_id($usu_int_id): void {
         $this->usu_int_id = $usu_int_id;
     }
+    
+    public function getGt_numero_quipux() {
+        return $this->gt_numero_quipux;
+    }
+
+    public function setGt_numero_quipux($gt_numero_quipux): void {
+        $this->gt_numero_quipux = $gt_numero_quipux;
+    }
 
         //////////////////////////////   metodos //////////////////////
 //insertar gestion tramites
@@ -145,6 +154,7 @@ Class clsgestiontramite {
                 . "'" . $this->getGt_nombre() . "' ,"
                 . "'" . $this->getGt_email() . "' ,"
                 . "'" . $this->getUsu_int_id() . "' ,"
+                . "'" . $this->getGt_numero_quipux() . "' ,"
                 . "'" . $this->getGt_numero_celular() . "'");
 
         $bd->carga_campos("reg_id, "
@@ -157,6 +167,7 @@ Class clsgestiontramite {
                 . "gt_nombre, "
                 . "gt_email, "
                 . "usu_int_id, "
+                . "gt_numero_quipux, "
                 . "gt_numero_celular");
 
         if ($bd->insertar("ct_gestion_tramite")) // insertar

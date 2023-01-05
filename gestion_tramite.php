@@ -68,6 +68,16 @@ $usuario = $_SESSION["codusuario"]; //código usuario
                     <form role="form" method="post" id="agregar">
                         <div class="row">
                             <div class="col-xs-12 col-sm-12">
+                                <div class="group-material">
+                                    <input id="numero_quipux" name="numero_quipux" type="text" class="tooltips-general material-control" placeholder="Por ejemplo: INPC-DTZ5-2022-0418-E" maxlength="50" data-toggle="tooltip" data-placement="top" onKeyUp="this.value = this.value.toUpperCase();"> 
+                                    <span class="highlight"></span>
+                                    <span class="bar"></span>
+                                    <label>Nro. de Quipux de ingreso de trámite</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-12">
                                 <div class = "group-material">
                                     <span>Zonal <span class = "sp-requerido">*</span></span>
                                     <select name = "id_zonal" id = "id_zonal" class = "tooltips-general material-control" required = "" data-toggle = "tooltip" data-placement = "top" title = "Elija la zonal">
@@ -235,9 +245,10 @@ $usuario = $_SESSION["codusuario"]; //código usuario
                 "autoWidth": true,
                 "lengthMenu": [[5, 10, 25, 50, -1], [5, 10, 25, 50, "Mostrar Todo"]],
                 "scrollX": true,
+                
                 "language": idioma
             });
-            
+
             loading.modal('hide');
         })
     }
@@ -309,6 +320,7 @@ $usuario = $_SESSION["codusuario"]; //código usuario
         var email = document.querySelector('#usu_email').value;
         var celular = document.querySelector('#usu_celular').value;
         var usuario = document.querySelector('#usuario').value;
+        var numero_quipux = document.querySelector('#numero_quipux').value;
         datos_tramite.push(
                 {"id_zonal": id_zonal,
                     "id_area": id_area,
@@ -319,7 +331,8 @@ $usuario = $_SESSION["codusuario"]; //código usuario
                     "nombres": nombres,
                     "email": email,
                     "usuario": usuario,
-                    "celular": celular}
+                    "celular": celular,
+                    "numero_quipux": numero_quipux}
         );
         return true;
     }
