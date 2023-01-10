@@ -181,15 +181,24 @@ session_start();
                     </div>
                 </div>
             </div>
-            <div class="row">
-            </div>
+
             <br>
             <div class="row">
                 <div class="col-xs-12">
                     <legend><i class="zmdi zmdi-file-text"></i> &nbsp;  <b>Objetos a certificar</b></legend>
                 </div>
             </div>
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="col-xs-12 col-sm-12 col-md-12 text-justify lead alert alert-info">
+                        <h4><b>INFORMACIÓN</b></h4>
+                        <b>Estimad@ ciudadano se le recuerda registrar cada uno de los objetos a certificar.</b> 
+                    </div>
+                </div>
+            </div>
             <div id="mensaje" class="alert alert-danger" role="alert" style="display: none;"></div>
+
+
             <div class="panel panel-default" id="formularioObjetos">
                 <div class="panel-body">
                     <div class="row">
@@ -366,7 +375,7 @@ session_start();
                 <div class="col-xs-12">
                     <p class="text-center">
                         <button type="reset" class="btn btn-info" style="margin-right: 20px;"><i class="zmdi zmdi-roller"></i> &nbsp;&nbsp; Limpiar</button>
-                        <button type="button" id="guardar"  value="Guardar" class="btn btn-primary"><i class="zmdi zmdi-arrow-right"></i> &nbsp;&nbsp; Enviar</button>
+                        <button type="button" id="guardar"  disabled="disabled" value="Guardar" class="btn btn-primary"><i class="zmdi zmdi-arrow-right"></i> &nbsp;&nbsp; Enviar</button>
                         <!--<button type="button" value="Agregar"  id="agregar" class="btn btn-success"><i class="zmdi zmdi-plus-circle"></i> &nbsp; Agregar</button>-->
                     </p>
                 </div>

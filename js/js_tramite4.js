@@ -14,6 +14,8 @@ boton_guardar.addEventListener("click", enviar);
 radioboton_1.addEventListener("click", cambiarModoEnvio);
 radioboton_2.addEventListener("click", cambiarModoEnvio);
 
+$('#guardar').prop('disabled', true);
+
 var cant = 0;
 cambiarModoEnvio();
 
@@ -51,9 +53,9 @@ function agregar() {
         $("#ancho").val('');
         $("#profundidad").val('');
         cant++;
-//        if (datos_objeto.length > 0) {
-//            $('#guardar').attr('disabled', false);
-//        }
+        if (datos_objeto.length > 0) {
+            $('#guardar').prop('disabled', false);
+        }
 
     } else {
 //        alert ('KO');
