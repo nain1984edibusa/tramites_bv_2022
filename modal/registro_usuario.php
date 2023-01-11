@@ -31,17 +31,13 @@ $rsTipoIdentificacion = $listado_tipo_identificacion->tipo_identificacion_selecc
                     </div>
                     <div class="row">
                         <div class="col-xs-12 col-sm-6">
-                            <div class="group-material">
+                           <div class="group-material">
                                 <span>Tipo de identificación <span class="sp-requerido">*</span></span>
-                                <select name="tipo_identificacion" id="tipo_identificacion" class="tooltips-general material-control" required="" data-toggle="tooltip" data-placement="top" title="Elija el tipo de identificación" onchange="javascript:seleccionarTipoIdentificacion();">
-                                    <option value="" disabled="" selected="">Selecciona el tipo identificación</option>
-                                    <?php
-                                    while ($row = mysqli_fetch_array($rsTipoIdentificacion)) {
-                                        ?>
-                                        <option value="<?php echo $row["ti_id"]; ?>"><?php echo $row["ti_nombre"]; ?></option>
-                                        <?php
-                                    }
-                                    ?>
+                                <select id="tipo_identificacion" name="tipo_identificacion" class="tooltips-general material-control" data-toggle="tooltip" data-placement="top" <!--title="Elija su tipo de indentificación"-->>
+                                    <option value="" disabled="" selected="">Selecciona una opción</option>
+                                    <option value="CI">CI</option>
+                                    <option value="RUC">RUC</option>
+                                    <option value="PASAPORTE">PASAPORTE</option>
                                 </select>
                             </div>
                         </div>
@@ -200,29 +196,4 @@ $rsTipoIdentificacion = $listado_tipo_identificacion->tipo_identificacion_selecc
     </div>
 </div>
 <script type="text/javascript">
-    var select = document.getElementById('tipo_identificacion');
-    select.addEventListener('change',
-            function () {
-                var selectedOption = this.options[select.selectedIndex];
-                var check = selectedOption.value;
-                element2 = document.getElementById("divRazonSocial");
-//                console.log(selectedOption.value + ': ' + selectedOption.text);
-                if (check == "RUC") {
-                    element2.style.display = 'none';
-                } else {
-                    element2.style.display = 'block';
-                }
-            });
-
-
-//    function seleccionarTipoIdentificacion() {
-//        debugger;
-//        check = document.getElementById("tipo_identificacion").value();
-//        element2 = document.getElementById("divRazonSocial");
-//        if (check.value != 5) {
-//            element2.style.display = 'none';
-//        } else {
-//            element2.style.display = 'block';
-//        }
-//       }
 </script>

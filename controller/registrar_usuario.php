@@ -23,18 +23,19 @@ if (isset($_POST["tipo_identificacion"]) && isset($_POST["identificacion"])) { /
     $clsusu = new clsusuarios;
     $clsusu->setUsu_usuario($_POST["identificacion"]);
 
-    if ($_POST["tipo_identificacion"] == 1) {
-        $clsusu->setUsu_tidentificacion("CI");
-        $clsusu->setUsu_razon_social("");
-    } else if ($_POST["tipo_identificacion"] == 2) {
-        $clsusu->setUsu_tidentificacion("RUC");
-        $clsusu->setUsu_razon_social($_POST["razon_social"]);
-    } else if ($_POST["tipo_identificacion"] == 3) {
-        $clsusu->setUsu_tidentificacion("PASAPORTE");
-        $clsusu->setUsu_razon_social("");
-    }
+//    if ($_POST["tipo_identificacion"] == 1) {
+//        $clsusu->setUsu_tidentificacion("CI");
+//        $clsusu->setUsu_razon_social("");
+//    } else if ($_POST["tipo_identificacion"] == 2) {
+//        $clsusu->setUsu_tidentificacion("RUC");
+//        $clsusu->setUsu_razon_social($_POST["razon_social"]);
+//    } else if ($_POST["tipo_identificacion"] == 3) {
+//        $clsusu->setUsu_tidentificacion("PASAPORTE");
+//        $clsusu->setUsu_razon_social("");
+//    }
 
     $clsusu->setUsu_identificador($_POST["identificacion"]);
+    $clsusu->setUsu_tidentificacion($_POST["tipo_identificacion"]);
     $clsusu->setUsu_nombre($_POST["nombres"]);
     $clsusu->setUsu_apellido($_POST["apellidos"]);
     $clsusu->setPro_id($_POST["id_provincia"]);
