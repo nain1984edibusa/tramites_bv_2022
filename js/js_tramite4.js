@@ -14,8 +14,6 @@ boton_guardar.addEventListener("click", enviar);
 radioboton_1.addEventListener("click", cambiarModoEnvio);
 radioboton_2.addEventListener("click", cambiarModoEnvio);
 
-$('#guardar').prop('disabled', true);
-
 var cant = 0;
 cambiarModoEnvio();
 
@@ -54,7 +52,7 @@ function agregar() {
         $("#profundidad").val('');
         cant++;
         if (datos_objeto.length > 0) {
-            $('#guardar').prop('disabled', false);
+            $('#guardar').attr('disabled', false);
         }
 
     } else {
@@ -80,9 +78,9 @@ function eliminar(row) {
     }
     datos_objeto.splice(pos, 1);
 
-//    if (datos_objeto.length == 0) {
-//        $('#guardar').attr('disabled', true);
-//    }
+    if (datos_objeto.length == 0) {
+        $('#guardar').attr('disabled', true);
+    }
 }
 function cantidad(row) {
     var canti = parseInt(prompt("Nueva cantidad"));

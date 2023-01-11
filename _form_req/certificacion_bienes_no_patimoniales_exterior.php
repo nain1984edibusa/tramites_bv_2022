@@ -182,7 +182,6 @@ session_start();
                 </div>
             </div>
 
-            <br>
             <div class="row">
                 <div class="col-xs-12">
                     <legend><i class="zmdi zmdi-file-text"></i> &nbsp;  <b>Objetos a certificar</b></legend>
@@ -197,8 +196,6 @@ session_start();
                 </div>
             </div>
             <div id="mensaje" class="alert alert-danger" role="alert" style="display: none;"></div>
-
-
             <div class="panel panel-default" id="formularioObjetos">
                 <div class="panel-body">
                     <div class="row">
