@@ -157,12 +157,14 @@ $rsContenedor = mysqli_fetch_object($rsContenedor);
                                 <select name="id_tipo_contenedor" id="id_tipo_contenedor" class="tooltips-general material-control" required="" data-toggle="tooltip" data-placement="top" title="Elija el tipo de contenedor">
                                     <option value="" disabled="" selected="">Selecciona el tipo de contenedor</option>
                                     <?php
-                                    while ($row = mysqli_fetch_array($rsTipoContenedor)) {
-                                        ?>
-                                        <option value="<?php echo $row[0]; ?>"><?php echo $row[1]; ?></option>
-                                        <?php
-                                    }
-                                    ?>
+                                    while ($row = mysqli_fetch_row($rsTipoContenedor)) {
+                                        if ($row[0] == $rsContenedor->tc_id)
+                                            $selected = "selected";
+                                        else
+                                            $selected = "";
+                                        ?>	
+                                        <option <?php echo $selected ?> value="<?php echo $row[0] ?>"><?php echo $row[1] ?></option>
+                                    <?php } // fin while  ?>
                                 </select>
                             </div>
                         </div>

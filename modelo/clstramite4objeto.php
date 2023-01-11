@@ -152,7 +152,7 @@ Class clstramite4objeto {
         // abro conexión a bases de datos
         $bd = Db::getInstance();
 
-        $parametros = "con_id = '$this->con_id',eob_id = '$this->eob_id',obj_cantidad = '$this->obj_cantidad',obj_tema = '$this->obj_tema',obj_autor = '$this->obj_autor',obj_tecnica = '$this->obj_tecnica',obj_largo = '$this->obj_largo',obj_ancho = '$this->obj_ancho',obj_profundidad = '$this->obj_profundidad'";
+        $parametros = "con_id = '$this->con_id',eob_id = '$this->eob_id', tbc_id = '$this->tbc_id', obj_cantidad = '$this->obj_cantidad',obj_tema = '$this->obj_tema',obj_autor = '$this->obj_autor',obj_tecnica = '$this->obj_tecnica',obj_largo = '$this->obj_largo',obj_ancho = '$this->obj_ancho',obj_profundidad = '$this->obj_profundidad'";
         $bd->carga_valores("obj_id = " . $this->obj_id);
         $bd->carga_campos($parametros);
         if ($bd->actualizar("_ct_tramite4_objeto"))

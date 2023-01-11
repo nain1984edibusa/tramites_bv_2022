@@ -20,8 +20,37 @@ $tu_id = $contenedor["tu_id"];
 $obj_id = $contenedor["obj_id"];
 
 if (!empty($_POST)) {
-    if ($id_condicion == "2") {
+    $clstramite4objeto = new clstramite4objeto;
 
+    if ($id_condicion == "1") {//PENDIENTE
+        $clstramite4objeto->setObj_id($_POST["obj_id"]); // cargo en la clase
+        $clstramite4objeto->setTu_id($_POST["tu_id"]);
+        $clstramite4objeto->setTbc_id($_POST["tbc_id"]);
+        $clstramite4objeto->setEob_id($id_condicion);
+        $clstramite4objeto->setCon_id(0);
+        $clstramite4objeto->setTbc_id($_POST["tipo_bien_cultural"]);
+        $clstramite4objeto->setObj_cantidad($_POST["cantidad"]);
+        $clstramite4objeto->setObj_tema($_POST["tema"]);
+        $clstramite4objeto->setObj_autor($_POST["autor"]);
+        $clstramite4objeto->setObj_tecnica($_POST["tecnica"]);
+        $clstramite4objeto->setObj_largo($_POST["largo"]);
+        $clstramite4objeto->setObj_ancho($_POST["ancho"]);
+        $clstramite4objeto->setObj_profundidad($_POST["profundidad"]);
+
+        $clstramite4objeto->obj_actualizar();
+        
+        if ($con_id > 0) {
+            $clstramite4contenedor = new clstramite4contenedor();
+            $clstramite4contenedor->setCon_id($con_id);
+            $clstramite4contenedor->setTu_id($tu_id);
+            $clstramite4contenedor->setObj_id($obj_id);
+            $clstramite4contenedor->setTc_id(6);
+            $clstramite4contenedor->setCon_numero(0);
+            $clstramite4contenedor->setCon_seguridad(0);
+
+            $clstramite4contenedor->con_actualizar();
+        }
+    } else if ($id_condicion == "2") { //NO PATRIMONIAL
 //        $registros = mysqli_num_rows($contenedor);
         if ($con_id > 0) {
             $clstramite4contenedor = new clstramite4contenedor();
@@ -33,42 +62,51 @@ if (!empty($_POST)) {
             $clstramite4contenedor->setCon_seguridad($_POST["numero_seguridad"]);
 
             $clstramite4contenedor->con_actualizar();
+
+            $clstramite4objeto->setObj_id($_POST["obj_id"]); // cargo en la clase
+            $clstramite4objeto->setTu_id($_POST["tu_id"]);
+            $clstramite4objeto->setTbc_id($_POST["tbc_id"]);
+            $clstramite4objeto->setEob_id($id_condicion);
+            $clstramite4objeto->setCon_id($con_id);
+            $clstramite4objeto->setTbc_id($_POST["tipo_bien_cultural"]);
+            $clstramite4objeto->setObj_cantidad($_POST["cantidad"]);
+            $clstramite4objeto->setObj_tema($_POST["tema"]);
+            $clstramite4objeto->setObj_autor($_POST["autor"]);
+            $clstramite4objeto->setObj_tecnica($_POST["tecnica"]);
+            $clstramite4objeto->setObj_largo($_POST["largo"]);
+            $clstramite4objeto->setObj_ancho($_POST["ancho"]);
+            $clstramite4objeto->setObj_profundidad($_POST["profundidad"]);
+
+            $clstramite4objeto->obj_actualizar();
+        }
+    } else if ($id_condicion == "3") {//PENDIENTE
+        $clstramite4objeto->setObj_id($_POST["obj_id"]); // cargo en la clase
+        $clstramite4objeto->setTu_id($_POST["tu_id"]);
+        $clstramite4objeto->setTbc_id($_POST["tbc_id"]);
+        $clstramite4objeto->setEob_id($id_condicion);
+        $clstramite4objeto->setCon_id(0);
+        $clstramite4objeto->setTbc_id($_POST["tipo_bien_cultural"]);
+        $clstramite4objeto->setObj_cantidad($_POST["cantidad"]);
+        $clstramite4objeto->setObj_tema($_POST["tema"]);
+        $clstramite4objeto->setObj_autor($_POST["autor"]);
+        $clstramite4objeto->setObj_tecnica($_POST["tecnica"]);
+        $clstramite4objeto->setObj_largo($_POST["largo"]);
+        $clstramite4objeto->setObj_ancho($_POST["ancho"]);
+        $clstramite4objeto->setObj_profundidad($_POST["profundidad"]);
+
+        $clstramite4objeto->obj_actualizar();
+        
+        if ($con_id > 0) {
+            $clstramite4contenedor = new clstramite4contenedor();
+            $clstramite4contenedor->setCon_id($con_id);
+            $clstramite4contenedor->setTu_id($tu_id);
+            $clstramite4contenedor->setObj_id($obj_id);
+            $clstramite4contenedor->setTc_id(6);
+            $clstramite4contenedor->setCon_numero(0);
+            $clstramite4contenedor->setCon_seguridad(0);
+
+            $clstramite4contenedor->con_actualizar();
         }
     }
-
-    //actualizar objeto
-    $clstramite4objeto = new clstramite4objeto;
-    $clstramite4objeto->setObj_id($_POST["obj_id"]); // cargo en la clase
-    $clstramite4objeto->setTu_id($_POST["tu_id"]);
-    $clstramite4objeto->setTbc_id($_POST["tbc_id"]);
-
-    if ($id_condicion == "2") {
-        $clstramite4objeto->setEob_id($_POST["id_condicion"]);
-        $clstramite4objeto->setCon_id($con_id);
-    } else {
-        $clstramite4objeto->setEob_id($id_condicion);
-        $clstramite4objeto->setCon_id(6); //ninguno
-
-        $clstramite4contenedor = new clstramite4contenedor();
-        $clstramite4contenedor->setCon_id($con_id);
-        $clstramite4contenedor->setTu_id($tu_id);
-        $clstramite4contenedor->setObj_id($obj_id);
-        $clstramite4contenedor->setTc_id(6);
-        $clstramite4contenedor->setCon_numero(0);
-        $clstramite4contenedor->setCon_seguridad(0);
-
-        $clstramite4contenedor->con_actualizar();
-    }
-
-    $clstramite4objeto->setObj_cantidad($_POST["cantidad"]);
-    $clstramite4objeto->setObj_tema($_POST["tema"]);
-    $clstramite4objeto->setObj_autor($_POST["autor"]);
-    $clstramite4objeto->setObj_tecnica($_POST["tecnica"]);
-    $clstramite4objeto->setObj_largo($_POST["largo"]);
-    $clstramite4objeto->setObj_ancho($_POST["ancho"]);
-    $clstramite4objeto->setObj_profundidad($_POST["profundidad"]);
-    $clstramite4objeto->obj_actualizar();
-
-    //actualizar contenedor sea tipo no patrimonial
 }
 ?>
